@@ -4,8 +4,15 @@ import java.io.Serializable;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+
+import org.hibernate.annotations.NaturalId;
 
 @Entity
 @Table(name = "empleado")
@@ -14,6 +21,11 @@ public class Empleado implements Serializable {
 	// Definición de los atributos de la tabla Empleado
 
 	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "id_empleado_auto")
+	private Integer idEmpleadoAuto;
+	
+	@NaturalId
 	@Column(name = "id_empleado")
 	private Integer idEmpleado;
 
@@ -24,10 +36,35 @@ public class Empleado implements Serializable {
 	@Column(name = "id_puesto")
 	private Integer idPuesto;
 
+//	@ManyToOne(fetch = FetchType.LAZY)
+//	@JoinColumn(name = "id_registro")
+//	private Registro registro;
+	
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "id_registro")
+	private Ue ue;
+
 	// Implementación de los Getters & Setters de la clase Empleado.
+	
 
 	public Integer getIdEmpleado() {
 		return idEmpleado;
+	}
+
+	public Integer getIdEmpleadoAuto() {
+		return idEmpleadoAuto;
+	}
+
+	public void setIdEmpleadoAuto(Integer idEmpleadoAuto) {
+		this.idEmpleadoAuto = idEmpleadoAuto;
+	}
+
+	public Ue getUe() {
+		return ue;
+	}
+
+	public void setUe(Ue ue) {
+		this.ue = ue;
 	}
 
 	public void setIdEmpleado(Integer idEmpleado) {
@@ -66,6 +103,17 @@ public class Empleado implements Serializable {
 		this.idPuesto = idPuesto;
 	}
 
+//	public Registro getRegistro() {
+//	return registro;
+//}
+//
+//public void setRegistro(Registro registro) {
+//	this.registro = registro;
+//}
+
+	/**
+	 * 
+	 */
 	private static final long serialVersionUID = 1L;
 
 }
