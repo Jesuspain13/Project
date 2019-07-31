@@ -1,6 +1,7 @@
 package es.indra.censo.model;
 
 import java.io.Serializable;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -10,6 +11,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -27,11 +29,8 @@ public class Planta implements Serializable {
 	@JoinColumn(name = "id_registro")
 	private Registro registro;
 
-	/*
-	 * Relación unidireccional
-	 * 
-	 * @OneToMany(fetch = FetchType.LAZY) private List<Puesto> puestos;
-	 */
+	@OneToMany(mappedBy="planta",fetch = FetchType.LAZY)
+	private List<Puesto> puestos;
 
 	public Integer getId() {
 		return id;

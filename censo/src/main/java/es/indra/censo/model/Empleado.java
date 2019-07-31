@@ -10,6 +10,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.NaturalId;
@@ -36,13 +37,16 @@ public class Empleado implements Serializable {
 	@Column(name = "id_puesto")
 	private Integer idPuesto;
 
-//	@ManyToOne(fetch = FetchType.LAZY)
-//	@JoinColumn(name = "id_registro")
-//	private Registro registro;
-	
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "id_registro")
+	private Registro registro;
+	
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "id_ue")
 	private Ue ue;
+	
+	@OneToOne(mappedBy="empleado", fetch = FetchType.LAZY)
+	private Puesto puesto;
 
 	// Implementación de los Getters & Setters de la clase Empleado.
 	
@@ -103,13 +107,13 @@ public class Empleado implements Serializable {
 		this.idPuesto = idPuesto;
 	}
 
-//	public Registro getRegistro() {
-//	return registro;
-//}
-//
-//public void setRegistro(Registro registro) {
-//	this.registro = registro;
-//}
+	public Registro getRegistro() {
+	return registro;
+}
+
+public void setRegistro(Registro registro) {
+	this.registro = registro;
+}
 
 	/**
 	 * 

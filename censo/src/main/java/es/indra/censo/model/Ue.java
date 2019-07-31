@@ -8,6 +8,8 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -32,9 +34,9 @@ public class Ue implements Serializable {
 	@Column(name = "nombre_ue_repercutible")
 	private String nombreUeRepercutible;
 
-//	@ManyToOne(fetch = FetchType.LAZY)
-//	@JoinColumn(name = "id_registro")
-//	private Registro registro;
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "id_registro")
+	private Registro registro;
 
 	@OneToMany(mappedBy = "ue", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private List<Empleado> empleados;
@@ -90,13 +92,13 @@ public class Ue implements Serializable {
 		this.empleados = empleados;
 	}
 	
-//	public Registro getRegistro() {
-//	return registro;
-//}
-//
-//public void setRegistro(Registro registro) {
-//	this.registro = registro;
-//}
+	public Registro getRegistro() {
+	return registro;
+}
+
+public void setRegistro(Registro registro) {
+	this.registro = registro;
+}
 
 	/**
 	 * 
