@@ -12,49 +12,48 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-import org.hibernate.annotations.NaturalId;
-
 @Entity
-@Table(name = "complejos")
-public class Complejo implements Serializable {
+@Table(name = "edificios")
+public class Edificio implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Integer id;
+	@Column(name = "id_edificio")
+	private Integer idEdificio;
 
-	@NaturalId
-	@Column(name = "id_complejo")
-	private String idComplejo;
+	@Column(name = "nombre_edificio")
+	private String nombreEdificio;
 
-	@Column(name = "nombre_complejo")
-	private String nombreComplejo;
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "id_complejo")
+	private Complejo complejo;
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "id_registro")
 	private Registro registro;
 
-	public Integer getId() {
-		return id;
+	public Integer getIdEdificio() {
+		return idEdificio;
 	}
 
-	public void setId(Integer id) {
-		this.id = id;
+	public void setIdEdificio(Integer idEdificio) {
+		this.idEdificio = idEdificio;
 	}
 
-	public String getIdComplejo() {
-		return idComplejo;
+	public String getNombreEdificio() {
+		return nombreEdificio;
 	}
 
-	public void setIdComplejo(String idComplejo) {
-		this.idComplejo = idComplejo;
+	public void setNombreEdificio(String nombreEdificio) {
+		this.nombreEdificio = nombreEdificio;
 	}
 
-	public String getNombreComplejo() {
-		return nombreComplejo;
+	public Complejo getComplejo() {
+		return complejo;
 	}
 
-	public void setNombreComplejo(String nombreComplejo) {
-		this.nombreComplejo = nombreComplejo;
+	public void setComplejo(Complejo complejo) {
+		this.complejo = complejo;
 	}
 
 	public Registro getRegistro() {

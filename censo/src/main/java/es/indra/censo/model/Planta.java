@@ -12,26 +12,26 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-import org.hibernate.annotations.NaturalId;
-
 @Entity
-@Table(name = "complejos")
-public class Complejo implements Serializable {
+@Table(name = "plantas")
+public class Planta implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 
-	@NaturalId
-	@Column(name = "id_complejo")
-	private String idComplejo;
-
-	@Column(name = "nombre_complejo")
-	private String nombreComplejo;
+	@Column(name = "nombre_planta")
+	private String nombrePlanta;
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "id_registro")
 	private Registro registro;
+
+	/*
+	 * Relación unidireccional
+	 * 
+	 * @OneToMany(fetch = FetchType.LAZY) private List<Puesto> puestos;
+	 */
 
 	public Integer getId() {
 		return id;
@@ -41,20 +41,12 @@ public class Complejo implements Serializable {
 		this.id = id;
 	}
 
-	public String getIdComplejo() {
-		return idComplejo;
+	public String getNombrePlanta() {
+		return nombrePlanta;
 	}
 
-	public void setIdComplejo(String idComplejo) {
-		this.idComplejo = idComplejo;
-	}
-
-	public String getNombreComplejo() {
-		return nombreComplejo;
-	}
-
-	public void setNombreComplejo(String nombreComplejo) {
-		this.nombreComplejo = nombreComplejo;
+	public void setNombrePlanta(String nombrePlanta) {
+		this.nombrePlanta = nombrePlanta;
 	}
 
 	public Registro getRegistro() {
@@ -65,5 +57,4 @@ public class Complejo implements Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-
 }
