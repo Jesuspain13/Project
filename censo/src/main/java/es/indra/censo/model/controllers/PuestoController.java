@@ -48,5 +48,7 @@ public class PuestoController {
 
 		return "ver";
 	}
+	
+	
 
 }
