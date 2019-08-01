@@ -8,6 +8,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.PrePersist;
 import javax.persistence.Table;
 
 @Entity
@@ -50,6 +51,11 @@ public class Registro implements Serializable {
 
 	public void setFechaSubida(Date fechaSubida) {
 		this.fechaSubida = fechaSubida;
+	}
+	
+	@PrePersist
+	public void establecerFechaSubida() {
+		this.fechaSubida = new Date();
 	}
 	
 	/**

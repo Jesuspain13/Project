@@ -60,6 +60,13 @@ public class Complejo implements Serializable {
 	public Registro getRegistro() {
 		return registro;
 	}
+	
+
+	public void setRegistro(Registro registro) {
+		this.registro = registro;
+	}
+
+
 
 	/**
 	 * 

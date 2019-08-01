@@ -52,6 +52,19 @@ public class Planta implements Serializable {
 		return registro;
 	}
 
+	public List<Puesto> getPuestos() {
+		return puestos;
+	}
+
+	public void setPuestos(List<Puesto> puestos) {
+		this.puestos = puestos;
+	}
+
+	public void setRegistro(Registro registro) {
+		this.registro = registro;
+	}
+
+
 	/**
 	 * 
 	 */

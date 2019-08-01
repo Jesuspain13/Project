@@ -27,8 +27,8 @@ public class Empleado implements Serializable {
 	private Integer idEmpleadoAuto;
 	
 	@NaturalId
-	@Column(name = "id_empleado")
-	private Integer idEmpleado;
+	@Column(name = "numero_empleado")
+	private Integer numeroEmpleado;
 
 	private String nick;
 	private String nombre;
@@ -51,8 +51,12 @@ public class Empleado implements Serializable {
 	// Implementación de los Getters & Setters de la clase Empleado.
 	
 
-	public Integer getIdEmpleado() {
-		return idEmpleado;
+	public Integer getNumeroEmpleado() {
+		return numeroEmpleado;
+	}
+	
+	public void setNumeroEmpleado(Integer numeroEmpleado) {
+		this.numeroEmpleado = numeroEmpleado;
 	}
 
 	public Integer getIdEmpleadoAuto() {
@@ -71,9 +75,7 @@ public class Empleado implements Serializable {
 		this.ue = ue;
 	}
 
-	public void setIdEmpleado(Integer idEmpleado) {
-		this.idEmpleado = idEmpleado;
-	}
+	
 
 	public String getNick() {
 		return nick;
