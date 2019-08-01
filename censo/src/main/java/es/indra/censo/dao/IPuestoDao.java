@@ -1,4 +1,4 @@
-package es.indra.censo.model.dao;
+package es.indra.censo.dao;
 
 import org.springframework.data.repository.CrudRepository;
 

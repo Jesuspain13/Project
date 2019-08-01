@@ -1,4 +1,4 @@
-package es.indra.censo.model.service;
+package es.indra.censo.service;
 
 import java.util.List;
 

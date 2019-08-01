@@ -1,4 +1,4 @@
-package es.indra.censo.model.service;
+package es.indra.censo.service;
 
 import java.util.List;
 
@@ -6,8 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import es.indra.censo.dao.IPlantaDao;
 import es.indra.censo.model.Planta;
-import es.indra.censo.model.dao.IPlantaDao;
 
 @Service
 public class PlantaServiceImpl implements IPlantaService {

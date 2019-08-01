@@ -1,4 +1,4 @@
-package es.indra.censo.model.controllers;
+package es.indra.censo.controllers;
 
 import java.util.Map;
 
@@ -9,42 +9,46 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import es.indra.censo.model.Planta;
-import es.indra.censo.model.service.IPlantaService;
+import es.indra.censo.model.Puesto;
+import es.indra.censo.service.IPuestoService;
 
 @Controller
-public class PlantaController {
+@SessionAttributes("puesto")
+public class PuestoController {
 
 	@Autowired
-	private IPlantaService plantaService;
+	private IPuestoService puestoService;
 
-	// Método para mostrar todas las plantas de un edificio.
+	// Método para mostrar todos los puestos del censo.
 	@RequestMapping(value = "/listar", method = RequestMethod.GET)
 	public String listar(Model model) {
-		model.addAttribute("titulo", "Listado de Plantas");
-		model.addAttribute("plantas", plantaService.findAll());
+		model.addAttribute("titulo", "Distribución de los puestos de trabajo");
+		model.addAttribute("puestos", puestoService.findAll());
 
 		return "listar";
 
 	}
 
-	// Método para mostrar la planta que queramos por Id.
+	// Método para mostrar un puesto a través del Id.
 	@GetMapping(value = "/ver/{id}")
 	public String ver(@PathVariable(value = "id") Integer id, Map<String, Object> model, RedirectAttributes flash) {
 
-		Planta planta = plantaService.findPlantaById(id);
-
-		if (planta == null) {
-			flash.addFlashAttribute("error", "¡La planta a la que intenta acceder no existe!");
+		Puesto puesto = puestoService.findPuestoById(id);
+		
+		if (puesto == null) {
+			flash.addFlashAttribute("error", "¡Lo sentimos, el puesto que está buscando no existe!");
 			return "redirect:/listar";
 		}
+		
+		model.put("puesto", puesto);
+		model.put("titulo", "Este es el puesto número: " + puesto.getIdPuesto());
 
-		model.put("planta", planta);
-		model.put("titulo", "Esta usted en la planta: " + planta.getNombrePlanta());
 		return "ver";
-
 	}
+	
+	
 
 }
