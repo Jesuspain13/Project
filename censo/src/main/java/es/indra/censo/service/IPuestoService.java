@@ -7,9 +7,11 @@ import es.indra.censo.model.Puesto;
 public interface IPuestoService {
 
 	public List<Puesto> findAll();
-
+	
+	//De momento no implementado en el controlador, no necesitado.
 	public void save(Puesto puesto);
 
+	//De momento no implementado en el controlador, no necesitado.
 	public void deletePuesto(Integer id);
 
 	public Puesto findPuestoById(Integer id);

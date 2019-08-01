@@ -15,6 +15,7 @@ import es.indra.censo.model.Planta;
 import es.indra.censo.service.IPlantaService;
 
 @Controller
+@RequestMapping("/planta")
 public class PlantaController {
 
 	@Autowired

@@ -9,14 +9,13 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import es.indra.censo.model.Puesto;
 import es.indra.censo.service.IPuestoService;
 
 @Controller
-@SessionAttributes("puesto")
+@RequestMapping("/puesto")
 public class PuestoController {
 
 	@Autowired
@@ -37,18 +36,16 @@ public class PuestoController {
 	public String ver(@PathVariable(value = "id") Integer id, Map<String, Object> model, RedirectAttributes flash) {
 
 		Puesto puesto = puestoService.findPuestoById(id);
-		
+
 		if (puesto == null) {
 			flash.addFlashAttribute("error", "¡Lo sentimos, el puesto que está buscando no existe!");
 			return "redirect:/listar";
 		}
-		
+
 		model.put("puesto", puesto);
 		model.put("titulo", "Este es el puesto número: " + puesto.getIdPuesto());
 
 		return "ver";
 	}
-	
-	
 
 }
