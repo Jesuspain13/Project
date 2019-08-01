@@ -21,7 +21,7 @@ public class EmpleadoController {
 	@Autowired
 	private IEmpleadoService empleadoService;
 	
-	//Método para mostras todos los empleados del censo.
+	//Método para mostrar todos los empleados del censo.
 	@RequestMapping(value = "/listar", method = RequestMethod.GET)
 	public String listar(Model model) {
 		model.addAttribute("titulo", "Listado de todos los empleados");
