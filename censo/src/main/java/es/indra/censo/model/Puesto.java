@@ -52,9 +52,8 @@ public class Puesto implements Serializable {
 	}
 
 	public void setPlanta(Planta planta) {
-		planta = planta;
+		this.planta = planta;
 	}
-	
 	
 
 	public boolean isOcupado() {
