@@ -159,32 +159,43 @@ public class TablaModelo {
 		this.teletrabajo = teletrabajo;
 	}
 
-	public void asignarValores(Workbook wb, Iterator<Cell> cells) {
+	/**
+	 * Método que recorre un iterador de celdas y asigna los valores a los atributos
+	 * de clase
+	 * 
+	 * @param wb
+	 * @param cells
+	 */
+	public void asignarValores(Iterator<Cell> cells) {
 		int i = 0;
 		this.teletrabajo = false;
 		boolean teletrab = this.teletrabajo;
 		while (cells.hasNext() && !teletrab) {
 
 			switch (i) {
+			// ID COMPLEJO
 			case 0:
 				setIdComplejo(cells.next().getStringCellValue());
 				break;
+			// NOMBRE COMPLEJO
 			case 1:
 				setNombreComplejo(cells.next().getStringCellValue());
 				break;
+			// NOMBRE EDIFICIO
 			case 2:
 				setNombreEdificio(cells.next().getStringCellValue());
 				break;
+			// NOMBRE PLANTA
 			case 3:
 				setNombrePlanta(Math.round(cells.next().getNumericCellValue()));
 				break;
+			// ID PUESTO
 			case 4:
 				Cell cell = cells.next();
-				System.out.println(cell.getCellType().toString());
+
 				// identificador alfanumerico
 				if (cell.getCellType().toString().contains("STRING")) {
-					System.out.println(cell.getColumnIndex());
-					System.out.println(cell.getRowIndex());
+
 					setIdPuesto(cell.getStringCellValue());
 				} else {
 					long res = (Math.round(cell.getNumericCellValue()));
@@ -192,6 +203,7 @@ public class TablaModelo {
 
 				}
 				break;
+			// NUMERO EMPLEADO
 			case 5:
 				Cell cell5 = cells.next();
 				// si la celda es un string va a ser teletrabajo
@@ -203,32 +215,40 @@ public class TablaModelo {
 					setNumeroEmpleado(null);
 				} else {
 					// sino va a ser el numero de empleado
-					System.out.println("error numero empleado en fila: " + cell5.getRowIndex());
+
 					setNumeroEmpleado((long) cell5.getNumericCellValue());
 
 				}
 				break;
+			// NICK
 			case 6:
 				setNick(cells.next().getStringCellValue());
 				break;
+			// NOMBRE EMPLEADO
 			case 7:
 				setNombreEmpleado(cells.next().getStringCellValue());
 				break;
+			// APELLIDOS EMPLEADO
 			case 8:
 				setApellidosEmpleado(cells.next().getStringCellValue());
 				break;
+			// UE
 			case 9:
 				setUe(cells.next().getStringCellValue());
 				break;
+			// NOMBRE UE
 			case 10:
 				setNombreUe(cells.next().getStringCellValue());
 				break;
+			// UE REPERCUTIBLE
 			case 11:
 				setUeRepercutible(cells.next().getStringCellValue());
 				break;
+			// NOMBRE UE REPERCUTIBLE
 			case 12:
 				setNombreUeRepercutible(cells.next().getStringCellValue());
 				break;
+			// WP STD
 			case 14:
 				setWpStd(cells.next().getStringCellValue());
 				break;
@@ -242,18 +262,6 @@ public class TablaModelo {
 
 		}
 
-	}
-
-	private String dateCellFormatter(Workbook workbook, Cell cell) {
-		// poder extraer las fechas (sin que ejecuten matemáticamente)
-		FormulaEvaluator evaluator = workbook.getCreationHelper().createFormulaEvaluator();
-		CellValue cv = evaluator.evaluate(cell);
-		double dv = cv.getNumberValue();
-		Date date = HSSFDateUtil.getJavaDate(dv);
-
-		String df = cell.getCellStyle().getDataFormatString();
-
-		return new CellDateFormatter(df).format(date);
 	}
 
 }
