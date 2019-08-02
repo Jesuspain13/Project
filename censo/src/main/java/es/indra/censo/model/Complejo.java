@@ -1,7 +1,10 @@
 package es.indra.censo.model;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -10,6 +13,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.NaturalId;
@@ -17,6 +21,10 @@ import org.hibernate.annotations.NaturalId;
 @Entity
 @Table(name = "complejos")
 public class Complejo implements Serializable {
+	
+	public Complejo() {
+		this.edificios = new ArrayList<Edificio>();
+	}
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -32,6 +40,9 @@ public class Complejo implements Serializable {
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "id_registro")
 	private Registro registro;
+	
+	@OneToMany(mappedBy="complejo",fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	private List<Edificio> edificios;
 
 	public Integer getId() {
 		return id;
@@ -52,6 +63,7 @@ public class Complejo implements Serializable {
 	public String getNombreComplejo() {
 		return nombreComplejo;
 	}
+	
 
 	public void setNombreComplejo(String nombreComplejo) {
 		this.nombreComplejo = nombreComplejo;
@@ -66,7 +78,18 @@ public class Complejo implements Serializable {
 		this.registro = registro;
 	}
 
+	public void addEdificio(Edificio e) {
+		this.edificios.add(e);
+	}
 
+
+	public List<Edificio> getEdificios() {
+		return edificios;
+	}
+
+	public void setEdificios(List<Edificio> edificios) {
+		this.edificios = edificios;
+	}
 
 	/**
 	 * 

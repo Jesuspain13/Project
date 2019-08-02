@@ -12,12 +12,14 @@ import org.apache.poi.ss.usermodel.Workbook;
 
 public class TablaModelo {
 
+	private boolean teletrabajo;
+
 	private String idComplejo;
 	private String nombreComplejo;
 	private String nombreEdificio;
 	private Long nombrePlanta;
-	private Long idPuesto;
-	private String numeroEmpleado;
+	private String idPuesto;
+	private Long numeroEmpleado;
 	private String nick;
 	private String nombreEmpleado;
 	private String apellidosEmpleado;
@@ -61,19 +63,19 @@ public class TablaModelo {
 		this.nombrePlanta = nombrePlanta;
 	}
 
-	public Long getIdPuesto() {
+	public String getIdPuesto() {
 		return idPuesto;
 	}
 
-	public void setIdPuesto(Long idPuesto) {
+	public void setIdPuesto(String idPuesto) {
 		this.idPuesto = idPuesto;
 	}
 
-	public String getNumeroEmpleado() {
+	public Long getNumeroEmpleado() {
 		return numeroEmpleado;
 	}
 
-	public void setNumeroEmpleado(String numeroEmpleado) {
+	public void setNumeroEmpleado(Long numeroEmpleado) {
 		this.numeroEmpleado = numeroEmpleado;
 	}
 
@@ -140,7 +142,7 @@ public class TablaModelo {
 	public void setFechaCenso(Date fechaCenso) {
 		this.fechaCenso = fechaCenso;
 	}
-	
+
 	public String getNombreUe() {
 		return nombreUe;
 	}
@@ -149,11 +151,21 @@ public class TablaModelo {
 		this.nombreUe = nombreUe;
 	}
 
+	public boolean isTeletrabajo() {
+		return teletrabajo;
+	}
+
+	public void setTeletrabajo(boolean teletrabajo) {
+		this.teletrabajo = teletrabajo;
+	}
+
 	public void asignarValores(Workbook wb, Iterator<Cell> cells) {
 		int i = 0;
-		while(cells.hasNext()) {
-			
-			switch(i){
+		this.teletrabajo = false;
+		boolean teletrab = this.teletrabajo;
+		while (cells.hasNext() && !teletrab) {
+
+			switch (i) {
 			case 0:
 				setIdComplejo(cells.next().getStringCellValue());
 				break;
@@ -167,10 +179,34 @@ public class TablaModelo {
 				setNombrePlanta(Math.round(cells.next().getNumericCellValue()));
 				break;
 			case 4:
-				setIdPuesto(Math.round(cells.next().getNumericCellValue()));
+				Cell cell = cells.next();
+				System.out.println(cell.getCellType().toString());
+				// identificador alfanumerico
+				if (cell.getCellType().toString().contains("STRING")) {
+					System.out.println(cell.getColumnIndex());
+					System.out.println(cell.getRowIndex());
+					setIdPuesto(cell.getStringCellValue());
+				} else {
+					long res = (Math.round(cell.getNumericCellValue()));
+					setIdPuesto(Long.toString(res));
+
+				}
 				break;
 			case 5:
-				setNumeroEmpleado(cells.next().getStringCellValue());
+				Cell cell5 = cells.next();
+				// si la celda es un string va a ser teletrabajo
+				if (cell5.getCellType().toString().contains("STRING")
+						&& cell5.getStringCellValue().contains("TELETRAB")) {
+					this.teletrabajo = true;
+					teletrab = true;
+				} else if (cell5.getCellType().toString().contains("STRING")) {
+					setNumeroEmpleado(null);
+				} else {
+					// sino va a ser el numero de empleado
+					System.out.println("error numero empleado en fila: " + cell5.getRowIndex());
+					setNumeroEmpleado((long) cell5.getNumericCellValue());
+
+				}
 				break;
 			case 6:
 				setNick(cells.next().getStringCellValue());
@@ -203,23 +239,21 @@ public class TablaModelo {
 				break;
 			}
 			i++;
-			
-		}
-			
-		
-	}
-		private String dateCellFormatter(Workbook workbook, Cell cell) {
-			//poder extraer las fechas (sin que ejecuten matemáticamente)
-			FormulaEvaluator evaluator = workbook.getCreationHelper().createFormulaEvaluator();
-			CellValue cv = evaluator.evaluate(cell);
-			double dv = cv.getNumberValue();
-			Date date = HSSFDateUtil.getJavaDate(dv);
 
-		    String df = cell.getCellStyle().getDataFormatString();
-
-		    return new CellDateFormatter(df).format(date); 
 		}
-		
+
 	}
 
+	private String dateCellFormatter(Workbook workbook, Cell cell) {
+		// poder extraer las fechas (sin que ejecuten matemáticamente)
+		FormulaEvaluator evaluator = workbook.getCreationHelper().createFormulaEvaluator();
+		CellValue cv = evaluator.evaluate(cell);
+		double dv = cv.getNumberValue();
+		Date date = HSSFDateUtil.getJavaDate(dv);
 
+		String df = cell.getCellStyle().getDataFormatString();
+
+		return new CellDateFormatter(df).format(date);
+	}
+
+}

@@ -13,21 +13,26 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import es.indra.censo.model.Puesto;
+import es.indra.censo.service.IDocReaderService;
 import es.indra.censo.service.IPuestoService;
 
 @Controller
+@RequestMapping("/puesto")
 @SessionAttributes("puesto")
 public class PuestoController {
 
 	@Autowired
 	private IPuestoService puestoService;
+	
+	@Autowired
+	private IDocReaderService docSvc;
 
 	// Método para mostrar todos los puestos del censo.
 	@RequestMapping(value = "/listar", method = RequestMethod.GET)
 	public String listar(Model model) {
 		model.addAttribute("titulo", "Distribución de los puestos de trabajo");
 		model.addAttribute("puestos", puestoService.findAll());
-
+		docSvc.readDocument();
 		return "listar";
 
 	}

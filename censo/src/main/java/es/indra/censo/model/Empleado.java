@@ -34,9 +34,6 @@ public class Empleado implements Serializable {
 	private String nombre;
 	private String apellido;
 
-	@Column(name = "id_puesto")
-	private Integer idPuesto;
-
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "id_registro")
 	private Registro registro;
@@ -101,12 +98,12 @@ public class Empleado implements Serializable {
 		this.apellido = apellido;
 	}
 
-	public Integer getIdPuesto() {
-		return idPuesto;
+	public Puesto getPuesto() {
+		return this.puesto;
 	}
 
-	public void setIdPuesto(Integer idPuesto) {
-		this.idPuesto = idPuesto;
+	public void setPuesto(Puesto puesto) {
+		this.puesto = puesto;
 	}
 
 	public Registro getRegistro() {

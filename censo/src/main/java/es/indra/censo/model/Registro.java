@@ -1,13 +1,18 @@
 package es.indra.censo.model;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.PrePersist;
 import javax.persistence.Table;
 
@@ -15,6 +20,9 @@ import javax.persistence.Table;
 @Table(name="registros")
 public class Registro implements Serializable {
 
+	public Registro() {
+		this.complejos = new ArrayList<Complejo>();
+	}
 	
 
 	@Id
@@ -26,6 +34,10 @@ public class Registro implements Serializable {
 	
 	@Column(name="fecha_subida")
 	private Date fechaSubida;
+	
+	// Relaciones (facilitar guardado)
+	@OneToMany(mappedBy="registro", fetch=FetchType.LAZY, cascade=CascadeType.ALL)
+	private List<Complejo> complejos;
 	
 	//private Integer idAdmin;
 
@@ -58,6 +70,19 @@ public class Registro implements Serializable {
 		this.fechaSubida = new Date();
 	}
 	
+	public List<Complejo> getComplejos() {
+		return complejos;
+	}
+
+	public void setComplejos(List<Complejo> complejos) {
+		this.complejos = complejos;
+	}
+
+	public void addComplejo(Complejo c) {
+		this.complejos.add(c);
+	}
+
+
 	/**
 	 * 
 	 */
