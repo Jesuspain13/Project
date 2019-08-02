@@ -1,7 +1,10 @@
 package es.indra.censo.model;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -10,11 +13,16 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
 @Table(name = "edificios")
 public class Edificio implements Serializable {
+	
+	public Edificio() {
+		this.plantas = new ArrayList<Planta>();
+	}
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -31,6 +39,10 @@ public class Edificio implements Serializable {
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "id_registro")
 	private Registro registro;
+	
+	@OneToMany(mappedBy="edificio", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	private List<Planta> plantas;
+	
 
 	public Integer getIdEdificio() {
 		return idEdificio;
@@ -58,6 +70,26 @@ public class Edificio implements Serializable {
 
 	public Registro getRegistro() {
 		return registro;
+	}
+	
+	
+
+	public void setRegistro(Registro registro) {
+		this.registro = registro;
+	}
+
+	public void addPlanta(Planta p) {
+		this.plantas.add(p);
+	}
+
+	
+
+	public List<Planta> getPlantas() {
+		return plantas;
+	}
+
+	public void setPlantas(List<Planta> plantas) {
+		this.plantas = plantas;
 	}
 
 	/**
