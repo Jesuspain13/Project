@@ -1,10 +1,1151 @@
 <!DOCTYPE html>
-<html>
-<head>
-<meta charset="ISO-8859-1">
-<title>Insert title here</title>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head th:replace="layout/layout :: head">
 </head>
+<meta charset="utf-8" />
 <body>
+
+	<!--Main Navigation-->
+	<header th:replace="layout/layout :: header"> </header>
+	<!--Main Navigation-->
+
+	<!--Main layout-->
+	<main>
+	<div class="container-fluid">
+
+
+		<div class="row my-5">
+			<!-- Contenedor con nombre de la planta y desplegable de la version-->
+			<div class="container">
+				<div class="row">
+					<div class="col-8">
+						<h2>Estás en la Planta Baja</h2>
+					</div>
+					<div class="col-4">
+						<select class="browser-default custom-select">
+							<option selected>Selecciona aquí la versión</option>
+							<option value="1">Versión 1.0.0</option>
+							<option value="2">Versión 1.0.1</option>
+							<option value="3">Versión 1.0.2</option>
+						</select>
+					</div>
+				</div>
+			</div>
+
+			<!-- Fin del Contenedor con nombre de la planta y desplegable de la version-->
+		</div>
+
+		<div class="row">
+			<!-- Contenedor con el mapa de la planta baja-->
+			<div class="container-fluid">
+				<div class="table-responsive">
+					<table class="table table-borderless">
+
+						<tbody>
+							<!-- Fila 4-->
+							<tr>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+
+								<td></td>
+								<td></td>
+							</tr>
+							<!-- Fin Fila 4-->
+
+							<!-- Fila 5-->
+							<tr>
+								<td></td>
+								<td class="muro"></td>
+								<td class="muro"></td>
+								<td class="muro"></td>
+
+								<td class="muro"></td>
+								<td class="muro"></td>
+								<td class="muro"></td>
+								<td class="muro"></td>
+
+								<td></td>
+								<td></td>
+								<td class="muro"></td>
+								<td class="muro"></td>
+
+								<td class="muro"></td>
+								<td class="muro"></td>
+								<td class="muro"></td>
+								<td class="muro"></td>
+
+								<td class="muro"></td>
+								<td></td>
+
+							</tr>
+							<!-- Fin Fila 5-->
+
+							<!-- Fila 6-->
+							<tr>
+								<td></td>
+								<td class="muro"></td>
+								<td class="muro"></td>
+								<td class="muro"></td>
+
+								<td class="muro"></td>
+								<td class="muro"></td>
+								<td class="muro"></td>
+								<td class="muro"></td>
+
+								<td></td>
+								<td></td>
+								<td class="muro"></td>
+								<td class="muro"></td>
+
+								<td class="muro"></td>
+								<td class="muro"></td>
+								<td class="muro"></td>
+								<td class="muro"></td>
+
+								<td class="muro"></td>
+								<td></td>
+
+							</tr>
+							<!-- Fin Fila 6-->
+
+							<!-- Fila 7-->
+							<tr>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+
+								<td></td>
+								<td></td>
+							</tr>
+							<!-- Fin Fila 7-->
+
+							<!-- Fila 8-->
+							<tr>
+								<td></td>
+								<td  th:text="${planta.getPuestos().get(0).getEmpleado().getApellido()}" class="text-center">Nombre</td>
+								<td class="text-center">Nombre</td>
+								<td class="text-center">Nombre</td>
+
+								<td class="text-center">Nombre</td>
+								<td class="text-center">Nombre</td>
+								<td class="text-center">Nombre</td>
+								<td class="text-center">Nombre</td>
+
+								<td></td>
+								<td></td>
+								<td class="text-center">Nombre</td>
+								<td class="text-center">Nombre</td>
+
+								<td class="text-center">Nombre</td>
+								<td class="text-center">Nombre</td>
+								<td class="text-center">Nombre</td>
+								<td class="text-center">Nombre</td>
+
+								<td class="text-center">Nombre</td>
+								<td></td>
+
+							</tr>
+							<!-- Fin Fila 8-->
+
+							<!-- Fila 9-->
+							<tr>
+								<td></td>
+								<td><button type="button" class="btn btn-default btn-sm">000</button></td>
+								<td><button type="button" class="btn btn-default btn-sm">000</button></td>
+								<td><button type="button" class="btn btn-default btn-sm">000</button></td>
+
+								<td><button type="button" class="btn btn-default btn-sm">000</button></td>
+								<td><button type="button" class="btn btn-default btn-sm">000</button></td>
+								<td><button type="button" class="btn btn-default btn-sm">000</button></td>
+								<td><button type="button" class="btn btn-default btn-sm">000</button></td>
+
+								<td></td>
+								<td></td>
+								<td><button type="button" class="btn btn-default btn-sm">000</button></td>
+								<td><button type="button" class="btn btn-default btn-sm">000</button></td>
+
+								<td><button type="button" class="btn btn-default btn-sm">000</button></td>
+								<td><button type="button" class="btn btn-default btn-sm">000</button></td>
+								<td><button type="button" class="btn btn-default btn-sm">000</button></td>
+								<td><button type="button" class="btn btn-default btn-sm">000</button></td>
+
+								<td><button type="button" class="btn btn-default btn-sm">000</button></td>
+								<td></td>
+
+							</tr>
+							<!-- Fin Fila 9-->
+
+							<!-- Fila 10-->
+							<tr>
+								<td></td>
+								<td><button type="button" class="btn btn-default btn-sm">000</button></td>
+								<td><button type="button" class="btn btn-default btn-sm">000</button></td>
+								<td><button type="button" class="btn btn-default btn-sm">000</button></td>
+
+								<td><button type="button" class="btn btn-default btn-sm">000</button></td>
+								<td><button type="button" class="btn btn-default btn-sm">000</button></td>
+								<td><button type="button" class="btn btn-default btn-sm">000</button></td>
+								<td><button type="button" class="btn btn-default btn-sm">000</button></td>
+
+								<td></td>
+								<td></td>
+								<td><button type="button" class="btn btn-default btn-sm">000</button></td>
+								<td><button type="button" class="btn btn-default btn-sm">000</button></td>
+
+								<td><button type="button" class="btn btn-default btn-sm">000</button></td>
+								<td><button type="button" class="btn btn-default btn-sm">000</button></td>
+								<td><button type="button" class="btn btn-default btn-sm">000</button></td>
+								<td><button type="button" class="btn btn-default btn-sm">000</button></td>
+
+								<td><button type="button" class="btn btn-default btn-sm">000</button></td>
+								<td></td>
+
+							</tr>
+							<!-- Fin Fila 10-->
+
+
+							<!-- Fila 11-->
+							<tr>
+								<td></td>
+								<td class="text-center">Nombre</td>
+								<td class="text-center">Nombre</td>
+								<td class="text-center">Nombre</td>
+
+								<td class="text-center">Nombre</td>
+								<td class="text-center">Nombre</td>
+								<td class="text-center">Nombre</td>
+								<td class="text-center">Nombre</td>
+
+								<td></td>
+								<td></td>
+								<td class="text-center">Nombre</td>
+								<td class="text-center">Nombre</td>
+
+								<td class="text-center">Nombre</td>
+								<td class="text-center">Nombre</td>
+								<td class="text-center">Nombre</td>
+								<td class="text-center">Nombre</td>
+
+								<td class="text-center">Nombre</td>
+								<td></td>
+
+							</tr>
+							<!-- Fin Fila 11-->
+
+							<!-- Fila 12-->
+							<tr>
+								<td></td>
+								<td class="text-center">Nombre</td>
+								<td class="text-center">Nombre</td>
+								<td class="text-center">Nombre</td>
+
+								<td class="text-center">Nombre</td>
+								<td class="text-center">Nombre</td>
+								<td class="text-center">Nombre</td>
+								<td class="text-center">Nombre</td>
+
+								<td></td>
+								<td></td>
+								<td class="text-center">Nombre</td>
+								<td class="text-center">Nombre</td>
+
+								<td class="text-center">Nombre</td>
+								<td class="text-center">Nombre</td>
+								<td class="text-center">Nombre</td>
+								<td class="text-center">Nombre</td>
+
+								<td class="text-center">Nombre</td>
+								<td></td>
+
+							</tr>
+							<!-- Fin Fila 12-->
+
+							<!-- Fila 13-->
+							<tr>
+								<td></td>
+								<td><button type="button" class="btn btn-default btn-sm">000</button></td>
+								<td><button type="button" class="btn btn-default btn-sm">000</button></td>
+								<td><button type="button" class="btn btn-default btn-sm">000</button></td>
+
+								<td><button type="button" class="btn btn-default btn-sm">000</button></td>
+								<td><button type="button" class="btn btn-default btn-sm">000</button></td>
+								<td><button type="button" class="btn btn-default btn-sm">000</button></td>
+								<td><button type="button" class="btn btn-default btn-sm">000</button></td>
+
+								<td></td>
+								<td></td>
+								<td><button type="button" class="btn btn-default btn-sm">000</button></td>
+								<td><button type="button" class="btn btn-default btn-sm">000</button></td>
+
+								<td><button type="button" class="btn btn-default btn-sm">000</button></td>
+								<td><button type="button" class="btn btn-default btn-sm">000</button></td>
+								<td><button type="button" class="btn btn-default btn-sm">000</button></td>
+								<td><button type="button" class="btn btn-default btn-sm">000</button></td>
+
+								<td><button type="button" class="btn btn-default btn-sm">000</button></td>
+								<td></td>
+
+							</tr>
+							<!-- Fin Fila 13-->
+
+							<!-- Fila 14-->
+							<tr>
+								<td></td>
+								<td><button type="button" class="btn btn-default btn-sm">000</button></td>
+								<td><button type="button" class="btn btn-default btn-sm">000</button></td>
+								<td><button type="button" class="btn btn-default btn-sm">000</button></td>
+
+								<td><button type="button" class="btn btn-default btn-sm">000</button></td>
+								<td><button type="button" class="btn btn-default btn-sm">000</button></td>
+								<td><button type="button" class="btn btn-default btn-sm">000</button></td>
+								<td><button type="button" class="btn btn-default btn-sm">000</button></td>
+
+								<td></td>
+								<td></td>
+								<td><button type="button" class="btn btn-default btn-sm">000</button></td>
+								<td><button type="button" class="btn btn-default btn-sm">000</button></td>
+
+								<td><button type="button" class="btn btn-default btn-sm">000</button></td>
+								<td><button type="button" class="btn btn-default btn-sm">000</button></td>
+								<td><button type="button" class="btn btn-default btn-sm">000</button></td>
+								<td><button type="button" class="btn btn-default btn-sm">000</button></td>
+
+								<td><button type="button" class="btn btn-default btn-sm">000</button></td>
+								<td></td>
+
+							</tr>
+							<!-- Fin Fila 14-->
+
+							<!-- Fila 15-->
+							<tr>
+								<td></td>
+								<td class="text-center">Nombre</td>
+								<td class="text-center">Nombre</td>
+								<td class="text-center">Nombre</td>
+
+								<td class="text-center">Nombre</td>
+								<td class="text-center">Nombre</td>
+								<td class="text-center">Nombre</td>
+								<td class="text-center">Nombre</td>
+
+								<td></td>
+								<td></td>
+								<td class="text-center">Nombre</td>
+								<td class="text-center">Nombre</td>
+
+								<td class="text-center">Nombre</td>
+								<td class="text-center">Nombre</td>
+								<td class="text-center">Nombre</td>
+								<td class="text-center">Nombre</td>
+
+								<td class="text-center">Nombre</td>
+								<td></td>
+
+							</tr>
+							<!-- Fin Fila 15-->
+
+							<!-- Fila 16-->
+							<tr>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+
+								<td></td>
+								<td></td>
+							</tr>
+							<!-- Fin Fila 16-->
+
+							<!-- Fila 17-->
+							<tr>
+								<td></td>
+								<td class="muro"></td>
+								<td class="muro"></td>
+								<td class="muro"></td>
+
+								<td class="muro"></td>
+								<td class="muro"></td>
+								<td></td>
+								<td></td>
+
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+
+								<td class="muro"></td>
+								<td class="muro"></td>
+								<td class="muro"></td>
+								<td class="muro"></td>
+
+								<td class="muro"></td>
+								<td></td>
+
+							</tr>
+							<!-- Fin Fila 17-->
+
+							<!-- Fila 18-->
+							<tr>
+								<td></td>
+								<td class="muro"></td>
+								<td class="muro"></td>
+								<td class="muro"></td>
+
+								<td class="muro"></td>
+								<td class="muro"></td>
+								<td></td>
+								<td></td>
+
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+
+								<td class="muro"></td>
+								<td class="muro"></td>
+								<td class="muro"></td>
+								<td class="muro"></td>
+
+								<td class="muro"></td>
+								<td></td>
+
+							</tr>
+							<!-- Fin Fila 18-->
+
+							<!-- Fila 19-->
+							<tr>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+
+								<td></td>
+								<td></td>
+							</tr>
+							<!-- Fin Fila 19-->
+
+							<!-- Fila 20-->
+							<tr>
+								<td></td>
+								<td class="text-center">Nombre</td>
+								<td class="text-center">Nombre</td>
+								<td class="text-center">Nombre</td>
+
+								<td class="text-center">Nombre</td>
+								<td class="text-center">Nombre</td>
+								<td class="text-center">Nombre</td>
+								<td class="text-center">Nombre</td>
+
+								<td></td>
+								<td></td>
+								<td class="text-center">Nombre</td>
+								<td class="text-center">Nombre</td>
+
+								<td class="text-center">Nombre</td>
+								<td class="text-center">Nombre</td>
+								<td class="text-center">Nombre</td>
+								<td class="text-center">Nombre</td>
+
+								<td class="text-center">Nombre</td>
+								<td></td>
+
+							</tr>
+							<!-- Fin Fila 20-->
+
+							<!-- Fila 21-->
+							<tr>
+								<td></td>
+								<td><button type="button" class="btn btn-default btn-sm">000</button></td>
+								<td><button type="button" class="btn btn-default btn-sm">000</button></td>
+								<td><button type="button" class="btn btn-default btn-sm">000</button></td>
+
+								<td><button type="button" class="btn btn-default btn-sm">000</button></td>
+								<td><button type="button" class="btn btn-default btn-sm">000</button></td>
+								<td><button type="button" class="btn btn-default btn-sm">000</button></td>
+								<td><button type="button" class="btn btn-default btn-sm">000</button></td>
+
+								<td></td>
+								<td></td>
+								<td><button type="button" class="btn btn-default btn-sm">000</button></td>
+								<td><button type="button" class="btn btn-default btn-sm">000</button></td>
+
+								<td><button type="button" class="btn btn-default btn-sm">000</button></td>
+								<td><button type="button" class="btn btn-default btn-sm">000</button></td>
+								<td><button type="button" class="btn btn-default btn-sm">000</button></td>
+								<td><button type="button" class="btn btn-default btn-sm">000</button></td>
+
+								<td><button type="button" class="btn btn-default btn-sm">000</button></td>
+								<td></td>
+
+							</tr>
+							<!-- Fin Fila 21-->
+
+							<!-- Fila 22-->
+							<tr>
+								<td></td>
+								<td><button type="button" class="btn btn-default btn-sm">000</button></td>
+								<td><button type="button" class="btn btn-default btn-sm">000</button></td>
+								<td><button type="button" class="btn btn-default btn-sm">000</button></td>
+
+								<td><button type="button" class="btn btn-default btn-sm">000</button></td>
+								<td><button type="button" class="btn btn-default btn-sm">000</button></td>
+								<td><button type="button" class="btn btn-default btn-sm">000</button></td>
+								<td><button type="button" class="btn btn-default btn-sm">000</button></td>
+
+								<td></td>
+								<td></td>
+								<td><button type="button" class="btn btn-default btn-sm">000</button></td>
+								<td><button type="button" class="btn btn-default btn-sm">000</button></td>
+
+								<td><button type="button" class="btn btn-default btn-sm">000</button></td>
+								<td><button type="button" class="btn btn-default btn-sm">000</button></td>
+								<td><button type="button" class="btn btn-default btn-sm">000</button></td>
+								<td><button type="button" class="btn btn-default btn-sm">000</button></td>
+
+								<td><button type="button" class="btn btn-default btn-sm">000</button></td>
+								<td></td>
+
+							</tr>
+							<!-- Fin Fila 22-->
+
+							<!-- Fila 23-->
+							<tr>
+								<td></td>
+								<td class="text-center">Nombre</td>
+								<td class="text-center">Nombre</td>
+								<td class="text-center">Nombre</td>
+
+								<td class="text-center">Nombre</td>
+								<td class="text-center">Nombre</td>
+								<td class="text-center">Nombre</td>
+								<td class="text-center">Nombre</td>
+
+								<td></td>
+								<td></td>
+								<td class="text-center">Nombre</td>
+								<td class="text-center">Nombre</td>
+
+								<td class="text-center">Nombre</td>
+								<td class="text-center">Nombre</td>
+								<td class="text-center">Nombre</td>
+								<td class="text-center">Nombre</td>
+
+								<td class="text-center">Nombre</td>
+								<td></td>
+
+							</tr>
+							<!-- Fin Fila 23-->
+
+							<!-- Fila 24-->
+							<tr>
+								<td></td>
+								<td class="text-center">Nombre</td>
+								<td class="text-center">Nombre</td>
+								<td class="text-center">Nombre</td>
+
+								<td class="text-center">Nombre</td>
+								<td class="text-center">Nombre</td>
+								<td class="text-center">Nombre</td>
+								<td class="text-center">Nombre</td>
+
+								<td></td>
+								<td></td>
+								<td class="text-center">Nombre</td>
+								<td class="text-center">Nombre</td>
+
+								<td class="text-center">Nombre</td>
+								<td class="text-center">Nombre</td>
+								<td class="text-center">Nombre</td>
+								<td class="text-center">Nombre</td>
+
+								<td class="text-center">Nombre</td>
+								<td></td>
+
+							</tr>
+							<!-- Fin Fila 24-->
+
+							<!-- Fila 25-->
+							<tr>
+								<td></td>
+								<td><button type="button" class="btn btn-default btn-sm">000</button></td>
+								<td><button type="button" class="btn btn-default btn-sm">000</button></td>
+								<td><button type="button" class="btn btn-default btn-sm">000</button></td>
+
+								<td><button type="button" class="btn btn-default btn-sm">000</button></td>
+								<td><button type="button" class="btn btn-default btn-sm">000</button></td>
+								<td><button type="button" class="btn btn-default btn-sm">000</button></td>
+								<td><button type="button" class="btn btn-default btn-sm">000</button></td>
+
+								<td></td>
+								<td></td>
+								<td><button type="button" class="btn btn-default btn-sm">000</button></td>
+								<td><button type="button" class="btn btn-default btn-sm">000</button></td>
+
+								<td><button type="button" class="btn btn-default btn-sm">000</button></td>
+								<td><button type="button" class="btn btn-default btn-sm">000</button></td>
+								<td><button type="button" class="btn btn-default btn-sm">000</button></td>
+								<td><button type="button" class="btn btn-default btn-sm">000</button></td>
+
+								<td><button type="button" class="btn btn-default btn-sm">000</button></td>
+								<td></td>
+
+							</tr>
+							<!-- Fin Fila 25-->
+
+							<!-- Fila 26-->
+							<tr>
+								<td></td>
+								<td><button type="button" class="btn btn-default btn-sm">000</button></td>
+								<td><button type="button" class="btn btn-default btn-sm">000</button></td>
+								<td><button type="button" class="btn btn-default btn-sm">000</button></td>
+
+								<td><button type="button" class="btn btn-default btn-sm">000</button></td>
+								<td><button type="button" class="btn btn-default btn-sm">000</button></td>
+								<td><button type="button" class="btn btn-default btn-sm">000</button></td>
+								<td><button type="button" class="btn btn-default btn-sm">000</button></td>
+
+								<td></td>
+								<td></td>
+								<td><button type="button" class="btn btn-default btn-sm">000</button></td>
+								<td><button type="button" class="btn btn-default btn-sm">000</button></td>
+
+								<td><button type="button" class="btn btn-default btn-sm">000</button></td>
+								<td><button type="button" class="btn btn-default btn-sm">000</button></td>
+								<td><button type="button" class="btn btn-default btn-sm">000</button></td>
+								<td><button type="button" class="btn btn-default btn-sm">000</button></td>
+
+								<td><button type="button" class="btn btn-default btn-sm">000</button></td>
+								<td></td>
+
+							</tr>
+							<!-- Fin Fila 26-->
+
+							<!-- Fila 27-->
+							<tr>
+								<td></td>
+								<td class="text-center">Nombre</td>
+								<td class="text-center">Nombre</td>
+								<td class="text-center">Nombre</td>
+
+								<td class="text-center">Nombre</td>
+								<td class="text-center">Nombre</td>
+								<td class="text-center">Nombre</td>
+								<td class="text-center">Nombre</td>
+
+								<td></td>
+								<td></td>
+								<td class="text-center">Nombre</td>
+								<td class="text-center">Nombre</td>
+
+								<td class="text-center">Nombre</td>
+								<td class="text-center">Nombre</td>
+								<td class="text-center">Nombre</td>
+								<td class="text-center">Nombre</td>
+
+								<td class="text-center">Nombre</td>
+								<td></td>
+
+							</tr>
+							<!-- Fin Fila 27-->
+
+							<!-- Fila 28-->
+							<tr>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+
+								<td></td>
+								<td></td>
+							</tr>
+							<!-- Fin Fila 28-->
+
+							<!-- Fila 29-->
+							<tr>
+								<td></td>
+								<td class="muro"></td>
+								<td class="muro"></td>
+								<td class="muro"></td>
+
+								<td class="muro"></td>
+								<td class="muro"></td>
+								<td></td>
+								<td></td>
+
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+
+								<td class="muro"></td>
+								<td class="muro"></td>
+								<td class="muro"></td>
+								<td class="muro"></td>
+
+								<td class="muro"></td>
+								<td></td>
+
+							</tr>
+							<!-- Fin Fila 29-->
+
+							<!-- Fila 30-->
+							<tr>
+								<td></td>
+								<td class="muro"></td>
+								<td class="muro"></td>
+								<td class="muro"></td>
+
+								<td class="muro"></td>
+								<td class="muro"></td>
+								<td></td>
+								<td></td>
+
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+
+								<td class="muro"></td>
+								<td class="muro"></td>
+								<td class="muro"></td>
+								<td class="muro"></td>
+
+								<td class="muro"></td>
+								<td></td>
+
+							</tr>
+							<!-- Fin Fila 30-->
+
+							<!-- Fila 31-->
+							<tr>
+								<td></td>
+								<td class="text-center">Nombre</td>
+								<td class="text-center">Nombre</td>
+								<td class="text-center">Nombre</td>
+
+								<td class="text-center">Nombre</td>
+								<td class="text-center">Nombre</td>
+								<td class="text-center">Nombre</td>
+								<td class="text-center">Nombre</td>
+
+								<td></td>
+								<td></td>
+								<td class="text-center">Nombre</td>
+								<td class="text-center">Nombre</td>
+
+								<td class="text-center">Nombre</td>
+								<td class="text-center">Nombre</td>
+								<td class="text-center">Nombre</td>
+								<td class="text-center">Nombre</td>
+
+								<td class="text-center">Nombre</td>
+								<td></td>
+
+							</tr>
+							<!-- Fin Fila 31-->
+
+
+							<!-- Fila 32-->
+							<tr>
+								<td></td>
+								<td><button type="button" class="btn btn-default btn-sm">000</button></td>
+								<td><button type="button" class="btn btn-default btn-sm">000</button></td>
+								<td><button type="button" class="btn btn-default btn-sm">000</button></td>
+
+								<td><button type="button" class="btn btn-default btn-sm">000</button></td>
+								<td><button type="button" class="btn btn-default btn-sm">000</button></td>
+								<td><button type="button" class="btn btn-default btn-sm">000</button></td>
+								<td><button type="button" class="btn btn-default btn-sm">000</button></td>
+
+								<td></td>
+								<td></td>
+								<td><button type="button" class="btn btn-default btn-sm">000</button></td>
+								<td><button type="button" class="btn btn-default btn-sm">000</button></td>
+
+								<td><button type="button" class="btn btn-default btn-sm">000</button></td>
+								<td><button type="button" class="btn btn-default btn-sm">000</button></td>
+								<td><button type="button" class="btn btn-default btn-sm">000</button></td>
+								<td><button type="button" class="btn btn-default btn-sm">000</button></td>
+
+								<td><button type="button" class="btn btn-default btn-sm">000</button></td>
+								<td></td>
+
+							</tr>
+							<!-- Fin Fila 32-->
+
+							<!-- Fila 33-->
+							<tr>
+								<td></td>
+								<td><button type="button" class="btn btn-default btn-sm">000</button></td>
+								<td><button type="button" class="btn btn-default btn-sm">000</button></td>
+								<td><button type="button" class="btn btn-default btn-sm">000</button></td>
+
+								<td><button type="button" class="btn btn-default btn-sm">000</button></td>
+								<td><button type="button" class="btn btn-default btn-sm">000</button></td>
+								<td><button type="button" class="btn btn-default btn-sm">000</button></td>
+								<td><button type="button" class="btn btn-default btn-sm">000</button></td>
+
+								<td></td>
+								<td></td>
+								<td><button type="button" class="btn btn-default btn-sm">000</button></td>
+								<td><button type="button" class="btn btn-default btn-sm">000</button></td>
+
+								<td><button type="button" class="btn btn-default btn-sm">000</button></td>
+								<td><button type="button" class="btn btn-default btn-sm">000</button></td>
+								<td><button type="button" class="btn btn-default btn-sm">000</button></td>
+								<td><button type="button" class="btn btn-default btn-sm">000</button></td>
+
+								<td><button type="button" class="btn btn-default btn-sm">000</button></td>
+								<td></td>
+
+							</tr>
+							<!-- Fin Fila 33-->
+
+							<!-- Fila 34-->
+							<tr>
+								<td></td>
+								<td class="text-center">Nombre</td>
+								<td class="text-center">Nombre</td>
+								<td class="text-center">Nombre</td>
+
+								<td class="text-center">Nombre</td>
+								<td class="text-center">Nombre</td>
+								<td class="text-center">Nombre</td>
+								<td class="text-center">Nombre</td>
+
+								<td></td>
+								<td></td>
+								<td class="text-center">Nombre</td>
+								<td class="text-center">Nombre</td>
+
+								<td class="text-center">Nombre</td>
+								<td class="text-center">Nombre</td>
+								<td class="text-center">Nombre</td>
+								<td class="text-center">Nombre</td>
+
+								<td class="text-center">Nombre</td>
+								<td></td>
+
+							</tr>
+							<!-- Fin Fila 34-->
+
+							<!-- Fila 35-->
+							<tr>
+								<td></td>
+								<td class="text-center">Nombre</td>
+								<td class="text-center">Nombre</td>
+								<td class="text-center">Nombre</td>
+
+								<td class="text-center">Nombre</td>
+								<td class="text-center">Nombre</td>
+								<td class="text-center">Nombre</td>
+								<td class="text-center">Nombre</td>
+
+								<td></td>
+								<td></td>
+								<td class="text-center">Nombre</td>
+								<td class="text-center">Nombre</td>
+
+								<td class="text-center">Nombre</td>
+								<td class="text-center">Nombre</td>
+								<td class="text-center">Nombre</td>
+								<td class="text-center">Nombre</td>
+
+								<td class="text-center">Nombre</td>
+								<td></td>
+
+							</tr>
+							<!-- Fin Fila 35-->
+
+							<!-- Fila 36-->
+							<tr>
+								<td></td>
+								<td><button type="button" class="btn btn-default btn-sm">000</button></td>
+								<td><button type="button" class="btn btn-default btn-sm">000</button></td>
+								<td><button type="button" class="btn btn-default btn-sm">000</button></td>
+
+								<td><button type="button" class="btn btn-default btn-sm">000</button></td>
+								<td><button type="button" class="btn btn-default btn-sm">000</button></td>
+								<td><button type="button" class="btn btn-default btn-sm">000</button></td>
+								<td><button type="button" class="btn btn-default btn-sm">000</button></td>
+
+								<td></td>
+								<td></td>
+								<td><button type="button" class="btn btn-default btn-sm">000</button></td>
+								<td><button type="button" class="btn btn-default btn-sm">000</button></td>
+
+								<td><button type="button" class="btn btn-default btn-sm">000</button></td>
+								<td><button type="button" class="btn btn-default btn-sm">000</button></td>
+								<td><button type="button" class="btn btn-default btn-sm">000</button></td>
+								<td><button type="button" class="btn btn-default btn-sm">000</button></td>
+
+								<td><button type="button" class="btn btn-default btn-sm">000</button></td>
+								<td></td>
+
+							</tr>
+							<!-- Fin Fila 36-->
+
+							<!-- Fila 37-->
+							<tr>
+								<td></td>
+								<td><button type="button" class="btn btn-default btn-sm">000</button></td>
+								<td><button type="button" class="btn btn-default btn-sm">000</button></td>
+								<td><button type="button" class="btn btn-default btn-sm">000</button></td>
+
+								<td><button type="button" class="btn btn-default btn-sm">000</button></td>
+								<td><button type="button" class="btn btn-default btn-sm">000</button></td>
+								<td><button type="button" class="btn btn-default btn-sm">000</button></td>
+								<td><button type="button" class="btn btn-default btn-sm">000</button></td>
+
+								<td></td>
+								<td></td>
+								<td><button type="button" class="btn btn-default btn-sm">000</button></td>
+								<td><button type="button" class="btn btn-default btn-sm">000</button></td>
+
+								<td><button type="button" class="btn btn-default btn-sm">000</button></td>
+								<td><button type="button" class="btn btn-default btn-sm">000</button></td>
+								<td><button type="button" class="btn btn-default btn-sm">000</button></td>
+								<td><button type="button" class="btn btn-default btn-sm">000</button></td>
+
+								<td><button type="button" class="btn btn-default btn-sm">000</button></td>
+								<td></td>
+
+							</tr>
+							<!-- Fin Fila 37-->
+
+							<!-- Fila 38-->
+							<tr>
+								<td></td>
+								<td class="text-center">Nombre</td>
+								<td class="text-center">Nombre</td>
+								<td class="text-center">Nombre</td>
+
+								<td class="text-center">Nombre</td>
+								<td class="text-center">Nombre</td>
+								<td class="text-center">Nombre</td>
+								<td class="text-center">Nombre</td>
+
+								<td></td>
+								<td></td>
+								<td class="text-center">Nombre</td>
+								<td class="text-center">Nombre</td>
+
+								<td class="text-center">Nombre</td>
+								<td class="text-center">Nombre</td>
+								<td class="text-center">Nombre</td>
+								<td class="text-center">Nombre</td>
+
+								<td class="text-center">Nombre</td>
+								<td></td>
+
+							</tr>
+							<!-- Fin Fila 38-->
+
+							<!-- Fila 39-->
+							<tr>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+
+								<td></td>
+								<td></td>
+							</tr>
+							<!-- Fin Fila 39-->
+
+							<!-- Fila 40-->
+							<tr>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+
+								<td></td>
+								<td></td>
+								<td></td>
+								<td><button type="button" class="btn btn-default btn-sm">000</button></td>
+
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+
+								<td></td>
+								<td></td>
+							</tr>
+							<!-- Fin Fila 40-->
+
+							<!-- Fila 41-->
+							<tr>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+
+								<td></td>
+								<td></td>
+								<td></td>
+								<td class="text-center">Nombre</td>
+
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+
+								<td></td>
+								<td></td>
+
+							</tr>
+							<!-- Fin Fila 41-->
+
+							<!-- Fila 42-->
+							<tr>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+
+								<td></td>
+								<td></td>
+							</tr>
+							<!-- Fin Fila 42-->
+
+						</tbody>
+					</table>
+
+				</div>
+			</div>
+
+			<!-- Fin del Contenedor con el mapa de la planta baja-->
+		</div>
+
+	</div>
+
+	</main>
+	<!--Main layout-->
+
+	<!-- Footer -->
+	<footer th:replace="layout/layout :: footer"></footer>
+	<!-- Footer -->
 
 </body>
 </html>

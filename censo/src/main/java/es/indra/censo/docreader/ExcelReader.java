@@ -43,7 +43,7 @@ public class ExcelReader {
 
 	}
 
-	public static final String FILE_PATH = "D:/jjespana/Escritorio/doc_excel/Sitios_Edificio.xlsx";
+	public static final String FILE_PATH = "D:/vmramon/Escritorio/excel/Sitios_Edificio.xlsx";
 
 	private Registro r;
 

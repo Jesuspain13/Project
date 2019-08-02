@@ -72,7 +72,6 @@ public class Empleado implements Serializable {
 		this.ue = ue;
 	}
 
-	
 
 	public String getNick() {
 		return nick;
