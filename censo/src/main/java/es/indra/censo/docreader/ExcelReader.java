@@ -55,31 +55,58 @@ public class ExcelReader {
 			int contador = 0;
 			r = this.buildRegistro();
 			Registro registroGuardado = rDao.save(r);
-			r.setIdRegistro(registroGuardado.getIdRegistro());
-			Complejo c = null;
-			while (rows.hasNext()) {
-				// contador para empezar a guardar valores a partir de la primera linea (la
-				// primera no incluye datos solo titulos)
-
-				if (contador > 0) {
-					if (c == null) {
-						c = this.recorrerCeldasDeFila(workbook, rows.next(), rDao, registroGuardado);
-						registroGuardado.addComplejo(c);
-					} else {
-						this.recorrerCeldasDeFila(workbook, rows.next(), rDao, registroGuardado);
-					}
-
-				} else if (contador == 0) {
-					// La primera fila son los titulos de las columnas
-					rows.next();
-
-				}
-				contador++;
-			}
+			
+			registroGuardado = this.recorrerFilas(workbook, rows, rDao, registroGuardado);
+//			Complejo c = null;
+//			while (rows.hasNext()) {
+//				// contador para empezar a guardar valores a partir de la primera linea (la
+//				// primera no incluye datos solo titulos)
+//
+//				if (contador > 0) {
+//					if (c == null) {
+//						c = this.recorrerCeldasDeFila(workbook, rows.next(), rDao, registroGuardado);
+//						registroGuardado.addComplejo(c);
+//					} else {
+//						this.recorrerCeldasDeFila(workbook, rows.next(), rDao, registroGuardado);
+//					}
+//
+//				} else if (contador == 0) {
+//					// La primera fila son los titulos de las columnas
+//					rows.next();
+//
+//				}
+//				contador++;
+//			}
 			rDao.save(registroGuardado);
 		} catch (Exception ex) {
 			ex.printStackTrace();
 		}
+	}
+	
+	private Registro recorrerFilas(Workbook workbook, Iterator<Row> rows, IRegistroDao rDao,
+			Registro registroGuardado) {
+		int contador = 0;
+		Complejo c = null;
+		while (rows.hasNext()) {
+			// contador para empezar a guardar valores a partir de la primera linea (la
+			// primera no incluye datos solo titulos)
+
+			if (contador > 0) {
+				if (c == null) {
+					c = this.recorrerCeldasDeFila(workbook, rows.next(), rDao, registroGuardado);
+					registroGuardado.addComplejo(c);
+				} else {
+					this.recorrerCeldasDeFila(workbook, rows.next(), rDao, registroGuardado);
+				}
+
+			} else if (contador == 0) {
+				// La primera fila son los titulos de las columnas
+				rows.next();
+
+			}
+			contador++;
+		}
+		return registroGuardado;
 	}
 
 	/**
@@ -92,7 +119,7 @@ public class ExcelReader {
 		TablaModelo tabla = new TablaModelo();
 
 		// método que recoge los valores de una fila
-		tabla.asignarValores(wb, cells);
+		tabla.asignarValores(cells);
 
 		// }
 		Complejo c = this.constructorEntidades(tabla, rDao, registroGuardado);
@@ -115,6 +142,7 @@ public class ExcelReader {
 		Puesto puesto = this.buildPuesto(tabla, p, registroGuardado);
 		Ue ue = seleccionarUe(tabla, registroGuardado);
 		Empleado emp = this.buildEmpleado(tabla, ue, registroGuardado);
+		//comprobar si el empleado creado es null
 		if (emp != null && ue != null) {
 			Empleado empSaved = empDao.save(emp);
 			puesto.setOcupado(true);
@@ -232,7 +260,7 @@ public class ExcelReader {
 	}
 
 	/**
-	 * comprueba si el Planta está creado, sino, o si coincide con el de la fila
+	 * comprueba si la Planta está creada y si coincide con el de la fila, o si no, 
 	 * 
 	 * @param tabla
 	 * @param r
@@ -245,17 +273,17 @@ public class ExcelReader {
 
 		boolean encontrado = false;
 		int contador = 0;
+		//si el tamaño de la lista es igual a 0 -> se construye una planta
 		if (listaPlanta.size() == 0) {
 			p = this.buildPlanta(tabla, e, r);
 			encontrado = true;
 		}
 		while (!encontrado) {
-			String l = Long.toString(tabla.getNombrePlanta());
-			System.out.println(l);
-			// vamos a recorrer la lista y comprobar los nombres
+			// vamos a recorrer la lista y comprobar los nombres (para ver si está creada la planta
 			if (listaPlanta.get(contador).getNombrePlanta().contains(Long.toString(tabla.getNombrePlanta()))) {
 				p = listaPlanta.get(contador);
 				encontrado = true;
+			// si el contador se pasa del tamaño de la lista -> crea una planta
 			} else if (contador == listaPlanta.size() - 1) {
 				p = this.buildPlanta(tabla, e, r);
 				encontrado = true;
@@ -266,6 +294,8 @@ public class ExcelReader {
 
 		return p;
 	}
+	
+	//Metodos auxiliares del Puesto
 
 	private Puesto buildPuesto(TablaModelo tabla, Planta p, Registro r) {
 		// los dos primeros campos (1 y 2) de la tabla deben ser los datos del complejo
@@ -276,6 +306,8 @@ public class ExcelReader {
 		puesto.setOcupado(false);
 		return puesto;
 	}
+	
+	//Métodos auxiliares del Empleado
 
 	private Empleado buildEmpleado(TablaModelo tabla, Ue ue, Registro r) {
 		// los dos primeros campos (1 y 2) de la tabla deben ser los datos del complejo
@@ -321,19 +353,24 @@ public class ExcelReader {
 		if (tabla.getUe() == null) {
 			return null;
 		}
+		//si el tamaño es 0 es que no hay ue
 		if (ue.size() == 0) {
 			ueFound = this.buildUe(tabla, r);
 			encontrado = true;
 		}
+		
 		while (ueIterator.hasNext() && !encontrado) {
 			// vamos a recorrer la lista y comprobar los nombres
 			Ue iter = ueIterator.next();
+			//si es null es que no hay ue (aunque en ocasiones aunque no haya coge un null)
 			if (iter == null) {
 				ueFound = this.buildUe(tabla, r);
 				encontrado = true;
+			// si el id de la iteración es igual al id de la tabla -> no creamos ue
 			} else if (iter.getIdUe().contains(tabla.getUe())) {
 				ueFound = iter;
 				encontrado = true;
+			// si el contador se pasa del tamaño de la lista de ue -> se crea un ue
 			} else if (contador == ue.size() - 1) {
 				ueFound = this.buildUe(tabla, r);
 				encontrado = true;
@@ -341,6 +378,7 @@ public class ExcelReader {
 				contador++;
 			}
 		}
+		//guardamos ue en la base de datos
 		ueFound = ueDao.save(ueFound);
 		return ueFound;
 	}
