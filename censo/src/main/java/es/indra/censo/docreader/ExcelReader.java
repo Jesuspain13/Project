@@ -43,7 +43,7 @@ public class ExcelReader {
 
 	}
 
-	public static final String FILE_PATH = "D:/vmramon/Escritorio/excel/Sitios_Edificio.xlsx";
+	public static final String FILE_PATH = "D:/jjespana/Escritorio/doc_excel/Sitios_Edificio.xlsx";
 
 	private Registro r;
 
@@ -141,6 +141,7 @@ public class ExcelReader {
 		} else if (emp == null) {
 			puesto.setEmpleado(null);
 		}
+		registroGuardado.addUes(ue);
 		p.addPuesto(puesto);
 		e.addPlanta(p);
 		c.addEdificio(e);
@@ -337,7 +338,7 @@ public class ExcelReader {
 	 */
 	private Ue seleccionarUe(TablaModelo tabla, Registro r) {
 		Ue ueFound = null;
-		List<Ue> ue = (List<Ue>) ueDao.findAll();
+		List<Ue> ue = r.getUes();
 		Iterator<Ue> ueIterator = ue.iterator();
 		boolean encontrado = false;
 		int contador = 0;

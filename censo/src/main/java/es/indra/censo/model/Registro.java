@@ -22,6 +22,7 @@ public class Registro implements Serializable {
 
 	public Registro() {
 		this.complejos = new ArrayList<Complejo>();
+		this.ues = new ArrayList<Ue>();
 	}
 	
 
@@ -38,6 +39,9 @@ public class Registro implements Serializable {
 	// Relaciones (facilitar guardado)
 	@OneToMany(mappedBy="registro", fetch=FetchType.LAZY, cascade=CascadeType.ALL)
 	private List<Complejo> complejos;
+	
+	@OneToMany(mappedBy="registro", fetch=FetchType.LAZY, cascade=CascadeType.ALL)
+	private List<Ue> ues;
 	
 	//private Integer idAdmin;
 
@@ -80,6 +84,18 @@ public class Registro implements Serializable {
 
 	public void addComplejo(Complejo c) {
 		this.complejos.add(c);
+	}
+
+	public List<Ue> getUes() {
+		return ues;
+	}
+
+	public void setUes(List<Ue> ues) {
+		this.ues = ues;
+	}
+	
+	public void addUes(Ue ue) {
+		this.ues.add(ue);
 	}
 
 
