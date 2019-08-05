@@ -1305,26 +1305,64 @@
 							<!-- Fila 25-->
 							<tr>
 								<td></td>
-								<td><button type="button" class="btn btn-default btn-sm">000</button></td>
-								<td><button type="button" class="btn btn-default btn-sm">000</button></td>
-								<td><button type="button" class="btn btn-default btn-sm">000</button></td>
+								<td><button type="button"
+										class="btn btn-default btn-sm text-center btn-block"
+										th:text="${planta.getPuestos().get(80).getIdPuesto()}"></button></td>
+								<td><button type="button"
+										class="btn btn-default btn-sm text-center btn-block"
+										th:text="${planta.getPuestos().get(81).getIdPuesto()}"></button></td>
+								<td><button type="button"
+										class="btn btn-default btn-sm text-center btn-block"
+										th:text="${planta.getPuestos().get(82).getIdPuesto()}"></button></td>
+								<td><button type="button"
+										class="btn btn-default btn-sm text-center btn-block"
+										th:text="${planta.getPuestos().get(176).getIdPuesto()}"></button></td>
 
-								<td><button type="button" class="btn btn-default btn-sm">000</button></td>
-								<td><button type="button" class="btn btn-default btn-sm">000</button></td>
-								<td><button type="button" class="btn btn-default btn-sm">000</button></td>
-								<td><button type="button" class="btn btn-default btn-sm">000</button></td>
+								<td><button type="button"
+										class="btn btn-default btn-sm text-center btn-block"
+										th:text="${planta.getPuestos().get(83).getIdPuesto()}"></button></td>
+
+								<td><button type="button"
+										class="btn btn-default btn-sm text-center btn-block"
+										th:text="${planta.getPuestos().get(84).getIdPuesto()}"></button></td>
+
+								<td><button type="button"
+										class="btn btn-default btn-sm text-center btn-block"
+										th:text="${planta.getPuestos().get(85).getIdPuesto()}"></button></td>
+
 
 								<td></td>
 								<td></td>
-								<td><button type="button" class="btn btn-default btn-sm">000</button></td>
-								<td><button type="button" class="btn btn-default btn-sm">000</button></td>
+								<td><button type="button"
+										class="btn btn-default btn-sm text-center btn-block"
+										th:text="${planta.getPuestos().get(86).getIdPuesto()}"></button></td>
 
-								<td><button type="button" class="btn btn-default btn-sm">000</button></td>
-								<td><button type="button" class="btn btn-default btn-sm">000</button></td>
-								<td><button type="button" class="btn btn-default btn-sm">000</button></td>
-								<td><button type="button" class="btn btn-default btn-sm">000</button></td>
+								<td><button type="button"
+										class="btn btn-default btn-sm text-center btn-block"
+										th:text="${planta.getPuestos().get(88).getIdPuesto()}"></button></td>
 
-								<td><button type="button" class="btn btn-default btn-sm">000</button></td>
+
+								<td><button type="button"
+										class="btn btn-default btn-sm text-center btn-block"
+										th:text="${planta.getPuestos().get(89).getIdPuesto()}"></button></td>
+
+								<td><button type="button"
+										class="btn btn-default btn-sm text-center btn-block"
+										th:text="${planta.getPuestos().get(177).getIdPuesto()}"></button></td>
+
+								<td><button type="button"
+										class="btn btn-default btn-sm text-center btn-block"
+										th:text="${planta.getPuestos().get(90).getIdPuesto()}"></button></td>
+
+								<td><button type="button"
+										class="btn btn-default btn-sm text-center btn-block"
+										th:text="${planta.getPuestos().get(91).getIdPuesto()}"></button></td>
+
+
+								<td><button type="button"
+										class="btn btn-default btn-sm text-center btn-block"
+										th:text="${planta.getPuestos().get(92).getIdPuesto()}"></button></td>
+
 								<td></td>
 
 							</tr>
@@ -1345,13 +1383,13 @@
 								<td><button type="button"
 										class="btn btn-default btn-sm text-center btn-block"
 										th:text="${planta.getPuestos().get(178).getIdPuesto()}"></button></td>
-										<td><button type="button"
+								<td><button type="button"
 										class="btn btn-default btn-sm text-center btn-block"
 										th:text="${planta.getPuestos().get(96).getIdPuesto()}"></button></td>
-										<td><button type="button"
+								<td><button type="button"
 										class="btn btn-default btn-sm text-center btn-block"
 										th:text="${planta.getPuestos().get(97).getIdPuesto()}"></button></td>
-										<td><button type="button"
+								<td><button type="button"
 										class="btn btn-default btn-sm text-center btn-block"
 										th:text="${planta.getPuestos().get(100).getIdPuesto()}"></button></td>
 
@@ -1376,7 +1414,7 @@
 								<td><button type="button"
 										class="btn btn-default btn-sm text-center btn-block"
 										th:text="${planta.getPuestos().get(105).getIdPuesto()}"></button></td>
-								
+
 								<td><button type="button"
 										class="btn btn-default btn-sm text-center btn-block"
 										th:text="${planta.getPuestos().get(106).getIdPuesto()}"></button></td>
@@ -1389,26 +1427,96 @@
 							<!-- Fila 27-->
 							<tr>
 								<td></td>
-								<td class="text-center">Nombre</td>
-								<td class="text-center">Nombre</td>
-								<td class="text-center">Nombre</td>
+								<td class="text-center"
+									th:switch="${planta.getPuestos().get(93).isOcupado()}"><span
+									th:case="false" class="text-center">VACIO</span> <span
+									th:case="true"
+									th:text="${planta.getPuestos().get(93).getEmpleado().getApellido()}"></span>
+								</td>
+								<td class="text-center"
+									th:switch="${planta.getPuestos().get(94).isOcupado()}"><span
+									th:case="false" class="text-center">VACIO</span> <span
+									th:case="true"
+									th:text="${planta.getPuestos().get(94).getEmpleado().getApellido()}"></span>
+								</td>
+								<td class="text-center"
+									th:switch="${planta.getPuestos().get(95).isOcupado()}"><span
+									th:case="false" class="text-center">VACIO</span> <span
+									th:case="true"
+									th:text="${planta.getPuestos().get(95).getEmpleado().getApellido()}"></span>
+								</td>
 
-								<td class="text-center">Nombre</td>
-								<td class="text-center">Nombre</td>
-								<td class="text-center">Nombre</td>
-								<td class="text-center">Nombre</td>
+								<td class="text-center"
+									th:switch="${planta.getPuestos().get(178).isOcupado()}"><span
+									th:case="false" class="text-center">VACIO</span> <span
+									th:case="true"
+									th:text="${planta.getPuestos().get(178).getEmpleado().getApellido()}"></span>
+								</td>
+								<td class="text-center"
+									th:switch="${planta.getPuestos().get(96).isOcupado()}"><span
+									th:case="false" class="text-center">VACIO</span> <span
+									th:case="true"
+									th:text="${planta.getPuestos().get(96).getEmpleado().getApellido()}"></span>
+								</td>
+								<td class="text-center"
+									th:switch="${planta.getPuestos().get(97).isOcupado()}"><span
+									th:case="false" class="text-center">VACIO</span> <span
+									th:case="true"
+									th:text="${planta.getPuestos().get(97).getEmpleado().getApellido()}"></span>
+								</td>
+								<td class="text-center"
+									th:switch="${planta.getPuestos().get(100).isOcupado()}"><span
+									th:case="false" class="text-center">VACIO</span> <span
+									th:case="true"
+									th:text="${planta.getPuestos().get(100).getEmpleado().getApellido()}"></span>
+								</td>
 
 								<td></td>
 								<td></td>
-								<td class="text-center">Nombre</td>
-								<td class="text-center">Nombre</td>
+								<td class="text-center"
+									th:switch="${planta.getPuestos().get(101).isOcupado()}"><span
+									th:case="false" class="text-center">VACIO</span> <span
+									th:case="true"
+									th:text="${planta.getPuestos().get(101).getEmpleado().getApellido()}"></span>
+								</td>
+								<td class="text-center"
+									th:switch="${planta.getPuestos().get(102).isOcupado()}"><span
+									th:case="false" class="text-center">VACIO</span> <span
+									th:case="true"
+									th:text="${planta.getPuestos().get(102).getEmpleado().getApellido()}"></span>
+								</td>
 
-								<td class="text-center">Nombre</td>
-								<td class="text-center">Nombre</td>
-								<td class="text-center">Nombre</td>
-								<td class="text-center">Nombre</td>
+								<td class="text-center"
+									th:switch="${planta.getPuestos().get(103).isOcupado()}"><span
+									th:case="false" class="text-center">VACIO</span> <span
+									th:case="true"
+									th:text="${planta.getPuestos().get(103).getEmpleado().getApellido()}"></span>
+								</td>
+								<td class="text-center"
+									th:switch="${planta.getPuestos().get(179).isOcupado()}"><span
+									th:case="false" class="text-center">VACIO</span> <span
+									th:case="true"
+									th:text="${planta.getPuestos().get(179).getEmpleado().getApellido()}"></span>
+								</td>
+								<td class="text-center"
+									th:switch="${planta.getPuestos().get(104).isOcupado()}"><span
+									th:case="false" class="text-center">VACIO</span> <span
+									th:case="true"
+									th:text="${planta.getPuestos().get(104).getEmpleado().getApellido()}"></span>
+								</td>
+								<td class="text-center"
+									th:switch="${planta.getPuestos().get(105).isOcupado()}"><span
+									th:case="false" class="text-center">VACIO</span> <span
+									th:case="true"
+									th:text="${planta.getPuestos().get(105).getEmpleado().getApellido()}"></span>
+								</td>
 
-								<td class="text-center">Nombre</td>
+								<td class="text-center"
+									th:switch="${planta.getPuestos().get(106).isOcupado()}"><span
+									th:case="false" class="text-center">VACIO</span> <span
+									th:case="true"
+									th:text="${planta.getPuestos().get(106).getEmpleado().getApellido()}"></span>
+								</td>
 								<td></td>
 
 							</tr>
@@ -1500,26 +1608,96 @@
 							<!-- Fila 31-->
 							<tr>
 								<td></td>
-								<td class="text-center">Nombre</td>
-								<td class="text-center">Nombre</td>
-								<td class="text-center">Nombre</td>
+								<td class="text-center"
+									th:switch="${planta.getPuestos().get(107).isOcupado()}"><span
+									th:case="false" class="text-center">VACIO</span> <span
+									th:case="true"
+									th:text="${planta.getPuestos().get(107).getEmpleado().getApellido()}"></span>
+								</td>
+								<td class="text-center"
+									th:switch="${planta.getPuestos().get(108).isOcupado()}"><span
+									th:case="false" class="text-center">VACIO</span> <span
+									th:case="true"
+									th:text="${planta.getPuestos().get(108).getEmpleado().getApellido()}"></span>
+								</td>
+								<td class="text-center"
+									th:switch="${planta.getPuestos().get(109).isOcupado()}"><span
+									th:case="false" class="text-center">VACIO</span> <span
+									th:case="true"
+									th:text="${planta.getPuestos().get(109).getEmpleado().getApellido()}"></span>
+								</td>
 
-								<td class="text-center">Nombre</td>
-								<td class="text-center">Nombre</td>
-								<td class="text-center">Nombre</td>
-								<td class="text-center">Nombre</td>
+								<td class="text-center"
+									th:switch="${planta.getPuestos().get(180).isOcupado()}"><span
+									th:case="false" class="text-center">VACIO</span> <span
+									th:case="true"
+									th:text="${planta.getPuestos().get(180).getEmpleado().getApellido()}"></span>
+								</td>
+								<td class="text-center"
+									th:switch="${planta.getPuestos().get(111).isOcupado()}"><span
+									th:case="false" class="text-center">VACIO</span> <span
+									th:case="true"
+									th:text="${planta.getPuestos().get(111).getEmpleado().getApellido()}"></span>
+								</td>
+								<td class="text-center"
+									th:switch="${planta.getPuestos().get(112).isOcupado()}"><span
+									th:case="false" class="text-center">VACIO</span> <span
+									th:case="true"
+									th:text="${planta.getPuestos().get(112).getEmpleado().getApellido()}"></span>
+								</td>
+								<td class="text-center"
+									th:switch="${planta.getPuestos().get(113).isOcupado()}"><span
+									th:case="false" class="text-center">VACIO</span> <span
+									th:case="true"
+									th:text="${planta.getPuestos().get(113).getEmpleado().getApellido()}"></span>
+								</td>
 
 								<td></td>
 								<td></td>
-								<td class="text-center">Nombre</td>
-								<td class="text-center">Nombre</td>
+								<td class="text-center"
+									th:switch="${planta.getPuestos().get(114).isOcupado()}"><span
+									th:case="false" class="text-center">VACIO</span> <span
+									th:case="true"
+									th:text="${planta.getPuestos().get(114).getEmpleado().getApellido()}"></span>
+								</td>
+								<td class="text-center"
+									th:switch="${planta.getPuestos().get(115).isOcupado()}"><span
+									th:case="false" class="text-center">VACIO</span> <span
+									th:case="true"
+									th:text="${planta.getPuestos().get(115).getEmpleado().getApellido()}"></span>
+								</td>
 
-								<td class="text-center">Nombre</td>
-								<td class="text-center">Nombre</td>
-								<td class="text-center">Nombre</td>
-								<td class="text-center">Nombre</td>
+								<td class="text-center"
+									th:switch="${planta.getPuestos().get(116).isOcupado()}"><span
+									th:case="false" class="text-center">VACIO</span> <span
+									th:case="true"
+									th:text="${planta.getPuestos().get(116).getEmpleado().getApellido()}"></span>
+								</td>
+								<td class="text-center"
+									th:switch="${planta.getPuestos().get(181).isOcupado()}"><span
+									th:case="false" class="text-center">VACIO</span> <span
+									th:case="true"
+									th:text="${planta.getPuestos().get(181).getEmpleado().getApellido()}"></span>
+								</td>
+								<td class="text-center"
+									th:switch="${planta.getPuestos().get(117).isOcupado()}"><span
+									th:case="false" class="text-center">VACIO</span> <span
+									th:case="true"
+									th:text="${planta.getPuestos().get(117).getEmpleado().getApellido()}"></span>
+								</td>
+								<td class="text-center"
+									th:switch="${planta.getPuestos().get(118).isOcupado()}"><span
+									th:case="false" class="text-center">VACIO</span> <span
+									th:case="true"
+									th:text="${planta.getPuestos().get(118).getEmpleado().getApellido()}"></span>
+								</td>
 
-								<td class="text-center">Nombre</td>
+								<td class="text-center"
+									th:switch="${planta.getPuestos().get(119).isOcupado()}"><span
+									th:case="false" class="text-center">VACIO</span> <span
+									th:case="true"
+									th:text="${planta.getPuestos().get(119).getEmpleado().getApellido()}"></span>
+								</td>
 								<td></td>
 
 							</tr>
@@ -1529,26 +1707,54 @@
 							<!-- Fila 32-->
 							<tr>
 								<td></td>
-								<td><button type="button" class="btn btn-default btn-sm">000</button></td>
-								<td><button type="button" class="btn btn-default btn-sm">000</button></td>
-								<td><button type="button" class="btn btn-default btn-sm">000</button></td>
+								<td><button type="button"
+										class="btn btn-default btn-sm text-center btn-block"
+										th:text="${planta.getPuestos().get(107).getIdPuesto()}"></button></td>
+								<td><button type="button"
+										class="btn btn-default btn-sm text-center btn-block"
+										th:text="${planta.getPuestos().get(108).getIdPuesto()}"></button></td>
+								<td><button type="button"
+										class="btn btn-default btn-sm text-center btn-block"
+										th:text="${planta.getPuestos().get(109).getIdPuesto()}"></button></td>
 
-								<td><button type="button" class="btn btn-default btn-sm">000</button></td>
-								<td><button type="button" class="btn btn-default btn-sm">000</button></td>
-								<td><button type="button" class="btn btn-default btn-sm">000</button></td>
-								<td><button type="button" class="btn btn-default btn-sm">000</button></td>
+								<td><button type="button"
+										class="btn btn-default btn-sm text-center btn-block"
+										th:text="${planta.getPuestos().get(180).getIdPuesto()}"></button></td>
+								<td><button type="button"
+										class="btn btn-default btn-sm text-center btn-block"
+										th:text="${planta.getPuestos().get(111).getIdPuesto()}"></button></td>
+								<td><button type="button"
+										class="btn btn-default btn-sm text-center btn-block"
+										th:text="${planta.getPuestos().get(112).getIdPuesto()}"></button></td>
+								<td><button type="button"
+										class="btn btn-default btn-sm text-center btn-block"
+										th:text="${planta.getPuestos().get(113).getIdPuesto()}"></button></td>
 
 								<td></td>
 								<td></td>
-								<td><button type="button" class="btn btn-default btn-sm">000</button></td>
-								<td><button type="button" class="btn btn-default btn-sm">000</button></td>
+								<td><button type="button"
+										class="btn btn-default btn-sm text-center btn-block"
+										th:text="${planta.getPuestos().get(114).getIdPuesto()}"></button></td>
+								<td><button type="button"
+										class="btn btn-default btn-sm text-center btn-block"
+										th:text="${planta.getPuestos().get(115).getIdPuesto()}"></button></td>
 
-								<td><button type="button" class="btn btn-default btn-sm">000</button></td>
-								<td><button type="button" class="btn btn-default btn-sm">000</button></td>
-								<td><button type="button" class="btn btn-default btn-sm">000</button></td>
-								<td><button type="button" class="btn btn-default btn-sm">000</button></td>
+								<td><button type="button"
+										class="btn btn-default btn-sm text-center btn-block"
+										th:text="${planta.getPuestos().get(116).getIdPuesto()}"></button></td>
+								<td><button type="button"
+										class="btn btn-default btn-sm text-center btn-block"
+										th:text="${planta.getPuestos().get(181).getIdPuesto()}"></button></td>
+								<td><button type="button"
+										class="btn btn-default btn-sm text-center btn-block"
+										th:text="${planta.getPuestos().get(117).getIdPuesto()}"></button></td>
+								<td><button type="button"
+										class="btn btn-default btn-sm text-center btn-block"
+										th:text="${planta.getPuestos().get(118).getIdPuesto()}"></button></td>
 
-								<td><button type="button" class="btn btn-default btn-sm">000</button></td>
+								<td><button type="button"
+										class="btn btn-default btn-sm text-center btn-block"
+										th:text="${planta.getPuestos().get(119).getIdPuesto()}"></button></td>
 								<td></td>
 
 							</tr>
@@ -1557,26 +1763,54 @@
 							<!-- Fila 33-->
 							<tr>
 								<td></td>
-								<td><button type="button" class="btn btn-default btn-sm">000</button></td>
-								<td><button type="button" class="btn btn-default btn-sm">000</button></td>
-								<td><button type="button" class="btn btn-default btn-sm">000</button></td>
+								<td><button type="button"
+										class="btn btn-default btn-sm text-center btn-block"
+										th:text="${planta.getPuestos().get(120).getIdPuesto()}"></button></td>
+								<td><button type="button"
+										class="btn btn-default btn-sm text-center btn-block"
+										th:text="${planta.getPuestos().get(122).getIdPuesto()}"></button></td>
+								<td><button type="button"
+										class="btn btn-default btn-sm text-center btn-block"
+										th:text="${planta.getPuestos().get(123).getIdPuesto()}"></button></td>
 
-								<td><button type="button" class="btn btn-default btn-sm">000</button></td>
-								<td><button type="button" class="btn btn-default btn-sm">000</button></td>
-								<td><button type="button" class="btn btn-default btn-sm">000</button></td>
-								<td><button type="button" class="btn btn-default btn-sm">000</button></td>
+								<td><button type="button"
+										class="btn btn-default btn-sm text-center btn-block"
+										th:text="${planta.getPuestos().get(182).getIdPuesto()}"></button></td>
+								<td><button type="button"
+										class="btn btn-default btn-sm text-center btn-block"
+										th:text="${planta.getPuestos().get(124).getIdPuesto()}"></button></td>
+								<td><button type="button"
+										class="btn btn-default btn-sm text-center btn-block"
+										th:text="${planta.getPuestos().get(125).getIdPuesto()}"></button></td>
+								<td><button type="button"
+										class="btn btn-default btn-sm text-center btn-block"
+										th:text="${planta.getPuestos().get(126).getIdPuesto()}"></button></td>
 
 								<td></td>
 								<td></td>
-								<td><button type="button" class="btn btn-default btn-sm">000</button></td>
-								<td><button type="button" class="btn btn-default btn-sm">000</button></td>
+								<td><button type="button"
+										class="btn btn-default btn-sm text-center btn-block"
+										th:text="${planta.getPuestos().get(127).getIdPuesto()}"></button></td>
+								<td><button type="button"
+										class="btn btn-default btn-sm text-center btn-block"
+										th:text="${planta.getPuestos().get(128).getIdPuesto()}"></button></td>
 
-								<td><button type="button" class="btn btn-default btn-sm">000</button></td>
-								<td><button type="button" class="btn btn-default btn-sm">000</button></td>
-								<td><button type="button" class="btn btn-default btn-sm">000</button></td>
-								<td><button type="button" class="btn btn-default btn-sm">000</button></td>
+								<td><button type="button"
+										class="btn btn-default btn-sm text-center btn-block"
+										th:text="${planta.getPuestos().get(129).getIdPuesto()}"></button></td>
+								<td><button type="button"
+										class="btn btn-default btn-sm text-center btn-block"
+										th:text="${planta.getPuestos().get(183).getIdPuesto()}"></button></td>
+								<td><button type="button"
+										class="btn btn-default btn-sm text-center btn-block"
+										th:text="${planta.getPuestos().get(130).getIdPuesto()}"></button></td>
+								<td><button type="button"
+										class="btn btn-default btn-sm text-center btn-block"
+										th:text="${planta.getPuestos().get(131).getIdPuesto()}"></button></td>
 
-								<td><button type="button" class="btn btn-default btn-sm">000</button></td>
+								<td><button type="button"
+										class="btn btn-default btn-sm text-center btn-block"
+										th:text="${planta.getPuestos().get(133).getIdPuesto()}"></button></td>
 								<td></td>
 
 							</tr>
@@ -1585,26 +1819,96 @@
 							<!-- Fila 34-->
 							<tr>
 								<td></td>
-								<td class="text-center">Nombre</td>
-								<td class="text-center">Nombre</td>
-								<td class="text-center">Nombre</td>
+								<td class="text-center"
+									th:switch="${planta.getPuestos().get(120).isOcupado()}"><span
+									th:case="false" class="text-center">VACIO</span> <span
+									th:case="true"
+									th:text="${planta.getPuestos().get(120).getEmpleado().getApellido()}"></span>
+								</td>
+								<td class="text-center"
+									th:switch="${planta.getPuestos().get(122).isOcupado()}"><span
+									th:case="false" class="text-center">VACIO</span> <span
+									th:case="true"
+									th:text="${planta.getPuestos().get(122).getEmpleado().getApellido()}"></span>
+								</td>
 
-								<td class="text-center">Nombre</td>
-								<td class="text-center">Nombre</td>
-								<td class="text-center">Nombre</td>
-								<td class="text-center">Nombre</td>
+								<td class="text-center"
+									th:switch="${planta.getPuestos().get(123).isOcupado()}"><span
+									th:case="false" class="text-center">VACIO</span> <span
+									th:case="true"
+									th:text="${planta.getPuestos().get(123).getEmpleado().getApellido()}"></span>
+								</td>
+								<td class="text-center"
+									th:switch="${planta.getPuestos().get(182).isOcupado()}"><span
+									th:case="false" class="text-center">VACIO</span> <span
+									th:case="true"
+									th:text="${planta.getPuestos().get(182).getEmpleado().getApellido()}"></span>
+								</td>
+								<td class="text-center"
+									th:switch="${planta.getPuestos().get(124).isOcupado()}"><span
+									th:case="false" class="text-center">VACIO</span> <span
+									th:case="true"
+									th:text="${planta.getPuestos().get(124).getEmpleado().getApellido()}"></span>
+								</td>
+								<td class="text-center"
+									th:switch="${planta.getPuestos().get(125).isOcupado()}"><span
+									th:case="false" class="text-center">VACIO</span> <span
+									th:case="true"
+									th:text="${planta.getPuestos().get(125).getEmpleado().getApellido()}"></span>
+								</td>
+								<td class="text-center"
+									th:switch="${planta.getPuestos().get(126).isOcupado()}"><span
+									th:case="false" class="text-center">VACIO</span> <span
+									th:case="true"
+									th:text="${planta.getPuestos().get(126).getEmpleado().getApellido()}"></span>
+								</td>
 
 								<td></td>
 								<td></td>
-								<td class="text-center">Nombre</td>
-								<td class="text-center">Nombre</td>
+								<td class="text-center"
+									th:switch="${planta.getPuestos().get(127).isOcupado()}"><span
+									th:case="false" class="text-center">VACIO</span> <span
+									th:case="true"
+									th:text="${planta.getPuestos().get(127).getEmpleado().getApellido()}"></span>
+								</td>
+								<td class="text-center"
+									th:switch="${planta.getPuestos().get(128).isOcupado()}"><span
+									th:case="false" class="text-center">VACIO</span> <span
+									th:case="true"
+									th:text="${planta.getPuestos().get(128).getEmpleado().getApellido()}"></span>
+								</td>
 
-								<td class="text-center">Nombre</td>
-								<td class="text-center">Nombre</td>
-								<td class="text-center">Nombre</td>
-								<td class="text-center">Nombre</td>
+								<td class="text-center"
+									th:switch="${planta.getPuestos().get(129).isOcupado()}"><span
+									th:case="false" class="text-center">VACIO</span> <span
+									th:case="true"
+									th:text="${planta.getPuestos().get(129).getEmpleado().getApellido()}"></span>
+								</td>
+								<td class="text-center"
+									th:switch="${planta.getPuestos().get(183).isOcupado()}"><span
+									th:case="false" class="text-center">VACIO</span> <span
+									th:case="true"
+									th:text="${planta.getPuestos().get(183).getEmpleado().getApellido()}"></span>
+								</td>
+								<td class="text-center"
+									th:switch="${planta.getPuestos().get(130).isOcupado()}"><span
+									th:case="false" class="text-center">VACIO</span> <span
+									th:case="true"
+									th:text="${planta.getPuestos().get(130).getEmpleado().getApellido()}"></span>
+								</td>
+								<td class="text-center"
+									th:switch="${planta.getPuestos().get(131).isOcupado()}"><span
+									th:case="false" class="text-center">VACIO</span> <span
+									th:case="true"
+									th:text="${planta.getPuestos().get(131).getEmpleado().getApellido()}"></span>
+								</td>
 
-								<td class="text-center">Nombre</td>
+								<td class="text-center"
+									th:switch="${planta.getPuestos().get(133).isOcupado()}"><span
+									th:case="false" class="text-center">VACIO</span> <span
+									th:case="true"
+									th:text="${planta.getPuestos().get(133).getEmpleado().getApellido()}"></span>
+								</td>
 								<td></td>
 
 							</tr>
@@ -1613,26 +1917,96 @@
 							<!-- Fila 35-->
 							<tr>
 								<td></td>
-								<td class="text-center">Nombre</td>
-								<td class="text-center">Nombre</td>
-								<td class="text-center">Nombre</td>
+								<td class="text-center"
+									th:switch="${planta.getPuestos().get(134).isOcupado()}"><span
+									th:case="false" class="text-center">VACIO</span> <span
+									th:case="true"
+									th:text="${planta.getPuestos().get(134).getEmpleado().getApellido()}"></span>
+								</td>
+								<td class="text-center"
+									th:switch="${planta.getPuestos().get(135).isOcupado()}"><span
+									th:case="false" class="text-center">VACIO</span> <span
+									th:case="true"
+									th:text="${planta.getPuestos().get(135).getEmpleado().getApellido()}"></span>
+								</td>
+								<td class="text-center"
+									th:switch="${planta.getPuestos().get(136).isOcupado()}"><span
+									th:case="false" class="text-center">VACIO</span> <span
+									th:case="true"
+									th:text="${planta.getPuestos().get(136).getEmpleado().getApellido()}"></span>
+								</td>
 
-								<td class="text-center">Nombre</td>
-								<td class="text-center">Nombre</td>
-								<td class="text-center">Nombre</td>
-								<td class="text-center">Nombre</td>
+								<td class="text-center"
+									th:switch="${planta.getPuestos().get(184).isOcupado()}"><span
+									th:case="false" class="text-center">VACIO</span> <span
+									th:case="true"
+									th:text="${planta.getPuestos().get(184).getEmpleado().getApellido()}"></span>
+								</td>
+								<td class="text-center"
+									th:switch="${planta.getPuestos().get(137).isOcupado()}"><span
+									th:case="false" class="text-center">VACIO</span> <span
+									th:case="true"
+									th:text="${planta.getPuestos().get(137).getEmpleado().getApellido()}"></span>
+								</td>
+								<td class="text-center"
+									th:switch="${planta.getPuestos().get(138).isOcupado()}"><span
+									th:case="false" class="text-center">VACIO</span> <span
+									th:case="true"
+									th:text="${planta.getPuestos().get(138).getEmpleado().getApellido()}"></span>
+								</td>
+								<td class="text-center"
+									th:switch="${planta.getPuestos().get(139).isOcupado()}"><span
+									th:case="false" class="text-center">VACIO</span> <span
+									th:case="true"
+									th:text="${planta.getPuestos().get(139).getEmpleado().getApellido()}"></span>
+								</td>
 
 								<td></td>
 								<td></td>
-								<td class="text-center">Nombre</td>
-								<td class="text-center">Nombre</td>
+								<td class="text-center"
+									th:switch="${planta.getPuestos().get(140).isOcupado()}"><span
+									th:case="false" class="text-center">VACIO</span> <span
+									th:case="true"
+									th:text="${planta.getPuestos().get(140).getEmpleado().getApellido()}"></span>
+								</td>
+								<td class="text-center"
+									th:switch="${planta.getPuestos().get(141).isOcupado()}"><span
+									th:case="false" class="text-center">VACIO</span> <span
+									th:case="true"
+									th:text="${planta.getPuestos().get(141).getEmpleado().getApellido()}"></span>
+								</td>
 
-								<td class="text-center">Nombre</td>
-								<td class="text-center">Nombre</td>
-								<td class="text-center">Nombre</td>
-								<td class="text-center">Nombre</td>
+								<td class="text-center"
+									th:switch="${planta.getPuestos().get(142).isOcupado()}"><span
+									th:case="false" class="text-center">VACIO</span> <span
+									th:case="true"
+									th:text="${planta.getPuestos().get(142).getEmpleado().getApellido()}"></span>
+								</td>
+								<td class="text-center"
+									th:switch="${planta.getPuestos().get(185).isOcupado()}"><span
+									th:case="false" class="text-center">VACIO</span> <span
+									th:case="true"
+									th:text="${planta.getPuestos().get(185).getEmpleado().getApellido()}"></span>
+								</td>
+								<td class="text-center"
+									th:switch="${planta.getPuestos().get(144).isOcupado()}"><span
+									th:case="false" class="text-center">VACIO</span> <span
+									th:case="true"
+									th:text="${planta.getPuestos().get(144).getEmpleado().getApellido()}"></span>
+								</td>
+								<td class="text-center"
+									th:switch="${planta.getPuestos().get(145).isOcupado()}"><span
+									th:case="false" class="text-center">VACIO</span> <span
+									th:case="true"
+									th:text="${planta.getPuestos().get(145).getEmpleado().getApellido()}"></span>
+								</td>
 
-								<td class="text-center">Nombre</td>
+								<td class="text-center"
+									th:switch="${planta.getPuestos().get(146).isOcupado()}"><span
+									th:case="false" class="text-center">VACIO</span> <span
+									th:case="true"
+									th:text="${planta.getPuestos().get(146).getEmpleado().getApellido()}"></span>
+								</td>
 								<td></td>
 
 							</tr>
@@ -1641,26 +2015,54 @@
 							<!-- Fila 36-->
 							<tr>
 								<td></td>
-								<td><button type="button" class="btn btn-default btn-sm">000</button></td>
-								<td><button type="button" class="btn btn-default btn-sm">000</button></td>
-								<td><button type="button" class="btn btn-default btn-sm">000</button></td>
+								<td><button type="button"
+										class="btn btn-default btn-sm text-center btn-block"
+										th:text="${planta.getPuestos().get(134).getIdPuesto()}"></button></td>
+								<td><button type="button"
+										class="btn btn-default btn-sm text-center btn-block"
+										th:text="${planta.getPuestos().get(135).getIdPuesto()}"></button></td>
+								<td><button type="button"
+										class="btn btn-default btn-sm text-center btn-block"
+										th:text="${planta.getPuestos().get(136).getIdPuesto()}"></button></td>
 
-								<td><button type="button" class="btn btn-default btn-sm">000</button></td>
-								<td><button type="button" class="btn btn-default btn-sm">000</button></td>
-								<td><button type="button" class="btn btn-default btn-sm">000</button></td>
-								<td><button type="button" class="btn btn-default btn-sm">000</button></td>
+								<td><button type="button"
+										class="btn btn-default btn-sm text-center btn-block"
+										th:text="${planta.getPuestos().get(184).getIdPuesto()}"></button></td>
+								<td><button type="button"
+										class="btn btn-default btn-sm text-center btn-block"
+										th:text="${planta.getPuestos().get(137).getIdPuesto()}"></button></td>
+								<td><button type="button"
+										class="btn btn-default btn-sm text-center btn-block"
+										th:text="${planta.getPuestos().get(138).getIdPuesto()}"></button></td>
+								<td><button type="button"
+										class="btn btn-default btn-sm text-center btn-block"
+										th:text="${planta.getPuestos().get(139).getIdPuesto()}"></button></td>
 
 								<td></td>
 								<td></td>
-								<td><button type="button" class="btn btn-default btn-sm">000</button></td>
-								<td><button type="button" class="btn btn-default btn-sm">000</button></td>
+								<td><button type="button"
+										class="btn btn-default btn-sm text-center btn-block"
+										th:text="${planta.getPuestos().get(140).getIdPuesto()}"></button></td>
+								<td><button type="button"
+										class="btn btn-default btn-sm text-center btn-block"
+										th:text="${planta.getPuestos().get(141).getIdPuesto()}"></button></td>
 
-								<td><button type="button" class="btn btn-default btn-sm">000</button></td>
-								<td><button type="button" class="btn btn-default btn-sm">000</button></td>
-								<td><button type="button" class="btn btn-default btn-sm">000</button></td>
-								<td><button type="button" class="btn btn-default btn-sm">000</button></td>
+								<td><button type="button"
+										class="btn btn-default btn-sm text-center btn-block"
+										th:text="${planta.getPuestos().get(142).getIdPuesto()}"></button></td>
+								<td><button type="button"
+										class="btn btn-default btn-sm text-center btn-block"
+										th:text="${planta.getPuestos().get(185).getIdPuesto()}"></button></td>
+								<td><button type="button"
+										class="btn btn-default btn-sm text-center btn-block"
+										th:text="${planta.getPuestos().get(144).getIdPuesto()}"></button></td>
+								<td><button type="button"
+										class="btn btn-default btn-sm text-center btn-block"
+										th:text="${planta.getPuestos().get(145).getIdPuesto()}"></button></td>
 
-								<td><button type="button" class="btn btn-default btn-sm">000</button></td>
+								<td><button type="button"
+										class="btn btn-default btn-sm text-center btn-block"
+										th:text="${planta.getPuestos().get(146).getIdPuesto()}"></button></td>
 								<td></td>
 
 							</tr>
@@ -1669,26 +2071,54 @@
 							<!-- Fila 37-->
 							<tr>
 								<td></td>
-								<td><button type="button" class="btn btn-default btn-sm">000</button></td>
-								<td><button type="button" class="btn btn-default btn-sm">000</button></td>
-								<td><button type="button" class="btn btn-default btn-sm">000</button></td>
+								<td><button type="button"
+										class="btn btn-default btn-sm text-center btn-block"
+										th:text="${planta.getPuestos().get(147).getIdPuesto()}"></button></td>
+								<td><button type="button"
+										class="btn btn-default btn-sm text-center btn-block"
+										th:text="${planta.getPuestos().get(148).getIdPuesto()}"></button></td>
+								<td><button type="button"
+										class="btn btn-default btn-sm text-center btn-block"
+										th:text="${planta.getPuestos().get(149).getIdPuesto()}"></button></td>
 
-								<td><button type="button" class="btn btn-default btn-sm">000</button></td>
-								<td><button type="button" class="btn btn-default btn-sm">000</button></td>
-								<td><button type="button" class="btn btn-default btn-sm">000</button></td>
-								<td><button type="button" class="btn btn-default btn-sm">000</button></td>
+								<td><button type="button"
+										class="btn btn-default btn-sm text-center btn-block"
+										th:text="${planta.getPuestos().get(186).getIdPuesto()}"></button></td>
+								<td><button type="button"
+										class="btn btn-default btn-sm text-center btn-block"
+										th:text="${planta.getPuestos().get(150).getIdPuesto()}"></button></td>
+								<td><button type="button"
+										class="btn btn-default btn-sm text-center btn-block"
+										th:text="${planta.getPuestos().get(151).getIdPuesto()}"></button></td>
+								<td><button type="button"
+										class="btn btn-default btn-sm text-center btn-block"
+										th:text="${planta.getPuestos().get(152).getIdPuesto()}"></button></td>
 
 								<td></td>
 								<td></td>
-								<td><button type="button" class="btn btn-default btn-sm">000</button></td>
-								<td><button type="button" class="btn btn-default btn-sm">000</button></td>
+								<td><button type="button"
+										class="btn btn-default btn-sm text-center btn-block"
+										th:text="${planta.getPuestos().get(153).getIdPuesto()}"></button></td>
+								<td><button type="button"
+										class="btn btn-default btn-sm text-center btn-block"
+										th:text="${planta.getPuestos().get(155).getIdPuesto()}"></button></td>
 
-								<td><button type="button" class="btn btn-default btn-sm">000</button></td>
-								<td><button type="button" class="btn btn-default btn-sm">000</button></td>
-								<td><button type="button" class="btn btn-default btn-sm">000</button></td>
-								<td><button type="button" class="btn btn-default btn-sm">000</button></td>
+								<td><button type="button"
+										class="btn btn-default btn-sm text-center btn-block"
+										th:text="${planta.getPuestos().get(156).getIdPuesto()}"></button></td>
+								<td><button type="button"
+										class="btn btn-default btn-sm text-center btn-block"
+										th:text="${planta.getPuestos().get(187).getIdPuesto()}"></button></td>
+								<td><button type="button"
+										class="btn btn-default btn-sm text-center btn-block"
+										th:text="${planta.getPuestos().get(157).getIdPuesto()}"></button></td>
+								<td><button type="button"
+										class="btn btn-default btn-sm text-center btn-block"
+										th:text="${planta.getPuestos().get(158).getIdPuesto()}"></button></td>
 
-								<td><button type="button" class="btn btn-default btn-sm">000</button></td>
+								<td><button type="button"
+										class="btn btn-default btn-sm text-center btn-block"
+										th:text="${planta.getPuestos().get(159).getIdPuesto()}"></button></td>
 								<td></td>
 
 							</tr>
@@ -1697,26 +2127,96 @@
 							<!-- Fila 38-->
 							<tr>
 								<td></td>
-								<td class="text-center">Nombre</td>
-								<td class="text-center">Nombre</td>
-								<td class="text-center">Nombre</td>
+								<td class="text-center"
+									th:switch="${planta.getPuestos().get(147).isOcupado()}"><span
+									th:case="false" class="text-center">VACIO</span> <span
+									th:case="true"
+									th:text="${planta.getPuestos().get(147).getEmpleado().getApellido()}"></span>
+								</td>
+								<td class="text-center"
+									th:switch="${planta.getPuestos().get(148).isOcupado()}"><span
+									th:case="false" class="text-center">VACIO</span> <span
+									th:case="true"
+									th:text="${planta.getPuestos().get(148).getEmpleado().getApellido()}"></span>
+								</td>
+								<td class="text-center"
+									th:switch="${planta.getPuestos().get(149).isOcupado()}"><span
+									th:case="false" class="text-center">VACIO</span> <span
+									th:case="true"
+									th:text="${planta.getPuestos().get(149).getEmpleado().getApellido()}"></span>
+								</td>
 
-								<td class="text-center">Nombre</td>
-								<td class="text-center">Nombre</td>
-								<td class="text-center">Nombre</td>
-								<td class="text-center">Nombre</td>
+								<td class="text-center"
+									th:switch="${planta.getPuestos().get(186).isOcupado()}"><span
+									th:case="false" class="text-center">VACIO</span> <span
+									th:case="true"
+									th:text="${planta.getPuestos().get(186).getEmpleado().getApellido()}"></span>
+								</td>
+								<td class="text-center"
+									th:switch="${planta.getPuestos().get(150).isOcupado()}"><span
+									th:case="false" class="text-center">VACIO</span> <span
+									th:case="true"
+									th:text="${planta.getPuestos().get(150).getEmpleado().getApellido()}"></span>
+								</td>
+								<td class="text-center"
+									th:switch="${planta.getPuestos().get(151).isOcupado()}"><span
+									th:case="false" class="text-center">VACIO</span> <span
+									th:case="true"
+									th:text="${planta.getPuestos().get(151).getEmpleado().getApellido()}"></span>
+								</td>
+								<td class="text-center"
+									th:switch="${planta.getPuestos().get(152).isOcupado()}"><span
+									th:case="false" class="text-center">VACIO</span> <span
+									th:case="true"
+									th:text="${planta.getPuestos().get(152).getEmpleado().getApellido()}"></span>
+								</td>
 
 								<td></td>
 								<td></td>
-								<td class="text-center">Nombre</td>
-								<td class="text-center">Nombre</td>
+								<td class="text-center"
+									th:switch="${planta.getPuestos().get(153).isOcupado()}"><span
+									th:case="false" class="text-center">VACIO</span> <span
+									th:case="true"
+									th:text="${planta.getPuestos().get(153).getEmpleado().getApellido()}"></span>
+								</td>
+								<td class="text-center"
+									th:switch="${planta.getPuestos().get(155).isOcupado()}"><span
+									th:case="false" class="text-center">VACIO</span> <span
+									th:case="true"
+									th:text="${planta.getPuestos().get(155).getEmpleado().getApellido()}"></span>
+								</td>
 
-								<td class="text-center">Nombre</td>
-								<td class="text-center">Nombre</td>
-								<td class="text-center">Nombre</td>
-								<td class="text-center">Nombre</td>
+								<td class="text-center"
+									th:switch="${planta.getPuestos().get(156).isOcupado()}"><span
+									th:case="false" class="text-center">VACIO</span> <span
+									th:case="true"
+									th:text="${planta.getPuestos().get(156).getEmpleado().getApellido()}"></span>
+								</td>
+								<td class="text-center"
+									th:switch="${planta.getPuestos().get(187).isOcupado()}"><span
+									th:case="false" class="text-center">VACIO</span> <span
+									th:case="true"
+									th:text="${planta.getPuestos().get(187).getEmpleado().getApellido()}"></span>
+								</td>
+								<td class="text-center"
+									th:switch="${planta.getPuestos().get(157).isOcupado()}"><span
+									th:case="false" class="text-center">VACIO</span> <span
+									th:case="true"
+									th:text="${planta.getPuestos().get(157).getEmpleado().getApellido()}"></span>
+								</td>
+								<td class="text-center"
+									th:switch="${planta.getPuestos().get(158).isOcupado()}"><span
+									th:case="false" class="text-center">VACIO</span> <span
+									th:case="true"
+									th:text="${planta.getPuestos().get(158).getEmpleado().getApellido()}"></span>
+								</td>
 
-								<td class="text-center">Nombre</td>
+								<td class="text-center"
+									th:switch="${planta.getPuestos().get(159).isOcupado()}"><span
+									th:case="false" class="text-center">VACIO</span> <span
+									th:case="true"
+									th:text="${planta.getPuestos().get(159).getEmpleado().getApellido()}"></span>
+								</td>
 								<td></td>
 
 							</tr>
@@ -1759,7 +2259,9 @@
 								<td></td>
 								<td></td>
 								<td></td>
-								<td><button type="button" class="btn btn-default btn-sm">000</button></td>
+								<td><button type="button"
+										class="btn btn-default btn-sm text-center btn-block"
+										th:text="${planta.getPuestos().get(187).getIdPuesto()}"></button></td>
 
 								<td></td>
 								<td></td>
