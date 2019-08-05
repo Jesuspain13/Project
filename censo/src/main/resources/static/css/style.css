@@ -1,5 +1,5 @@
         .footer {
-            position: absolute;
+            position: relative;
             width: 100%;
             bottom: 0px;
             background-color: #004254;
@@ -22,4 +22,32 @@
         .btn-subir-indra {
             background-color: #fde3d4;
             color: #004254;
+        }
+        
+        .intro1 {
+            height: auto;
+            width: 100%;
+            background-color: aqua
+        }
+        
+        .intro2 {
+            height: auto;
+            width: 100%;
+        }
+        
+        .muro {
+            height: 0.20rem;
+            width: 0.20rem;
+            background-color: #bdbdbd
+        }
+        
+        .muro-falso {
+            height: 0.20rem;
+            width: 0.20rem;
+            background-color: #fafafa;
+        }
+        
+        .hueco-blanco {
+            height: 0.20rem;
+            background-color: #ffffff
         }
