@@ -899,7 +899,12 @@
 							<!-- Fila 20-->
 							<tr>
 								<td></td>
-								<td class="text-center">Nombre</td>
+								<td class="text-center"
+									th:switch="${planta.getPuestos().get(53).isOcupado()}"><span
+									th:case="false" class="text-center">VACIO</span> <span
+									th:case="true"
+									th:text="${planta.getPuestos().get(53).getEmpleado().getApellido()}"></span>
+								</td>
 								<td class="text-center">Nombre</td>
 								<td class="text-center">Nombre</td>
 

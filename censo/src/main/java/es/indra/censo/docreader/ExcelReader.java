@@ -1,6 +1,5 @@
 package es.indra.censo.docreader;
 
-import java.io.File;
 import java.util.Iterator;
 import java.util.List;
 
@@ -8,9 +7,10 @@ import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
-import org.apache.poi.ss.usermodel.WorkbookFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import es.indra.censo.dao.IEmpleadoDao;
@@ -24,13 +24,18 @@ import es.indra.censo.model.Puesto;
 import es.indra.censo.model.Registro;
 import es.indra.censo.model.Ue;
 
-@Component
+@Service
 public class ExcelReader {
+	
+	Logger log = LoggerFactory.getLogger(ExcelReader.class);
 
+	@Autowired
 	private IRegistroDao rDao;
 
+	@Autowired
 	private IUeDao ueDao;
 
+	@Autowired
 	private IEmpleadoDao empDao;
 
 	public ExcelReader() {
@@ -47,18 +52,18 @@ public class ExcelReader {
 
 	private Registro r;
 
-	@Transactional
-	public void reader() {
-		try (Workbook workbook = WorkbookFactory.create(new File(FILE_PATH));) {
+	
+	public void reader(Workbook workbook) {
+		try {
 			Sheet sheet = workbook.getSheetAt(0);
 			Iterator<Row> rows = sheet.rowIterator();
 			int contador = 0;
 			r = this.buildRegistro();
-			Registro registroGuardado = rDao.save(r);
+			//Registro registroGuardado = rDao.save(r);
 
-			registroGuardado = this.recorrerFilas(workbook, rows, rDao, registroGuardado);
+			this.recorrerFilas(workbook, rows, rDao, r);
 
-			rDao.save(registroGuardado);
+			workbook.close();
 		} catch (Exception ex) {
 			ex.printStackTrace();
 		}
@@ -73,14 +78,16 @@ public class ExcelReader {
 	 * @param registroGuardado
 	 * @return
 	 */
+	@Transactional
 	private Registro recorrerFilas(Workbook workbook, Iterator<Row> rows, IRegistroDao rDao,
 			Registro registroGuardado) {
 		int contador = 0;
 		Complejo c = null;
+		rDao.save(registroGuardado);
 		while (rows.hasNext()) {
 			// contador para empezar a guardar valores a partir de la primera linea (la
 			// primera no incluye datos solo titulos)
-
+			
 			if (contador > 0) {
 				if (c == null) {
 					c = this.recorrerCeldasDeFila(workbook, rows.next(), rDao, registroGuardado);
@@ -88,7 +95,6 @@ public class ExcelReader {
 				} else {
 					this.recorrerCeldasDeFila(workbook, rows.next(), rDao, registroGuardado);
 				}
-
 			} else if (contador == 0) {
 				// La primera fila son los titulos de las columnas
 				rows.next();
@@ -96,6 +102,7 @@ public class ExcelReader {
 			}
 			contador++;
 		}
+
 		return registroGuardado;
 	}
 
@@ -122,7 +129,6 @@ public class ExcelReader {
 	 * 
 	 * @param tabla
 	 */
-	@Transactional
 	private Complejo constructorEntidades(TablaModelo tabla, IRegistroDao rDao, Registro registroGuardado) {
 		// si el nombre del complejo del registro en la posición 1 no está vacío y
 		// coincide con el de la tabla
@@ -134,14 +140,14 @@ public class ExcelReader {
 		Empleado emp = this.buildEmpleado(tabla, ue, registroGuardado);
 		// comprobar si el empleado creado es null
 		if (emp != null && ue != null) {
+			log.info("empleado: " + emp.getNumeroEmpleado());
 			Empleado empSaved = empDao.save(emp);
 			puesto.setOcupado(true);
 			puesto.setEmpleado(empSaved);
-			ue.addEmpleado(empSaved);
+			//ue.addEmpleado(empSaved);
 		} else if (emp == null) {
 			puesto.setEmpleado(null);
 		}
-		registroGuardado.addUes(ue);
 		p.addPuesto(puesto);
 		e.addPlanta(p);
 		c.addEdificio(e);

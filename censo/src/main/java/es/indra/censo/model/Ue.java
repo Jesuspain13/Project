@@ -28,7 +28,7 @@ public class Ue implements Serializable {
 	// Definición de los atributos de la tabla UE.
 
 	@Id
-	@GeneratedValue(strategy= GenerationType.IDENTITY)
+	@GeneratedValue(strategy= GenerationType.SEQUENCE)
 	private Integer id;
 
 	@Column(name = "id_ue")
