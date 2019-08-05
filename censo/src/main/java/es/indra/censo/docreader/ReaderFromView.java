@@ -1,34 +1,41 @@
 package es.indra.censo.docreader;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
-import java.io.FileOutputStream;
+import java.io.FileInputStream;
+import java.io.IOException;
 import java.io.InputStream;
-import java.nio.file.Path;
+import java.nio.charset.StandardCharsets;
 
+import org.apache.poi.ss.usermodel.Workbook;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.web.multipart.MultipartFile;
+
+import com.monitorjbl.xlsx.StreamingReader;
 
 public class ReaderFromView {
 	
-	public void readFromMultiparFile(MultipartFile file) {
+	private Logger log = LoggerFactory.getLogger(ReaderFromView.class);
+	
+	/**
+	 * recibe el archivo, obtiene un stream de datos y convierte este a un workbook
+	 * @param file
+	 * @return
+	 */
+	public Workbook readFromMultiparFile(MultipartFile file) {
 		try {
-			InputStream in = file.getInputStream();
-		    File currDir = new File("datos_edificios");
-		    String path = currDir.getAbsolutePath();
-		    String fileLocation = path.substring(0, path.length() - 1) + file.getOriginalFilename();
-		    FileOutputStream f = new FileOutputStream(fileLocation);
-		    int ch = 0;
-		    while ((ch = in.read()) != -1) {
-		        f.write(ch);
-		    }
-		    f.flush();
-		    f.close();
+			
+			InputStream is = file.getInputStream();
+			Workbook workbook = StreamingReader.builder()
+			        .rowCacheSize(100) 
+			        .bufferSize(4096)
+			        .open(is); 
+			return workbook;
 		} catch (Exception ex) {
-			System.out.println("ERROR EN LA OBTENCIÓN DE LOS DATOS DE LA TABLA EXCEL");
-			ex.printStackTrace();
+			log.error(ex.getMessage());
+			return null;
 		}
-		
-	   
-
-	}
+	}	
 	
 }

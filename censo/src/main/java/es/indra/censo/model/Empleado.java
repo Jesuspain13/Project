@@ -22,7 +22,7 @@ public class Empleado implements Serializable {
 	// Definición de los atributos de la tabla Empleado
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE)
 	@Column(name = "id_empleado_auto")
 	private Integer idEmpleadoAuto;
 	

@@ -30,7 +30,6 @@ public class PuestoController {
 	public String listar(Model model) {
 		model.addAttribute("titulo", "Distribución de los puestos de trabajo");
 		model.addAttribute("puestos", puestoService.findAll());
-		docSvc.readDocument();
 		return "listar";
 
 	}

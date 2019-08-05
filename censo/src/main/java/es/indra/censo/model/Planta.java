@@ -25,7 +25,7 @@ public class Planta implements Serializable {
 	}
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE)
 	private Integer id;
 
 	@Column(name = "nombre_planta")

@@ -23,7 +23,7 @@ public class Puesto implements Serializable {
 	// Definición de los atributos de la tabla Puesto.
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE)
 	@Column(name="id_puesto_auto")
 	private Integer idPuestoAuto;
 	

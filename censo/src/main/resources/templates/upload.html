@@ -45,8 +45,9 @@
 
 				<div class="pt-2">
 					<div class="custom-file">
-						<form class="form-group" th:action="@{/doc/upload}" method="POST">
-							<input type="file" class="custom-file-input input-indra"
+						<form class="form-group" th:action="@{/doc/upload}" method="POST"
+						enctype="multipart/form-data">
+							<input type="file" name="file" class="custom-file-input input-indra"
 								id="customFileLang" lang="es"> <label
 								class="custom-file-label " for="customFileLang">Seleccionar
 								Archivo</label>

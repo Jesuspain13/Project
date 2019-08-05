@@ -25,7 +25,7 @@ public class Edificio implements Serializable {
 	}
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE)
 	@Column(name = "id_edificio")
 	private Integer idEdificio;
 
