@@ -44,7 +44,7 @@ public class PlantaController {
 
 		model.put("planta", planta);
 		model.put("titulo", "Esta usted en la planta: " + planta.getNombrePlanta());
-		if (planta.getNombrePlanta() == "0") {
+		if (planta.getNombrePlanta().contains("0")) {
 			return "plantabaja";
 		}
 		return "plantaprimera";
