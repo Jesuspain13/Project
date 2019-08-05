@@ -27,7 +27,9 @@ public class PuestoController {
 		model.addAttribute("titulo", "Distribución de los puestos de trabajo");
 		model.addAttribute("puestos", puestoService.findAll());
 
+
 		return "redirect:/planta/listar";
+
 
 	}
 
