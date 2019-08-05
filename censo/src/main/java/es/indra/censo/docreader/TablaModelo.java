@@ -1,14 +1,9 @@
 package es.indra.censo.docreader;
 
 import java.util.Date;
-import java.util.Iterator;
 
-import org.apache.poi.hssf.usermodel.HSSFDateUtil;
-import org.apache.poi.ss.format.CellDateFormatter;
 import org.apache.poi.ss.usermodel.Cell;
-import org.apache.poi.ss.usermodel.CellValue;
-import org.apache.poi.ss.usermodel.FormulaEvaluator;
-import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.ss.usermodel.Row;
 
 public class TablaModelo {
 
@@ -166,32 +161,34 @@ public class TablaModelo {
 	 * @param wb
 	 * @param cells
 	 */
-	public void asignarValores(Iterator<Cell> cells) {
+	public void asignarValores(Row row) {
 		int i = 0;
 		this.teletrabajo = false;
 		boolean teletrab = this.teletrabajo;
-		while (cells.hasNext() && !teletrab) {
+		Cell cell;
+		while (i < 14 && !teletrab) {
+			cell = row.getCell(i);
 
 			switch (i) {
 			// ID COMPLEJO
 			case 0:
-				setIdComplejo(cells.next().getStringCellValue());
+				setIdComplejo(cell.getStringCellValue());
 				break;
 			// NOMBRE COMPLEJO
 			case 1:
-				setNombreComplejo(cells.next().getStringCellValue());
+				setNombreComplejo(cell.getStringCellValue());
 				break;
 			// NOMBRE EDIFICIO
 			case 2:
-				setNombreEdificio(cells.next().getStringCellValue());
+				setNombreEdificio(cell.getStringCellValue());
 				break;
 			// NOMBRE PLANTA
 			case 3:
-				setNombrePlanta(Math.round(cells.next().getNumericCellValue()));
+				setNombrePlanta(Math.round(cell.getNumericCellValue()));
 				break;
 			// ID PUESTO
 			case 4:
-				Cell cell = cells.next();
+				// Cell cell = cells.next();
 
 				// identificador alfanumerico
 				if (cell.getCellType().toString().contains("STRING")) {
@@ -205,52 +202,97 @@ public class TablaModelo {
 				break;
 			// NUMERO EMPLEADO
 			case 5:
-				Cell cell5 = cells.next();
+				// Cell cell5 = cells.next();
 				// si la celda es un string va a ser teletrabajo
-				if (cell5.getCellType().toString().contains("STRING")
-						&& cell5.getStringCellValue().contains("TELETRAB")) {
+				if (cell == null) {
+					setNumeroEmpleado(null);
+				} else if (cell.getCellType().toString().contains("STRING")
+						&& cell.getStringCellValue().contains("TELETRAB")) {
 					this.teletrabajo = true;
 					teletrab = true;
-				} else if (cell5.getCellType().toString().contains("STRING")) {
+				} else if (cell.getCellType().toString().contains("STRING")) {
 					setNumeroEmpleado(null);
 				} else {
 					// sino va a ser el numero de empleado
 
-					setNumeroEmpleado((long) cell5.getNumericCellValue());
+					setNumeroEmpleado((long) cell.getNumericCellValue());
 
 				}
 				break;
 			// NICK
 			case 6:
-				setNick(cells.next().getStringCellValue());
+				// Cell cell6 = cells.next();
+				if (cell == null) {
+					setNick(null);
+				} else if (cell.getStringCellValue().length() > 1) {
+					setNick(cell.getStringCellValue());
+				} else {
+					setNick(null);
+				}
 				break;
 			// NOMBRE EMPLEADO
 			case 7:
-				setNombreEmpleado(cells.next().getStringCellValue());
+				if (cell == null) {
+					setNombreEmpleado(null);
+				} else {
+					setNombreEmpleado(cell.getStringCellValue());
+				}
+
 				break;
 			// APELLIDOS EMPLEADO
 			case 8:
-				setApellidosEmpleado(cells.next().getStringCellValue());
+				if (cell == null) {
+					setApellidosEmpleado(null);
+				} else {
+					setApellidosEmpleado(cell.getStringCellValue());
+				}
+					
+				
 				break;
 			// UE
 			case 9:
-				setUe(cells.next().getStringCellValue());
+				if (cell == null) {
+					setUe(null);
+				} else {
+					setUe(cell.getStringCellValue());
+				}
+
 				break;
 			// NOMBRE UE
 			case 10:
-				setNombreUe(cells.next().getStringCellValue());
+				if (cell == null) {
+					setNombreUe(null);
+				} else {
+					setNombreUe(cell.getStringCellValue());
+				}
+
 				break;
 			// UE REPERCUTIBLE
 			case 11:
-				setUeRepercutible(cells.next().getStringCellValue());
+				if (cell == null) {
+					setUeRepercutible(null);
+				} else {
+					setUeRepercutible(cell.getStringCellValue());
+				}
+
 				break;
 			// NOMBRE UE REPERCUTIBLE
 			case 12:
-				setNombreUeRepercutible(cells.next().getStringCellValue());
+				if (cell == null) {
+					setNombreUeRepercutible(null);
+				} else {
+					setNombreUeRepercutible(cell.getStringCellValue());
+				}
+
 				break;
 			// WP STD
 			case 14:
-				setWpStd(cells.next().getStringCellValue());
+				if (cell == null) {
+					setWpStd(null);
+				} else {
+					setWpStd(cell.getStringCellValue());
+				}
+
 				break;
 //			case 16:
 //				setFechaCenso(new Date(this.dateCellFormatter(wb, cells.next())));

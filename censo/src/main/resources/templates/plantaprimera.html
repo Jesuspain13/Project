@@ -154,21 +154,31 @@
 
                                     <td class="muro"></td>
                                     <td></td>
-                                    <td class="text-center">Nombre</td>
-                                    <td class="text-center">Nombre</td>
-
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
+                                    <td th:if="${planta.getPuestos().get(0).isOcupado()}"
+                                     class="text-center"
+                                      th:text="${planta.getPuestos().get(0).getEmpleado().getNombre()}">Nombre</td>
                                     <td class="text-center">Nombre</td>
 
-                                    <td class="text-center">Nombre</td>
-                                    <td class="text-center">Nombre</td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td th:if="${planta.getPuestos().get(0).isOcupado()}"
+                                     class="text-center"
+                                      th:text="${planta.getPuestos().get(4).getEmpleado().getApellido()}">Nombre</td>
+
+                                     <td th:if="${planta.getPuestos().get(5).isOcupado()}"
+                                     class="text-center"
+                                      th:text="${planta.getPuestos().get(5).getEmpleado().getApellido()}">Nombre</td>
+                                     <td th:if="${planta.getPuestos().get(6).isOcupado()}"
+                                     class="text-center"
+                                      th:text="${planta.getPuestos().get(6).getEmpleado().getApellido()}">Nombre</td>
                                     <td class="muro-falso"></td>
                                     <td class="muro-falso"></td>
 
                                     <td></td>
-                                    <td class="text-center">Nombre</td>
+                                     <td th:if="${planta.getPuestos().get(7).isOcupado()}"
+                                     class="text-center"
+                                      th:text="${planta.getPuestos().get(7).getEmpleado().getApellido()}">Nombre</td>
                                     <td class="text-center">Nombre</td>
                                     <td class="text-center">Nombre</td>
 
