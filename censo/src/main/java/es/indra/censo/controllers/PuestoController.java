@@ -30,7 +30,7 @@ public class PuestoController {
 	public String listar(Model model) {
 		model.addAttribute("titulo", "Distribución de los puestos de trabajo");
 		model.addAttribute("puestos", puestoService.findAll());
-		return "listar";
+		return "redirect:/planta/listar";
 
 	}
 

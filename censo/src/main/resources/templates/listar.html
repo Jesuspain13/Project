@@ -9,7 +9,58 @@
 	<!--Main Navigation-->
 	<header th:replace="layout/layout :: header"> </header>
 	<!--Main Navigation-->
-	
+
+	<!--Main layout-->
+	<main>
+
+	<div class="container py-4">
+
+		<!-- Crear una tarjeta para contener todo -->
+		<div class="card">
+
+			<!-- Tarjeta 1 con el título -->
+			<div class="card-header deep-orange darken-1 text-white"
+				th:text="${titulo}"></div>
+			<!-- Fin Tarjeta 1 con el título -->
+
+			<!-- Tarjeta 2 con el cuerpo de la tabla -->
+			<div class="card-body">
+
+				<!--Tabla de la base de datos con todos sus atributos-->
+				<div class="table-responsive">
+					<table class="table table-striped">
+						<thead>
+							<tr>
+								<th>Identificador de la Planta</th>
+								<th>Nombre de la Planta</th>
+								<th>Edificio</th>
+
+
+							</tr>
+						</thead>
+
+						<tbody>
+							<tr th:each="planta: ${plantas}">
+								<td th:text="${planta.id}"></td>
+								<td th:text="${planta.nombrePlanta}"></td>
+								<td th:text="${planta.getEdificio().getNombreEdificio()}"></td>
+							</tr>
+						</tbody>
+
+					</table>
+				</div>
+				<!--./Tabla de la base de datos con todos sus atributos-->
+			</div>
+			<!-- Fin Tarjeta 2 con el cuerpo de la tabla -->
+
+
+		</div>
+		<!-- Fin Crear una tarjeta para contener todo -->
+
+	</div>
+	</main>
+	<!-- End Main layout-->
+
 	<!-- Footer -->
 	<footer th:replace="layout/layout :: footer"></footer>
 	<!-- Footer -->

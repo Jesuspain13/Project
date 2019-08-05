@@ -37,14 +37,14 @@ public class PlantaController {
 
 		Planta planta = plantaService.findPlantaById(id);
 
-		if (planta == null) {
-			flash.addFlashAttribute("error", "¡La planta a la que intenta acceder no existe!");
-			return "redirect:/listar";
-		}
+//		if (planta == null) {
+//			flash.addFlashAttribute("error", "¡La planta a la que intenta acceder no existe!");
+//			return "redirect:/listar";
+//		}
 
 		model.put("planta", planta);
 		model.put("titulo", "Esta usted en la planta: " + planta.getNombrePlanta());
-		return "ver";
+		return "plantabaja";
 
 	}
 
