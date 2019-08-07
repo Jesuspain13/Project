@@ -35,7 +35,7 @@ public class Planta implements Serializable {
 	@JoinColumn(name = "id_registro")
 	private Registro registro;
 
-	@OneToMany(mappedBy="planta",fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@OneToMany(mappedBy="planta",fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	private List<Puesto> puestos;
 	
 	@ManyToOne(fetch=FetchType.LAZY)
