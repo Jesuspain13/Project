@@ -1,5 +1,6 @@
 package es.indra.censo.controllers;
 
+import java.util.List;
 import java.util.Map;
 
 import javax.validation.Valid;
@@ -10,11 +11,13 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import es.indra.censo.model.Complejo;
 import es.indra.censo.model.Registro;
 import es.indra.censo.service.IRegistroService;
 
@@ -27,13 +30,30 @@ public class RegistroController {
 	private IRegistroService registroService;
 
 	// Método para mostrar todos los registros del censo.
-	@RequestMapping(value = "/listar", method = RequestMethod.GET)
+	@RequestMapping(value = {"/listar", "/"}, method = RequestMethod.GET)
 	public String listar(Model model) {
+		List<Registro> r = registroService.findAll();
+		Registro rSeleccionado = new Registro();
 		model.addAttribute("titulo", "Listado de todos los registros");
-		model.addAttribute("registros", registroService.findAll());
+		model.addAttribute("registro", rSeleccionado);
+		model.addAttribute("registros", r);
+		
+		
 
-		return "listar";
+		return "searchform";
+	}
+	
+	@PostMapping(value = "/listar")
+	public String listar(Registro registro, Model model) {
+		Registro rFound = registroService.findRegistroById(registro.getIdRegistro());
+		model.addAttribute("titulo", "Listado de todos los registros");
+		model.addAttribute("registro", rFound);
+		model.addAttribute("complejos", rFound.getComplejos());
+		Complejo c = new Complejo();
+		model.addAttribute("complejo", c);
 
+
+		return "searchform";
 	}
 
 	// Método para mostrar el detalle de los registros por Id.

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="/layout/layout :: head"></head>
+<body>
+
+<!--Main Navigation-->
+	<header th:replace="layout/layout :: header"> </header>
+	<!--Main Navigation-->
+
+	<div class="container my-5">
+		<div class="row d-flex justify-content-center">
+			<div class="col-md-6 text-center">
+				<div class="card">
+					<div class="card-header text-center">
+						<h5 th:utext="#{text.login.entrar}">Sign in</h5>
+					</div>
+					<div class="card-body">
+						<div class="container d-flex justify-content-center">
+							<form th:action="@{/login}" method="POST">
+								<div class="form-group row">
+									<input class="form-control" type="text" id="username" name="username"
+										th:placeholder="#{text.login.nombreUsuario}" autofocus
+										required>
+								</div>
+								<div class="form-group row">
+									<input class="form-control" type="password" id="password" name="password"
+										th:placeholder="#{text.login.contrasena}" required>
+								</div>
+								<div class="form-group row">
+									<input type="submit" class="btn btn-outline-success"
+										th:value="#{text.login.entrar}" />
+								</div>
+							</form>
+						</div>
+						<div class="alert alert-warning"
+							th:if="${not #strings.isEmpty(error)}" th:text="${error}"></div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<footer th:replace="layout/layout :: footer"></footer>
+</body>
+</html>

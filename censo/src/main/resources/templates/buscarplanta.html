@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+</head>
+<body>
+
+	<section th:fragment="plantaForm">
+	
+		<div class="container my-3">
+			<div class="row d-flex justify-content-center" th:object="${planta}">
+				<div class="col-md-12">
+					<form class="form-group" method="POST" th:action="@{/planta/ver}"
+					th:object="${planta}">
+						<div class="container">
+							<div class="row">
+								<div class="col-md-6">
+									<h2>
+										Edificio: <span th:text="${edificio.getNombreEdificio()}"></span>
+									</h2>
+								</div>
+								<div class="col-md-6">
+									<label for="version">Selecciona una planta</label> <select
+										id="version" th:field="*{id}"
+										class="browser-default custom-select">
+										<option th:each="p: ${edificio.getPlantas()}"
+											th:value="${p.getId()}"><span
+												th:text="${p.getNombrePlanta()}"> </span>
+										</option>
+									</select>
+								</div>
+							</div>
+						</div>
+						<div class="row d-flex justify-content-center mt-3">
+							<button type="submit" class="btn btn-primary">Buscar
+								planta</button>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</section>
+
+</body>
+</html>

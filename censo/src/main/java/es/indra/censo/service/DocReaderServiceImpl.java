@@ -14,24 +14,19 @@ import es.indra.censo.docreader.ReaderFromView;
 @Service
 public class DocReaderServiceImpl implements IDocReaderService {
 	
-	@Autowired
-	private IRegistroDao rDao;
-	
-	@Autowired
-	private IEmpleadoDao empDao;
-//	
-	@Autowired
-	private IUeDao ueDao;
-	
 	private ReaderFromView readerFromUpload = new ReaderFromView();
 	
 	@Autowired
 	private ExcelReader reader;
 
 	@Override
-	public void readDocument(MultipartFile file) {
-		Workbook wb = readerFromUpload.readFromMultiparFile(file);
-		reader.reader(wb);
+	public void readDocument(MultipartFile file)  throws Exception {
+		try {
+			Workbook wb = readerFromUpload.readFromMultiparFile(file);
+			reader.reader(wb);
+		}catch (Exception ex) {
+			throw new Exception(ex);
+		}
 	}
 
 }

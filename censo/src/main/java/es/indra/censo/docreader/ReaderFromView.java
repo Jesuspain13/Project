@@ -23,7 +23,7 @@ public class ReaderFromView {
 	 * @param file
 	 * @return
 	 */
-	public Workbook readFromMultiparFile(MultipartFile file) {
+	public Workbook readFromMultiparFile(MultipartFile file) throws Exception {
 		try {
 			
 			InputStream is = file.getInputStream();
@@ -34,7 +34,7 @@ public class ReaderFromView {
 			return workbook;
 		} catch (Exception ex) {
 			log.error(ex.getMessage());
-			return null;
+			throw new Exception(ex);
 		}
 	}	
 	
