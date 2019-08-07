@@ -5,6 +5,8 @@ import java.util.Map;
 
 import javax.validation.Valid;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -25,6 +27,9 @@ import es.indra.censo.service.IRegistroService;
 @Controller
 @RequestMapping("/registro")
 public class RegistroController {
+	private Logger log = LoggerFactory.getLogger(RegistroController.class);
+	
+	public static final String ERROR_NO_REGISTRO = "No hay registros. Llama al administrador para que inserte uno.";
 
 	@Autowired
 	private IRegistroService registroService;
@@ -32,28 +37,43 @@ public class RegistroController {
 	// Método para mostrar todos los registros del censo.
 	@RequestMapping(value = {"/listar", "/"}, method = RequestMethod.GET)
 	public String listar(Model model) {
-		List<Registro> r = registroService.findAll();
-		Registro rSeleccionado = new Registro();
-		model.addAttribute("titulo", "Listado de todos los registros");
-		model.addAttribute("registro", rSeleccionado);
-		model.addAttribute("registros", r);
-		
-		
-
-		return "searchform";
+		try {
+			List<Registro> r = registroService.findAll();
+			//CASO DE NO HABER REGISTROS
+			if (r.size() < 1) {
+				model.addAttribute("errorCard", ERROR_NO_REGISTRO);
+				return "error/error_404";
+			}
+			Registro rSeleccionado = new Registro();
+			model.addAttribute("titulo", "Listado de todos los registros");
+			model.addAttribute("registro", rSeleccionado);
+			model.addAttribute("registros", r);
+			
+			return "searchform";
+		}  catch(Exception ex) {
+			log.error(ex.getMessage());
+			model.addAttribute("error", UploadExcelController.ERROR_MSG);
+			return "redirect:/registro/listar";
+		}
 	}
 	
 	@PostMapping(value = "/listar")
 	public String listar(Registro registro, Model model) {
-		Registro rFound = registroService.findRegistroById(registro.getIdRegistro());
-		model.addAttribute("titulo", "Listado de todos los registros");
-		model.addAttribute("registro", rFound);
-		model.addAttribute("complejos", rFound.getComplejos());
-		Complejo c = new Complejo();
-		model.addAttribute("complejo", c);
-
-
-		return "searchform";
+		try {
+			Registro rFound = registroService.findRegistroById(registro.getIdRegistro());
+			model.addAttribute("titulo", "Listado de todos los registros");
+			model.addAttribute("registro", rFound);
+			model.addAttribute("complejos", rFound.getComplejos());
+			Complejo c = new Complejo();
+			model.addAttribute("complejo", c);
+	
+	
+			return "searchform";
+		} catch(Exception ex) {
+			log.error(ex.getMessage());
+			model.addAttribute("error", UploadExcelController.ERROR_MSG);
+			return "redirect:/registro/listar";
+		}
 	}
 
 	// Método para mostrar el detalle de los registros por Id.

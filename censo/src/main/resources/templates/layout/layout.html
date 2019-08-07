@@ -85,18 +85,9 @@
            
         </nav>
         <!--/.Navbar -->
-        <div
-					class="container d-flex justify-content-center mt-4">
-					<div class="row d-flex justify-content-center">
-						<div class="col-md-12 text-center font-weight-bold text-white">
-							<div th:if="${success !=null}" class="alert alert-success"
-								th:utext="${success}"></div>
-							<div th:if="${error != null}" class="alert alert-danger"
-								th:utext="${error}"></div>
-							
-						</div>
-					</div>
-				</div>
+        <section th:replace="/layout/functionbuttons :: buttons"></section>
+        
+        <section th:replace="/layout/messages :: messages"></section>
     </header>
     <!--Main Navigation-->
 
@@ -107,7 +98,7 @@
 
     <!-- Footer -->
 
-    <footer class="fixed-bottom footer indra-color">
+    <footer class="sticky-bottom footer indra-color">
         <div class="container">
             <div class="row">
                 <!-- Copyright -->
