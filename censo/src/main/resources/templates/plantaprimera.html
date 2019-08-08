@@ -139,16 +139,16 @@
 								<td class="muro"></td>
 								<td></td>
 								<td class="text-center"
-									th:if="${!planta.getPuestos().get(1).isOcupado()}"
+									th:if="${!planta.getPuestos().get(0).isOcupado()}"
 									th:text="${'VACIO'}">VACIO</td>
 								<td class="text-center"
-									th:if="${planta.getPuestos().get(1).isOcupado()}"
+									th:if="${planta.getPuestos().get(0).isOcupado()}"
 									th:text="${planta.getPuestos().get(1).getEmpleado().getApellido()}">Nombre</td>
 								<td class="text-center"
 									th:if="${!planta.getPuestos().get(2).isOcupado()}"
 									th:text="${'VACIO'}">VACIO</td>
 								<td class="text-center"
-									th:text="${planta.getPuestos().get(2).getEmpleado().getApellido()}">Nombre</td>
+									th:text="${planta.getPuestos().get(1).getEmpleado().getApellido()}">Nombre</td>
 
 								<td></td>
 								<td></td>
@@ -158,19 +158,19 @@
 									th:text="${'VACIO'}">VACIO</td>
 								<td th:if="${planta.getPuestos().get(4).isOcupado()}"
 									class="text-center"
-									th:text="${planta.getPuestos().get(4).getEmpleado().getApellido()}">Nombre</td>
+									th:text="${planta.getPuestos().get(2).getEmpleado().getApellido()}">Nombre</td>
 								<td class="text-center"
 									th:if="${!planta.getPuestos().get(5).isOcupado()}"
 									th:text="${'VACIO'}">VACIO</td>
 								<td th:if="${planta.getPuestos().get(5).isOcupado()}"
 									class="text-center"
-									th:text="${planta.getPuestos().get(5).getEmpleado().getApellido()}">Nombre</td>
+									th:text="${planta.getPuestos().get(3).getEmpleado().getApellido()}">Nombre</td>
 								<td class="text-center"
 									th:if="${!planta.getPuestos().get(6).isOcupado()}"
 									th:text="${'VACIO'}">VACIO</td>
 								<td th:if="${planta.getPuestos().get(6).isOcupado()}"
 									class="text-center"
-									th:text="${planta.getPuestos().get(6).getEmpleado().getApellido()}">Nombre</td>
+									th:text="${planta.getPuestos().get(4).getEmpleado().getApellido()}">Nombre</td>
 								<td class="muro-falso"></td>
 								<td class="muro-falso"></td>
 
@@ -178,39 +178,39 @@
 								<td class="text-center"
 									th:if="${!planta.getPuestos().get(7).isOcupado()}"
 									th:text="${'VACIO'}">VACIO</td>
-								<td th:if="${planta.getPuestos().get(7).isOcupado()}"
+								<td th:if="${planta.getPuestos().get(5).isOcupado()}"
 									class="text-center"
-									th:text="${planta.getPuestos().get(7).getEmpleado().getApellido()}">Nombre</td>
+									th:text="${planta.getPuestos().get(5).getEmpleado().getApellido()}">Nombre</td>
 								<td class="text-center"
 									th:if="${!planta.getPuestos().get(8).isOcupado()}"
 									th:text="${'VACIO'}">VACIO</td>
 								<td th:if="${planta.getPuestos().get(8).isOcupado()}"
 									class="text-center"
-									th:text="${planta.getPuestos().get(9).getEmpleado().getApellido()}">Nombre</td>
+									th:text="${planta.getPuestos().get(6).getEmpleado().getApellido()}">Nombre</td>
 								<td class="text-center"
 									th:if="${!planta.getPuestos().get(9).isOcupado()}"
 									th:text="${'VACIO'}">VACIO</td>
 								<td th:if="${planta.getPuestos().get(9).isOcupado()}"
 									class="text-center"
-									th:text="${planta.getPuestos().get(9).getEmpleado().getApellido()}">Nombre</td>
+									th:text="${planta.getPuestos().get(7).getEmpleado().getApellido()}">Nombre</td>
 								<td class="text-center"
 									th:if="${!planta.getPuestos().get(10).isOcupado()}"
 									th:text="${'VACIO'}">VACIO</td>
 								<td th:if="${planta.getPuestos().get(10).isOcupado()}"
 									class="text-center"
-									th:text="${planta.getPuestos().get(10).getEmpleado().getApellido()}">Nombre</td>
+									th:text="${planta.getPuestos().get(8).getEmpleado().getApellido()}">Nombre</td>
 								<td class="text-center"
 									th:if="${!planta.getPuestos().get(11).isOcupado()}"
 									th:text="${'VACIO'}">VACIO</td>
 								<td th:if="${planta.getPuestos().get(11).isOcupado()}"
 									class="text-center"
-									th:text="${planta.getPuestos().get(11).getEmpleado().getApellido()}">Nombre</td>
+									th:text="${planta.getPuestos().get(9).getEmpleado().getApellido()}">Nombre</td>
 								<td class="text-center"
 									th:if="${!planta.getPuestos().get(12).isOcupado()}"
 									th:text="${'VACIO'}">VACIO</td>
 								<td th:if="${planta.getPuestos().get(12).isOcupado()}"
 									class="text-center"
-									th:text="${planta.getPuestos().get(12).getEmpleado().getApellido()}">Nombre</td>
+									th:text="${planta.getPuestos().get(10).getEmpleado().getApellido()}">Nombre</td>
 								<td></td>
 							</tr>
 							<!-- Fin Fila 7-->
@@ -319,13 +319,13 @@
 									th:text="${'VACIO'}">VACIO</td>
 								<td th:if="${planta.getPuestos().get(13).isOcupado()}"
 									class="text-center"
-									th:text="${planta.getPuestos().get(13).getEmpleado().getApellido()}">Nombre</td>
+									th:text="${planta.getPuestos().get(11).getEmpleado().getApellido()}">Nombre</td>
 								<td class="text-center"
 									th:if="${!planta.getPuestos().get(14).isOcupado()}"
 									th:text="${'VACIO'}">VACIO</td>
 								<td th:if="${planta.getPuestos().get(14).isOcupado()}"
 									class="text-center"
-									th:text="${planta.getPuestos().get(14).getEmpleado().getApellido()}">Nombre</td>
+									th:text="${planta.getPuestos().get(12).getEmpleado().getApellido()}">Nombre</td>
 
 								<td></td>
 								<td></td>
@@ -335,7 +335,7 @@
 									th:text="${'VACIO'}">VACIO</td>
 								<td th:if="${planta.getPuestos().get(16).isOcupado()}"
 									class="text-center"
-									th:text="${planta.getPuestos().get(16).getEmpleado().getApellido()}">Nombre</td>
+									th:text="${planta.getPuestos().get(13).getEmpleado().getApellido()}">Nombre</td>
 								<td class="text-center"
 									th:if="${!planta.getPuestos().get(17).isOcupado()}"
 									th:text="${'VACIO'}">VACIO</td>
@@ -347,7 +347,7 @@
 									th:text="${'VACIO'}">VACIO</td>
 								<td th:if="${planta.getPuestos().get(18).isOcupado()}"
 									class="text-center"
-									th:text="${planta.getPuestos().get(18).getEmpleado().getApellido()}">Nombre</td>
+									th:text="${planta.getPuestos().get(15).getEmpleado().getApellido()}">Nombre</td>
 								<td class="muro-falso"></td>
 								<td class="muro-falso"></td>
 
@@ -357,41 +357,41 @@
 									th:text="${'VACIO'}">VACIO</td>
 								<td th:if="${planta.getPuestos().get(19).isOcupado()}"
 									class="text-center"
-									th:text="${planta.getPuestos().get(19).getEmpleado().getApellido()}">Nombre</td>
+									th:text="${planta.getPuestos().get(16).getEmpleado().getApellido()}">Nombre</td>
 								<td class="text-center"
-									th:if="${!planta.getPuestos().get(20).isOcupado()}"
+									th:if="${!planta.getPuestos().get(17).isOcupado()}"
 									th:text="${'VACIO'}">VACIO</td>
 								<td th:if="${planta.getPuestos().get(20).isOcupado()}"
 									class="text-center"
-									th:text="${planta.getPuestos().get(20).getEmpleado().getApellido()}">Nombre</td>
+									th:text="${planta.getPuestos().get(17).getEmpleado().getApellido()}">Nombre</td>
 								<td class="text-center"
 									th:if="${!planta.getPuestos().get(21).isOcupado()}"
 									th:text="${'VACIO'}">VACIO</td>
 								<td th:if="${planta.getPuestos().get(21).isOcupado()}"
 									class="text-center"
-									th:text="${planta.getPuestos().get(21).getEmpleado().getApellido()}">Nombre</td>
+									th:text="${planta.getPuestos().get(18).getEmpleado().getApellido()}">Nombre</td>
 								<td class="text-center"
 									th:if="${!planta.getPuestos().get(22).isOcupado()}"
 									th:text="${'VACIO'}">VACIO</td>
 
 								<td th:if="${planta.getPuestos().get(22).isOcupado()}"
 									class="text-center"
-									th:text="${planta.getPuestos().get(22).getEmpleado().getApellido()}">Nombre</td>
-								<td th:if="${!planta.getPuestos().get(23).isOcupado()}"
+									th:text="${planta.getPuestos().get(19).getEmpleado().getApellido()}">Nombre</td>
+								<td th:if="${!planta.getPuestos().get(20).isOcupado()}"
 									class="text-center" th:text="${'VACIO'}">VACIO</td>
 
-								<td th:if="${planta.getPuestos().get(23).isOcupado()}"
+								<td th:if="${planta.getPuestos().get(20).isOcupado()}"
 									class="text-center"
-									th:text="${planta.getPuestos().get(23).getEmpleado().getApellido()}">Nombre</td>
+									th:text="${planta.getPuestos().get(20).getEmpleado().getApellido()}">Nombre</td>
 
 
 
 								<td class="text-center"
-									th:if="${!planta.getPuestos().get(24).isOcupado()}"
+									th:if="${!planta.getPuestos().get(21).isOcupado()}"
 									th:text="${'VACIO'}">VACIO</td>
-								<td th:if="${planta.getPuestos().get(24).isOcupado()}"
+								<td th:if="${planta.getPuestos().get(21).isOcupado()}"
 									class="text-center"
-									th:text="${planta.getPuestos().get(24).getEmpleado().getApellido()}">Nombre</td>
+									th:text="${planta.getPuestos().get(21).getEmpleado().getApellido()}">Nombre</td>
 								<td></td>
 							</tr>
 							<!-- Fin Fila 10-->
@@ -509,26 +509,26 @@
 									th:text="${'VACIO'}">VACIO</td>
 								<td th:if="${planta.getPuestos().get(25).isOcupado()}"
 									class="text-center"
-									th:text="${planta.getPuestos().get(25).getEmpleado().getApellido()}">Nombre</td>
+									th:text="${planta.getPuestos().get(22).getEmpleado().getApellido()}">Nombre</td>
 								<td class="text-center"
 									th:if="${!planta.getPuestos().get(26).isOcupado()}"
 									th:text="${'VACIO'}">VACIO</td>
 								<td th:if="${planta.getPuestos().get(26).isOcupado()}"
 									class="text-center"
-									th:text="${planta.getPuestos().get(26).getEmpleado().getApellido()}">Nombre</td>
+									th:text="${planta.getPuestos().get(23).getEmpleado().getApellido()}">Nombre</td>
 								<td class="text-center"
 									th:if="${!planta.getPuestos().get(27).isOcupado()}"
 									th:text="${'VACIO'}">VACIO</td>
 								<td th:if="${planta.getPuestos().get(27).isOcupado()}"
 									class="text-center"
-									th:text="${planta.getPuestos().get(27).getEmpleado().getApellido()}">Nombre</td>
+									th:text="${planta.getPuestos().get(24).getEmpleado().getApellido()}">Nombre</td>
 								<td class="text-center"
 									th:if="${!planta.getPuestos().get(28).isOcupado()}"
 									th:text="${'VACIO'}">VACIO</td>
 
 								<td th:if="${planta.getPuestos().get(28).isOcupado()}"
 									class="text-center"
-									th:text="${planta.getPuestos().get(28).getEmpleado().getApellido()}">Nombre</td>
+									th:text="${planta.getPuestos().get(25).getEmpleado().getApellido()}">Nombre</td>
 
 								<td></td>
 								<td></td>
@@ -538,32 +538,54 @@
 									th:text="${'VACIO'}">VACIO</td>
 								<td th:if="${planta.getPuestos().get(29).isOcupado()}"
 									class="text-center"
-									th:text="${planta.getPuestos().get(29).getEmpleado().getApellido()}">Nombre</td>
+									th:text="${planta.getPuestos().get(26).getEmpleado().getApellido()}">Nombre</td>
 								<td class="text-center"
 									th:if="${!planta.getPuestos().get(30).isOcupado()}"
 									th:text="${'VACIO'}">VACIO</td>
 								<td th:if="${planta.getPuestos().get(30).isOcupado()}"
 									class="text-center"
-									th:text="${planta.getPuestos().get(30).getEmpleado().getApellido()}">Nombre</td>
+									th:text="${planta.getPuestos().get(27).getEmpleado().getApellido()}">Nombre</td>
 								<td class="text-center"
 									th:if="${!planta.getPuestos().get(31).isOcupado()}"
 									th:text="${'VACIO'}">VACIO</td>
 								<td th:if="${planta.getPuestos().get(31).isOcupado()}"
 									class="text-center"
-									th:text="${planta.getPuestos().get(31).getEmpleado().getApellido()}">Nombre</td>
+									th:text="${planta.getPuestos().get(28).getEmpleado().getApellido()}">Nombre</td>
 								<td class="text-center"
 									th:if="${!planta.getPuestos().get(32).isOcupado()}"
 									th:text="${'VACIO'}">VACIO</td>
 								<td th:if="${planta.getPuestos().get(32).isOcupado()}"
 									class="text-center"
-									th:text="${planta.getPuestos().get(32).getEmpleado().getApellido()}">Nombre</td>
+									th:text="${planta.getPuestos().get(29).getEmpleado().getApellido()}">Nombre</td>
 								<td class="text-center"
 									th:if="${!planta.getPuestos().get(33).isOcupado()}"
 									th:text="${'VACIO'}">VACIO</td>
 
 								<td th:if="${planta.getPuestos().get(33).isOcupado()}"
 									class="text-center"
+									th:text="${planta.getPuestos().get(30).getEmpleado().getApellido()}">Nombre</td>
+								<td class="text-center"
+									th:if="${!planta.getPuestos().get(34).isOcupado()}"
+									th:text="${'VACIO'}">VACIO</td>
+								<td th:if="${planta.getPuestos().get(34).isOcupado()}"
+									class="text-center"
+									th:text="${planta.getPuestos().get(31).getEmpleado().getApellido()}">Nombre</td>
+								<td class="text-center"
+									th:if="${!planta.getPuestos().get(35).isOcupado()}"
+									th:text="${'VACIO'}">VACIO</td>
+								<td th:if="${planta.getPuestos().get(35).isOcupado()}"
+									class="text-center"
+									th:text="${planta.getPuestos().get(32).getEmpleado().getApellido()}">Nombre</td>
+								<td class="text-center"
+									th:if="${!planta.getPuestos().get(273).isOcupado()}"
+									th:text="${'VACIO'}">VACIO</td>
+								<!-- puesto 179a -->
+								<td th:if="${planta.getPuestos().get(273).isOcupado()}"
+									class="text-center"
 									th:text="${planta.getPuestos().get(33).getEmpleado().getApellido()}">Nombre</td>
+								<td></td>
+
+								<td></td>
 								<td class="text-center"
 									th:if="${!planta.getPuestos().get(34).isOcupado()}"
 									th:text="${'VACIO'}">VACIO</td>
@@ -577,33 +599,11 @@
 									class="text-center"
 									th:text="${planta.getPuestos().get(35).getEmpleado().getApellido()}">Nombre</td>
 								<td class="text-center"
-									th:if="${!planta.getPuestos().get(273).isOcupado()}"
-									th:text="${'VACIO'}">VACIO</td>
-								<!-- puesto 179a -->
-								<td th:if="${planta.getPuestos().get(273).isOcupado()}"
-									class="text-center"
-									th:text="${planta.getPuestos().get(273).getEmpleado().getApellido()}">Nombre</td>
-								<td></td>
-
-								<td></td>
-								<td class="text-center"
-									th:if="${!planta.getPuestos().get(36).isOcupado()}"
-									th:text="${'VACIO'}">VACIO</td>
-								<td th:if="${planta.getPuestos().get(36).isOcupado()}"
-									class="text-center"
-									th:text="${planta.getPuestos().get(36).getEmpleado().getApellido()}">Nombre</td>
-								<td class="text-center"
-									th:if="${!planta.getPuestos().get(37).isOcupado()}"
-									th:text="${'VACIO'}">VACIO</td>
-								<td th:if="${planta.getPuestos().get(37).isOcupado()}"
-									class="text-center"
-									th:text="${planta.getPuestos().get(37).getEmpleado().getApellido()}">Nombre</td>
-								<td class="text-center"
 									th:if="${!planta.getPuestos().get(38).isOcupado()}"
 									th:text="${'VACIO'}">VACIO</td>
 								<td th:if="${planta.getPuestos().get(38).isOcupado()}"
 									class="text-center"
-									th:text="${planta.getPuestos().get(38).getEmpleado().getApellido()}">Nombre</td>
+									th:text="${planta.getPuestos().get(36).getEmpleado().getApellido()}">Nombre</td>
 								<td class="text-center"
 									th:if="${!planta.getPuestos().get(39).isOcupado()}"
 									th:text="${'VACIO'}">VACIO</td>
