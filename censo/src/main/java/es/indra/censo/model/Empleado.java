@@ -15,6 +15,8 @@ import javax.persistence.Table;
 
 import org.hibernate.annotations.NaturalId;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Table(name = "empleado")
 public class Empleado implements Serializable {
@@ -25,7 +27,7 @@ public class Empleado implements Serializable {
 	@GeneratedValue(strategy = GenerationType.SEQUENCE)
 	@Column(name = "id_empleado_auto")
 	private Integer idEmpleadoAuto;
-	
+
 	@NaturalId
 	@Column(name = "numero_empleado")
 	private Integer numeroEmpleado;
@@ -37,21 +39,20 @@ public class Empleado implements Serializable {
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "id_registro")
 	private Registro registro;
-	
+
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "id_ue")
 	private Ue ue;
-	
-	@OneToOne(mappedBy="empleado", fetch = FetchType.LAZY)
+
+	@OneToOne(mappedBy = "empleado", fetch = FetchType.LAZY)
 	private Puesto puesto;
 
 	// Implementación de los Getters & Setters de la clase Empleado.
-	
 
 	public Integer getNumeroEmpleado() {
 		return numeroEmpleado;
 	}
-	
+
 	public void setNumeroEmpleado(Integer numeroEmpleado) {
 		this.numeroEmpleado = numeroEmpleado;
 	}
@@ -71,7 +72,6 @@ public class Empleado implements Serializable {
 	public void setUe(Ue ue) {
 		this.ue = ue;
 	}
-
 
 	public String getNick() {
 		return nick;
@@ -106,12 +106,12 @@ public class Empleado implements Serializable {
 	}
 
 	public Registro getRegistro() {
-	return registro;
-}
+		return registro;
+	}
 
-public void setRegistro(Registro registro) {
-	this.registro = registro;
-}
+	public void setRegistro(Registro registro) {
+		this.registro = registro;
+	}
 
 	/**
 	 * 

@@ -31,6 +31,7 @@ public class EmpleadoController {
 
 	}
 	
+	
 	// Método para mostrar el detalle el empleado que queramos por Id.
 		@GetMapping(value = "/ver/{id}")
 		public String ver(@PathVariable(value = "id") Integer id, Map<String, Object> model, RedirectAttributes flash) {

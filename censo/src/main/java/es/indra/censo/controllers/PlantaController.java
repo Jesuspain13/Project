@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import es.indra.censo.model.Planta;
@@ -16,6 +18,7 @@ import es.indra.censo.service.IPlantaService;
 
 @Controller
 @RequestMapping("/planta")
+@SessionAttributes("planta")
 public class PlantaController {
 
 	@Autowired
@@ -30,24 +33,23 @@ public class PlantaController {
 		return "listar";
 
 	}
+	
+
 
 	// Método para mostrar la planta que queramos por Id.
 	@GetMapping(value = "/ver/{id}")
-	public String ver(@PathVariable(value = "id") Integer id, Map<String, Object> model, RedirectAttributes flash) {
+	@ResponseBody
+	public Planta ver(@PathVariable(value = "id") Integer id, Map<String, Object> model, RedirectAttributes flash) {
 
 		Planta planta = plantaService.findPlantaById(id);
 
-//		if (planta == null) {
-//			flash.addFlashAttribute("error", "¡La planta a la que intenta acceder no existe!");
-//			return "redirect:/listar";
-//		}
 
 		model.put("planta", planta);
 		model.put("titulo", "Esta usted en la planta: " + planta.getNombrePlanta());
 		if (planta.getNombrePlanta().contains("0")) {
-			return "plantabaja";
+			return planta;
 		}
-		return "plantaprimera";
+		return planta;
 
 		
 
