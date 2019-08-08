@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -37,7 +38,7 @@ public class PlantaController {
 
 
 	// Método para mostrar la planta que queramos por Id.
-	@GetMapping(value = "/ver/{id}")
+	@GetMapping(value = "/ver/datosplanta/{id}")
 	@ResponseBody
 	public Planta ver(@PathVariable(value = "id") Integer id, Map<String, Object> model, RedirectAttributes flash) {
 
@@ -47,7 +48,9 @@ public class PlantaController {
 		model.put("planta", planta);
 		model.put("titulo", "Esta usted en la planta: " + planta.getNombrePlanta());
 		if (planta.getNombrePlanta().contains("0")) {
+
 			return planta;
+
 		}
 		return planta;
 
@@ -55,4 +58,26 @@ public class PlantaController {
 
 	}
 
+	// Método para mostrar la planta que queramos por Id.
+		@PostMapping(value = "/ver")
+		public String ver(Planta planta, Map<String, Object> model, RedirectAttributes flash) {
+
+			Planta plantaEncontrada = plantaService.findPlantaById(planta.getId());
+
+//			if (planta == null) {
+//				flash.addFlashAttribute("error", "¡La planta a la que intenta acceder no existe!");
+//				return "redirect:/listar";
+//			}
+
+			model.put("planta", plantaEncontrada);
+			model.put("edificio", plantaEncontrada.getEdificio());
+			model.put("titulo", "Esta usted en la planta: " + planta.getNombrePlanta());
+			if (plantaEncontrada.getNombrePlanta().contains("0")) {
+				return "plantabaja";
+			}
+			return "plantaprimera";
+
+			
+
+		}
 }

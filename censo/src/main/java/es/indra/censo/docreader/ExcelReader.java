@@ -92,8 +92,9 @@ public class ExcelReader {
 			// primera no incluye datos solo titulos)
 			
 			if (contador > 0) {
+				Row row = rows.next();
 				if (c == null) {
-					Map<String, Object> res = this.recorrerCeldasDeFila(workbook, rows.next(), rDao, registroGuardado);
+					Map<String, Object> res = this.recorrerCeldasDeFila(workbook, row, rDao, registroGuardado);
 					c = (Complejo) res.get("complejo");
 					registroGuardado.addComplejo(c);
 					ue = (Ue) res.get("ue");
@@ -103,7 +104,7 @@ public class ExcelReader {
 					}
 					
 				} else {
-					Map<String, Object> res = this.recorrerCeldasDeFila(workbook, rows.next(), rDao, registroGuardado);
+					Map<String, Object> res = this.recorrerCeldasDeFila(workbook, row, rDao, registroGuardado);
 					ue = (Ue) res.get("ue");
 					//comprobar si la ue existe ya
 					if (ue != null && !registroGuardado.getUes().contains(ue)) {

@@ -1,53 +1,66 @@
-        .footer {
-            position: relative;
-            width: 100%;
-            bottom: 0px;
-            background-color: #004254;
-            padding-left: 20px;
-            font-family: Helvetica;
-            font-size: .875em;
-            color: #dedfe0;
-            line-height: 1.14286em;
-        }
-        
-        .indra-color {
-            background-color: #004254
-        }
-        
-        .logo-indra-footer {
-            padding-right: 20px;
-            padding-bottom: 10px;
-        }
-        
-        .btn-subir-indra {
-            background-color: #fde3d4;
-            color: #004254;
-        }
-        
-        .intro1 {
-            height: auto;
-            width: 100%;
-            background-color: aqua
-        }
-        
-        .intro2 {
-            height: auto;
-            width: 100%;
-        }
-        
-        .muro {
-            height: 0.20rem;
-            width: 0.20rem;
-            background-color: #bdbdbd
-        }
-        
-        .muro-falso {
-            height: 0.20rem;
-            width: 0.20rem;
-            background-color: #fafafa;
-        }
-        
-        .hueco-blanco {
-            height: 0.20rem;
-            background-color: #ffffff
-        }
+html, body {
+	height: 100%;
+	position: relative;
+}
+
+.main-content {
+	min-height: 100vh; /* will cover the 100% of viewport */
+	overflow: hidden;
+	display: block;
+	position: relative;
+	padding-bottom: 100px; /* height of your footer */
+}
+
+.footer {
+	position: absolute;
+	width: 100%;
+	bottom: 0px;
+	background-color: #004254;
+	padding-left: 20px;
+	font-family: Helvetica;
+	font-size: .875em;
+	color: #dedfe0;
+	line-height: 1.14286em;
+}
+
+.indra-color {
+	background-color: #004254
+}
+
+.logo-indra-footer {
+	padding-right: 20px;
+	padding-bottom: 10px;
+}
+
+.btn-subir-indra {
+	background-color: #fde3d4;
+	color: #004254;
+}
+
+.intro1 {
+	height: auto;
+	width: 100%;
+	background-color: aqua
+}
+
+.intro2 {
+	height: auto;
+	width: 100%;
+}
+
+.muro {
+	height: 0.20rem;
+	width: 0.20rem;
+	background-color: #bdbdbd
+}
+
+.muro-falso {
+	height: 0.20rem;
+	width: 0.20rem;
+	background-color: #fafafa;
+}
+
+.hueco-blanco {
+	height: 0.20rem;
+	background-color: #ffffff
+}

@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head th:replace="layout/layout :: head">
+<meta charset="utf-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<div class="main-content">
+		<!--Main Navigation-->
+		<header th:replace="layout/layout :: header"> </header>
+		<section>
+
+			<!-- Contenedor con nombre de la planta y desplegable de la version-->
+			<div class="container">
+				<div class="row d-flex justify-content-center">
+					<div class="col-md-12">
+						<div class="card">
+							<div class="card-header">
+								<h2>SELECCIONA EL REGISTRO, EL COMPLEJO, EL EDIFICIO Y LA
+									PLANTA</h2>
+							</div>
+							<div class="card-body">
+								<form class="container form-group" th:object="${registro}"
+									method="POST" th:action="@{listar}">
+									<div class="row my-2">
+
+										<!-- Formulario para versión -->
+										<div class="col-md-12">
+											<label for="version">Selecciona la versión</label> <select
+												id="version" th:field="*{idRegistro}"
+												class="browser-default custom-select">
+												<option th:each="r: ${registros}"
+													th:value="${r.getIdRegistro()}"><span
+														th:text="${r.getVersion()}"></span>
+												</option>
+											</select>
+										</div>
+									</div>
+									<div th:if="${registro.getVersion() != null}" class="row my-2">
+
+										<!-- Formulario para versión -->
+										<div class="col-md-12">
+											<h4>
+												Versión seleccionada: <span
+													th:text="${registro.getVersion()}"></span>
+											</h4>
+										</div>
+									</div>
+									<button th:if="${registro.getVersion() == null}"
+										class="btn bt-primary">Registro</button>
+								</form>
+								<div th:if="${complejos != null || complejo != null}">
+									<form class="container form-group" th:object="${complejo}"
+										method="POST" th:action="@{/complejo/listar}">
+										<div class="row my-2">
+											<div class="col-md-4">
+												<div th:each="c: ${complejos}" class="form-check">
+													<input th:field="*{id}" class="form-check-input"
+														type="radio" name="exampleRadios" id="exampleRadios1"
+														th:value="${c.getId()}" checked> <label
+														class="form-check-label" for="exampleRadios1"> <span
+														th:text="${c.getNombreComplejo()}"></span>
+													</label>
+												</div>
+											</div>
+										</div>
+										<div th:if="${complejo.getNombreComplejo() != null}"
+											class="row my-2">
+											<div class="col-md-12">
+												<h5>
+													Complejo seleccionado: <span
+														th:text="${complejo.getNombreComplejo()}"></span>
+												</h5>
+											</div>
+										</div>
+										<button th:if="${complejo.getNombreComplejo() == null}"
+											class="btn bt-primary" type="submit">Complejo</button>
+									</form>
+								</div>
+								<div th:if="${edificios != null}">
+									<form class="container form-group" th:object="${edificio}"
+										method="POST" th:action="@{/edificio/listar}">
+
+										<div class="col-md-4">
+											<div th:each="e: ${edificios}" class="form-check">
+												<input th:field="*{idEdificio}" class="form-check-input"
+													type="radio" name="exampleRadios" id="exampleRadios1"
+													th:value="${e.getIdEdificio()}" checked> <label
+													class="form-check-label" for="exampleRadios1"> <span
+													th:text="${e.getNombreEdificio()}"></span>
+												</label>
+											</div>
+										</div>
+
+
+										<button class="btn bt-primary">Edif</button>
+									</form>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<!-- Fin del Contenedor con nombre de la planta y desplegable de la version-->
+		</section>
+
+		<footer th:replace="layout/layout :: footer"></footer>
+
+	</div>
+</body>
+</html>

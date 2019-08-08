@@ -16,8 +16,12 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+
 @Entity
 @Table(name = "plantas")
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property="id")
 public class Planta implements Serializable {
 	
 	public Planta() {
@@ -35,7 +39,7 @@ public class Planta implements Serializable {
 	@JoinColumn(name = "id_registro")
 	private Registro registro;
 
-	@OneToMany(mappedBy="planta",fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@OneToMany(mappedBy="planta",fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	private List<Puesto> puestos;
 	
 	@ManyToOne(fetch=FetchType.LAZY)

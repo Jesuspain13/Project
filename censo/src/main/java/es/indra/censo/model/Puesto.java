@@ -16,8 +16,12 @@ import javax.persistence.Table;
 
 import org.hibernate.annotations.NaturalId;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+
 @Entity
 @Table(name = "puesto")
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property="id")
 public class Puesto implements Serializable {
 
 	// Definición de los atributos de la tabla Puesto.
@@ -39,7 +43,7 @@ public class Puesto implements Serializable {
 
 	private boolean ocupado;
 	
-	@OneToOne(fetch= FetchType.LAZY, cascade = CascadeType.ALL)
+	@OneToOne(fetch= FetchType.EAGER, cascade = CascadeType.ALL)
 	@JoinColumn(name="id_empleado")
 	private Empleado empleado;
 

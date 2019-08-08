@@ -70,15 +70,22 @@
                             <i class="fas fa-user"></i>
                         </a>
                         <div class="dropdown-menu dropdown-menu-right dropdown-default" aria-labelledby="navbarDropdownMenuLink-333">
-                            <a class="dropdown-item" href="#">Action</a>
-                            <a class="dropdown-item" href="#">Another action</a>
-                            <a class="dropdown-item" href="#">Something else here</a>
+                            <a sec:authorize="!isAuthenticated()" class="dropdown-item" th:href="@{/login}" th:text="#{text.login.entrar}"></a>
+								<form sec:authorize="isAuthenticated()" th:action="@{/logout}" method="POST">
+									<input type="hidden" th:name="${_csrf.parameterName}"
+										th:value="${_csrf.token}">
+									<button class="dropdown-item" type="submit">Logout</button>
+								</form>
                         </div>
                     </li>
                 </ul>
             </div>
+           
         </nav>
         <!--/.Navbar -->
+        <section th:replace="/layout/functionbuttons :: buttons"></section>
+        
+        <section th:replace="/layout/messages :: messages"></section>
     </header>
     <!--Main Navigation-->
 
@@ -89,7 +96,7 @@
 
     <!-- Footer -->
 
-    <footer class="footer indra-color">
+    <footer class="sticky-bottom footer indra-color">
         <div class="container">
             <div class="row">
                 <!-- Copyright -->
