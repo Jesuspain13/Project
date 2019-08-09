@@ -41,4 +41,13 @@ public class PlantaServiceImpl implements IPlantaService {
 		return plantaDao.findById(id).get();
 	}
 
+	@Override
+	public Planta findPlantaByNombrePlanta(Integer nombrePlanta) {
+		// TODO Auto-generated method stub
+		String nombre = nombrePlanta.toString();
+		return plantaDao.findByNombrePlanta(nombre);
+	}
+	
+	
+
 }
