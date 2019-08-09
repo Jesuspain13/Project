@@ -16,7 +16,7 @@ import es.indra.censo.dao.IPuestoDao;
 import es.indra.censo.model.Edificio;
 import es.indra.censo.model.Planta;
 import es.indra.censo.model.Puesto;
-import es.indra.censo.model.wrapper.PlantaBajaWrapper;
+import es.indra.censo.model.wrapper.PlantaWrapper;
 import es.indra.censo.model.wrapper.PlantaWrapperAbs;
 
 @Controller
@@ -40,17 +40,17 @@ public class EdificioController {
 		Edificio edificio = edificioDao.findById(e.getIdEdificio()).get();
 		model.addAttribute("edificio", edificio);
 		//model.addAttribute("planta", edificio.getPlantas().get(0));
-//		Planta p = edificio.getPlantas().get(1);
-//		PlantaWrapperAbs pWrapper = new PlantaWrapper();
-//		List<Puesto> puestosDesordenados = puestoDao.findByPlanta(p);
-//		List<Puesto >puestos = (pWrapper.ordenarPuesto(puestosDesordenados));
-//		p.setPuestos(puestos);
-		
-		Planta p = edificio.getPlantas().get(0);
-		PlantaWrapperAbs pWrapper = new PlantaBajaWrapper();
+		Planta p = edificio.getPlantas().get(1);
+		PlantaWrapperAbs pWrapper = new PlantaWrapper();
 		List<Puesto> puestosDesordenados = puestoDao.findByPlanta(p);
 		List<Puesto >puestos = (pWrapper.ordenarPuesto(puestosDesordenados));
 		p.setPuestos(puestos);
+		
+//		Planta p = edificio.getPlantas().get(0);
+//		PlantaWrapperAbs pWrapper = new PlantaBajaWrapper();
+//		List<Puesto> puestosDesordenados = puestoDao.findByPlanta(p);
+//		List<Puesto >puestos = (pWrapper.ordenarPuesto(puestosDesordenados));
+//		p.setPuestos(puestos);
 		
 		//p.setPuestos(pWrapper.getPuestosOrdenados());
 		model.addAttribute("planta", p);

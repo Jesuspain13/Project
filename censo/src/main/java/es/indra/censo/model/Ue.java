@@ -17,11 +17,13 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 @Entity
 @Table(name = "ue")
 @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property="id")
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class Ue implements Serializable {
 
 	public Ue() {
@@ -49,9 +51,11 @@ public class Ue implements Serializable {
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "id_registro")
+	@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 	private Registro registro;
 
 	@OneToMany(mappedBy = "ue", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 	private List<Empleado> empleados;
 
 	

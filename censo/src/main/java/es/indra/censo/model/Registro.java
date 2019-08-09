@@ -17,11 +17,13 @@ import javax.persistence.PrePersist;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 @Entity
 @Table(name="registros")
 @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property="id")
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class Registro implements Serializable {
 
 	public Registro() {
@@ -42,9 +44,11 @@ public class Registro implements Serializable {
 	
 	// Relaciones (facilitar guardado)
 	@OneToMany(mappedBy="registro", fetch=FetchType.LAZY, cascade=CascadeType.ALL)
+	@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 	private List<Complejo> complejos;
 	
 	@OneToMany(mappedBy="registro", fetch=FetchType.LAZY, cascade=CascadeType.ALL)
+	@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 	private List<Ue> ues;
 	
 	//private Integer idAdmin;

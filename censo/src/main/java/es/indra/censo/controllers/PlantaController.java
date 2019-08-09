@@ -38,7 +38,7 @@ public class PlantaController {
 
 
 	// Método para mostrar la planta que queramos por Id.
-	@GetMapping(value = "/ver/datosplanta/{id}")
+	@GetMapping(value = "/ver/{id}")
 	@ResponseBody
 	public Planta ver(@PathVariable(value = "id") Integer id, Map<String, Object> model, RedirectAttributes flash) {
 

@@ -17,11 +17,13 @@ import javax.persistence.Table;
 import org.hibernate.annotations.NaturalId;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 @Entity
 @Table(name = "puesto")
 @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property="id")
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class Puesto implements Serializable {
 
 	// Definición de los atributos de la tabla Puesto.
@@ -39,6 +41,7 @@ public class Puesto implements Serializable {
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "id_planta")
+	@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 	private Planta planta;
 
 	private boolean ocupado;
@@ -49,6 +52,7 @@ public class Puesto implements Serializable {
 
 	@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinColumn(name = "id_registro")
+	@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 	private Registro registro;
 
 	// Implementación de los Getters & Setters de la clase Puesto.

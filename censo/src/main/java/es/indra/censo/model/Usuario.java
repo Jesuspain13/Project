@@ -14,6 +14,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 @Entity
 @Table(name = "usuarios")
 public class Usuario implements Serializable {
@@ -35,6 +37,7 @@ public class Usuario implements Serializable {
 
 	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinColumn(name = "user_id")
+	@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 	private List<Rol> roles;
 	
 	private boolean enabled;

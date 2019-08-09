@@ -17,6 +17,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 @Entity
@@ -38,13 +39,16 @@ public class Edificio implements Serializable {
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "id_complejo")
+	@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 	private Complejo complejo;
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "id_registro")
+	@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 	private Registro registro;
 	
 	@OneToMany(mappedBy="edificio", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 	private List<Planta> plantas;
 	
 
