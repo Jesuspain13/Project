@@ -55,7 +55,7 @@ public class EdificioController {
 		//p.setPuestos(pWrapper.getPuestosOrdenados());
 		model.addAttribute("planta", p);
 		
-		return "plantaprimera";
+		return "plantabaja";
 		} catch(Exception ex) {
 			log.error(ex.getMessage());
 			model.addAttribute("error", UploadExcelController.ERROR_MSG);
