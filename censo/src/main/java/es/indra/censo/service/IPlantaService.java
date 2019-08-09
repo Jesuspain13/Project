@@ -15,5 +15,7 @@ public interface IPlantaService {
 	public void deletePlanta(Integer id);
 	
 	public Planta findPlantaById (Integer id);
+	
+	public Planta findPlantaByNombrePlanta(Integer nombrePlanta);
 
 }
