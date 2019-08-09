@@ -1148,18 +1148,24 @@
         
         
         const url='http://localhost:8080/planta/ver/4';
-        var apellidos;
+        var empleado;
+		var puesto;
+        var mostrar;
         $.get(url, function(data) {
         	
         	for (var i in data.puestos) {
+        		puesto = data.puestos[i]
         		
-			if(data.puestos[i].empleado != null){
-				apellidos = data.puestos[i].empleado.apellido;
-        		console.log(apellidos);
+				if(puesto.empleado != null && puesto.ocupado){
+	
+						mostrar = puesto;
+		    
         		
-			} else {
-				console.log("VACIO");
+				} else {
+				mostrar="VACIO";
+				
 			}
+				console.log(mostrar);
 
           };
         	
