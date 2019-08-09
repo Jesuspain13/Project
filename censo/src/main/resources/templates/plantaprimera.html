@@ -1,2047 +1,2048 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 
 <head th:replace="layout/layout :: head">
 </head>
 <meta charset="utf-8" />
 
 <body>
-    <div class="main-content">
-        <!--Main Navigation-->
-        <header th:replace="layout/layout :: header"> </header>
-        <!--Main Navigation-->
-
-        <!--Main layout-->
-        <main>
-            <div class="container-fluid">
-
-
-                <section th:replace="./buscarplanta :: plantaForm"></section>
-
-                <!-- Fin del Contenedor con nombre de la planta y desplegable de la version-->
-            </div>
-
-            <div class="row">
-                <!-- Contenedor con el mapa de la primera planta-->
-                <div class="container-fluid">
-                    <div class="table-responsive">
-                        <table class="table table-borderless">
-
-                            <tbody>
-                                <!-- Fila 4-->
-                                <tr>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                </tr>
-                                <!-- Fin Fila 4-->
-
-                                <!-- Fila 5-->
-                                <tr>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-
-                                    <td class="muro"></td>
-                                    <td class="muro"></td>
-                                    <td class="muro"></td>
-                                    <td class="muro"></td>
-
-                                    <td class="muro"></td>
-                                    <td class="muro"></td>
-                                    <td class="muro"></td>
-                                    <td class="muro"></td>
-
-                                    <td class="muro"></td>
-                                    <td class="muro"></td>
-                                    <td class="muro"></td>
-                                    <td class="muro"></td>
-
-                                    <td class="muro"></td>
-                                    <td class="muro"></td>
-                                    <td class="muro"></td>
-                                    <td class="muro"></td>
-
-                                    <td class="muro"></td>
-                                    <td class="muro"></td>
-                                    <td class="muro"></td>
-                                    <td></td>
-                                    <td></td>
-                                </tr>
-                                <!-- Fin Fila 5-->
-                                <!-- Fila 6-->
-                                <tr>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-
-                                    <td class="muro"></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-
-                                    <td></td>
-                                    <td></td>
-                                    <td class="muro"></td>
-                                    <td class="muro"></td>
-
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                </tr>
-                                <!-- Fin Fila 6-->
-
-
-                                <!-- Fila 7 a 8-->
-                                <tr>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-
-                                    <td class="muro"></td>
-                                    <td></td>
-                                    <td>
-                                        <div class="puestos text-center"></div>
-                                    </td>
-                                    <td>
-                                        <div class="puestos text-center"></div>
-                                    </td>
-
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td>
-                                        <div class="puestos text-center"></div>
-                                    </td>
-
-                                    <td>
-                                        <div class="puestos text-center"></div>
-                                    </td>
-                                    <td>
-                                        <div class="puestos text-center"></div>
-                                    </td>
-                                    <td class="muro-falso"></td>
-                                    <td class="muro-falso"></td>
-
-                                    <td></td>
-                                    <td>
-                                        <div class="puestos text-center"></div>
-                                    </td>
-                                    <td>
-                                        <div class="puestos text-center"></div>
-                                    </td>
-                                    <td>
-                                        <div class="puestos text-center"></div>
-                                    </td>
-
-                                    <td>
-                                        <div class="puestos text-center"></div>
-                                    </td>
-                                    <td>
-                                        <div class="puestos text-center"></div>
-                                    </td>
-                                    <td>
-                                        <div class="puestos text-center"></div>
-                                    </td>
-                                    <td></td>
-                                </tr>
-                                <!-- Fin Fila 7 a 8-->
-
-                                <!-- Fila 9 a 10-->
-                                <tr>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-
-                                    <td class="muro"></td>
-                                    <td></td>
-                                    <td>
-                                        <div class="puestos puestosInv text-center"></div>
-                                    </td>
-                                    <td>
-                                        <div class="puestos puestosInv text-center"></div>
-                                    </td>
-
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td>
-                                        <div class="puestos puestosInv text-center"></div>
-                                    </td>
-
-                                    <td>
-                                        <div class="puestos puestosInv text-center"></div>
-                                    </td>
-                                    <td>
-                                        <div class="puestos puestosInv text-center"></div>
-                                    </td>
-                                    <td class="muro-falso"></td>
-                                    <td class="muro-falso"></td>
-
-                                    <td></td>
-                                    <td>
-                                        <div class="puestos puestosInv text-center"></div>
-                                    </td>
-                                    <td>
-                                        <div class="puestos puestosInv text-center"></div>
-                                    </td>
-                                    <td>
-                                        <div class="puestos puestosInv text-center"></div>
-                                    </td>
-
-                                    <td>
-                                        <div class="puestos puestosInv text-center"></div>
-                                    </td>
-                                    <td>
-                                        <div class="puestos puestosInv text-center"></div>
-                                    </td>
-                                    <td>
-                                        <div class="puestos puestosInv text-center"></div>
-                                    </td>
-                                    <td></td>
-                                </tr>
-                                <!-- Fin Fila 9 a 10-->
-
-
-
-                                <!-- Fila 11-->
-                                <tr>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-
-                                    <td class="muro"></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-
-                                    <td></td>
-                                    <td></td>
-                                    <td class="muro"></td>
-                                    <td class="muro"></td>
-
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                </tr>
-                                <!-- Fin Fila 11-->
-
-                                <!-- Fila 12-->
-                                <tr>
-                                    <td></td>
-                                    <td class="muro"></td>
-                                    <td class="muro"></td>
-                                    <td class="muro"></td>
-
-                                    <td class="muro"></td>
-                                    <td class="muro"></td>
-                                    <td class="muro"></td>
-                                    <td class="muro"></td>
-
-                                    <td class="muro"></td>
-                                    <td class="muro"></td>
-                                    <td class="muro"></td>
-                                    <td class="muro"></td>
-
-                                    <td class="muro"></td>
-                                    <td class="muro"></td>
-                                    <td class="muro"></td>
-                                    <td class="muro"></td>
-
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td class="muro"></td>
-
-                                    <td class="muro"></td>
-                                    <td class="muro"></td>
-                                    <td class="muro"></td>
-                                    <td></td>
-                                    <td></td>
-                                </tr>
-                                <!-- Fin Fila 12-->
-
-                                <!-- Fila 13-->
-                                <tr>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                </tr>
-                                <!-- Fin Fila 13-->
-
-
-                                <!-- Fila 14 a 15-->
-                                <tr>
-                                    <td></td>
-                                    <td>
-                                        <div class="puestos text-center"></div>
-                                    </td>
-                                    <td>
-                                        <div class="puestos text-center"></div>
-                                    </td>
-                                    <td>
-                                        <div class="puestos text-center"></div>
-                                    </td>
-
-                                    <td>
-                                        <div class="puestos text-center"></div>
-                                    </td>
-                                    <td></td>
-                                    <td></td>
-                                    <td>
-                                        <div class="puestos text-center"></div>
-                                    </td>
-
-                                    <td>
-                                        <div class="puestos text-center"></div>
-                                    </td>
-                                    <td>
-                                        <div class="puestos text-center"></div>
-                                    </td>
-                                    <td>
-                                        <div class="puestos text-center"></div>
-                                    </td>
-                                    <td>
-                                        <div class="puestos text-center"></div>
-                                    </td>
-
-                                    <td>
-                                        <div class="puestos text-center"></div>
-                                    </td>
-                                    <td>
-                                        <div class="puestos text-center"></div>
-                                    </td>
-                                    <td>
-                                        <div class="puestos text-center"></div>
-                                    </td>
-                                    <td></td>
-
-                                    <td></td>
-                                    <td>
-                                        <div class="puestos text-center"></div>
-                                    </td>
-                                    <td>
-                                        <div class="puestos text-center"></div>
-                                    </td>
-                                    <td>
-                                        <div class="puestos text-center"></div>
-                                    </td>
-
-                                    <td>
-                                        <div class="puestos text-center"></div>
-                                    </td>
-                                    <td>
-                                        <div class="puestos text-center"></div>
-                                    </td>
-                                    <td>
-                                        <div class="puestos text-center"></div>
-                                    </td>
-                                    <td></td>
-                                </tr>
-                                <!-- Fin Fila 14 a 15-->
-
-                                <!-- Fila 16 a 17-->
-                                <tr>
-                                    <td></td>
-                                    <td>
-                                        <div class="puestos puestosInv text-center"></div>
-                                    </td>
-                                    <td>
-                                        <div class="puestos puestosInv text-center"></div>
-                                    </td>
-                                    <td>
-                                        <div class="puestos puestosInv text-center"></div>
-                                    </td>
-
-                                    <td>
-                                        <div class="puestos puestosInv text-center"></div>
-                                    </td>
-                                    <td></td>
-                                    <td></td>
-                                    <td>
-                                        <div class="puestos puestosInv text-center"></div>
-                                    </td>
-
-                                    <td>
-                                        <div class="puestos puestosInv text-center"></div>
-                                    </td>
-                                    <td>
-                                        <div class="puestos puestosInv text-center"></div>
-                                    </td>
-                                    <td>
-                                        <div class="puestos puestosInv text-center"></div>
-                                    </td>
-                                    <td>
-                                        <div class="puestos puestosInv text-center"></div>
-                                    </td>
-
-                                    <td>
-                                        <div class="puestos puestosInv text-center"></div>
-                                    </td>
-                                    <td>
-                                        <div class="puestos puestosInv text-center"></div>
-                                    </td>
-                                    <td>
-                                        <div class="puestos puestosInv text-center"></div>
-                                    </td>
-                                    <td></td>
-
-                                    <td></td>
-                                    <td>
-                                        <div class="puestos puestosInv text-center"></div>
-                                    </td>
-                                    <td>
-                                        <div class="puestos puestosInv text-center"></div>
-                                    </td>
-                                    <td>
-                                        <div class="puestos puestosInv text-center"></div>
-                                    </td>
-
-                                    <td>
-                                        <div class="puestos puestosInv text-center"></div>
-                                    </td>
-                                    <td>
-                                        <div class="puestos puestosInv text-center"></div>
-                                    </td>
-                                    <td>
-                                        <div class="puestos puestosInv text-center"></div>
-                                    </td>
-                                    <td></td>
-                                </tr>
-                                <!-- Fin Fila 16 a 17-->
-
-
-
-
-                                <!-- Fila 18 a 19-->
-                                <tr>
-                                    <td></td>
-                                    <td>
-                                        <div class="puestos text-center"></div>
-                                    </td>
-                                    <td>
-                                        <div class="puestos text-center"></div>
-                                    </td>
-                                    <td>
-                                        <div class="puestos text-center"></div>
-                                    </td>
-
-                                    <td>
-                                        <div class="puestos text-center"></div>
-                                    </td>
-                                    <td></td>
-                                    <td></td>
-                                    <td>
-                                        <div class="puestos text-center"></div>
-                                    </td>
-
-                                    <td>
-                                        <div class="puestos text-center"></div>
-                                    </td>
-                                    <td>
-                                        <div class="puestos text-center"></div>
-                                    </td>
-                                    <td>
-                                        <div class="puestos text-center"></div>
-                                    </td>
-                                    <td>
-                                        <div class="puestos text-center"></div>
-                                    </td>
-
-                                    <td>
-                                        <div class="puestos text-center"></div>
-                                    </td>
-                                    <td>
-                                        <div class="puestos text-center"></div>
-                                    </td>
-                                    <td>
-                                        <div class="puestos text-center"></div>
-                                    </td>
-                                    <td></td>
-
-                                    <td></td>
-                                    <td>
-                                        <div class="puestos text-center"></div>
-                                    </td>
-                                    <td>
-                                        <div class="puestos text-center"></div>
-                                    </td>
-                                    <td>
-                                        <div class="puestos text-center"></div>
-                                    </td>
-
-                                    <td>
-                                        <div class="puestos text-center"></div>
-                                    </td>
-                                    <td>
-                                        <div class="puestos text-center"></div>
-                                    </td>
-                                    <td>
-                                        <div class="puestos text-center"></div>
-                                    </td>
-                                    <td></td>
-                                </tr>
-                                <!-- Fin Fila 18 a 19-->
-
-                                <!-- Fila 20 a 21-->
-                                <tr>
-                                    <td></td>
-                                    <td>
-                                        <div class="puestos puestosInv text-center"></div>
-                                    </td>
-                                    <td>
-                                        <div class="puestos puestosInv text-center"></div>
-                                    </td>
-                                    <td>
-                                        <div class="puestos puestosInv text-center"></div>
-                                    </td>
-
-                                    <td>
-                                        <div class="puestos puestosInv text-center"></div>
-                                    </td>
-                                    <td></td>
-                                    <td></td>
-                                    <td>
-                                        <div class="puestos puestosInv text-center"></div>
-                                    </td>
-
-                                    <td>
-                                        <div class="puestos puestosInv text-center"></div>
-                                    </td>
-                                    <td>
-                                        <div class="puestos puestosInv text-center"></div>
-                                    </td>
-                                    <td>
-                                        <div class="puestos puestosInv text-center"></div>
-                                    </td>
-                                    <td>
-                                        <div class="puestos puestosInv text-center"></div>
-                                    </td>
-
-                                    <td>
-                                        <div class="puestos puestosInv text-center"></div>
-                                    </td>
-                                    <td>
-                                        <div class="puestos puestosInv text-center"></div>
-                                    </td>
-                                    <td>
-                                        <div class="puestos puestosInv text-center"></div>
-                                    </td>
-                                    <td></td>
-
-                                    <td></td>
-                                    <td>
-                                        <div class="puestos puestosInv text-center"></div>
-                                    </td>
-                                    <td>
-                                        <div class="puestos puestosInv text-center"></div>
-                                    </td>
-                                    <td>
-                                        <div class="puestos puestosInv text-center"></div>
-                                    </td>
-
-                                    <td>
-                                        <div class="puestos puestosInv text-center"></div>
-                                    </td>
-                                    <td>
-                                        <div class="puestos puestosInv text-center"></div>
-                                    </td>
-                                    <td>
-                                        <div class="puestos puestosInv text-center"></div>
-                                    </td>
-                                    <td></td>
-                                </tr>
-                                <!-- Fin Fila 20 a 21-->
-
-
-
-                                <!-- Fila 22-->
-                                <tr>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                </tr>
-                                <!-- Fin Fila 22-->
-
-                                <!-- Fila 23-->
-                                <tr>
-                                    <td></td>
-                                    <td class="muro"></td>
-                                    <td class="muro"></td>
-                                    <td class="muro"></td>
-
-                                    <td class="muro"></td>
-                                    <td class="muro"></td>
-                                    <td class="muro"></td>
-                                    <td class="muro"></td>
-
-                                    <td class="muro"></td>
-                                    <td class="muro"></td>
-                                    <td class="muro"></td>
-                                    <td class="muro"></td>
-
-                                    <td class="muro"></td>
-                                    <td class="muro"></td>
-                                    <td></td>
-                                    <td></td>
-
-                                    <td></td>
-                                    <td class="muro"></td>
-                                    <td class="muro"></td>
-                                    <td class="muro"></td>
-
-                                    <td class="muro"></td>
-                                    <td class="muro"></td>
-                                    <td class="muro"></td>
-                                    <td></td>
-                                    <td></td>
-                                </tr>
-                                <!-- Fin Fila 23-->
-
-                                <!-- Fila 24-->
-                                <tr>
-                                    <td></td>
-                                    <td class="muro"></td>
-                                    <td class="muro"></td>
-                                    <td class="muro"></td>
-
-                                    <td class="muro"></td>
-                                    <td class="muro"></td>
-                                    <td class="muro"></td>
-                                    <td class="muro"></td>
-
-                                    <td class="muro"></td>
-                                    <td class="muro"></td>
-                                    <td class="muro"></td>
-                                    <td class="muro"></td>
-
-                                    <td class="muro"></td>
-                                    <td class="muro"></td>
-                                    <td></td>
-                                    <td></td>
-
-                                    <td></td>
-                                    <td class="muro"></td>
-                                    <td class="muro"></td>
-                                    <td class="muro"></td>
-
-                                    <td class="muro"></td>
-                                    <td class="muro"></td>
-                                    <td class="muro"></td>
-                                    <td></td>
-                                    <td></td>
-                                </tr>
-                                <!-- Fin Fila 24-->
-
-                                <!-- Fila 25-->
-                                <tr>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-
-                                    <td class="muro"></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                </tr>
-                                <!-- Fin Fila 25-->
-
-                                <!-- Fila 26-->
-                                <tr>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-
-                                    <td class="muro"></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                </tr>
-                                <!-- Fin Fila 26-->
-
-                                <!-- Fila 27-->
-                                <tr>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-
-                                    <td class="muro"></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                </tr>
-                                <!-- Fin Fila 27-->
-
-                                <!-- Fila 28-->
-                                <tr>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-
-                                    <td class="muro"></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                </tr>
-                                <!-- Fin Fila 28-->
-
-                                <!-- Fila 29-->
-                                <tr>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-
-                                    <td class="muro"></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                </tr>
-                                <!-- Fin Fila 29-->
-
-                                <!-- Fila 30-->
-                                <tr>
-                                    <td></td>
-                                    <td class="muro"></td>
-                                    <td class="muro"></td>
-                                    <td class="muro"></td>
-
-                                    <td class="muro"></td>
-                                    <td class="muro"></td>
-                                    <td class="muro"></td>
-                                    <td class="muro"></td>
-
-                                    <td class="muro"></td>
-                                    <td class="muro"></td>
-                                    <td class="muro"></td>
-                                    <td class="muro"></td>
-
-                                    <td class="muro"></td>
-                                    <td class="muro"></td>
-                                    <td></td>
-                                    <td></td>
-
-                                    <td></td>
-                                    <td class="muro"></td>
-                                    <td class="muro"></td>
-                                    <td class="muro"></td>
-
-                                    <td class="muro"></td>
-                                    <td class="muro"></td>
-                                    <td class="muro"></td>
-                                    <td></td>
-                                    <td></td>
-                                </tr>
-                                <!-- Fin Fila 30-->
-
-                                <!-- Fila 31-->
-                                <tr>
-                                    <td></td>
-                                    <td class="muro"></td>
-                                    <td class="muro"></td>
-                                    <td class="muro"></td>
-
-                                    <td class="muro"></td>
-                                    <td class="muro"></td>
-                                    <td class="muro"></td>
-                                    <td class="muro"></td>
-
-                                    <td class="muro"></td>
-                                    <td class="muro"></td>
-                                    <td class="muro"></td>
-                                    <td class="muro"></td>
-
-                                    <td class="muro"></td>
-                                    <td class="muro"></td>
-                                    <td></td>
-                                    <td></td>
-
-                                    <td></td>
-                                    <td class="muro"></td>
-                                    <td class="muro"></td>
-                                    <td class="muro"></td>
-
-                                    <td class="muro"></td>
-                                    <td class="muro"></td>
-                                    <td class="muro"></td>
-                                    <td></td>
-                                    <td></td>
-                                </tr>
-                                <!-- Fin Fila 31-->
-
-
-                                <!-- Fila 32-->
-                                <tr>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                </tr>
-                                <!-- Fin Fila 32-->
-
-
-
-                                <!-- Fila 33 a 34-->
-                                <tr>
-                                    <td></td>
-                                    <td>
-                                        <div class="puestos text-center"></div>
-                                    </td>
-                                    <td>
-                                        <div class="puestos text-center"></div>
-                                    </td>
-                                    <td>
-                                        <div class="puestos text-center"></div>
-                                    </td>
-
-                                    <td>
-                                        <div class="puestos text-center"></div>
-                                    </td>
-                                    <td></td>
-                                    <td>
-                                        <div class="puestos text-center"></div>
-                                    </td>
-                                    <td>
-                                        <div class="puestos text-center"></div>
-                                    </td>
-
-                                    <td>
-                                        <div class="puestos text-center"></div>
-                                    </td>
-                                    <td>
-                                        <div class="puestos text-center"></div>
-                                    </td>
-                                    <td>
-                                        <div class="puestos text-center"></div>
-                                    </td>
-                                    <td>
-                                        <div class="puestos text-center"></div>
-                                    </td>
-
-                                    <td>
-                                        <div class="puestos text-center"></div>
-                                    </td>
-                                    <td>
-                                        <div class="puestos text-center"></div>
-                                    </td>
-                                    <td></td>
-                                    <td></td>
-
-                                    <td></td>
-                                    <td>
-                                        <div class="puestos text-center"></div>
-                                    </td>
-                                    <td>
-                                        <div class="puestos text-center"></div>
-                                    </td>
-                                    <td>
-                                        <div class="puestos text-center"></div>
-                                    </td>
-
-                                    <td>
-                                        <div class="puestos text-center"></div>
-                                    </td>
-                                    <td>
-                                        <div class="puestos text-center"></div>
-                                    </td>
-                                    <td>
-                                        <div class="puestos text-center"></div>
-                                    </td>
-                                    <td></td>
-                                </tr>
-                                <!-- Fin Fila 33 a 34-->
-
-                                <!-- Fila 35 a 36-->
-                                <tr>
-                                    <td></td>
-                                    <td>
-                                        <div class="puestos puestosInv text-center"></div>
-                                    </td>
-                                    <td>
-                                        <div class="puestos puestosInv text-center"></div>
-                                    </td>
-                                    <td>
-                                        <div class="puestos puestosInv text-center"></div>
-                                    </td>
-
-                                    <td>
-                                        <div class="puestos puestosInv text-center"></div>
-                                    </td>
-                                    <td></td>
-                                    <td>
-                                        <div class="puestos puestosInv text-center"></div>
-                                    </td>
-                                    <td>
-                                        <div class="puestos puestosInv text-center"></div>
-                                    </td>
-
-                                    <td>
-                                        <div class="puestos puestosInv text-center"></div>
-                                    </td>
-                                    <td>
-                                        <div class="puestos puestosInv text-center"></div>
-                                    </td>
-                                    <td>
-                                        <div class="puestos puestosInv text-center"></div>
-                                    </td>
-                                    <td>
-                                        <div class="puestos puestosInv text-center"></div>
-                                    </td>
-
-                                    <td>
-                                        <div class="puestos puestosInv text-center"></div>
-                                    </td>
-                                    <td>
-                                        <div class="puestos puestosInv text-center"></div>
-                                    </td>
-                                    <td></td>
-                                    <td></td>
-
-                                    <td></td>
-                                    <td>
-                                        <div class="puestos puestosInv text-center"></div>
-                                    </td>
-                                    <td>
-                                        <div class="puestos puestosInv text-center"></div>
-                                    </td>
-                                    <td>
-                                        <div class="puestos puestosInv text-center"></div>
-                                    </td>
-
-                                    <td>
-                                        <div class="puestos puestosInv text-center"></div>
-                                    </td>
-                                    <td>
-                                        <div class="puestos puestosInv text-center"></div>
-                                    </td>
-                                    <td>
-                                        <div class="puestos puestosInv text-center"></div>
-                                    </td>
-                                    <td></td>
-                                </tr>
-                                <!-- Fin Fila 35 a 36-->
-
-
-                                <!-- Fila 37 a 38-->
-                                <tr>
-                                    <td></td>
-                                    <td>
-                                        <div class="puestos text-center"></div>
-                                    </td>
-                                    <td>
-                                        <div class="puestos text-center"></div>
-                                    </td>
-                                    <td>
-                                        <div class="puestos text-center"></div>
-                                    </td>
-
-                                    <td>
-                                        <div class="puestos text-center"></div>
-                                    </td>
-                                    <td></td>
-                                    <td>
-                                        <div class="puestos text-center"></div>
-                                    </td>
-                                    <td>
-                                        <div class="puestos text-center"></div>
-                                    </td>
-
-                                    <td>
-                                        <div class="puestos text-center"></div>
-                                    </td>
-                                    <td>
-                                        <div class="puestos text-center"></div>
-                                    </td>
-                                    <td>
-                                        <div class="puestos text-center"></div>
-                                    </td>
-                                    <td>
-                                        <div class="puestos text-center"></div>
-                                    </td>
-
-                                    <td>
-                                        <div class="puestos text-center"></div>
-                                    </td>
-                                    <td>
-                                        <div class="puestos text-center"></div>
-                                    </td>
-                                    <td></td>
-                                    <td></td>
-
-                                    <td></td>
-                                    <td>
-                                        <div class="puestos text-center"></div>
-                                    </td>
-                                    <td>
-                                        <div class="puestos text-center"></div>
-                                    </td>
-                                    <td>
-                                        <div class="puestos text-center"></div>
-                                    </td>
-
-                                    <td>
-                                        <div class="puestos text-center"></div>
-                                    </td>
-                                    <td>
-                                        <div class="puestos text-center"></div>
-                                    </td>
-                                    <td>
-                                        <div class="puestos text-center"></div>
-                                    </td>
-                                    <td></td>
-                                </tr>
-                                <!-- Fin Fila 37 a 38-->
-
-                                <!-- Fila 39 a 40-->
-                                <tr>
-                                    <td></td>
-                                    <td>
-                                        <div class="puestos puestosInv text-center"></div>
-                                    </td>
-                                    <td>
-                                        <div class="puestos puestosInv text-center"></div>
-                                    </td>
-                                    <td>
-                                        <div class="puestos puestosInv text-center"></div>
-                                    </td>
-
-                                    <td>
-                                        <div class="puestos puestosInv text-center"></div>
-                                    </td>
-                                    <td></td>
-                                    <td>
-                                        <div class="puestos puestosInv text-center"></div>
-                                    </td>
-                                    <td>
-                                        <div class="puestos puestosInv text-center"></div>
-                                    </td>
-
-                                    <td>
-                                        <div class="puestos puestosInv text-center"></div>
-                                    </td>
-                                    <td>
-                                        <div class="puestos puestosInv text-center"></div>
-                                    </td>
-                                    <td>
-                                        <div class="puestos puestosInv text-center"></div>
-                                    </td>
-                                    <td>
-                                        <div class="puestos puestosInv text-center"></div>
-                                    </td>
-
-                                    <td>
-                                        <div class="puestos puestosInv text-center"></div>
-                                    </td>
-                                    <td>
-                                        <div class="puestos puestosInv text-center"></div>
-                                    </td>
-                                    <td></td>
-                                    <td></td>
-
-                                    <td></td>
-                                    <td>
-                                        <div class="puestos puestosInv text-center"></div>
-                                    </td>
-                                    <td>
-                                        <div class="puestos puestosInv text-center"></div>
-                                    </td>
-                                    <td>
-                                        <div class="puestos puestosInv text-center"></div>
-                                    </td>
-
-                                    <td>
-                                        <div class="puestos puestosInv text-center"></div>
-                                    </td>
-                                    <td>
-                                        <div class="puestos puestosInv text-center"></div>
-                                    </td>
-                                    <td>
-                                        <div class="puestos puestosInv text-center"></div>
-                                    </td>
-                                    <td></td>
-                                </tr>
-                                <!-- Fin Fila 39 a 40 -->
-
-                                <!-- Fila 41-->
-                                <tr>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                </tr>
-                                <!-- Fin Fila 41-->
-
-                                <!-- Fila 42-->
-                                <tr>
-                                    <td></td>
-                                    <td class="muro"></td>
-                                    <td class="muro"></td>
-                                    <td class="muro"></td>
-
-                                    <td class="muro"></td>
-                                    <td class="muro"></td>
-                                    <td class="muro"></td>
-                                    <td></td>
-
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-
-                                    <td></td>
-                                    <td></td>
-                                    <td class="muro"></td>
-                                    <td class="muro"></td>
-
-                                    <td class="muro"></td>
-                                    <td class="muro"></td>
-                                    <td class="muro"></td>
-                                    <td></td>
-                                </tr>
-                                <!-- Fin Fila 42-->
-
-                                <!-- Fila 43 a 44-->
-                                <tr>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-
-                                    <td></td>
-                                    <td></td>
-                                    <td class="muro"></td>
-                                    <td></td>
-
-                                    <td>
-                                        <div class="puestos text-center"></div>
-                                    </td>
-                                    <td>
-                                        <div class="puestos text-center"></div>
-                                    </td>
-                                    <td>
-                                        <div class="puestos text-center"></div>
-                                    </td>
-                                    <td>
-                                        <div class="puestos text-center"></div>
-                                    </td>
-
-                                    <td>
-                                        <div class="puestos text-center"></div>
-                                    </td>
-                                    <td>
-                                        <div class="puestos text-center"></div>
-                                    </td>
-                                    <td></td>
-                                    <td></td>
-
-                                    <td></td>
-                                    <td>
-                                        <div class="puestos text-center"></div>
-                                    </td>
-                                    <td>
-                                        <div class="puestos text-center"></div>
-                                    </td>
-                                    <td>
-                                        <div class="puestos text-center"></div>
-                                    </td>
-
-                                    <td>
-                                        <div class="puestos text-center"></div>
-                                    </td>
-                                    <td>
-                                        <div class="puestos text-center"></div>
-                                    </td>
-                                    <td>
-                                        <div class="puestos text-center"></div>
-                                    </td>
-                                    <td></td>
-                                </tr>
-                                <!-- Fin Fila 43 a 44-->
-
-                                <!-- Fila 45 a 46-->
-                                <tr>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-
-                                    <td></td>
-                                    <td></td>
-                                    <td class="muro"></td>
-                                    <td></td>
-
-                                    <td>
-                                        <div class="puestos puestosInv text-center"></div>
-                                    </td>
-                                    <td>
-                                        <div class="puestos puestosInv text-center"></div>
-                                    </td>
-                                    <td>
-                                        <div class="puestos puestosInv text-center"></div>
-                                    </td>
-                                    <td>
-                                        <div class="puestos puestosInv text-center"></div>
-                                    </td>
-
-                                    <td>
-                                        <div class="puestos puestosInv text-center"></div>
-                                    </td>
-                                    <td>
-                                        <div class="puestos puestosInv text-center"></div>
-                                    </td>
-                                    <td></td>
-                                    <td></td>
-
-                                    <td></td>
-                                    <td>
-                                        <div class="puestos puestosInv text-center"></div>
-                                    </td>
-                                    <td>
-                                        <div class="puestos puestosInv text-center"></div>
-                                    </td>
-                                    <td>
-                                        <div class="puestos puestosInv text-center"></div>
-                                    </td>
-
-                                    <td>
-                                        <div class="puestos puestosInv text-center"></div>
-                                    </td>
-                                    <td>
-                                        <div class="puestos puestosInv text-center"></div>
-                                    </td>
-                                    <td>
-                                        <div class="puestos puestosInv text-center"></div>
-                                    </td>
-                                    <td></td>
-                                </tr>
-                                <!-- Fin Fila 45 a 46-->
-
-                                <!-- Fila 47 a 48-->
-                                <tr>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-
-                                    <td></td>
-                                    <td></td>
-                                    <td class="muro"></td>
-                                    <td></td>
-
-                                    <td>
-                                        <div class="puestos text-center"></div>
-                                    </td>
-                                    <td>
-                                        <div class="puestos text-center"></div>
-                                    </td>
-                                    <td>
-                                        <div class="puestos text-center"></div>
-                                    </td>
-                                    <td>
-                                        <div class="puestos text-center"></div>
-                                    </td>
-
-                                    <td>
-                                        <div class="puestos text-center"></div>
-                                    </td>
-                                    <td>
-                                        <div class="puestos text-center"></div>
-                                    </td>
-                                    <td></td>
-                                    <td></td>
-
-                                    <td></td>
-                                    <td>
-                                        <div class="puestos text-center"></div>
-                                    </td>
-                                    <td>
-                                        <div class="puestos text-center"></div>
-                                    </td>
-                                    <td>
-                                        <div class="puestos text-center"></div>
-                                    </td>
-
-                                    <td>
-                                        <div class="puestos text-center"></div>
-                                    </td>
-                                    <td>
-                                        <div class="puestos text-center"></div>
-                                    </td>
-                                    <td>
-                                        <div class="puestos text-center"></div>
-                                    </td>
-                                    <td></td>
-                                </tr>
-                                <!-- Fin Fila 47 a 48-->
-
-                                <!-- Fila 49 a 50-->
-                                <tr>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-
-                                    <td></td>
-                                    <td></td>
-                                    <td class="muro"></td>
-                                    <td></td>
-
-                                    <td>
-                                        <div class="puestos puestosInv text-center"></div>
-                                    </td>
-                                    <td>
-                                        <div class="puestos puestosInv text-center"></div>
-                                    </td>
-                                    <td>
-                                        <div class="puestos puestosInv text-center"></div>
-                                    </td>
-                                    <td>
-                                        <div class="puestos puestosInv text-center"></div>
-                                    </td>
-
-                                    <td>
-                                        <div class="puestos puestosInv text-center"></div>
-                                    </td>
-                                    <td>
-                                        <div class="puestos puestosInv text-center"></div>
-                                    </td>
-                                    <td></td>
-                                    <td></td>
-
-                                    <td></td>
-                                    <td>
-                                        <div class="puestos puestosInv text-center"></div>
-                                    </td>
-                                    <td>
-                                        <div class="puestos puestosInv text-center"></div>
-                                    </td>
-                                    <td>
-                                        <div class="puestos puestosInv text-center"></div>
-                                    </td>
-
-                                    <td>
-                                        <div class="puestos puestosInv text-center"></div>
-                                    </td>
-                                    <td>
-                                        <div class="puestos puestosInv text-center"></div>
-                                    </td>
-                                    <td>
-                                        <div class="puestos puestosInv text-center"></div>
-                                    </td>
-                                    <td></td>
-                                </tr>
-                                <!-- Fin Fila 49 a 50-->
-
-
-
-                                <!-- Fila 51-->
-                                <tr>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-
-                                    <td></td>
-                                    <td></td>
-                                    <td class="muro"></td>
-                                    <td></td>
-
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                </tr>
-                                <!-- Fin Fila 51-->
-
-                                <!-- Fila 52-->
-                                <tr>
-                                    <td></td>
-                                    <td class="muro"></td>
-                                    <td class="muro"></td>
-                                    <td class="muro"></td>
-
-                                    <td class="muro"></td>
-                                    <td class="muro"></td>
-                                    <td class="muro"></td>
-                                    <td class="muro"></td>
-
-                                    <td class="muro"></td>
-                                    <td class="muro"></td>
-                                    <td></td>
-                                    <td></td>
-
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-
-                                    <td></td>
-                                    <td></td>
-                                    <td class="muro"></td>
-                                    <td class="muro"></td>
-
-                                    <td class="muro"></td>
-                                    <td class="muro"></td>
-                                    <td class="muro"></td>
-                                    <td></td>
-                                </tr>
-                                <!-- Fin Fila 52-->
-
-                                <!-- Fila 53-->
-                                <tr>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                </tr>
-                                <!-- Fin Fila 53-->
-
-
-                                <!-- Fila 54 a 55-->
-                                <tr>
-                                    <td></td>
-                                    <td>
-                                        <div class="puestos text-center"></div>
-                                    </td>
-                                    <td>
-                                        <div class="puestos text-center"></div>
-                                    </td>
-                                    <td>
-                                        <div class="puestos text-center"></div>
-                                    </td>
-
-                                    <td>
-                                        <div class="puestos text-center"></div>
-                                    </td>
-                                    <td>
-                                        <div class="puestos text-center"></div>
-                                    </td>
-                                    <td>
-                                        <div class="puestos text-center"></div>
-                                    </td>
-                                    <td>
-                                        <div class="puestos text-center"></div>
-                                    </td>
-
-                                    <td>
-                                        <div class="puestos text-center"></div>
-                                    </td>
-                                    <td>
-                                        <div class="puestos text-center"></div>
-                                    </td>
-                                    <td></td>
-                                    <td>
-                                        <div class="puestos text-center"></div>
-                                    </td>
-
-                                    <td>
-                                        <div class="puestos text-center"></div>
-                                    </td>
-                                    <td>
-                                        <div class="puestos text-center"></div>
-                                    </td>
-                                    <td></td>
-                                    <td></td>
-
-                                    <td></td>
-                                    <td>
-                                        <div class="puestos text-center"></div>
-                                    </td>
-                                    <td>
-                                        <div class="puestos text-center"></div>
-                                    </td>
-                                    <td>
-                                        <div class="puestos text-center"></div>
-                                    </td>
-
-                                    <td>
-                                        <div class="puestos text-center"></div>
-                                    </td>
-                                    <td>
-                                        <div class="puestos text-center"></div>
-                                    </td>
-                                    <td>
-                                        <div class="puestos text-center"></div>
-                                    </td>
-                                    <td></td>
-                                </tr>
-                                <!-- Fin Fila 54 a 55-->
-
-                                <!-- Fila 56 a 57-->
-                                <tr>
-                                    <td></td>
-                                    <td>
-                                        <div class="puestos puestosInv text-center"></div>
-                                    </td>
-                                    <td>
-                                        <div class="puestos puestosInv text-center"></div>
-                                    </td>
-                                    <td>
-                                        <div class="puestos puestosInv text-center"></div>
-                                    </td>
-
-                                    <td>
-                                        <div class="puestos puestosInv text-center"></div>
-                                    </td>
-                                    <td>
-                                        <div class="puestos puestosInv text-center"></div>
-                                    </td>
-                                    <td>
-                                        <div class="puestos puestosInv text-center"></div>
-                                    </td>
-                                    <td>
-                                        <div class="puestos puestosInv text-center"></div>
-                                    </td>
-
-                                    <td>
-                                        <div class="puestos puestosInv text-center"></div>
-                                    </td>
-                                    <td>
-                                        <div class="puestos puestosInv text-center"></div>
-                                    </td>
-                                    <td></td>
-                                    <td>
-                                        <div class="puestos puestosInv text-center"></div>
-                                    </td>
-
-                                    <td>
-                                        <div class="puestos puestosInv text-center"></div>
-                                    </td>
-                                    <td>
-                                        <div class="puestos puestosInv text-center"></div>
-                                    </td>
-                                    <td></td>
-                                    <td></td>
-
-                                    <td></td>
-                                    <td>
-                                        <div class="puestos puestosInv text-center"></div>
-                                    </td>
-                                    <td>
-                                        <div class="puestos puestosInv text-center"></div>
-                                    </td>
-                                    <td>
-                                        <div class="puestos puestosInv text-center"></div>
-                                    </td>
-
-                                    <td>
-                                        <div class="puestos puestosInv text-center"></div>
-                                    </td>
-                                    <td>
-                                        <div class="puestos puestosInv text-center"></div>
-                                    </td>
-                                    <td>
-                                        <div class="puestos puestosInv text-center"></div>
-                                    </td>
-                                    <td></td>
-                                </tr>
-                                <!-- Fin Fila 56 a 57-->
-
-
-                                <!-- Fila 58 a 59-->
-                                <tr>
-                                    <td></td>
-                                    <td>
-                                        <div class="puestos text-center"></div>
-                                    </td>
-                                    <td>
-                                        <div class="puestos text-center"></div>
-                                    </td>
-                                    <td>
-                                        <div class="puestos text-center"></div>
-                                    </td>
-
-                                    <td>
-                                        <div class="puestos text-center"></div>
-                                    </td>
-                                    <td>
-                                        <div class="puestos text-center"></div>
-                                    </td>
-                                    <td>
-                                        <div class="puestos text-center"></div>
-                                    </td>
-                                    <td>
-                                        <div class="puestos text-center"></div>
-                                    </td>
-
-                                    <td>
-                                        <div class="puestos text-center"></div>
-                                    </td>
-                                    <td>
-                                        <div class="puestos text-center"></div>
-                                    </td>
-                                    <td></td>
-                                    <td>
-                                        <div class="puestos text-center"></div>
-                                    </td>
-
-                                    <td>
-                                        <div class="puestos text-center"></div>
-                                    </td>
-                                    <td>
-                                        <div class="puestos text-center"></div>
-                                    </td>
-                                    <td></td>
-                                    <td></td>
-
-                                    <td></td>
-                                    <td>
-                                        <div class="puestos text-center"></div>
-                                    </td>
-                                    <td>
-                                        <div class="puestos text-center"></div>
-                                    </td>
-                                    <td>
-                                        <div class="puestos text-center"></div>
-                                    </td>
-
-                                    <td>
-                                        <div class="puestos text-center"></div>
-                                    </td>
-                                    <td>
-                                        <div class="puestos text-center"></div>
-                                    </td>
-                                    <td>
-                                        <div class="puestos text-center"></div>
-                                    </td>
-                                    <td></td>
-                                </tr>
-                                <!-- Fin Fila 58 a 59-->
-
-                                <!-- Fila 60 a 61 -->
-                                <tr>
-                                    <td></td>
-                                    <td>
-                                        <div class="puestos puestosInv text-center"></div>
-                                    </td>
-                                    <td>
-                                        <div class="puestos puestosInv text-center"></div>
-                                    </td>
-                                    <td>
-                                        <div class="puestos puestosInv text-center"></div>
-                                    </td>
-
-                                    <td>
-                                        <div class="puestos puestosInv text-center"></div>
-                                    </td>
-                                    <td>
-                                        <div class="puestos puestosInv text-center"></div>
-                                    </td>
-                                    <td>
-                                        <div class="puestos puestosInv text-center"></div>
-                                    </td>
-                                    <td>
-                                        <div class="puestos puestosInv text-center"></div>
-                                    </td>
-
-                                    <td>
-                                        <div class="puestos puestosInv text-center"></div>
-                                    </td>
-                                    <td>
-                                        <div class="puestos puestosInv text-center"></div>
-                                    </td>
-                                    <td></td>
-                                    <td>
-                                        <div class="puestos puestosInv text-center"></div>
-                                    </td>
-
-                                    <td>
-                                        <div class="puestos puestosInv text-center"></div>
-                                    </td>
-                                    <td>
-                                        <div class="puestos puestosInv text-center"></div>
-                                    </td>
-                                    <td></td>
-                                    <td></td>
-
-                                    <td></td>
-                                    <td>
-                                        <div class="puestos puestosInv text-center"></div>
-                                    </td>
-                                    <td>
-                                        <div class="puestos puestosInv text-center"></div>
-                                    </td>
-                                    <td>
-                                        <div class="puestos puestosInv text-center"></div>
-                                    </td>
-
-                                    <td>
-                                        <div class="puestos puestosInv text-center"></div>
-                                    </td>
-                                    <td>
-                                        <div class="puestos puestosInv text-center"></div>
-                                    </td>
-                                    <td>
-                                        <div class="puestos puestosInv text-center"></div>
-                                    </td>
-                                    <td></td>
-                                </tr>
-                                <!-- Fin Fila 60 a 61-->
-
-
-
-                                <!-- Fila 62-->
-                                <tr>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                </tr>
-                                <!-- Fin Fila 62-->
-
-                            </tbody>
-                        </table>
-
-                    </div>
-                </div>
-
-                <!-- Contenedor con el mapa de la primera planta-->
-            </div>
-
-
-        </main>
-        <!--Main layout-->
-
-        <!-- Footer -->
-        <footer th:replace="layout/layout :: footer"></footer>
-        <!-- Footer -->
-
-        <script>
+	<div class="main-content">
+		<!--Main Navigation-->
+		<header th:replace="layout/layout :: header"> </header>
+		<!--Main Navigation-->
+
+		<!--Main layout-->
+		<main>
+		<div class="container-fluid">
+
+
+			<section th:replace="./buscarplanta :: plantaForm"></section>
+
+			<!-- Fin del Contenedor con nombre de la planta y desplegable de la version-->
+		</div>
+
+		<div class="row">
+			<!-- Contenedor con el mapa de la primera planta-->
+			<div class="container-fluid">
+				<div class="table-responsive">
+					<table class="table table-borderless">
+
+						<tbody>
+							<!-- Fila 4-->
+							<tr>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+							</tr>
+							<!-- Fin Fila 4-->
+
+							<!-- Fila 5-->
+							<tr>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+
+								<td class="muro"></td>
+								<td class="muro"></td>
+								<td class="muro"></td>
+								<td class="muro"></td>
+
+								<td class="muro"></td>
+								<td class="muro"></td>
+								<td class="muro"></td>
+								<td class="muro"></td>
+
+								<td class="muro"></td>
+								<td class="muro"></td>
+								<td class="muro"></td>
+								<td class="muro"></td>
+
+								<td class="muro"></td>
+								<td class="muro"></td>
+								<td class="muro"></td>
+								<td class="muro"></td>
+
+								<td class="muro"></td>
+								<td class="muro"></td>
+								<td class="muro"></td>
+								<td></td>
+								<td></td>
+							</tr>
+							<!-- Fin Fila 5-->
+							<!-- Fila 6-->
+							<tr>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+
+								<td class="muro"></td>
+								<td></td>
+								<td></td>
+								<td></td>
+
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+
+								<td></td>
+								<td></td>
+								<td class="muro"></td>
+								<td class="muro"></td>
+
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+							</tr>
+							<!-- Fin Fila 6-->
+
+
+							<!-- Fila 7 a 8-->
+							<tr>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+
+								<td class="muro"></td>
+								<td></td>
+								<td>
+									<div class="puestos text-center"></div>
+								</td>
+								<td>
+									<div class="puestos text-center"></div>
+								</td>
+
+								<td></td>
+								<td></td>
+								<td></td>
+								<td>
+									<div class="puestos text-center"></div>
+								</td>
+
+								<td>
+									<div class="puestos text-center"></div>
+								</td>
+								<td>
+									<div class="puestos text-center"></div>
+								</td>
+								<td class="muro-falso"></td>
+								<td class="muro-falso"></td>
+
+								<td></td>
+								<td>
+									<div class="puestos text-center"></div>
+								</td>
+								<td>
+									<div class="puestos text-center"></div>
+								</td>
+								<td>
+									<div class="puestos text-center"></div>
+								</td>
+
+								<td>
+									<div class="puestos text-center"></div>
+								</td>
+								<td>
+									<div class="puestos text-center"></div>
+								</td>
+								<td>
+									<div class="puestos text-center"></div>
+								</td>
+								<td></td>
+							</tr>
+							<!-- Fin Fila 7 a 8-->
+
+							<!-- Fila 9 a 10-->
+							<tr>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+
+								<td class="muro"></td>
+								<td></td>
+								<td>
+									<div class="puestos puestosInv text-center"></div>
+								</td>
+								<td>
+									<div class="puestos puestosInv text-center"></div>
+								</td>
+
+								<td></td>
+								<td></td>
+								<td></td>
+								<td>
+									<div class="puestos puestosInv text-center"></div>
+								</td>
+
+								<td>
+									<div class="puestos puestosInv text-center"></div>
+								</td>
+								<td>
+									<div class="puestos puestosInv text-center"></div>
+								</td>
+								<td class="muro-falso"></td>
+								<td class="muro-falso"></td>
+
+								<td></td>
+								<td>
+									<div class="puestos puestosInv text-center"></div>
+								</td>
+								<td>
+									<div class="puestos puestosInv text-center"></div>
+								</td>
+								<td>
+									<div class="puestos puestosInv text-center"></div>
+								</td>
+
+								<td>
+									<div class="puestos puestosInv text-center"></div>
+								</td>
+								<td>
+									<div class="puestos puestosInv text-center"></div>
+								</td>
+								<td>
+									<div class="puestos puestosInv text-center"></div>
+								</td>
+								<td></td>
+							</tr>
+							<!-- Fin Fila 9 a 10-->
+
+
+
+							<!-- Fila 11-->
+							<tr>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+
+								<td class="muro"></td>
+								<td></td>
+								<td></td>
+								<td></td>
+
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+
+								<td></td>
+								<td></td>
+								<td class="muro"></td>
+								<td class="muro"></td>
+
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+							</tr>
+							<!-- Fin Fila 11-->
+
+							<!-- Fila 12-->
+							<tr>
+								<td></td>
+								<td class="muro"></td>
+								<td class="muro"></td>
+								<td class="muro"></td>
+
+								<td class="muro"></td>
+								<td class="muro"></td>
+								<td class="muro"></td>
+								<td class="muro"></td>
+
+								<td class="muro"></td>
+								<td class="muro"></td>
+								<td class="muro"></td>
+								<td class="muro"></td>
+
+								<td class="muro"></td>
+								<td class="muro"></td>
+								<td class="muro"></td>
+								<td class="muro"></td>
+
+								<td></td>
+								<td></td>
+								<td></td>
+								<td class="muro"></td>
+
+								<td class="muro"></td>
+								<td class="muro"></td>
+								<td class="muro"></td>
+								<td></td>
+								<td></td>
+							</tr>
+							<!-- Fin Fila 12-->
+
+							<!-- Fila 13-->
+							<tr>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+							</tr>
+							<!-- Fin Fila 13-->
+
+
+							<!-- Fila 14 a 15-->
+							<tr>
+								<td></td>
+								<td>
+									<div class="puestos text-center"></div>
+								</td>
+								<td>
+									<div class="puestos text-center"></div>
+								</td>
+								<td>
+									<div class="puestos text-center"></div>
+								</td>
+
+								<td>
+									<div class="puestos text-center"></div>
+								</td>
+								<td></td>
+								<td></td>
+								<td>
+									<div class="puestos text-center"></div>
+								</td>
+
+								<td>
+									<div class="puestos text-center"></div>
+								</td>
+								<td>
+									<div class="puestos text-center"></div>
+								</td>
+								<td>
+									<div class="puestos text-center"></div>
+								</td>
+								<td>
+									<div class="puestos text-center"></div>
+								</td>
+
+								<td>
+									<div class="puestos text-center"></div>
+								</td>
+								<td>
+									<div class="puestos text-center"></div>
+								</td>
+								<td>
+									<div class="puestos text-center"></div>
+								</td>
+								<td></td>
+
+								<td></td>
+								<td>
+									<div class="puestos text-center"></div>
+								</td>
+								<td>
+									<div class="puestos text-center"></div>
+								</td>
+								<td>
+									<div class="puestos text-center"></div>
+								</td>
+
+								<td>
+									<div class="puestos text-center"></div>
+								</td>
+								<td>
+									<div class="puestos text-center"></div>
+								</td>
+								<td>
+									<div class="puestos text-center"></div>
+								</td>
+								<td></td>
+							</tr>
+							<!-- Fin Fila 14 a 15-->
+
+							<!-- Fila 16 a 17-->
+							<tr>
+								<td></td>
+								<td>
+									<div class="puestos puestosInv text-center"></div>
+								</td>
+								<td>
+									<div class="puestos puestosInv text-center"></div>
+								</td>
+								<td>
+									<div class="puestos puestosInv text-center"></div>
+								</td>
+
+								<td>
+									<div class="puestos puestosInv text-center"></div>
+								</td>
+								<td></td>
+								<td></td>
+								<td>
+									<div class="puestos puestosInv text-center"></div>
+								</td>
+
+								<td>
+									<div class="puestos puestosInv text-center"></div>
+								</td>
+								<td>
+									<div class="puestos puestosInv text-center"></div>
+								</td>
+								<td>
+									<div class="puestos puestosInv text-center"></div>
+								</td>
+								<td>
+									<div class="puestos puestosInv text-center"></div>
+								</td>
+
+								<td>
+									<div class="puestos puestosInv text-center"></div>
+								</td>
+								<td>
+									<div class="puestos puestosInv text-center"></div>
+								</td>
+								<td>
+									<div class="puestos puestosInv text-center"></div>
+								</td>
+								<td></td>
+
+								<td></td>
+								<td>
+									<div class="puestos puestosInv text-center"></div>
+								</td>
+								<td>
+									<div class="puestos puestosInv text-center"></div>
+								</td>
+								<td>
+									<div class="puestos puestosInv text-center"></div>
+								</td>
+
+								<td>
+									<div class="puestos puestosInv text-center"></div>
+								</td>
+								<td>
+									<div class="puestos puestosInv text-center"></div>
+								</td>
+								<td>
+									<div class="puestos puestosInv text-center"></div>
+								</td>
+								<td></td>
+							</tr>
+							<!-- Fin Fila 16 a 17-->
+
+
+
+
+							<!-- Fila 18 a 19-->
+							<tr>
+								<td></td>
+								<td>
+									<div class="puestos text-center"></div>
+								</td>
+								<td>
+									<div class="puestos text-center"></div>
+								</td>
+								<td>
+									<div class="puestos text-center"></div>
+								</td>
+
+								<td>
+									<div class="puestos text-center"></div>
+								</td>
+								<td></td>
+								<td></td>
+								<td>
+									<div class="puestos text-center"></div>
+								</td>
+
+								<td>
+									<div class="puestos text-center"></div>
+								</td>
+								<td>
+									<div class="puestos text-center"></div>
+								</td>
+								<td>
+									<div class="puestos text-center"></div>
+								</td>
+								<td>
+									<div class="puestos text-center"></div>
+								</td>
+
+								<td>
+									<div class="puestos text-center"></div>
+								</td>
+								<td>
+									<div class="puestos text-center"></div>
+								</td>
+								<td>
+									<div class="puestos text-center"></div>
+								</td>
+								<td></td>
+
+								<td></td>
+								<td>
+									<div class="puestos text-center"></div>
+								</td>
+								<td>
+									<div class="puestos text-center"></div>
+								</td>
+								<td>
+									<div class="puestos text-center"></div>
+								</td>
+
+								<td>
+									<div class="puestos text-center"></div>
+								</td>
+								<td>
+									<div class="puestos text-center"></div>
+								</td>
+								<td>
+									<div class="puestos text-center"></div>
+								</td>
+								<td></td>
+							</tr>
+							<!-- Fin Fila 18 a 19-->
+
+							<!-- Fila 20 a 21-->
+							<tr>
+								<td></td>
+								<td>
+									<div class="puestos puestosInv text-center"></div>
+								</td>
+								<td>
+									<div class="puestos puestosInv text-center"></div>
+								</td>
+								<td>
+									<div class="puestos puestosInv text-center"></div>
+								</td>
+
+								<td>
+									<div class="puestos puestosInv text-center"></div>
+								</td>
+								<td></td>
+								<td></td>
+								<td>
+									<div class="puestos puestosInv text-center"></div>
+								</td>
+
+								<td>
+									<div class="puestos puestosInv text-center"></div>
+								</td>
+								<td>
+									<div class="puestos puestosInv text-center"></div>
+								</td>
+								<td>
+									<div class="puestos puestosInv text-center"></div>
+								</td>
+								<td>
+									<div class="puestos puestosInv text-center"></div>
+								</td>
+
+								<td>
+									<div class="puestos puestosInv text-center"></div>
+								</td>
+								<td>
+									<div class="puestos puestosInv text-center"></div>
+								</td>
+								<td>
+									<div class="puestos puestosInv text-center"></div>
+								</td>
+								<td></td>
+
+								<td></td>
+								<td>
+									<div class="puestos puestosInv text-center"></div>
+								</td>
+								<td>
+									<div class="puestos puestosInv text-center"></div>
+								</td>
+								<td>
+									<div class="puestos puestosInv text-center"></div>
+								</td>
+
+								<td>
+									<div class="puestos puestosInv text-center"></div>
+								</td>
+								<td>
+									<div class="puestos puestosInv text-center"></div>
+								</td>
+								<td>
+									<div class="puestos puestosInv text-center"></div>
+								</td>
+								<td></td>
+							</tr>
+							<!-- Fin Fila 20 a 21-->
+
+
+
+							<!-- Fila 22-->
+							<tr>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+							</tr>
+							<!-- Fin Fila 22-->
+
+							<!-- Fila 23-->
+							<tr>
+								<td></td>
+								<td class="muro"></td>
+								<td class="muro"></td>
+								<td class="muro"></td>
+
+								<td class="muro"></td>
+								<td class="muro"></td>
+								<td class="muro"></td>
+								<td class="muro"></td>
+
+								<td class="muro"></td>
+								<td class="muro"></td>
+								<td class="muro"></td>
+								<td class="muro"></td>
+
+								<td class="muro"></td>
+								<td class="muro"></td>
+								<td></td>
+								<td></td>
+
+								<td></td>
+								<td class="muro"></td>
+								<td class="muro"></td>
+								<td class="muro"></td>
+
+								<td class="muro"></td>
+								<td class="muro"></td>
+								<td class="muro"></td>
+								<td></td>
+								<td></td>
+							</tr>
+							<!-- Fin Fila 23-->
+
+							<!-- Fila 24-->
+							<tr>
+								<td></td>
+								<td class="muro"></td>
+								<td class="muro"></td>
+								<td class="muro"></td>
+
+								<td class="muro"></td>
+								<td class="muro"></td>
+								<td class="muro"></td>
+								<td class="muro"></td>
+
+								<td class="muro"></td>
+								<td class="muro"></td>
+								<td class="muro"></td>
+								<td class="muro"></td>
+
+								<td class="muro"></td>
+								<td class="muro"></td>
+								<td></td>
+								<td></td>
+
+								<td></td>
+								<td class="muro"></td>
+								<td class="muro"></td>
+								<td class="muro"></td>
+
+								<td class="muro"></td>
+								<td class="muro"></td>
+								<td class="muro"></td>
+								<td></td>
+								<td></td>
+							</tr>
+							<!-- Fin Fila 24-->
+
+							<!-- Fila 25-->
+							<tr>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+
+								<td class="muro"></td>
+								<td></td>
+								<td></td>
+								<td></td>
+
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+							</tr>
+							<!-- Fin Fila 25-->
+
+							<!-- Fila 26-->
+							<tr>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+
+								<td class="muro"></td>
+								<td></td>
+								<td></td>
+								<td></td>
+
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+							</tr>
+							<!-- Fin Fila 26-->
+
+							<!-- Fila 27-->
+							<tr>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+
+								<td class="muro"></td>
+								<td></td>
+								<td></td>
+								<td></td>
+
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+							</tr>
+							<!-- Fin Fila 27-->
+
+							<!-- Fila 28-->
+							<tr>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+
+								<td class="muro"></td>
+								<td></td>
+								<td></td>
+								<td></td>
+
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+							</tr>
+							<!-- Fin Fila 28-->
+
+							<!-- Fila 29-->
+							<tr>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+
+								<td class="muro"></td>
+								<td></td>
+								<td></td>
+								<td></td>
+
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+							</tr>
+							<!-- Fin Fila 29-->
+
+							<!-- Fila 30-->
+							<tr>
+								<td></td>
+								<td class="muro"></td>
+								<td class="muro"></td>
+								<td class="muro"></td>
+
+								<td class="muro"></td>
+								<td class="muro"></td>
+								<td class="muro"></td>
+								<td class="muro"></td>
+
+								<td class="muro"></td>
+								<td class="muro"></td>
+								<td class="muro"></td>
+								<td class="muro"></td>
+
+								<td class="muro"></td>
+								<td class="muro"></td>
+								<td></td>
+								<td></td>
+
+								<td></td>
+								<td class="muro"></td>
+								<td class="muro"></td>
+								<td class="muro"></td>
+
+								<td class="muro"></td>
+								<td class="muro"></td>
+								<td class="muro"></td>
+								<td></td>
+								<td></td>
+							</tr>
+							<!-- Fin Fila 30-->
+
+							<!-- Fila 31-->
+							<tr>
+								<td></td>
+								<td class="muro"></td>
+								<td class="muro"></td>
+								<td class="muro"></td>
+
+								<td class="muro"></td>
+								<td class="muro"></td>
+								<td class="muro"></td>
+								<td class="muro"></td>
+
+								<td class="muro"></td>
+								<td class="muro"></td>
+								<td class="muro"></td>
+								<td class="muro"></td>
+
+								<td class="muro"></td>
+								<td class="muro"></td>
+								<td></td>
+								<td></td>
+
+								<td></td>
+								<td class="muro"></td>
+								<td class="muro"></td>
+								<td class="muro"></td>
+
+								<td class="muro"></td>
+								<td class="muro"></td>
+								<td class="muro"></td>
+								<td></td>
+								<td></td>
+							</tr>
+							<!-- Fin Fila 31-->
+
+
+							<!-- Fila 32-->
+							<tr>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+							</tr>
+							<!-- Fin Fila 32-->
+
+
+
+							<!-- Fila 33 a 34-->
+							<tr>
+								<td></td>
+								<td>
+									<div class="puestos text-center"></div>
+								</td>
+								<td>
+									<div class="puestos text-center"></div>
+								</td>
+								<td>
+									<div class="puestos text-center"></div>
+								</td>
+
+								<td>
+									<div class="puestos text-center"></div>
+								</td>
+								<td></td>
+								<td>
+									<div class="puestos text-center"></div>
+								</td>
+								<td>
+									<div class="puestos text-center"></div>
+								</td>
+
+								<td>
+									<div class="puestos text-center"></div>
+								</td>
+								<td>
+									<div class="puestos text-center"></div>
+								</td>
+								<td>
+									<div class="puestos text-center"></div>
+								</td>
+								<td>
+									<div class="puestos text-center"></div>
+								</td>
+
+								<td>
+									<div class="puestos text-center"></div>
+								</td>
+								<td>
+									<div class="puestos text-center"></div>
+								</td>
+								<td></td>
+								<td></td>
+
+								<td></td>
+								<td>
+									<div class="puestos text-center"></div>
+								</td>
+								<td>
+									<div class="puestos text-center"></div>
+								</td>
+								<td>
+									<div class="puestos text-center"></div>
+								</td>
+
+								<td>
+									<div class="puestos text-center"></div>
+								</td>
+								<td>
+									<div class="puestos text-center"></div>
+								</td>
+								<td>
+									<div class="puestos text-center"></div>
+								</td>
+								<td></td>
+							</tr>
+							<!-- Fin Fila 33 a 34-->
+
+							<!-- Fila 35 a 36-->
+							<tr>
+								<td></td>
+								<td>
+									<div class="puestos puestosInv text-center"></div>
+								</td>
+								<td>
+									<div class="puestos puestosInv text-center"></div>
+								</td>
+								<td>
+									<div class="puestos puestosInv text-center"></div>
+								</td>
+
+								<td>
+									<div class="puestos puestosInv text-center"></div>
+								</td>
+								<td></td>
+								<td>
+									<div class="puestos puestosInv text-center"></div>
+								</td>
+								<td>
+									<div class="puestos puestosInv text-center"></div>
+								</td>
+
+								<td>
+									<div class="puestos puestosInv text-center"></div>
+								</td>
+								<td>
+									<div class="puestos puestosInv text-center"></div>
+								</td>
+								<td>
+									<div class="puestos puestosInv text-center"></div>
+								</td>
+								<td>
+									<div class="puestos puestosInv text-center"></div>
+								</td>
+
+								<td>
+									<div class="puestos puestosInv text-center"></div>
+								</td>
+								<td>
+									<div class="puestos puestosInv text-center"></div>
+								</td>
+								<td></td>
+								<td></td>
+
+								<td></td>
+								<td>
+									<div class="puestos puestosInv text-center"></div>
+								</td>
+								<td>
+									<div class="puestos puestosInv text-center"></div>
+								</td>
+								<td>
+									<div class="puestos puestosInv text-center"></div>
+								</td>
+
+								<td>
+									<div class="puestos puestosInv text-center"></div>
+								</td>
+								<td>
+									<div class="puestos puestosInv text-center"></div>
+								</td>
+								<td>
+									<div class="puestos puestosInv text-center"></div>
+								</td>
+								<td></td>
+							</tr>
+							<!-- Fin Fila 35 a 36-->
+
+
+							<!-- Fila 37 a 38-->
+							<tr>
+								<td></td>
+								<td>
+									<div class="puestos text-center"></div>
+								</td>
+								<td>
+									<div class="puestos text-center"></div>
+								</td>
+								<td>
+									<div class="puestos text-center"></div>
+								</td>
+
+								<td>
+									<div class="puestos text-center"></div>
+								</td>
+								<td></td>
+								<td>
+									<div class="puestos text-center"></div>
+								</td>
+								<td>
+									<div class="puestos text-center"></div>
+								</td>
+
+								<td>
+									<div class="puestos text-center"></div>
+								</td>
+								<td>
+									<div class="puestos text-center"></div>
+								</td>
+								<td>
+									<div class="puestos text-center"></div>
+								</td>
+								<td>
+									<div class="puestos text-center"></div>
+								</td>
+
+								<td>
+									<div class="puestos text-center"></div>
+								</td>
+								<td>
+									<div class="puestos text-center"></div>
+								</td>
+								<td></td>
+								<td></td>
+
+								<td></td>
+								<td>
+									<div class="puestos text-center"></div>
+								</td>
+								<td>
+									<div class="puestos text-center"></div>
+								</td>
+								<td>
+									<div class="puestos text-center"></div>
+								</td>
+
+								<td>
+									<div class="puestos text-center"></div>
+								</td>
+								<td>
+									<div class="puestos text-center"></div>
+								</td>
+								<td>
+									<div class="puestos text-center"></div>
+								</td>
+								<td></td>
+							</tr>
+							<!-- Fin Fila 37 a 38-->
+
+							<!-- Fila 39 a 40-->
+							<tr>
+								<td></td>
+								<td>
+									<div class="puestos puestosInv text-center"></div>
+								</td>
+								<td>
+									<div class="puestos puestosInv text-center"></div>
+								</td>
+								<td>
+									<div class="puestos puestosInv text-center"></div>
+								</td>
+
+								<td>
+									<div class="puestos puestosInv text-center"></div>
+								</td>
+								<td></td>
+								<td>
+									<div class="puestos puestosInv text-center"></div>
+								</td>
+								<td>
+									<div class="puestos puestosInv text-center"></div>
+								</td>
+
+								<td>
+									<div class="puestos puestosInv text-center"></div>
+								</td>
+								<td>
+									<div class="puestos puestosInv text-center"></div>
+								</td>
+								<td>
+									<div class="puestos puestosInv text-center"></div>
+								</td>
+								<td>
+									<div class="puestos puestosInv text-center"></div>
+								</td>
+
+								<td>
+									<div class="puestos puestosInv text-center"></div>
+								</td>
+								<td>
+									<div class="puestos puestosInv text-center"></div>
+								</td>
+								<td></td>
+								<td></td>
+
+								<td></td>
+								<td>
+									<div class="puestos puestosInv text-center"></div>
+								</td>
+								<td>
+									<div class="puestos puestosInv text-center"></div>
+								</td>
+								<td>
+									<div class="puestos puestosInv text-center"></div>
+								</td>
+
+								<td>
+									<div class="puestos puestosInv text-center"></div>
+								</td>
+								<td>
+									<div class="puestos puestosInv text-center"></div>
+								</td>
+								<td>
+									<div class="puestos puestosInv text-center"></div>
+								</td>
+								<td></td>
+							</tr>
+							<!-- Fin Fila 39 a 40 -->
+
+							<!-- Fila 41-->
+							<tr>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+							</tr>
+							<!-- Fin Fila 41-->
+
+							<!-- Fila 42-->
+							<tr>
+								<td></td>
+								<td class="muro"></td>
+								<td class="muro"></td>
+								<td class="muro"></td>
+
+								<td class="muro"></td>
+								<td class="muro"></td>
+								<td class="muro"></td>
+								<td></td>
+
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+
+								<td></td>
+								<td></td>
+								<td class="muro"></td>
+								<td class="muro"></td>
+
+								<td class="muro"></td>
+								<td class="muro"></td>
+								<td class="muro"></td>
+								<td></td>
+							</tr>
+							<!-- Fin Fila 42-->
+
+							<!-- Fila 43 a 44-->
+							<tr>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+
+								<td></td>
+								<td></td>
+								<td class="muro"></td>
+								<td></td>
+
+								<td>
+									<div class="puestos text-center"></div>
+								</td>
+								<td>
+									<div class="puestos text-center"></div>
+								</td>
+								<td>
+									<div class="puestos text-center"></div>
+								</td>
+								<td>
+									<div class="puestos text-center"></div>
+								</td>
+
+								<td>
+									<div class="puestos text-center"></div>
+								</td>
+								<td>
+									<div class="puestos text-center"></div>
+								</td>
+								<td></td>
+								<td></td>
+
+								<td></td>
+								<td>
+									<div class="puestos text-center"></div>
+								</td>
+								<td>
+									<div class="puestos text-center"></div>
+								</td>
+								<td>
+									<div class="puestos text-center"></div>
+								</td>
+
+								<td>
+									<div class="puestos text-center"></div>
+								</td>
+								<td>
+									<div class="puestos text-center"></div>
+								</td>
+								<td>
+									<div class="puestos text-center"></div>
+								</td>
+								<td></td>
+							</tr>
+							<!-- Fin Fila 43 a 44-->
+
+							<!-- Fila 45 a 46-->
+							<tr>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+
+								<td></td>
+								<td></td>
+								<td class="muro"></td>
+								<td></td>
+
+								<td>
+									<div class="puestos puestosInv text-center"></div>
+								</td>
+								<td>
+									<div class="puestos puestosInv text-center"></div>
+								</td>
+								<td>
+									<div class="puestos puestosInv text-center"></div>
+								</td>
+								<td>
+									<div class="puestos puestosInv text-center"></div>
+								</td>
+
+								<td>
+									<div class="puestos puestosInv text-center"></div>
+								</td>
+								<td>
+									<div class="puestos puestosInv text-center"></div>
+								</td>
+								<td></td>
+								<td></td>
+
+								<td></td>
+								<td>
+									<div class="puestos puestosInv text-center"></div>
+								</td>
+								<td>
+									<div class="puestos puestosInv text-center"></div>
+								</td>
+								<td>
+									<div class="puestos puestosInv text-center"></div>
+								</td>
+
+								<td>
+									<div class="puestos puestosInv text-center"></div>
+								</td>
+								<td>
+									<div class="puestos puestosInv text-center"></div>
+								</td>
+								<td>
+									<div class="puestos puestosInv text-center"></div>
+								</td>
+								<td></td>
+							</tr>
+							<!-- Fin Fila 45 a 46-->
+
+							<!-- Fila 47 a 48-->
+							<tr>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+
+								<td></td>
+								<td></td>
+								<td class="muro"></td>
+								<td></td>
+
+								<td>
+									<div class="puestos text-center"></div>
+								</td>
+								<td>
+									<div class="puestos text-center"></div>
+								</td>
+								<td>
+									<div class="puestos text-center"></div>
+								</td>
+								<td>
+									<div class="puestos text-center"></div>
+								</td>
+
+								<td>
+									<div class="puestos text-center"></div>
+								</td>
+								<td>
+									<div class="puestos text-center"></div>
+								</td>
+								<td></td>
+								<td></td>
+
+								<td></td>
+								<td>
+									<div class="puestos text-center"></div>
+								</td>
+								<td>
+									<div class="puestos text-center"></div>
+								</td>
+								<td>
+									<div class="puestos text-center"></div>
+								</td>
+
+								<td>
+									<div class="puestos text-center"></div>
+								</td>
+								<td>
+									<div class="puestos text-center"></div>
+								</td>
+								<td>
+									<div class="puestos text-center"></div>
+								</td>
+								<td></td>
+							</tr>
+							<!-- Fin Fila 47 a 48-->
+
+							<!-- Fila 49 a 50-->
+							<tr>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+
+								<td></td>
+								<td></td>
+								<td class="muro"></td>
+								<td></td>
+
+								<td>
+									<div class="puestos puestosInv text-center"></div>
+								</td>
+								<td>
+									<div class="puestos puestosInv text-center"></div>
+								</td>
+								<td>
+									<div class="puestos puestosInv text-center"></div>
+								</td>
+								<td>
+									<div class="puestos puestosInv text-center"></div>
+								</td>
+
+								<td>
+									<div class="puestos puestosInv text-center"></div>
+								</td>
+								<td>
+									<div class="puestos puestosInv text-center"></div>
+								</td>
+								<td></td>
+								<td></td>
+
+								<td></td>
+								<td>
+									<div class="puestos puestosInv text-center"></div>
+								</td>
+								<td>
+									<div class="puestos puestosInv text-center"></div>
+								</td>
+								<td>
+									<div class="puestos puestosInv text-center"></div>
+								</td>
+
+								<td>
+									<div class="puestos puestosInv text-center"></div>
+								</td>
+								<td>
+									<div class="puestos puestosInv text-center"></div>
+								</td>
+								<td>
+									<div class="puestos puestosInv text-center"></div>
+								</td>
+								<td></td>
+							</tr>
+							<!-- Fin Fila 49 a 50-->
+
+
+
+							<!-- Fila 51-->
+							<tr>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+
+								<td></td>
+								<td></td>
+								<td class="muro"></td>
+								<td></td>
+
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+							</tr>
+							<!-- Fin Fila 51-->
+
+							<!-- Fila 52-->
+							<tr>
+								<td></td>
+								<td class="muro"></td>
+								<td class="muro"></td>
+								<td class="muro"></td>
+
+								<td class="muro"></td>
+								<td class="muro"></td>
+								<td class="muro"></td>
+								<td class="muro"></td>
+
+								<td class="muro"></td>
+								<td class="muro"></td>
+								<td></td>
+								<td></td>
+
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+
+								<td></td>
+								<td></td>
+								<td class="muro"></td>
+								<td class="muro"></td>
+
+								<td class="muro"></td>
+								<td class="muro"></td>
+								<td class="muro"></td>
+								<td></td>
+							</tr>
+							<!-- Fin Fila 52-->
+
+							<!-- Fila 53-->
+							<tr>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+							</tr>
+							<!-- Fin Fila 53-->
+
+
+							<!-- Fila 54 a 55-->
+							<tr>
+								<td></td>
+								<td>
+									<div class="puestos text-center"></div>
+								</td>
+								<td>
+									<div class="puestos text-center"></div>
+								</td>
+								<td>
+									<div class="puestos text-center"></div>
+								</td>
+
+								<td>
+									<div class="puestos text-center"></div>
+								</td>
+								<td>
+									<div class="puestos text-center"></div>
+								</td>
+								<td>
+									<div class="puestos text-center"></div>
+								</td>
+								<td>
+									<div class="puestos text-center"></div>
+								</td>
+
+								<td>
+									<div class="puestos text-center"></div>
+								</td>
+								<td>
+									<div class="puestos text-center"></div>
+								</td>
+								<td></td>
+								<td>
+									<div class="puestos text-center"></div>
+								</td>
+
+								<td>
+									<div class="puestos text-center"></div>
+								</td>
+								<td>
+									<div class="puestos text-center"></div>
+								</td>
+								<td></td>
+								<td></td>
+
+								<td></td>
+								<td>
+									<div class="puestos text-center"></div>
+								</td>
+								<td>
+									<div class="puestos text-center"></div>
+								</td>
+								<td>
+									<div class="puestos text-center"></div>
+								</td>
+
+								<td>
+									<div class="puestos text-center"></div>
+								</td>
+								<td>
+									<div class="puestos text-center"></div>
+								</td>
+								<td>
+									<div class="puestos text-center"></div>
+								</td>
+								<td></td>
+							</tr>
+							<!-- Fin Fila 54 a 55-->
+
+							<!-- Fila 56 a 57-->
+							<tr>
+								<td></td>
+								<td>
+									<div class="puestos puestosInv text-center"></div>
+								</td>
+								<td>
+									<div class="puestos puestosInv text-center"></div>
+								</td>
+								<td>
+									<div class="puestos puestosInv text-center"></div>
+								</td>
+
+								<td>
+									<div class="puestos puestosInv text-center"></div>
+								</td>
+								<td>
+									<div class="puestos puestosInv text-center"></div>
+								</td>
+								<td>
+									<div class="puestos puestosInv text-center"></div>
+								</td>
+								<td>
+									<div class="puestos puestosInv text-center"></div>
+								</td>
+
+								<td>
+									<div class="puestos puestosInv text-center"></div>
+								</td>
+								<td>
+									<div class="puestos puestosInv text-center"></div>
+								</td>
+								<td></td>
+								<td>
+									<div class="puestos puestosInv text-center"></div>
+								</td>
+
+								<td>
+									<div class="puestos puestosInv text-center"></div>
+								</td>
+								<td>
+									<div class="puestos puestosInv text-center"></div>
+								</td>
+								<td></td>
+								<td></td>
+
+								<td></td>
+								<td>
+									<div class="puestos puestosInv text-center"></div>
+								</td>
+								<td>
+									<div class="puestos puestosInv text-center"></div>
+								</td>
+								<td>
+									<div class="puestos puestosInv text-center"></div>
+								</td>
+
+								<td>
+									<div class="puestos puestosInv text-center"></div>
+								</td>
+								<td>
+									<div class="puestos puestosInv text-center"></div>
+								</td>
+								<td>
+									<div class="puestos puestosInv text-center"></div>
+								</td>
+								<td></td>
+							</tr>
+							<!-- Fin Fila 56 a 57-->
+
+
+							<!-- Fila 58 a 59-->
+							<tr>
+								<td></td>
+								<td>
+									<div class="puestos text-center"></div>
+								</td>
+								<td>
+									<div class="puestos text-center"></div>
+								</td>
+								<td>
+									<div class="puestos text-center"></div>
+								</td>
+
+								<td>
+									<div class="puestos text-center"></div>
+								</td>
+								<td>
+									<div class="puestos text-center"></div>
+								</td>
+								<td>
+									<div class="puestos text-center"></div>
+								</td>
+								<td>
+									<div class="puestos text-center"></div>
+								</td>
+
+								<td>
+									<div class="puestos text-center"></div>
+								</td>
+								<td>
+									<div class="puestos text-center"></div>
+								</td>
+								<td></td>
+								<td>
+									<div class="puestos text-center"></div>
+								</td>
+
+								<td>
+									<div class="puestos text-center"></div>
+								</td>
+								<td>
+									<div class="puestos text-center"></div>
+								</td>
+								<td></td>
+								<td></td>
+
+								<td></td>
+								<td>
+									<div class="puestos text-center"></div>
+								</td>
+								<td>
+									<div class="puestos text-center"></div>
+								</td>
+								<td>
+									<div class="puestos text-center"></div>
+								</td>
+
+								<td>
+									<div class="puestos text-center"></div>
+								</td>
+								<td>
+									<div class="puestos text-center"></div>
+								</td>
+								<td>
+									<div class="puestos text-center"></div>
+								</td>
+								<td></td>
+							</tr>
+							<!-- Fin Fila 58 a 59-->
+
+							<!-- Fila 60 a 61 -->
+							<tr>
+								<td></td>
+								<td>
+									<div class="puestos puestosInv text-center"></div>
+								</td>
+								<td>
+									<div class="puestos puestosInv text-center"></div>
+								</td>
+								<td>
+									<div class="puestos puestosInv text-center"></div>
+								</td>
+
+								<td>
+									<div class="puestos puestosInv text-center"></div>
+								</td>
+								<td>
+									<div class="puestos puestosInv text-center"></div>
+								</td>
+								<td>
+									<div class="puestos puestosInv text-center"></div>
+								</td>
+								<td>
+									<div class="puestos puestosInv text-center"></div>
+								</td>
+
+								<td>
+									<div class="puestos puestosInv text-center"></div>
+								</td>
+								<td>
+									<div class="puestos puestosInv text-center"></div>
+								</td>
+								<td></td>
+								<td>
+									<div class="puestos puestosInv text-center"></div>
+								</td>
+
+								<td>
+									<div class="puestos puestosInv text-center"></div>
+								</td>
+								<td>
+									<div class="puestos puestosInv text-center"></div>
+								</td>
+								<td></td>
+								<td></td>
+
+								<td></td>
+								<td>
+									<div class="puestos puestosInv text-center"></div>
+								</td>
+								<td>
+									<div class="puestos puestosInv text-center"></div>
+								</td>
+								<td>
+									<div class="puestos puestosInv text-center"></div>
+								</td>
+
+								<td>
+									<div class="puestos puestosInv text-center"></div>
+								</td>
+								<td>
+									<div class="puestos puestosInv text-center"></div>
+								</td>
+								<td>
+									<div class="puestos puestosInv text-center"></div>
+								</td>
+								<td></td>
+							</tr>
+							<!-- Fin Fila 60 a 61-->
+
+
+
+							<!-- Fila 62-->
+							<tr>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+							</tr>
+							<!-- Fin Fila 62-->
+
+						</tbody>
+					</table>
+
+				</div>
+			</div>
+			
+			<!-- Contenedor con el mapa de la primera planta-->
+		</div>
+
+
+		</main>
+		<!--Main layout-->
+
+		<!-- Footer -->
+		<footer th:replace="layout/layout :: footer"></footer>
+		<!-- Footer -->
+
+		<script>
             const url = 'http://localhost:8080/planta/ver/1';
             var empleado;
             var puesto;
@@ -2049,38 +2050,189 @@
             var html;
             var divs = $('div.puestos');
             var contador = 0;
+            
+            
+                                  
             $.get(url, function(data) {
-                $(divs).each(function() {
+            	for (var i = 0; i < divs.length; i++) {
+            		if (i < data.length) {
+            			puesto = data[i];
+            		
+            		
+            		
+            		if (puesto.ocupado) {
+            			
+                        
+                        empleado = puesto.empleado;
+                        var nameModal = "#modalLoginAvatar" + i;
+                        var idModal = "modalLoginAvatar" + i;
+                        
+                        if (divs[i].className.includes('puestosInv')) {
+                            console.log(puesto);
+                            html = `<button type="button" data-toggle="modal" data-target=${nameModal}  class="btn btn-default btn-sm btn-emp">${puesto.idPuesto}</button>
+    								<p class="name text-center">${empleado.apellido}</p>
+    								<!--Modal: Login with Avatar Form-->
+     		                        <div class="modal fade" id=${idModal} tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+     		                            <div class="modal-dialog cascading-modal modal-avatar modal-sm" role="document">
+     		                                <!--Content-->
+     		                                <div class="modal-content">
 
-                    puesto = data[contador]
+     		                                    <!--Header-->
+     		                                    <div class="modal-header">
+     		                                        <img src="https://mdbootstrap.com/img/Photos/Avatars/img%20%281%29.jpg" alt="avatar" class="rounded-circle img-responsive">
+     		                                    </div>
+     		                                    <!--Body-->
+     		                                    <div   class="modal-body text-center mb-1">
 
-                    if (puesto.empleado != null && puesto.ocupado) {
+    	 		                                        	<h4 id=${i} class="mt-1 mb-2"></h4>
+    	 		                                        	<h3 id=${i} class="mt-1 mb-2">${empleado.apellido}</h3>
+    	 		                                            <hr>
 
-                        mostrar = puesto.empleado.apellido;
+    	 		                                            <h5 class="mt-1 mb-2">${empleado.numeroEmpleado}</h5>
+    	 		                                            <br>
+    	 		                                            <h5 class="mt-1 mb-2">${empleado.nick}</h5>
+    	 		                                            <br>
+
+     		                                          
+     		                                    </div>
+
+     		                                </div>
+     		                                <!--/.Content-->
+     		                            </div>
+     		                        </div>
+     		                        <!--Modal: Login with Avatar Form-->`
+                        } else {
+                            html = `<p class="name text-center">${empleado.apellido}</p>
+     								<button type="button" class="btn btn-default btn-sm btn-emp" data-toggle="modal"
+     								data-target="#modalLoginAvatar">${puesto.idPuesto}</button>
+     								
+     								<!--Modal: Login with Avatar Form-->
+     		                        <div class="modal fade" id="modalLoginAvatar" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+     		                            <div class="modal-dialog cascading-modal modal-avatar modal-sm" role="document">
+     		                                <!--Content-->
+     		                                <div class="modal-content">
+
+     		                                    <!--Header-->
+     		                                    <div class="modal-header">
+     		                                        <img src="https://mdbootstrap.com/img/Photos/Avatars/img%20%281%29.jpg" alt="avatar" class="rounded-circle img-responsive">
+     		                                    </div>
+     		                                    <!--Body-->
+     		                                    <div  id="modalInsert" class="modal-body text-center mb-1">
+
+    	 		                                        	<h4 class="mt-1 mb-2">${puesto.idPuesto}</h4>
+    	 		                                        	<h3 class="mt-1 mb-2">${empleado.apellido}</h3>
+    	 		                                            <hr>
+
+    	 		                                            <h5 class="mt-1 mb-2">${empleado.numeroEmpleado}</h5>
+    	 		                                            <br>
+    	 		                                            <h5 class="mt-1 mb-2">${empleado.nick}</h5>
+    	 		                                            <br>
+
+     		                                          
+     		                                    </div>
+
+     		                                </div>
+     		                                <!--/.Content-->
+     		                            </div>
+     		                        </div>
+     		                        <!--Modal: Login with Avatar Form-->`
+     								
+    						
+                        }
 
 
                     } else {
-                        mostrar = "VACIO";
+                        empleado = "VACIO";
 
+                        if (divs[i].className.includes('puestosInv')) {
+                            console.log(puesto);
+                            html = `<button type="button" data-toggle="modal" data-target="#modalLoginAvatar"  class="btn btn-default btn-sm btn-emp">${puesto.idPuesto}</button>
+    								<p class="name text-center">${empleado.apellido}</p>
+    								<!--Modal: Login with Avatar Form-->
+     		                        <div class="modal fade" id="modalLoginAvatar" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+     		                            <div class="modal-dialog cascading-modal modal-avatar modal-sm" role="document">
+     		                                <!--Content-->
+     		                                <div class="modal-content">
+
+     		                                    <!--Header-->
+     		                                    <div class="modal-header">
+     		                                        <img src="https://mdbootstrap.com/img/Photos/Avatars/img%20%281%29.jpg" alt="avatar" class="rounded-circle img-responsive">
+     		                                    </div>
+     		                                    <!--Body-->
+     		                                    <div  id="modalInsert" class="modal-body text-center mb-1">
+
+    	 		                                        	<h4 class="mt-1 mb-2"> ${puesto.idPuesto}</h4>
+    	 		                                        	<h3 class="mt-1 mb-2">${empleado}</h3>
+    	 		                                            <hr>
+
+    	 		                                            <h5 class="mt-1 mb-2">${empleado}</h5>
+    	 		                                            <br>
+    	 		                                            <h5 class="mt-1 mb-2">${empleado}</h5>
+    	 		                                            <br>
+
+     		                                          
+     		                                    </div>
+
+     		                                </div>
+     		                                <!--/.Content-->
+     		                            </div>
+     		                        </div>
+     		                        <!--Modal: Login with Avatar Form-->`
+                        } else {
+                            html = `<p class="name text-center">${empleado.apellido}</p>
+     								<button type="button" class="btn btn-default btn-sm btn-emp" data-toggle="modal" 
+     								data-target="#modalLoginAvatar">${puesto.idPuesto}</button>
+     								
+     								<!--Modal: Login with Avatar Form-->
+     		                        <div class="modal fade" id="modalLoginAvatar" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+     		                            <div class="modal-dialog cascading-modal modal-avatar modal-sm" role="document">
+     		                                <!--Content-->
+     		                                <div class="modal-content">
+
+     		                                    <!--Header-->
+     		                                    <div class="modal-header">
+     		                                        <img src="https://mdbootstrap.com/img/Photos/Avatars/img%20%281%29.jpg" alt="avatar" class="rounded-circle img-responsive">
+     		                                    </div>
+     		                                    <!--Body-->
+     		                                    <div  id="modalInsert" class="modal-body text-center mb-1">
+
+    	 		                                        	<h4 class="mt-1 mb-2">${puesto.idPuesto}</h4>
+    	 		                                        	<h3 class="mt-1 mb-2">${empleado}</h3>
+    	 		                                            <hr>
+
+    	 		                                            <h5 class="mt-1 mb-2">${empleado}</h5>
+    	 		                                            <br>
+    	 		                                            <h5 class="mt-1 mb-2">${empleado}</h5>
+    	 		                                            <br>
+
+     		                                          
+     		                                    </div>
+
+     		                                </div>
+     		                                <!--/.Content-->
+     		                            </div>
+     		                        </div>
+     		                        <!--Modal: Login with Avatar Form-->`
+     								
+    						
+                        }
                     }
-                    if (this.className.includes('puestosInv')) {
-                        console.log(puesto);
-                        html = `<button type="button" class="btn btn-default btn-sm">${puesto.idPuesto}</button>
-				<p class="name text-center">${mostrar}</p>`;
-                    } else {
-                        html = `<p class="name text-center">${mostrar}</p>
- 					<button type="button" class="btn btn-default btn-sm">${puesto.idPuesto}</button>`;
-                    }
+                    
+						
+                    $(divs[i]).html(html);
 
-                    $(this).append(html);
-                    contador++;
-                });
+				}
+             	}
 
-
-
+               
+            	
             });
+
+
+            
+            
         </script>
-    </div>
+	</div>
 </body>
 
 </html>
