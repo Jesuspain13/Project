@@ -22,7 +22,7 @@ import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 @Entity
 @Table(name="registros")
-@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property="id")
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property="idRegistro")
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class Registro implements Serializable {
 

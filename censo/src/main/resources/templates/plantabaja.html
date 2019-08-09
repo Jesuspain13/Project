@@ -1143,34 +1143,38 @@
         <!-- Footer -->
 
 
+       
         <script>
-            var nombre = "[[${planta.getPuestos().get(1).getEmpleado().getApellido()}]]";
-            var numeroPuesto = [
-                [$ {
-                    planta.getPuestos().get(1).getIdPuesto()
-                }]
-            ];
+        
+        
+        const url='http://localhost:8080/planta/ver/4';
+        var apellidos;
+        $.get(url, function(data) {
+        	
+        	for (var i in data.puestos) {
+        		
+			if(data.puestos[i].empleado != null){
+				apellidos = data.puestos[i].empleado.apellido;
+        		console.log(apellidos);
+			} else {
+				console.log("VACIO");
+			}
 
-            console.log(nombre);
+          };
+        	
+        	
+        	
+        });
+        
 
-            var html = `<p class="name text-center">${nombre}</p>
-					<button type="button" class="btn btn-default btn-sm">${numeroPuesto}</button>`;
-
-            console.log(html);
-
-            $('div.puestos').append(html);
-
-
-
-
-
-            for (i = 0; i < listPuesto.length; i++) {
-
-                var listPuesto = "[[${planta.getPuestos().get(i).getEmpleado().getApellido()}]]";
-                console.log(listPuesto[i]);
-
-            }
+ 
+        
         </script>
+        
+
+        
+
+
 
 
 
