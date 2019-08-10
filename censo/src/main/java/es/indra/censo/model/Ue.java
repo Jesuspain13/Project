@@ -58,6 +58,7 @@ public class Ue implements Serializable {
 
 	@OneToMany(mappedBy = "ue", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+	@JsonIgnore
 	private List<Empleado> empleados;
 
 	

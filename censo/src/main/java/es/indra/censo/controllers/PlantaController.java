@@ -17,8 +17,6 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import es.indra.censo.model.Planta;
 import es.indra.censo.model.Puesto;
-import es.indra.censo.model.wrapper.PlantaBajaWrapper;
-import es.indra.censo.model.wrapper.PlantaWrapperAbs;
 import es.indra.censo.service.IPlantaService;
 import es.indra.censo.service.IPuestoService;
 

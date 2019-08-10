@@ -39,6 +39,7 @@ public class ExcelReader {
 
 	@Autowired
 	private IEmpleadoDao empDao;
+	
 
 	public ExcelReader() {
 	};
@@ -52,19 +53,19 @@ public class ExcelReader {
 
 	public static final String FILE_PATH = "D:/vmramon/Escritorio/excel/Sitios_Edificio.xlsx";
 
-	private Registro r;
+
 
 	
-	public void reader(Workbook workbook) {
+	public void reader(Workbook workbook, Integer idRegistro) {
 		try {
 			Sheet sheet = workbook.getSheetAt(0);
 			Iterator<Row> rows = sheet.rowIterator();
 			
-			r = this.buildRegistro();
+			Registro r = rDao.findById(idRegistro).get();
 			//Registro registroGuardado = rDao.save(r);
 
-			this.recorrerFilas(workbook, rows, rDao, r);
-
+			this.recorrerFilas(workbook, rows, rDao, r, sheet.getLastRowNum());
+			rDao.save(r);
 			workbook.close();
 		} catch (Exception ex) {
 			ex.printStackTrace();
@@ -82,7 +83,7 @@ public class ExcelReader {
 	 */
 	@Transactional
 	private Registro recorrerFilas(Workbook workbook, Iterator<Row> rows, IRegistroDao rDao,
-			Registro registroGuardado) {
+			Registro registroGuardado, int lastRow) {
 		int contador = 0;
 		Complejo c = null;
 		Ue ue = null;
@@ -93,7 +94,9 @@ public class ExcelReader {
 			
 			if (contador > 0) {
 				Row row = rows.next();
+				
 				if (c == null) {
+					
 					Map<String, Object> res = this.recorrerCeldasDeFila(workbook, row, rDao, registroGuardado);
 					c = (Complejo) res.get("complejo");
 					registroGuardado.addComplejo(c);
@@ -103,7 +106,19 @@ public class ExcelReader {
 						registroGuardado.addUes((Ue) res.get("ue"));
 					}
 					
+					
 				} else {
+					if (contador == lastRow) {
+						System.out.println("la fila que no guarda el puesto");
+						Iterator<Cell> cells = row.cellIterator();
+						cells.next();
+						cells.next();
+						cells.next();
+						cells.next();
+						cells.next();
+						cells.next();
+						cells.next();
+					}
 					Map<String, Object> res = this.recorrerCeldasDeFila(workbook, row, rDao, registroGuardado);
 					ue = (Ue) res.get("ue");
 					//comprobar si la ue existe ya
@@ -166,8 +181,13 @@ public class ExcelReader {
 			puesto.setEmpleado(null);
 		}
 		p.addPuesto(puesto);
-		e.addPlanta(p);
-		c.addEdificio(e);
+		if (!e.getPlantas().contains(p)) {
+			e.addPlanta(p);
+		}
+		if (!c.getEdificios().contains(e)) {
+			c.addEdificio(e);
+		}
+		//c.addEdificio(e);
 		//mapa para devolver resultados fuera del método
 		Map<String, Object> res = new HashedMap<String, Object>();
 		res.put("complejo", c);
@@ -176,12 +196,6 @@ public class ExcelReader {
 	}
 
 	// MÉTODOS PARA CONSTRUIR CADA ENTIDADES CON LOS DATOS RECOGIDOS DE CADA CELDA
-
-	private Registro buildRegistro() {
-		Registro reg = new Registro();
-		reg.setVersion("1.0.0");
-		return reg;
-	}
 
 	// Métodos auxiliares para complejo
 
@@ -340,7 +354,7 @@ public class ExcelReader {
 			emp.setNumeroEmpleado((tabla.getNumeroEmpleado().intValue()));
 		}
 		emp.setNick(tabla.getNick());
-		//emp.setUe(ue);
+		emp.setUe(ue);
 		emp.setRegistro(r);
 		return emp;
 	}

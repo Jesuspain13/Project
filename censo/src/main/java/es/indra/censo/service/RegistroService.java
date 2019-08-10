@@ -22,8 +22,8 @@ public class RegistroService implements IRegistroService {
 
 	@Override
 	@Transactional
-	public void save(Registro registro) {
-		registroDao.save(registro);
+	public Registro save(Registro registro) {
+		return registroDao.save(registro);
 
 	}
 

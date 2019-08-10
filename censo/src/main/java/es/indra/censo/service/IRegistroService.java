@@ -8,7 +8,7 @@ public interface IRegistroService {
 	
 	public List<Registro> findAll();
 	
-	public void save (Registro registro);
+	public Registro save (Registro registro);
 	
 	public Registro findRegistroById (Integer id);
 

@@ -38,22 +38,32 @@
 	
 			</div>
 			<!-- Grid row -->
+			<div th:if="${registro.getVersion() == null}" class="row d-flex justify-content-center">
+				<div class="col-md-8">
+				<form th:object="${registro}" method="POST" th:action="@{/doc/upload}">
+					<input type="text" name="version" th:field="*{version}" class="form-group-item"
+								placeholder="Nombre para la versión">
+							<button type="submit" class="btn btn-subir-indra">Guardar nombre</button>
+				</form>
+				</div>
+			</div>
 	
 			<!-- Grid seleccionar archivo -->
-			<div class="row d-flex justify-content-center">
+			<div th:if="${registro.getVersion() != null}" class="row d-flex justify-content-center">
 				<div class="col-md-8">
 					<hr class="my-4">
-	
+					<h5>Versión a añadir: <span th:text="${registro.getVersion()}"></span></h5>
 					<div class="pt-2">
 						<div class="custom-file">
-							<form class="form-group" th:action="@{/doc/upload}" method="POST"
+							<form class="form-group" th:action="@{'/doc/upload/' + ${registro.getIdRegistro()}}" method="POST"
 							enctype="multipart/form-data">
+								
 								<input type="file" name="file" class="custom-file-input input-indra"
 									id="customFileLang" lang="es"> <label
 									class="custom-file-label " for="customFileLang">Seleccionar
 									Archivo</label>
 								<button type="submit" class="btn btn-subir-indra">Subir</button>
-	
+			
 							</form>
 						</div>
 					</div>

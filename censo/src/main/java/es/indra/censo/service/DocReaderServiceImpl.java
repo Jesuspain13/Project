@@ -20,10 +20,10 @@ public class DocReaderServiceImpl implements IDocReaderService {
 	private ExcelReader reader;
 
 	@Override
-	public void readDocument(MultipartFile file)  throws Exception {
+	public void readDocument(MultipartFile file, Integer idRegistro)  throws Exception {
 		try {
 			Workbook wb = readerFromUpload.readFromMultiparFile(file);
-			reader.reader(wb);
+			reader.reader(wb, idRegistro);
 		}catch (Exception ex) {
 			throw new Exception(ex);
 		}

@@ -17,8 +17,7 @@
 					<div class="col-md-12">
 						<div class="card">
 							<div class="card-header">
-								<h2>SELECCIONA EL REGISTRO, EL COMPLEJO, EL EDIFICIO Y LA
-									PLANTA</h2>
+								<h2>SELECCIONA EL REGISTRO, EL COMPLEJO Y EL EDIFICIO</h2>
 							</div>
 							<div class="card-body">
 								<form class="container form-group" th:object="${registro}"
@@ -26,13 +25,13 @@
 									<div class="row my-2">
 
 										<!-- Formulario para versión -->
-										<div class="col-md-12">
+										<div th:if="${complejo == null}" class="col-md-12">
 											<label for="version">Selecciona la versión</label> <select
 												id="version" th:field="*{idRegistro}"
 												class="browser-default custom-select">
 												<option th:each="r: ${registros}"
-													th:value="${r.getIdRegistro()}"><span
-														th:text="${r.getVersion()}"></span>
+													th:value="${r.getIdRegistro()}">
+													<span th:text="${r.getVersion()}"></span>
 												</option>
 											</select>
 										</div>

@@ -5,6 +5,6 @@ import org.springframework.web.multipart.MultipartFile;
 
 public interface IDocReaderService {
 
-	public void readDocument(MultipartFile file) throws Exception;
+	public void readDocument(MultipartFile file,  Integer idRegistro) throws Exception;
 	
 }
