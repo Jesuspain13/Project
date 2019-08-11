@@ -927,6 +927,7 @@
                                         </td>
 
                                         <td>
+                                        	<div class="puestos text-center"></div> 
                                         </td>
                                         <td>
                                             <div class="puestos text-center"></div>
@@ -1152,71 +1153,182 @@
             var html;
             var divs = $('div.puestos');
             var contador = 0;
+            
+            
+                                  
             $.get(url, function(data) {
-                $(divs).each(function() {
+            	for (var i = 0; i < divs.length; i++) {
+            		if (i < data.length) {
+            			puesto = data[i];
+            		
+            			var nameModal = "#modalLoginAvatar" + i;
+                        var idModal = "modalLoginAvatar" + i;
+            		
+            		if (puesto.ocupado) {
+            			
+                        
+                        empleado = puesto.empleado;
+                        
+                        if (divs[i].className.includes('puestosInv')) {
+                            console.log(puesto);
+                            html = `<button type="button" data-toggle="modal" data-target=${nameModal}  class="btn btn-default btn-sm btn-emp">${puesto.idPuesto}</button>
+    								<p class="name text-center">${empleado.apellido}</p>
+    								<!--Modal: Login with Avatar Form-->
+     		                        <div class="modal fade" id=${idModal} tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+     		                            <div class="modal-dialog cascading-modal modal-avatar modal-sm" role="document">
+     		                                <!--Content-->
+     		                                <div class="modal-content">
 
-                    puesto = data[contador]
+     		                                    <!--Header-->
+     		                                    <div class="modal-header">
+     		                                        <img src="https://mdbootstrap.com/img/Photos/Avatars/img%20%281%29.jpg" alt="avatar" class="rounded-circle img-responsive">
+     		                                    </div>
+     		                                    <!--Body-->
+     		                                    <div   class="modal-body text-center mb-1">
 
-                    if (puesto.empleado != null && puesto.ocupado) {
+     		                                   <h4 class="mt-1 mb-2">Nº Puesto: ${puesto.idPuesto}</h4>
+	                                        	<h6 class="mt-1 mb-2">Nombre: ${empleado.nombre}</h6>
+	                                        	<h6 class="mt-1 mb-2">Apellidos: ${empleado.apellido}</h6>
+	                                            <hr>
 
-                        mostrar = puesto.empleado.apellido;
+	                                            <h5 class="mt-1 mb-2">Nº Empleado: ${empleado.numeroEmpleado}</h5>
+	                                            <br>
+	                                            <h5 class="mt-1 mb-2">Nick: ${empleado.nick}</h5>
+	                                            <br>
+
+     		                                          
+     		                                    </div>
+
+     		                                </div>
+     		                                <!--/.Content-->
+     		                            </div>
+     		                        </div>
+     		                        <!--Modal: Login with Avatar Form-->`
+                        } else {
+                            html = `<p class="name text-center">${empleado.apellido}</p>
+     								<button type="button" class="btn btn-default btn-sm btn-emp" data-toggle="modal"
+     									data-target=${nameModal}>${puesto.idPuesto}</button>
+     								
+     								<!--Modal: Login with Avatar Form-->
+     		                        <div class="modal fade" id=${idModal} tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+     		                            <div class="modal-dialog cascading-modal modal-avatar modal-sm" role="document">
+     		                                <!--Content-->
+     		                                <div class="modal-content">
+
+     		                                    <!--Header-->
+     		                                    <div class="modal-header">
+     		                                        <img src="https://mdbootstrap.com/img/Photos/Avatars/img%20%281%29.jpg" alt="avatar" class="rounded-circle img-responsive">
+     		                                    </div>
+     		                                    <!--Body-->
+     		                                    <div  id="modalInsert" class="modal-body text-center mb-1">
+
+     		                                   <h4 class="mt-1 mb-2">Nº Puesto: ${puesto.idPuesto}</h4>
+	                                        	<h6 class="mt-1 mb-2">Nombre: ${empleado.nombre}</h6>
+	                                        	<h6 class="mt-1 mb-2">Apellidos: ${empleado.apellido}</h6>
+	                                            <hr>
+
+	                                            <h5 class="mt-1 mb-2">Nº Empleado: ${empleado.numeroEmpleado}</h5>
+	                                            <br>
+	                                            <h5 class="mt-1 mb-2">Nick: ${empleado.nick}</h5>
+	                                            <br>
+
+     		                                          
+     		                                    </div>
+
+     		                                </div>
+     		                                <!--/.Content-->
+     		                            </div>
+     		                        </div>
+     		                        <!--Modal: Login with Avatar Form-->`
+     								
+    						
+                        }
 
 
                     } else {
-                        mostrar = "VACIO";
+                        empleado = "VACIO";
 
+                        if (divs[i].className.includes('puestosInv')) {
+                            console.log(puesto);
+                            html = `<button type="button" data-toggle="modal" data-target=${nameModal}  class="btn btn-default btn-sm btn-emp">${puesto.idPuesto}</button>
+    								<p class="name text-center">${empleado}</p>
+    								<!--Modal: Login with Avatar Form-->
+     		                        <div class="modal fade" id=${idModal} tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+     		                            <div class="modal-dialog cascading-modal modal-avatar modal-sm" role="document">
+     		                                <!--Content-->
+     		                                <div class="modal-content">
+
+     		                                    <!--Header-->
+     		                                    <div class="modal-header">
+     		                                        <img src="https://mdbootstrap.com/img/Photos/Avatars/img%20%281%29.jpg" alt="avatar" class="rounded-circle img-responsive">
+     		                                    </div>
+     		                                    <!--Body-->
+     		                                    <div  id="modalInsert" class="modal-body text-center mb-1">
+
+    	 		                                        	<h4 class="mt-1 mb-2">Nº puesto: ${puesto.idPuesto}</h4>
+    	 		                                        	<h5 class="mt-1 mb-2">Estado ${empleado}</h5>
+    	 		                                            <hr>
+
+    	 		                                            
+
+     		                                          
+     		                                    </div>
+
+     		                                </div>
+     		                                <!--/.Content-->
+     		                            </div>
+     		                        </div>
+     		                        <!--Modal: Login with Avatar Form-->`
+                        } else {
+                            html = `<p class="name text-center">${empleado}</p>
+     								<button type="button" class="btn btn-default btn-sm btn-emp" data-toggle="modal" 
+     									data-target=${nameModal}>${puesto.idPuesto}</button>
+     								
+     								<!--Modal: Login with Avatar Form-->
+     		                        <div class="modal fade" id=${idModal} tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+     		                            <div class="modal-dialog cascading-modal modal-avatar modal-sm" role="document">
+     		                                <!--Content-->
+     		                                <div class="modal-content">
+
+     		                                    <!--Header-->
+     		                                    <div class="modal-header">
+     		                                        <img src="https://mdbootstrap.com/img/Photos/Avatars/img%20%281%29.jpg" alt="avatar" class="rounded-circle img-responsive">
+     		                                    </div>
+     		                                    <!--Body-->
+     		                                    <div  id="modalInsert" class="modal-body text-center mb-1">
+
+    	 		                                        	<h4 class="mt-1 mb-2">Nº puesto:${puesto.idPuesto}</h4>
+    	 		                                        	<h5 class="mt-1 mb-2">Estado: ${empleado}</h5>
+    	 		                                            <hr>
+
+    	 		                                            
+
+     		                                          
+     		                                    </div>
+
+     		                                </div>
+     		                                <!--/.Content-->
+     		                            </div>
+     		                        </div>
+     		                        <!--Modal: Login with Avatar Form-->`
+     								
+    						
+                        }
                     }
-                    if (this.className.includes('puestosInv')) {
-                        console.log(puesto);
-                        html = `<button type="button" class="btn btn-default btn-sm">${puesto.idPuesto}</button>
-								<p class="name text-center">${mostrar}</p>
-                        <!--Modal: Login with Avatar Form-->
-                        <div class="modal fade" id="modalLoginAvatar" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-                            <div class="modal-dialog cascading-modal modal-avatar modal-sm" role="document">
-                                <!--Content-->
-                                <div class="modal-content">
+                    
+						
+                    $(divs[i]).html(html);
 
-                                    <!--Header-->
-                                    <div class="modal-header">
-                                        <img src="https://mdbootstrap.com/img/Photos/Avatars/img%20%281%29.jpg" alt="avatar" class="rounded-circle img-responsive">
-                                    </div>
-                                    <!--Body-->
-                                    <div class="modal-body text-center mb-1">
+				}
+             	}
 
-                                        <h4 class="mt-1 mb-2">${puesto.empleado.nombre}</h>
-                                            <br>
-
-                                            <h5 class="mt-1 mb-2">${puesto.empleado.numeroEmpleado}</h5>
-                                            <br>
-                                            <h5 class="mt-1 mb-2">${puesto.empleado.nick}</h5>
-                                            <br>
-
-                                            <div class="text-center mt-4">
-                                                <button type="button" class="btn btn-cyan mt-1" data-dismiss="modal">Atrás <i class="fas fa-sign-in ml-1"></i></button>
-                                            </div>
-                                    </div>
-
-                                </div>
-                                <!--/.Content-->
-                            </div>
-                        </div>
-                        <!--Modal: Login with Avatar Form-->
-
-                        <div class="text-center">
-                            <a href="" class="btn btn-default btn-rounded" data-toggle="modal" data-target="#modalLoginAvatar">000</a>
-                        </div>
-                    } else {
-                        html = `<p class="name text-center">${mostrar}</p>
- 								<button type="button" class="btn btn-default btn-sm">${puesto.idPuesto}</button>`;
-                    }
-
-                    $(this).append(html);
-                    contador++;
-                });
-
-
-
+               
+            	
             });
+
+
+            
+            
         </script>
 
 

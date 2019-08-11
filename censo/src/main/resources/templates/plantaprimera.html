@@ -2043,7 +2043,7 @@
 		<!-- Footer -->
 
 		<script>
-            const url = 'http://localhost:8080/planta/ver/1';
+            const url = 'http://localhost:8080/planta/ver/0';
             var empleado;
             var puesto;
             var mostrar;
@@ -2058,14 +2058,13 @@
             		if (i < data.length) {
             			puesto = data[i];
             		
-            		
+            			var nameModal = "#modalLoginAvatar" + i;
+                        var idModal = "modalLoginAvatar" + i;
             		
             		if (puesto.ocupado) {
             			
                         
                         empleado = puesto.empleado;
-                        var nameModal = "#modalLoginAvatar" + i;
-                        var idModal = "modalLoginAvatar" + i;
                         
                         if (divs[i].className.includes('puestosInv')) {
                             console.log(puesto);
@@ -2084,14 +2083,15 @@
      		                                    <!--Body-->
      		                                    <div   class="modal-body text-center mb-1">
 
-    	 		                                        	<h4 id=${i} class="mt-1 mb-2"></h4>
-    	 		                                        	<h3 id=${i} class="mt-1 mb-2">${empleado.apellido}</h3>
-    	 		                                            <hr>
+     		                                   <h4 class="mt-1 mb-2">Nº Puesto: ${puesto.idPuesto}</h4>
+	                                        	<h6 class="mt-1 mb-2">Nombre: ${empleado.nombre}</h6>
+	                                        	<h6 class="mt-1 mb-2">Apellidos: ${empleado.apellido}</h6>
+	                                            <hr>
 
-    	 		                                            <h5 class="mt-1 mb-2">${empleado.numeroEmpleado}</h5>
-    	 		                                            <br>
-    	 		                                            <h5 class="mt-1 mb-2">${empleado.nick}</h5>
-    	 		                                            <br>
+	                                            <h5 class="mt-1 mb-2">Nº Empleado: ${empleado.numeroEmpleado}</h5>
+	                                            <br>
+	                                            <h5 class="mt-1 mb-2">Nick: ${empleado.nick}</h5>
+	                                            <br>
 
      		                                          
      		                                    </div>
@@ -2104,10 +2104,10 @@
                         } else {
                             html = `<p class="name text-center">${empleado.apellido}</p>
      								<button type="button" class="btn btn-default btn-sm btn-emp" data-toggle="modal"
-     								data-target="#modalLoginAvatar">${puesto.idPuesto}</button>
+     									data-target=${nameModal}>${puesto.idPuesto}</button>
      								
      								<!--Modal: Login with Avatar Form-->
-     		                        <div class="modal fade" id="modalLoginAvatar" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+     		                        <div class="modal fade" id=${idModal} tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
      		                            <div class="modal-dialog cascading-modal modal-avatar modal-sm" role="document">
      		                                <!--Content-->
      		                                <div class="modal-content">
@@ -2119,14 +2119,15 @@
      		                                    <!--Body-->
      		                                    <div  id="modalInsert" class="modal-body text-center mb-1">
 
-    	 		                                        	<h4 class="mt-1 mb-2">${puesto.idPuesto}</h4>
-    	 		                                        	<h3 class="mt-1 mb-2">${empleado.apellido}</h3>
-    	 		                                            <hr>
+     		                                   <h4 class="mt-1 mb-2">Nº Puesto: ${puesto.idPuesto}</h4>
+	                                        	<h6 class="mt-1 mb-2">Nombre: ${empleado.nombre}</h6>
+	                                        	<h6 class="mt-1 mb-2">Apellidos: ${empleado.apellido}</h6>
+	                                            <hr>
 
-    	 		                                            <h5 class="mt-1 mb-2">${empleado.numeroEmpleado}</h5>
-    	 		                                            <br>
-    	 		                                            <h5 class="mt-1 mb-2">${empleado.nick}</h5>
-    	 		                                            <br>
+	                                            <h5 class="mt-1 mb-2">Nº Empleado: ${empleado.numeroEmpleado}</h5>
+	                                            <br>
+	                                            <h5 class="mt-1 mb-2">Nick: ${empleado.nick}</h5>
+	                                            <br>
 
      		                                          
      		                                    </div>
@@ -2146,10 +2147,10 @@
 
                         if (divs[i].className.includes('puestosInv')) {
                             console.log(puesto);
-                            html = `<button type="button" data-toggle="modal" data-target="#modalLoginAvatar"  class="btn btn-default btn-sm btn-emp">${puesto.idPuesto}</button>
-    								<p class="name text-center">${empleado.apellido}</p>
+                            html = `<button type="button" data-toggle="modal" data-target=${nameModal}  class="btn btn-default btn-sm btn-emp">${puesto.idPuesto}</button>
+    								<p class="name text-center">${empleado}</p>
     								<!--Modal: Login with Avatar Form-->
-     		                        <div class="modal fade" id="modalLoginAvatar" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+     		                        <div class="modal fade" id=${idModal} tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
      		                            <div class="modal-dialog cascading-modal modal-avatar modal-sm" role="document">
      		                                <!--Content-->
      		                                <div class="modal-content">
@@ -2161,14 +2162,11 @@
      		                                    <!--Body-->
      		                                    <div  id="modalInsert" class="modal-body text-center mb-1">
 
-    	 		                                        	<h4 class="mt-1 mb-2"> ${puesto.idPuesto}</h4>
-    	 		                                        	<h3 class="mt-1 mb-2">${empleado}</h3>
+    	 		                                        	<h4 class="mt-1 mb-2">Nº puesto: ${puesto.idPuesto}</h4>
+    	 		                                        	<h5 class="mt-1 mb-2">Estado ${empleado}</h5>
     	 		                                            <hr>
 
-    	 		                                            <h5 class="mt-1 mb-2">${empleado}</h5>
-    	 		                                            <br>
-    	 		                                            <h5 class="mt-1 mb-2">${empleado}</h5>
-    	 		                                            <br>
+    	 		                                            
 
      		                                          
      		                                    </div>
@@ -2179,12 +2177,12 @@
      		                        </div>
      		                        <!--Modal: Login with Avatar Form-->`
                         } else {
-                            html = `<p class="name text-center">${empleado.apellido}</p>
+                            html = `<p class="name text-center">${empleado}</p>
      								<button type="button" class="btn btn-default btn-sm btn-emp" data-toggle="modal" 
-     								data-target="#modalLoginAvatar">${puesto.idPuesto}</button>
+     									data-target=${nameModal}>${puesto.idPuesto}</button>
      								
      								<!--Modal: Login with Avatar Form-->
-     		                        <div class="modal fade" id="modalLoginAvatar" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+     		                        <div class="modal fade" id=${idModal} tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
      		                            <div class="modal-dialog cascading-modal modal-avatar modal-sm" role="document">
      		                                <!--Content-->
      		                                <div class="modal-content">
@@ -2196,14 +2194,11 @@
      		                                    <!--Body-->
      		                                    <div  id="modalInsert" class="modal-body text-center mb-1">
 
-    	 		                                        	<h4 class="mt-1 mb-2">${puesto.idPuesto}</h4>
-    	 		                                        	<h3 class="mt-1 mb-2">${empleado}</h3>
+    	 		                                        	<h4 class="mt-1 mb-2">Nº puesto:${puesto.idPuesto}</h4>
+    	 		                                        	<h5 class="mt-1 mb-2">Estado: ${empleado}</h5>
     	 		                                            <hr>
 
-    	 		                                            <h5 class="mt-1 mb-2">${empleado}</h5>
-    	 		                                            <br>
-    	 		                                            <h5 class="mt-1 mb-2">${empleado}</h5>
-    	 		                                            <br>
+    	 		                                            
 
      		                                          
      		                                    </div>

@@ -35,13 +35,13 @@ public class PlantaBajaWrapper extends PlantaWrapperAbs {
 			if (puestosDesordenados.get(i).getIdPuesto().contains("Z")
 					|| puestosDesordenados.get(i).getIdPuesto().contains("z")) {
 				//si tiene z pero el valor anterior es uno de estos valores
-			 if(value == 3 || value == 9 || value == 15 || value == 21 || value == 27
-					|| value == 33 || value == 39 || value == 45 || value == 51 || value == 63 || value == 69
+				if(value == 3 || value == 9 || value == 15 || value == 21 || value == 27
+					|| value == 33 || value == 39 || value == 45 || value == 51 || value == 57 || value == 63 || value == 69
 					|| value == 75 || value == 81 || value == 87 || value == 93 || value == 99 || value == 105
 					|| value == 111 || value == 117 || value == 123 || value == 129 || value == 135
 					|| value == 141) {
 				 this.añadirValoresAlfanumericos(puestosDesordenados, value, i);
-			 }
+				}
 			} else {
 				//si el iterador es mayor que 1
 			
@@ -57,7 +57,7 @@ public class PlantaBajaWrapper extends PlantaWrapperAbs {
 						// numérico
 					
 						if (value == 3 || value == 9 || value == 15 || value == 21 || value == 27
-								|| value == 33 || value == 39 || value == 45 || value == 51 || value == 63 || value == 69
+								|| value == 33 || value == 39 || value == 45 || value == 51 || value == 57 || value == 63 || value == 69
 								|| value == 75 || value == 81 || value == 87 || value == 93 || value == 99 || value == 105
 								|| value == 111 || value == 117 || value == 123 || value == 129 || value == 135
 								|| value == 141) {
