@@ -22,15 +22,14 @@
 									</h2>
 								</div>
 								<div class="col-md-6">
-									<label for="version">Selecciona una planta</label> <select
-										id="version" th:field="*{id}"
+									<label for="planta">Selecciona una planta</label> <select
+										id="planta" th:field="*{id}"
 										class="browser-default custom-select">
 										<option th:each="p: ${edificio.getPlantas()}"
 											th:value="${p.getId()}"><span
 												th:text="${p.getNombrePlanta()}"> </span>
 										</option>
 										
-										<option value="1">Sala Azahar</option>
 									</select>
 								</div>
 							</div>
@@ -38,6 +37,9 @@
 						<div class="row d-flex justify-content-center mt-3">
 							<button type="submit" class="btn btn-primary">Buscar
 								planta</button>
+						
+							<a th:if="${planta.getNombrePlanta().contains('0')}" type="button" 
+							class="btn btn-primary" th:href="@{/planta/ver/azahar}">Planta azahar</a>
 						</div>
 					</form>
 				</div>

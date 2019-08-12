@@ -17,13 +17,14 @@
 
 		<!--Main layout-->
     <main>
+    <section th:replace="./buscarplanta :: plantaForm"></section>
         <div class="container py-4">
 
             <!-- Crear una tarjeta para contener todo -->
             <div class="card">
 
                 <!-- Tarjeta 1 con el título -->
-                <div class="card-header indra-color text-white" th:text="${titulo}">Empleados de la Planta Azahar</div>
+                <div class="card-header indra-color text-white">Empleados de la Planta Azahar</div>
 
                 <!-- Tarjeta 2 con el cuerpo -->
 
@@ -47,12 +48,12 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr th:each="">
-                                    <td th:text="${empleado.azahar.npuesto}"></td>
-                                    <td th:text="${empleado.azahar.nombre}"></td>
-                                    <td th:text="${empleado.azahar.apellido}"></td>
-                                    <td th:text="${empleado.azahar.nick}"></td>
-                                    <td th:text="${empleado.azahar.nempleado}"></td>
+                                <tr th:each="puesto: ${puestos}">
+                                    <td th:text="${puesto.getIdPuesto()}"></td>
+                                    <td th:text="${puesto.getEmpleado().getNombre()}"></td>
+                                    <td th:text="${puesto.getEmpleado().getApellido()}"></td>
+                                    <td th:text="${puesto.getEmpleado().getNick()}"></td>
+                                    <td th:text="${puesto.getEmpleado().getNumeroEmpleado()}"></td>
 
                                 </tr>
                             </tbody>
@@ -60,9 +61,6 @@
 
                         </table>
                     </div>
-                    <!-- Agregamos el fragmento de la paginación -->
-                    <nav th:replace="paginator-nav :: paginator"></nav>
-                    <!-- ./Agregamos el fragmento de la paginación -->
 
                 </div>
             </div>
