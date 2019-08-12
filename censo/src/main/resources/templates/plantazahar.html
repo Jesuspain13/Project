@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<head th:replace="layout/layout :: head">
+
+</head>
+<meta charset="utf-8" />
+
+<body>
+
+	<div class="main-content">
+
+		<!--Main Navigation-->
+		<header th:replace="layout/layout :: header"> </header>
+		<!--Main Navigation-->
+
+		<!--Main layout-->
+    <main>
+        <div class="container py-4">
+
+            <!-- Crear una tarjeta para contener todo -->
+            <div class="card">
+
+                <!-- Tarjeta 1 con el título -->
+                <div class="card-header indra-color text-white" th:text="${titulo}">Empleados de la Planta Azahar</div>
+
+                <!-- Tarjeta 2 con el cuerpo -->
+
+                <div class="card-body">
+
+
+
+                    <!--Tabla de la base de datos con todos sus atributos-->
+
+                    <div class="table-responsive">
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th th:text="#{text.azahar.npuesto}">Nº Puesto</th>
+                                    <th th:text="#{text.azahar.nombre}">Nombre</th>
+                                    <th th:text="#{text.azahar.apellido}">Apellidos</th>
+                                    <th th:text="#{text.azahar.nick}">Nick</th>
+                                    <th th:text="#{text.azahar.nempleado}">Número Empleado</th>
+
+
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr th:each="">
+                                    <td th:text="${empleado.azahar.npuesto}"></td>
+                                    <td th:text="${empleado.azahar.nombre}"></td>
+                                    <td th:text="${empleado.azahar.apellido}"></td>
+                                    <td th:text="${empleado.azahar.nick}"></td>
+                                    <td th:text="${empleado.azahar.nempleado}"></td>
+
+                                </tr>
+                            </tbody>
+
+
+                        </table>
+                    </div>
+                    <!-- Agregamos el fragmento de la paginación -->
+                    <nav th:replace="paginator-nav :: paginator"></nav>
+                    <!-- ./Agregamos el fragmento de la paginación -->
+
+                </div>
+            </div>
+        </div>
+    </main>
+    <!--Main layout-->
+	</div>
+
+</body>
+
+</html>
