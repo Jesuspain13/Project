@@ -39,23 +39,16 @@ public class EdificioController {
 		
 		Edificio edificio = edificioDao.findById(e.getIdEdificio()).get();
 		model.addAttribute("edificio", edificio);
-		//model.addAttribute("planta", edificio.getPlantas().get(0));
+
 		Planta p = edificio.getPlantas().get(1);
 		PlantaWrapperAbs pWrapper = new PlantaWrapper();
 		List<Puesto> puestosDesordenados = puestoDao.findByPlanta(p);
 		List<Puesto >puestos = (pWrapper.ordenarPuesto(puestosDesordenados));
 		p.setPuestos(puestos);
 		
-//		Planta p = edificio.getPlantas().get(0);
-//		PlantaWrapperAbs pWrapper = new PlantaBajaWrapper();
-//		List<Puesto> puestosDesordenados = puestoDao.findByPlanta(p);
-//		List<Puesto >puestos = (pWrapper.ordenarPuesto(puestosDesordenados));
-//		p.setPuestos(puestos);
-		
-		//p.setPuestos(pWrapper.getPuestosOrdenados());
 		model.addAttribute("planta", p);
 		
-		return "plantabaja";
+		return "plantaprimera";
 		} catch(Exception ex) {
 			log.error(ex.getMessage());
 			model.addAttribute("error", UploadExcelController.ERROR_MSG);

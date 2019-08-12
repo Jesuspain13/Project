@@ -17,6 +17,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import es.indra.censo.model.Planta;
 import es.indra.censo.model.Puesto;
+import es.indra.censo.model.wrapper.PlantaBajaWrapper;
 import es.indra.censo.service.IPlantaService;
 import es.indra.censo.service.IPuestoService;
 
@@ -86,4 +87,27 @@ public class PlantaController {
 			
 
 		}
+		
+		// Método para mostrar la planta que queramos por Id.
+				@GetMapping(value = "/ver/azahar")
+				public String verPlantaAzahar(Map<String, Object> model, RedirectAttributes flash) {
+					PlantaBajaWrapper pBajaWrapper = new PlantaBajaWrapper();
+					Planta plantaEncontrada = plantaService.findPlantaByNombrePlanta(0);
+
+//					if (planta == null) {
+//						flash.addFlashAttribute("error", "¡La planta a la que intenta acceder no existe!");
+//						return "redirect:/listar";
+//					}
+					pBajaWrapper.ordenarPuesto(plantaEncontrada.getPuestos());
+					Planta p = new Planta();
+					model.put("planta", plantaEncontrada);
+					model.put("edificio", plantaEncontrada.getEdificio());
+					model.put("puestos", pBajaWrapper.getPlantaAzahara());
+					model.put("titulo", "Esta usted en la planta: " + plantaEncontrada.getNombrePlanta());
+					
+					return "plantazahar";
+
+					
+
+				}
 }
