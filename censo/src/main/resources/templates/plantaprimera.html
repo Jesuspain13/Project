@@ -2045,8 +2045,8 @@
 
 
 
-		<script th:inline="javascript">
-            const url = 'http://localhost:8080/planta/ver/1';
+		<script  th:inline="javascript">
+            const url = "http://localhost:8080/planta/ver/1";
             var empleado;
             var puesto;
             var mostrar;
@@ -2130,11 +2130,10 @@
                         
                         if (divs[i].className.includes('puestosInv')) {
 
-                            console.log(puesto);
-                            html = `<button type="button" data-toggle="modal" data-target=${nameModal}  class="${styleBtn}">${puesto.idPuesto}</button>
+                           
 
        
-                            html = `<button type="button" data-toggle="modal" data-target=${nameModal}  class="btn btn-default btn-sm btn-emp">${puesto.idPuesto}</button>
+                            html = `<button type="button" data-toggle="modal" data-target=${nameModal}  class="${styleBtn}">${puesto.idPuesto}</button>
 
     								<p class="name text-center">${empleado.apellido}</p>
     								<!--Modal: Login with Avatar Form-->
@@ -2214,10 +2213,10 @@
 
                         if (divs[i].className.includes('puestosInv')) {
 
-                            console.log(puesto);
-                            html = `<button type="button" data-toggle="modal" data-target=${nameModal}  class="btn btn-success">${puesto.idPuesto}</button>
+                
+                            
 
-                            html = `<button type="button" data-toggle="modal" data-target=${nameModal}  class="btn btn-default btn-sm btn-emp">${puesto.idPuesto}</button>
+                            html = `<button type="button" data-toggle="modal" data-target=${nameModal}  class="btn btn-success">${puesto.idPuesto}</button>
 
     								<p class="name text-center">${empleado}</p>
     								<!--Modal: Login with Avatar Form-->

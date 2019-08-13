@@ -26,8 +26,8 @@
 										id="planta" th:field="*{id}"
 										class="browser-default custom-select">
 										<option th:each="p: ${edificio.getPlantas()}"
-											th:value="${p.getId()}"><span
-												th:text="${p.getNombrePlanta()}"> </span>
+											th:value="${p.getId()}"> <span
+												th:text="${p.getNombrePlanta()}"></span>
 										</option>
 										
 									</select>
@@ -43,11 +43,6 @@
 								planta</button>
 						
 
-							<a th:if="${planta.getNombrePlanta().contains('0')}" type="button" 
-							class="btn btn-pink" th:href="@{/planta/ver/azahar}">Planta azahar</a>
-
-							
-
 						</div>
 					</form>
 					<form class="row form d-flex justify-content-center mt-3" th:if="${planta.getNombrePlanta().contains('0')}"
@@ -55,7 +50,7 @@
 					 method="GET">
 						<input type="hidden" th:value="${idRegistro}" name="idRegistro"/>
 						<button type="submit" 
-							class="btn btn-primary">Planta azahar</button>
+							class="btn btn-pink">Planta azahar</button>
 					</form>
 				</div>
 			</div>
