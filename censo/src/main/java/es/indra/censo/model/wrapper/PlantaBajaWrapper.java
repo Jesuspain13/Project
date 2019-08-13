@@ -1,6 +1,5 @@
 package es.indra.censo.model.wrapper;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -22,57 +21,58 @@ public class PlantaBajaWrapper extends PlantaWrapperAbs {
 	}
 
 	@Override
-	public List<Puesto> ordenarPuesto(List<Puesto> puestosDesordenados) {
+	public List<Puesto> ordenarPuesto(String nombrePlanta, List<Puesto> puestosDesordenados) throws NoSorteableException {
 
-		// Integer[] puestosZ = {9, 20, 32, 43, 54, 65, 76,87, 99, 111, 122, 133, 144,
-		// 155, 163, 164, 165, 166, 167};
+		try {
 
-		Puesto iteraciónPuestoDesordenado;
-		Puesto ultimoPuestoOrdenado;
-		int value = 0;
-		boolean estaEnSalto;
-		for (int i = 0; i < puestosDesordenados.size() - 21; i++) {
-			iteraciónPuestoDesordenado = puestosDesordenados.get(i);
-
-			// si no contiene Z
-			// comprobar que la lista ya ordenada es mayor a 0
-			if (super.getPuestosOrdenados().size() > 0) {
-				int lastIndex = super.getPuestosOrdenados().size() - 1;
-				// comprobar si el anterior valor guardado en lista ordenada tiene A
-				ultimoPuestoOrdenado = super.getPuestosOrdenados().get(lastIndex);
-				if (!ultimoPuestoOrdenado.getIdPuesto().contains("A")
-						|| !ultimoPuestoOrdenado.getIdPuesto().contains("A")) {
-					value = Integer.parseInt(ultimoPuestoOrdenado.getIdPuesto());
-				}
-				// comprobar que el valor que vamos a coger no tiene z
-				if (iteraciónPuestoDesordenado.getIdPuesto().contains("Z")
-						|| iteraciónPuestoDesordenado.getIdPuesto().contains("z")) {
-					this.plantaAzahara.add(puestosDesordenados.get(i));
-					// si tiene z pero el id del utlimo puesto añadido es uno de estos valores
-					
-					if (this.puestosPreviosAAlfanumericos.contains(value)) {
-						this.añadirValoresAlfanumericos(puestosDesordenados, value, i);
-
+			Puesto iteraciónPuestoDesordenado;
+			Puesto ultimoPuestoOrdenado;
+			int value = 0;
+	
+			for (int i = 0; i < puestosDesordenados.size() - 21; i++) {
+				iteraciónPuestoDesordenado = puestosDesordenados.get(i);
+	
+				// si no contiene Z
+				// comprobar que la lista ya ordenada es mayor a 0
+				if (super.getPuestosOrdenados().size() > 0) {
+					int lastIndex = super.getPuestosOrdenados().size() - 1;
+					// comprobar si el anterior valor guardado en lista ordenada tiene A
+					ultimoPuestoOrdenado = super.getPuestosOrdenados().get(lastIndex);
+					if (!ultimoPuestoOrdenado.getIdPuesto().contains("A")
+							|| !ultimoPuestoOrdenado.getIdPuesto().contains("A")) {
+						value = Integer.parseInt(ultimoPuestoOrdenado.getIdPuesto());
 					}
-
-				} else {
-
-					if (this.puestosPreviosAAlfanumericos.contains(value)) {
-						this.añadirValoresAlfanumericos(puestosDesordenados, value, i);
-
+					// comprobar que el valor que vamos a coger no tiene z
+					if (iteraciónPuestoDesordenado.getIdPuesto().contains("Z")
+							|| iteraciónPuestoDesordenado.getIdPuesto().contains("z")) {
+						this.plantaAzahara.add(puestosDesordenados.get(i));
+						// si tiene z pero el id del utlimo puesto añadido es uno de estos valores
+	
+						if (this.puestosPreviosAAlfanumericos.contains(value)) {
+							this.añadirValoresAlfanumericos(puestosDesordenados, value, i);
+	
+						}
+	
 					} else {
-						this.añadirSiNoTieneZ(puestosDesordenados, i);
+	
+						if (this.puestosPreviosAAlfanumericos.contains(value)) {
+							this.añadirValoresAlfanumericos(puestosDesordenados, value, i);
+	
+						} else {
+							this.añadirSiNoTieneZ(puestosDesordenados, i);
+						}
 					}
+				} else {
+					this.añadirSiNoTieneZ(puestosDesordenados, i);
 				}
-			} else {
-				this.añadirSiNoTieneZ(puestosDesordenados, i);
+	
+				value = 0;
 			}
-
-			value = 0;
+			System.out.println("");
+			return getPuestosOrdenados();
+		} catch (Exception ex) {
+			throw new NoSorteableException(String.format("la lista de puestos de la planta %s no se ha podido ordenar", nombrePlanta));
 		}
-		System.out.println("");
-		return getPuestosOrdenados();
-
 	}
 
 	/**
@@ -220,6 +220,4 @@ public class PlantaBajaWrapper extends PlantaWrapperAbs {
 		this.plantaAzahara = plantaAzahara;
 	}
 
-	
-	
 }

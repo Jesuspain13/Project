@@ -15,6 +15,7 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.PrePersist;
 import javax.persistence.Table;
+import javax.validation.constraints.NotEmpty;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
@@ -23,7 +24,7 @@ import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 @Entity
 @Table(name="registros")
 @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property="idRegistro")
-@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+
 public class Registro implements Serializable {
 
 	public Registro() {
@@ -37,6 +38,7 @@ public class Registro implements Serializable {
 	@Column(name="id_registro")
 	private Integer idRegistro;
 	
+	@NotEmpty
 	private String version;
 	
 	@Column(name="fecha_subida")

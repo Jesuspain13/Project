@@ -46,8 +46,10 @@
 												Versión seleccionada: <span
 													th:text="${registro.getVersion()}"></span>
 											</h4>
+											<input type="hidden" th:value="${registro.idRegistro}" name="idRegistro"/>
 										</div>
 									</div>
+									
 									<button th:if="${registro.getVersion() == null}"
 										class="btn bt-primary">Registro</button>
 								</form>
@@ -65,6 +67,7 @@
 													</label>
 												</div>
 											</div>
+											<input type="hidden" th:value="${registro.idRegistro}" name="idRegistro"/>
 										</div>
 										<div th:if="${complejo.getNombreComplejo() != null}"
 											class="row my-2">
@@ -73,6 +76,7 @@
 													Complejo seleccionado: <span
 														th:text="${complejo.getNombreComplejo()}"></span>
 												</h5>
+												
 											</div>
 										</div>
 										<button th:if="${complejo.getNombreComplejo() == null}"
@@ -91,6 +95,7 @@
 													class="form-check-label" for="exampleRadios1"> <span
 													th:text="${e.getNombreEdificio()}"></span>
 												</label>
+												<input type="hidden" th:value="${idRegistro}" name="idRegistro"/>
 											</div>
 										</div>
 

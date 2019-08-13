@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import es.indra.censo.model.Registro;
 import es.indra.censo.service.IDocReaderService;
@@ -35,7 +36,7 @@ public class UploadExcelController {
 
 	@GetMapping("/upload")
 	@Secured({"ROLE_ADMIN"})
-	public String uploadExcel(Model model) {
+	public String uploadExcel(Model model, RedirectAttributes flash) {
 		Registro r = new Registro();
 		model.addAttribute("registro", r);
 		return "upload";
@@ -43,7 +44,7 @@ public class UploadExcelController {
 	
 	@PostMapping("/upload")
 	@Secured({"ROLE_ADMIN"})
-	public String uploadExcel(Registro r, Model model) {
+	public String uploadExcel(Registro r, Model model, RedirectAttributes flash) {
 		Registro registro = registroSvc.save(r);;
 		model.addAttribute("registro", registro);
 		return "upload";
@@ -51,15 +52,16 @@ public class UploadExcelController {
 	
 	@PostMapping("/upload/{id}")
 	@Secured({"ROLE_ADMIN"})
-	public String uploadExcel(@PathVariable("id") int idRegistro, @RequestParam("file") MultipartFile file, Model model) {
+	public String uploadExcel(@PathVariable("id") int idRegistro, @RequestParam("file") MultipartFile file,
+			Model model, RedirectAttributes flash) {
 		try {
 			docReaderSvc.readDocument(file, idRegistro);
-			model.addAttribute("success", SUCCESS_MSG);
+			flash.addFlashAttribute("success", SUCCESS_MSG);
 		    return "redirect:/registro/listar";
 		} catch (Exception ex) {
 			log.error(ex.getMessage());
-			model.addAttribute("error", ERROR_MSG);
-			return "upload";
+			flash.addFlashAttribute("error", "Error en la lectura del archivo, el orden de las columnas no es el correcto");
+			return "redirect:/doc/upload";
 		}
 	   
 	}

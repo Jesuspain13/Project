@@ -34,7 +34,6 @@ public class Empleado implements Serializable {
 	@Column(name = "id_empleado_auto")
 	private Integer idEmpleadoAuto;
 
-	@NaturalId
 	@Column(name = "numero_empleado")
 	private Integer numeroEmpleado;
 

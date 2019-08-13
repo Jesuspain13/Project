@@ -4,6 +4,8 @@ import java.util.List;
 
 import es.indra.censo.model.Planta;
 import es.indra.censo.model.Puesto;
+import es.indra.censo.model.Registro;
+import es.indra.censo.model.wrapper.NoSorteableException;
 
 public interface IPuestoService {
 
@@ -17,6 +19,8 @@ public interface IPuestoService {
 
 	public Puesto findPuestoById(Integer id);
 	
-	public List<Puesto> findByPlantaOrdenados(Planta p);
+	public List<Puesto> findByPlantaOrdenados(Planta p)  throws NoSorteableException, Exception;
+	
+	public List<Puesto> findByPlantaOrdenados(Integer nombrePlanta, Integer idRegistro)  throws NoSorteableException, Exception;
 
 }

@@ -17,11 +17,11 @@ import es.indra.censo.service.IEmpleadoService;
 @Controller
 @RequestMapping("/empleado")
 public class EmpleadoController {
-	
+
 	@Autowired
 	private IEmpleadoService empleadoService;
-	
-	//Método para mostrar todos los empleados del censo.
+
+	// Método para mostrar todos los empleados del censo.
 	@RequestMapping(value = "/listar", method = RequestMethod.GET)
 	public String listar(Model model) {
 		model.addAttribute("titulo", "Listado de todos los empleados");
@@ -30,25 +30,22 @@ public class EmpleadoController {
 		return "listar";
 
 	}
-	
-	
+
 	// Método para mostrar el detalle el empleado que queramos por Id.
-		@GetMapping(value = "/ver/{id}")
-		public String ver(@PathVariable(value = "id") Integer id, Map<String, Object> model, RedirectAttributes flash) {
+	@GetMapping(value = "/ver/{id}")
+	public String ver(@PathVariable(value = "id") Integer id, Map<String, Object> model, RedirectAttributes flash) {
 
-			Empleado empleado = empleadoService.findEmpleadoById(id);
+		Empleado empleado = empleadoService.findEmpleadoById(id);
 
-			if (empleado == null) {
-				flash.addFlashAttribute("error", "¡El empleado al que intenta acceder no existe en la BBDD!");
-				return "redirect:/listar";
-			}
-
-			model.put("empleado", empleado);
-			model.put("titulo", "Información detallada de: " + empleado.getNombre() + " " + empleado.getApellido());
-			return "ver";
-
+		if (empleado == null) {
+			flash.addFlashAttribute("error", "¡El empleado al que intenta acceder no existe en la BBDD!");
+			return "redirect:/listar";
 		}
-	
-	
+
+		model.put("empleado", empleado);
+		model.put("titulo", "Información detallada de: " + empleado.getNombre() + " " + empleado.getApellido());
+		return "ver";
+
+	}
 
 }

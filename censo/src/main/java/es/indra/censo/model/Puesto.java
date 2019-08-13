@@ -34,7 +34,6 @@ public class Puesto implements Serializable {
 	@Column(name="id_puesto_auto")
 	private Integer idPuestoAuto;
 	
-	@NaturalId
 	@Column(name="id_puesto")
 	private String idPuesto;
 
