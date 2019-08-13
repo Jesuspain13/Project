@@ -31,16 +31,26 @@
 										</option>
 										
 									</select>
+									<input type="hidden" th:value="${idRegistro}" name="idRegistro"/>
 								</div>
 							</div>
 						</div>
+						
+						
+						
 						<div class="row d-flex justify-content-center mt-3">
 							<button type="submit" class="btn btn-primary">Buscar
 								planta</button>
 						
-							<a th:if="${planta.getNombrePlanta().contains('0')}" type="button" 
-							class="btn btn-primary" th:href="@{/planta/ver/azahar}">Planta azahar</a>
+							
 						</div>
+					</form>
+					<form class="row form d-flex justify-content-center mt-3" th:if="${planta.getNombrePlanta().contains('0')}"
+					 th:action="@{/planta/ver/azahar}"
+					 method="GET">
+						<input type="hidden" th:value="${idRegistro}" name="idRegistro"/>
+						<button type="submit" 
+							class="btn btn-primary">Planta azahar</button>
 					</form>
 				</div>
 			</div>

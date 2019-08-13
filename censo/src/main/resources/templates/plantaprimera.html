@@ -2041,19 +2041,33 @@
 		<!-- Footer -->
 		<footer th:replace="layout/layout :: footer"></footer>
 		<!-- Footer -->
+		
+		
 
-		<script>
+
+		<script th:inline="javascript">
             const url = 'http://localhost:8080/planta/ver/1';
             var empleado;
             var puesto;
             var mostrar;
             var html;
+            var idRegistro = [[${idRegistro}]]; 
+            var data
             var divs = $('div.puestos');
             var contador = 0;
             
-            
-                                  
-            $.get(url, function(data) {
+
+
+		$.ajax({
+		    url: "http://localhost:8080/planta/ver/1",
+		    type: "GET",
+		    data: {
+		        "idRegistro" : idRegistro
+		    },
+		    contentType: 'application/json',
+		    dataType: 'json',
+		    success: function (data) {
+                             
             	for (var i = 0; i < divs.length; i++) {
             		if (i < data.length) {
             			puesto = data[i];
@@ -2067,7 +2081,7 @@
                         empleado = puesto.empleado;
                         
                         if (divs[i].className.includes('puestosInv')) {
-                            console.log(puesto);
+       
                             html = `<button type="button" data-toggle="modal" data-target=${nameModal}  class="btn btn-default btn-sm btn-emp">${puesto.idPuesto}</button>
     								<p class="name text-center">${empleado.apellido}</p>
     								<!--Modal: Login with Avatar Form-->
@@ -2146,7 +2160,7 @@
                         empleado = "VACIO";
 
                         if (divs[i].className.includes('puestosInv')) {
-                            console.log(puesto);
+         
                             html = `<button type="button" data-toggle="modal" data-target=${nameModal}  class="btn btn-default btn-sm btn-emp">${puesto.idPuesto}</button>
     								<p class="name text-center">${empleado}</p>
     								<!--Modal: Login with Avatar Form-->
@@ -2210,22 +2224,17 @@
      		                        <!--Modal: Login with Avatar Form-->`
      								
     						
-                        }
+                        	}
                     }
                     
 						
                     $(divs[i]).html(html);
 
 				}
-             	}
+             }
+		    }
+         });
 
-               
-            	
-            });
-
-
-            
-            
         </script>
 	</div>
 </body>

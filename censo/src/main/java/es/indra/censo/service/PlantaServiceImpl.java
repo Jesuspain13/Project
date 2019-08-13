@@ -7,13 +7,18 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import es.indra.censo.dao.IPlantaDao;
+import es.indra.censo.dao.IRegistroDao;
 import es.indra.censo.model.Planta;
+import es.indra.censo.model.Registro;
 
 @Service
 public class PlantaServiceImpl implements IPlantaService {
 
 	@Autowired
 	private IPlantaDao plantaDao;
+	
+	@Autowired 
+	private IRegistroDao registroDao;
 
 	@Override
 	public List<Planta> findAll() {
@@ -46,6 +51,19 @@ public class PlantaServiceImpl implements IPlantaService {
 		// TODO Auto-generated method stub
 		String nombre = nombrePlanta.toString();
 		return plantaDao.findByNombrePlanta(nombre);
+	}
+
+	@Override
+	public Planta findPlantaByIdPlantaAndRegistro(Integer idPlanta, int idRegistro) {
+		// TODO Auto-generated method stub
+
+		Registro r = registroDao.findById(idRegistro).get();
+		return plantaDao.findByIdPlantaAndRegistro(idPlanta, r);
+	}
+	
+	public Planta findPlantaByNombrePlantaAndRegistro(Integer nombrePlanta, Integer idRegistro) {
+		String nombre = nombrePlanta.toString();
+		return plantaDao.findByNombrePlantaAndRegistro(nombre, idRegistro);
 	}
 	
 	

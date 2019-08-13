@@ -1145,18 +1145,28 @@
 
 
 
-        <script>
+        <script th:inline="javascript">
             const url = 'http://localhost:8080/planta/ver/0';
             var empleado;
             var puesto;
             var mostrar;
             var html;
+            var idRegistro = [[${idRegistro}]]; 
             var divs = $('div.puestos');
             var contador = 0;
             
             
                                   
-            $.get(url, function(data) {
+            $.ajax({
+    		    url: url,
+    		    type: "GET",
+    		    data: {
+    		        "idRegistro" : idRegistro
+    		    },
+    		    contentType: 'application/json',
+    		    dataType: 'json',
+    		    success: function (data) {
+    		   
             	for (var i = 0; i < divs.length; i++) {
             		if (i < data.length) {
             			puesto = data[i];
@@ -1323,7 +1333,7 @@
              	}
 
                
-            	
+    		    }	
             });
 
 

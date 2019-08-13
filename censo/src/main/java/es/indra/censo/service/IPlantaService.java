@@ -17,5 +17,9 @@ public interface IPlantaService {
 	public Planta findPlantaById (Integer id);
 	
 	public Planta findPlantaByNombrePlanta(Integer nombrePlanta);
+	
+	public Planta findPlantaByIdPlantaAndRegistro(Integer idPlanta, int idRegistro);
+	
+	public Planta findPlantaByNombrePlantaAndRegistro(Integer nombrePlanta, Integer idRegistro);
 
 }

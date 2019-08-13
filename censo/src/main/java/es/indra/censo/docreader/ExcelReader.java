@@ -4,8 +4,9 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
+import javax.persistence.EntityManager;
+
 import org.apache.commons.collections4.map.HashedMap;
-import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
@@ -40,6 +41,12 @@ public class ExcelReader {
 	@Autowired
 	private IEmpleadoDao empDao;
 	
+	@Autowired
+	private ValidadorColumnasExcel validadorColumnas;
+	
+	@Autowired
+	private EntityManager em;
+	
 
 	public ExcelReader() {
 	};
@@ -55,8 +62,8 @@ public class ExcelReader {
 
 
 
-	
-	public void reader(Workbook workbook, Integer idRegistro) {
+	@Transactional
+	public void reader(Workbook workbook, Integer idRegistro) throws Exception {
 		try {
 			Sheet sheet = workbook.getSheetAt(0);
 			Iterator<Row> rows = sheet.rowIterator();
@@ -69,6 +76,7 @@ public class ExcelReader {
 			workbook.close();
 		} catch (Exception ex) {
 			ex.printStackTrace();
+			throw new Exception(ex);
 		}
 	}
 
@@ -83,58 +91,55 @@ public class ExcelReader {
 	 */
 	@Transactional
 	private Registro recorrerFilas(Workbook workbook, Iterator<Row> rows, IRegistroDao rDao,
-			Registro registroGuardado, int lastRow) {
-		int contador = 0;
-		Complejo c = null;
-		Ue ue = null;
-		registroGuardado = rDao.save(registroGuardado);
-		while (rows.hasNext()) {
-			// contador para empezar a guardar valores a partir de la primera linea (la
-			// primera no incluye datos solo titulos)
-			
-			if (contador > 0) {
-				Row row = rows.next();
+			Registro registroGuardado, int lastRow) throws Exception {
+		try {
+			int contador = 0;
+			Complejo c = null;
+			Ue ue = null;
+			registroGuardado = rDao.save(registroGuardado);
+			while (rows.hasNext()) {
+				// contador para empezar a guardar valores a partir de la primera linea (la
+				// primera no incluye datos solo titulos)
 				
-				if (c == null) {
+				if (contador > 0) {
+					Row row = rows.next();
 					
-					Map<String, Object> res = this.recorrerCeldasDeFila(workbook, row, rDao, registroGuardado);
-					c = (Complejo) res.get("complejo");
-					registroGuardado.addComplejo(c);
-					ue = (Ue) res.get("ue");
-					//comprobar si la ue es null
-					if (ue != null) {
-						registroGuardado.addUes((Ue) res.get("ue"));
+					if (c == null) {
+						
+						Map<String, Object> res = this.recorrerCeldasDeFila(workbook, row, rDao, registroGuardado);
+						c = (Complejo) res.get("complejo");
+						registroGuardado.addComplejo(c);
+						ue = (Ue) res.get("ue");
+						//comprobar si la ue es null
+						if (ue != null) {
+							registroGuardado.addUes((Ue) res.get("ue"));
+						}
+						
+						
+					} else {
+						
+						Map<String, Object> res = this.recorrerCeldasDeFila(workbook, row, rDao, registroGuardado);
+						ue = (Ue) res.get("ue");
+						//comprobar si la ue existe ya
+						if (ue != null && !registroGuardado.getUes().contains(ue)) {
+							registroGuardado.addUes(ue);
+						}
 					}
-					
-					
-				} else {
-					if (contador == lastRow) {
-						System.out.println("la fila que no guarda el puesto");
-						Iterator<Cell> cells = row.cellIterator();
-						cells.next();
-						cells.next();
-						cells.next();
-						cells.next();
-						cells.next();
-						cells.next();
-						cells.next();
+				} else if (contador == 0) {
+					// La primera fila son los titulos de las columnas
+					Row row = rows.next();
+					if (!validadorColumnas.iterarCeldadYComprobar(row)) {
+						throw new Exception();
 					}
-					Map<String, Object> res = this.recorrerCeldasDeFila(workbook, row, rDao, registroGuardado);
-					ue = (Ue) res.get("ue");
-					//comprobar si la ue existe ya
-					if (ue != null && !registroGuardado.getUes().contains(ue)) {
-						registroGuardado.addUes(ue);
-					}
+	
 				}
-			} else if (contador == 0) {
-				// La primera fila son los titulos de las columnas
-				rows.next();
-
+				contador++;
 			}
-			contador++;
+	
+			return registroGuardado;
+		}catch (Exception ex) {
+			throw new Exception(ex.getMessage());
 		}
-
-		return registroGuardado;
 	}
 
 	/**
@@ -399,21 +404,23 @@ public class ExcelReader {
 			// si es null es que no hay ue (aunque en ocasiones aunque no haya coge un null)
 			if (iter == null) {
 				ueFound = this.buildUe(tabla, r);
-				ueFound = ueDao.save(ueFound);
+				em.persist(ueFound);
 				encontrado = true;
 				// si el id de la iteración es igual al id de la tabla -> no creamos ue
 			} else if (iter.getNombreUe().contains(tabla.getNombreUe())) {
 				ueFound = iter;
 				encontrado = true;
 				// si el contador se pasa del tamaño de la lista de ue -> se crea un ue
-			} else if (contador == ue.size() - 1) {
-				ueFound = this.buildUe(tabla, r);
-				ueFound = ueDao.save(ueFound);
-				encontrado = true;
-			} else {
+			}  else {
 				contador++;
 			}
 		}
+		if (!encontrado) {
+			ueFound = this.buildUe(tabla, r);
+			em.persist(ueFound);
+			encontrado = true;
+		}
+		ueFound = ueDao.findByIdUe(ueFound.getIdUe(), ueFound.getRegistro());
 		// guardamos ue en la base de datos
 		return ueFound;
 	}
