@@ -6,6 +6,8 @@
 <title>Insert title here</title>
 </head>
 <body>
+
+	<div class="loader"></div>
 	<div class="main-content">
 		<!--Main Navigation-->
 		<header th:replace="layout/layout :: header"> </header>
@@ -30,8 +32,8 @@
 												id="version" th:field="*{idRegistro}"
 												class="browser-default custom-select">
 												<option th:each="r: ${registros}"
-													th:value="${r.getIdRegistro()}">
-													<span th:text="${r.getVersion()}"></span>
+													th:value="${r.getIdRegistro()}"><span
+														th:text="${r.getVersion()}"></span>
 												</option>
 											</select>
 										</div>
@@ -104,6 +106,14 @@
 		</section>
 
 		<footer th:replace="layout/layout :: footer"></footer>
+
+		<script
+			src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+		<script type="text/javascript">
+			$(window).load(function() {
+				$(".loader").fadeOut("slow");
+			});
+		</script>
 
 	</div>
 </body>
