@@ -12,7 +12,13 @@
 
 	<!--Main layout-->
 	
-	<main class="container mt-3"> <!-- Jumbotron -->
+	<div class="loader">
+	
+	</div>
+	
+	<main class="container mt-3"> 
+	
+	<!-- Jumbotron -->
 		<div class="jumbotron text-center ">
 	
 			<!-- Title -->
@@ -55,7 +61,7 @@
 									id="customFileLang" lang="es"> <label
 									class="custom-file-label " for="customFileLang">Seleccionar
 									Archivo</label>
-								<button type="submit" class="btn btn-subir-indra">Subir</button>
+								<button type="submit" id="upload" class="btn btn-subir-indra">Subir</button>
 			
 							</form>
 						</div>
@@ -75,6 +81,23 @@
 	<!-- Footer -->
 	<footer th:replace="layout/layout :: footer"></footer>
 	<!-- Footer -->
+	
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+	<script type="text/javascript">
+		
+
+	$( "#upload" ).click(function() {
+		  
+		  $(".loader").fadeIn();
+		});
+	
+	$(window).load(function() {
+	    $(".loader").fadeOut("slow");
+	});
+	</script>
+	
+	
+	
 </div>
 </body>
 </html>

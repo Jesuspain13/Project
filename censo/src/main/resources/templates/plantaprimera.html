@@ -2030,7 +2030,7 @@
 
 				</div>
 			</div>
-			
+
 			<!-- Contenedor con el mapa de la primera planta-->
 		</div>
 
@@ -2041,12 +2041,12 @@
 		<!-- Footer -->
 		<footer th:replace="layout/layout :: footer"></footer>
 		<!-- Footer -->
-		
-		
 
 
-		<script th:inline="javascript">
-            const url = 'http://localhost:8080/planta/ver/1';
+
+
+		<script  th:inline="javascript">
+            const url = "http://localhost:8080/planta/ver/1";
             var empleado;
             var puesto;
             var mostrar;
@@ -2080,10 +2080,62 @@
                         
                         empleado = puesto.empleado;
                         
+  var styleBtn = "btn btn-link";
+                        
+                        var dpto = empleado.ue.nombreUeRepercutible;
+                        
+                        if(dpto == null){
+                        	
+                          	dpto = empleado.ue;
+                          
+                       }
+						if(dpto.includes("SANIDAD")){
+                         	
+                         	styleBtn ="btn btn-danger";
+                         	
+                        } else if (dpto.includes("OPERACIONES MALAGA")) {
+                        	
+                        	styleBtn ="btn btn-primary";
+                        	
+ 						} else if (dpto.includes("CALIDAD")) {
+                        	
+                        	styleBtn ="btn btn-secondary";
+                        	
+						} else if (dpto.includes("INDRA FACTORÍA TECNOLÓGICA (IFT)")) {
+                        	
+                        	styleBtn ="btn btn-amber";
+                        	
+						} else if (dpto.includes("PROGRAMAS INTERNACIONALES DE ATM")) {
+                        	
+                        	styleBtn ="btn btn-warning";
+                        	
+						} else if (dpto.includes("DIRECCION GENERAL TRANSPORTES")) {
+                        	
+                        	styleBtn ="btn btn-pink";
+                        	
+						} else if (dpto.includes("NUCLEO ESTRUCTURA CORPORATIVA")) {
+							                        	
+							 styleBtn ="btn btn-elegant";
+						} else if (dpto.includes("DISEÑO Y DESARROLLO DEFENSA")) {
+								
+							styleBtn ="btn btn-brown";
+						} else if (dpto.includes("SOLUCIONES GESTION EMPRESARIAL")) {
+								
+							styleBtn ="btn btn-deep-orange";
+                         		
+                        }else{
+                        	
+                        	styleBtn ="btn btn-success";
+                        }
+                        
                         if (divs[i].className.includes('puestosInv')) {
+
+                           
+
        
-                            html = `<button type="button" data-toggle="modal" data-target=${nameModal}  class="btn btn-default btn-sm btn-emp">${puesto.idPuesto}</button>
-    								<p class="name text-center">${empleado.apellido}</p>
+                            html = `<button type="button" data-toggle="modal" data-target=${nameModal}  class="${styleBtn}">${puesto.idPuesto}</button>
+
+    								<p class="name d-flex align-items-center justify-content-center name text-center">${empleado.apellido}</p>
     								<!--Modal: Login with Avatar Form-->
      		                        <div class="modal fade" id=${idModal} tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
      		                            <div class="modal-dialog cascading-modal modal-avatar modal-sm" role="document">
@@ -2116,8 +2168,8 @@
      		                        </div>
      		                        <!--Modal: Login with Avatar Form-->`
                         } else {
-                            html = `<p class="name text-center">${empleado.apellido}</p>
-     								<button type="button" class="btn btn-default btn-sm btn-emp" data-toggle="modal"
+                            html = `<p class="name d-flex align-items-center justify-content-center name text-center">${empleado.apellido}</p>
+     								<button type="button" class="${styleBtn}" data-toggle="modal"
      									data-target=${nameModal}>${puesto.idPuesto}</button>
      								
      								<!--Modal: Login with Avatar Form-->
@@ -2160,9 +2212,13 @@
                         empleado = "VACIO";
 
                         if (divs[i].className.includes('puestosInv')) {
-         
-                            html = `<button type="button" data-toggle="modal" data-target=${nameModal}  class="btn btn-default btn-sm btn-emp">${puesto.idPuesto}</button>
-    								<p class="name text-center">${empleado}</p>
+
+                
+                            
+
+                            html = `<button type="button" data-toggle="modal" data-target=${nameModal}  class="btn btn-success">${puesto.idPuesto}</button>
+
+    								<p class="name d-flex align-items-center justify-content-center name text-center">${empleado}</p>
     								<!--Modal: Login with Avatar Form-->
      		                        <div class="modal fade" id=${idModal} tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
      		                            <div class="modal-dialog cascading-modal modal-avatar modal-sm" role="document">
@@ -2191,8 +2247,8 @@
      		                        </div>
      		                        <!--Modal: Login with Avatar Form-->`
                         } else {
-                            html = `<p class="name text-center">${empleado}</p>
-     								<button type="button" class="btn btn-default btn-sm btn-emp" data-toggle="modal" 
+                            html = `<p class="name d-flex align-items-center justify-content-center name text-center">${empleado}</p>
+     								<button type="button" class="btn btn-success" data-toggle="modal" 
      									data-target=${nameModal}>${puesto.idPuesto}</button>
      								
      								<!--Modal: Login with Avatar Form-->

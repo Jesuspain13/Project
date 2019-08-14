@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head th:replace="layout/layout :: head">
+</head>
+<style>
+html, body, header, #intro {
+	height: 100%;
+}
+</style>
+
+<meta charset="utf-8" />
+<!--Main Navigation-->
+<header>
+	<!--Navbar-->
+	<nav
+		class="navbar navbar-expand-lg navbar-dark fixed-top scrolling-navbar">
+
+		<div class="container">
+
+			<!-- Navbar brand -->
+			 <a class="navbar-brand" href="#">
+                <img th:src="@{/img/indra-logo-footer.png}" height="30" alt="mdb logo">
+            </a>
+
+			<!-- Collapse button -->
+			<button class="navbar-toggler" type="button" data-toggle="collapse"
+				data-target="#basicExampleNav" aria-controls="basicExampleNav"
+				aria-expanded="false" aria-label="Toggle navigation">
+				<span class="navbar-toggler-icon"></span>
+			</button>
+
+			<!-- Collapsible content -->
+			<div class="collapse navbar-collapse" id="basicExampleNav">
+
+				<!-- Links -->
+				<ul class="navbar-nav mr-auto smooth-scroll">
+					<li class="nav-item"><a class="nav-link" href="#intro" th:href="@{/}">Home</a>
+					</li>
+					 <li class="nav-item" sec:authorize="hasRole('ROLE_VISUALIZAR')">
+                        <a class="nav-link" th:href="@{/registro/listar}">Buscar registro</a>
+                    </li>
+					<li class="nav-item" sec:authorize="hasRole('ROLE_ADMIN')"><a
+						class="nav-link" th:href="@{/doc/upload}">Nuevo registro</a></li>
+
+
+				</ul>
+				
+				<!-- Links -->
+
+				<!-- Social Icon  -->
+				<ul class="navbar-nav nav-flex-icons">
+
+					<li class="nav-item"><a class="nav-link"><i
+							class="fab fa-twitter"></i></a></li>
+					<li class="nav-item"><a class="nav-link"><i
+							class="fab fa-google-plus-g"></i></a></li>
+					<li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink-333" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <i class="fas fa-user"></i>
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-right dropdown-default" aria-labelledby="navbarDropdownMenuLink-333">
+                            
+								<form sec:authorize="isAuthenticated()" th:action="@{/logout}" method="POST">
+									<input type="hidden" th:name="${_csrf.parameterName}"
+										th:value="${_csrf.token}">
+									<button class="dropdown-item" type="submit">Logout</button>
+								</form>
+                        </div>
+                    </li>
+				</ul>
+				
+			</div>
+			<!-- Collapsible content -->
+
+		</div>
+
+	</nav>
+	<!--/.Navbar-->
+	<!--Mask-->
+	<!--Mask-->
+	<div id="intro" class="view">
+
+		<div class="mask rgba-black-strong">
+
+			<div
+				class="container-fluid d-flex align-items-center justify-content-center h-100">
+
+				<div class="row d-flex justify-content-center text-center">
+
+					<div class="col-md-10">
+
+						<!-- Heading -->
+						<h2 class="display-4 font-weight-bold white-text pt-5 mb-2">Bienvenido
+							a Censo Indra</h2>
+
+						<!-- Divider -->
+						<hr class="hr-light">
+
+						<!-- Description -->
+						<h4 class="white-text my-4">Por favor, inicie sesión para
+							acceder a la plataforma.</h4>
+						<a type="button" class="btn btn-outline-primary" th:href="@{/login}">
+							Iniciar Sesión<i class="fas fa-sign-in-alt ml-2" ></i>
+						</a>
+
+					</div>
+
+				</div>
+
+			</div>
+
+		</div>
+
+	</div>
+	<!--/.Mask-->
+	<!--/.Mask-->
+</header>
+<!--Main Navigation-->
+
+<!--./Main Navigation-->
+
+
+
+
+
+<!-- Footer -->
+<footer th:replace="layout/layout :: footer"></footer>
+<!-- Footer -->
+
+
+
+
+
+</div>
+</body>
+</html>
