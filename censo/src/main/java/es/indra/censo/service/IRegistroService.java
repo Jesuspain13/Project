@@ -11,5 +11,7 @@ public interface IRegistroService {
 	public Registro save (Registro registro);
 	
 	public Registro findRegistroById (Integer id);
+	
+	public Registro findRegistroByVersion(String version);
 
 }

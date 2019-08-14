@@ -22,7 +22,6 @@ public class LoginSuccessHandler extends SimpleUrlAuthenticationSuccessHandler  
  
     public LoginSuccessHandler() {
         super();
-        setUseReferer(true);
     }
 
 //	@Autowired

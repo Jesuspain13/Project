@@ -33,6 +33,12 @@ public class Registro implements Serializable {
 		this.ues = new ArrayList<Ue>();
 	}
 	
+	public Registro(String version) {
+		this.complejos = new ArrayList<Complejo>();
+		this.ues = new ArrayList<Ue>();
+		this.version = version;
+	}
+	
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)

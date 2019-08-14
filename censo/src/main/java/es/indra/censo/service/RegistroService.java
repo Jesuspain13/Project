@@ -32,5 +32,10 @@ public class RegistroService implements IRegistroService {
 	public Registro findRegistroById(Integer id) {
 		return registroDao.findById(id).get();
 	}
+	
+	@Override
+	public Registro findRegistroByVersion(String version) {
+		return registroDao.findByVersion(version);
+	}
 
 }

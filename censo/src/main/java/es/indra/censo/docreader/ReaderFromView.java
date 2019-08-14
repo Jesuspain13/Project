@@ -1,11 +1,6 @@
 package es.indra.censo.docreader;
 
-import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
 import java.io.InputStream;
-import java.nio.charset.StandardCharsets;
 
 import org.apache.poi.ss.usermodel.Workbook;
 import org.slf4j.Logger;

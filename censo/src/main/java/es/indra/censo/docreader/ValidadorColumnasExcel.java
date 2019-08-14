@@ -1,11 +1,21 @@
 package es.indra.censo.docreader;
 
+import java.util.Iterator;
+
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
 @Component
 public class ValidadorColumnasExcel {
+	
+	Logger log = LoggerFactory.getLogger(ValidadorColumnasExcel.class);
+	
+	public ValidadorColumnasExcel() {
+		
+	}
 
 	private boolean checkIdComplejo(String idComplejo) {
 		if (idComplejo.contains("IDCOMPLEJO")) {
@@ -98,63 +108,83 @@ public class ValidadorColumnasExcel {
 	}
 	
 	public boolean iterarCeldadYComprobar(Row firstRow) {
-		boolean condiciónFinal = true;
-		int i = 0;
-		while (i<13 && condiciónFinal) {
-			condiciónFinal = this.comprobarOrden(firstRow.getCell(i));
-			i++;
+		try {
+			boolean condicionFinal = true;
+			int i = 0;
+			Iterator<Cell> cells = firstRow.cellIterator();
+			Cell cell;
+			while (i< 13&& condicionFinal) {
+				cell = cells.next();
+				condicionFinal = this.comprobarOrden(cell, i);
+				i++;
+			}
+			return condicionFinal;
+		} catch (OrdenColumnasException ex) {
+			return false;
+		}catch (Exception ex) {
+			log.error(ex.getMessage());
+			return false;
 		}
-		return condiciónFinal;
 	}
 	
-	private boolean comprobarOrden(Cell cell) {
-		int i = cell.getColumnIndex();
-		boolean condiciónFinal = true;
-		if (condiciónFinal) {
-			switch(i) {
-			case 0:
-				condiciónFinal = this.checkIdComplejo(cell.getStringCellValue());
-				break;
-			case 1:
-				condiciónFinal = this.checkNombreComplejo(cell.getStringCellValue());
-				break;
-			case 2:
-				condiciónFinal = this.checknombreEdificio(cell.getStringCellValue());
-				break;
-			case 3:
-				condiciónFinal = this.checkNombrePlanta(cell.getStringCellValue());
-				break;
-			case 4:
-				condiciónFinal = this.checkIdPuesto(cell.getStringCellValue());
-				break;
-			case 5:
-				condiciónFinal = this.checkNumeroEmpleado(cell.getStringCellValue());
-				break;
-			case 6:
-				condiciónFinal = this.checkNick(cell.getStringCellValue());
-				break;
-			case 7:
-				condiciónFinal = this.checkNombreEmpleado(cell.getStringCellValue());
-				break;
-			case 8:
-				condiciónFinal = this.checkApellidoEmpleado(cell.getStringCellValue());
-				break;
-			case 9:
-				condiciónFinal = this.checkUe(cell.getStringCellValue());
-				break;
-			case 10:
-				condiciónFinal = this.checkNombreUe(cell.getStringCellValue());
-				break;
-			case 11:
-				condiciónFinal = this.checkUeRepercutible(cell.getStringCellValue());
-				break;
-			case 12:
-				condiciónFinal = this.checkNombreUeRepercutible(cell.getStringCellValue());
-				break;
+	private boolean comprobarOrden(Cell cell, int indice) throws Exception {
+		try {
+			int i = indice;
+			boolean condicionFinal = true;
+			
+			String value;
+			
+			if (condicionFinal) {
+				value = cell.getStringCellValue();
+				switch(i) {
 				
+				case 0:
+					condicionFinal = this.checkIdComplejo(value);
+					break;
+				case 1:
+					condicionFinal = this.checkNombreComplejo(value);
+					break;
+				case 2:
+					condicionFinal = this.checknombreEdificio(value);
+					break;
+				case 3:
+					condicionFinal = this.checkNombrePlanta(value);
+					break;
+				case 4:
+					condicionFinal = this.checkIdPuesto(value);
+					break;
+				case 5:
+					condicionFinal = this.checkNumeroEmpleado(value);
+					break;
+				case 6:
+					condicionFinal = this.checkNick(value);
+					break;
+				case 7:
+					condicionFinal = this.checkNombreEmpleado(value);
+					break;
+				case 8:
+					condicionFinal = this.checkApellidoEmpleado(value);
+					break;
+				case 9:
+					condicionFinal = this.checkUe(value);
+					break;
+				case 10:
+					condicionFinal = this.checkNombreUe(value);
+					break;
+				case 11:
+					condicionFinal = this.checkUeRepercutible(value);
+					break;
+				case 12:
+					condicionFinal = this.checkNombreUeRepercutible(value);
+					break;
+					
+				}
 			}
+			return condicionFinal;
+		} catch (Exception ex) {
+			log.error(ex.getMessage());
+			return false;
 		}
-		return condiciónFinal;
 	}
 
 	

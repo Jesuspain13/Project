@@ -54,7 +54,7 @@
 					<h5>Versión a añadir: <span th:text="${registro.getVersion()}"></span></h5>
 					<div class="pt-2">
 						<div class="custom-file">
-							<form class="form-group" th:action="@{'/doc/upload/' + ${registro.getIdRegistro()}}" method="POST"
+							<form class="form-group" th:action="@{'/doc/upload/' + ${registro.getVersion()}}" method="POST"
 							enctype="multipart/form-data">
 								
 								<input type="file" name="file" class="custom-file-input input-indra"

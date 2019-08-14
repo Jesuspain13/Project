@@ -38,7 +38,7 @@ public class RegistroController {
 
 
 	// Método para mostrar todos los registros del censo.
-	@RequestMapping(value = { "/listar", "/" }, method = RequestMethod.GET)
+	@RequestMapping(value ="/listar", method = RequestMethod.GET)
 	public String listar(Model model) {
 		try {
 			List<Registro> r = registroService.findAll();

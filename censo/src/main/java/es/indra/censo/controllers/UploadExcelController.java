@@ -1,12 +1,16 @@
 package es.indra.censo.controllers;
 
+import java.util.Locale;
+
 import javax.validation.Valid;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.MessageSource;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -27,6 +31,9 @@ import es.indra.censo.service.IRegistroService;
 @SessionAttributes("registro")
 public class UploadExcelController {
 	
+	@Autowired
+	private MessageSource msgSource;
+	
 	public static final String SUCCESS_MSG = "Acción realizada con éxito.";
 	public static final String ERROR_MSG = "Ha ocurrido un error. Acción no realizada.";
 	
@@ -36,7 +43,8 @@ public class UploadExcelController {
 	private IDocReaderService docReaderSvc;
 	
 	@Autowired
-	private IRegistroService registroSvc;
+	private IRegistroService rService;
+
 
 	@GetMapping("/upload")
 	@Secured({"ROLE_ADMIN"})
@@ -48,26 +56,31 @@ public class UploadExcelController {
 	
 	@PostMapping("/upload")
 	@Secured({"ROLE_ADMIN"})
-	public String uploadExcel(@Valid Registro r, BindingResult resultValid, Model model, RedirectAttributes flash) {
+	public String uploadExcel(@Valid Registro r, BindingResult resultValid,
+			Model model, RedirectAttributes flash, Locale locale) {
 		if (resultValid.hasErrors()) {
 			return "upload";
 		}
-		Registro registro = registroSvc.save(r);;
-		model.addAttribute("registro", registro);
+		Registro rSearched = null;
+		rSearched = rService.findRegistroByVersion(r.getVersion());
+		//Registro registro = registroSvc.save(r);;
+		model.addAttribute("registro", r);
 		return "upload";
 	}
 	
-	@PostMapping("/upload/{id}")
+	@PostMapping("/upload/{version}")
 	@Secured({"ROLE_ADMIN"})
-	public String uploadExcel(@PathVariable("id") int idRegistro, @RequestParam("file") MultipartFile file,
-			Model model, RedirectAttributes flash) {
+	public String uploadExcel(@PathVariable("version") String version, @RequestParam("file") MultipartFile file,
+			Model model, RedirectAttributes flash, Locale locale) {
 		try {
-			docReaderSvc.readDocument(file, idRegistro);
+
+			docReaderSvc.readDocument(file, version, locale);
 			flash.addFlashAttribute("success", SUCCESS_MSG);
 		    return "redirect:/registro/listar";
 		} catch (Exception ex) {
 			log.error(ex.getMessage());
-			flash.addFlashAttribute("error", "Error en la lectura del archivo, el orden de las columnas no es el correcto");
+			flash.addFlashAttribute("error", "Error en la lectura del archivo.\n"
+					+ "Error concreto:" + ex.getMessage());
 			return "redirect:/doc/upload";
 		}
 	   
