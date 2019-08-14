@@ -130,3 +130,8 @@ opacity: 0.8;
 filter: alpha(opacity=70);
 -khtml-opacity: 0.8;
 }
+
+.language-usa{
+	background: url("../img/usa.png") no-repeat center center fixed;
+	
+}

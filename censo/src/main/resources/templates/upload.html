@@ -22,9 +22,9 @@
 		<div class="jumbotron text-center ">
 	
 			<!-- Title -->
-			<h2 class="card-title h2">Sube aquí tu nueva versión del censo</h2>
+			<h2 class="card-title h2" th:text="#{text.title}">Sube aquí tu nueva versión del censo</h2>
 			<!-- Subtitle -->
-			<p class="blue-text my-4 font-weight-bold">Recuerda rellenar todos
+			<p class="blue-text my-4 font-weight-bold" th:text="#{text.subtitle}">Recuerda rellenar todos
 				los campos</p>
 	
 			<!-- Grid row -->
@@ -48,8 +48,8 @@
 				<div class="col-md-8">
 				<form th:object="${registro}" method="POST" th:action="@{/doc/upload}">
 					<input type="text" name="version" th:field="*{version}" class="form-group-item"
-								placeholder="Nombre para la versión">
-							<button type="submit" class="btn btn-subir-indra">Guardar nombre</button>
+								placeholder="Nombre para la versión" th:placeholder="#{text.placeholder}">
+							<button type="submit" class="btn btn-subir-indra" th:text="#{text.btn.guardar}">Guardar nombre</button>
 				</form>
 				</div>
 			</div>
@@ -58,17 +58,17 @@
 			<div th:if="${registro.getVersion() != null}" class="row d-flex justify-content-center">
 				<div class="col-md-8">
 					<hr class="my-4">
-					<h5>Versión a añadir: <span th:text="${registro.getVersion()}"></span></h5>
+					<h5 th:text="#{text.version}">Versión a añadir: <span th:text="${registro.getVersion()}"></span></h5>
 					<div class="pt-2">
 						<div class="custom-file">
 							<form class="form-group" th:action="@{'/doc/upload/' + ${registro.getIdRegistro()}}" method="POST"
 							enctype="multipart/form-data">
 								
 								<input type="file" name="file" class="custom-file-input input-indra"
-									id="customFileLang" lang="es"> <label
-									class="custom-file-label " for="customFileLang">Seleccionar
+									id="customFileLang" lang="es,us"> <label
+									class="custom-file-label " for="customFileLang" th:text="#{text.seleccionar.archivo}">Seleccionar
 									Archivo</label>
-								<button type="submit" id="upload" class="btn btn-subir-indra">Subir</button>
+								<button type="submit" id="upload" class="btn btn-subir-indra" th:text="#{text.btn.subir}">Subir</button>
 			
 							</form>
 						</div>

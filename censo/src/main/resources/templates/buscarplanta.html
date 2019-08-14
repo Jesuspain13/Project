@@ -17,12 +17,13 @@
 						<div class="container">
 							<div class="row">
 								<div class="col-md-6">
-									<h2>
-										Edificio: <span th:text="${edificio.getNombreEdificio()}"></span>
+								<h2 th:text="#{text.edificio.name}"></h2>
+									<h2 >
+										<span th:text="${edificio.getNombreEdificio()}"></span>
 									</h2>
 								</div>
 								<div class="col-md-6">
-									<label for="planta">Selecciona una planta</label> <select
+									<label for="planta" th:text="#{text.edificio.select}">Selecciona una planta</label> <select
 										id="planta" th:field="*{id}"
 										class="browser-default custom-select">
 										<option th:each="p: ${edificio.getPlantas()}"
@@ -39,7 +40,7 @@
 						
 						
 						<div class="row d-flex justify-content-center mt-3">
-							<button type="submit" class="btn btn-primary">Buscar
+							<button type="submit" class="btn btn-primary" th:text="#{text.edificio.btn.buscar}">Buscar
 								planta</button>
 						
 
@@ -50,7 +51,7 @@
 					 method="GET">
 						<input type="hidden" th:value="${idRegistro}" name="idRegistro"/>
 						<button type="submit" 
-							class="btn btn-pink">Planta azahar</button>
+							class="btn btn-pink" th:text="#{text.edificio.btn.azahar}">Planta azahar</button>
 					</form>
 				</div>
 			</div>
