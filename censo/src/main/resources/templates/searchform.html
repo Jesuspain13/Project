@@ -30,10 +30,13 @@
 												id="version" th:field="*{idRegistro}"
 												class="browser-default custom-select">
 												<option th:each="r: ${registros}"
-													th:value="${r.getIdRegistro()}">
-													<span th:text="${r.getVersion()}"></span>
+													th:value="${r.getIdRegistro()}"><span
+														th:text="${r.getVersion()}"></span>
 												</option>
-											</select>
+
+											</select> <small class="text-danger"
+												th:if="${#fields.hasErrors('idRegistro')}"
+												th:errors="*{idRegistro}"></small>
 										</div>
 									</div>
 									<div th:if="${registro.getVersion() != null}" class="row my-2">
@@ -44,14 +47,15 @@
 												Versión seleccionada: <span
 													th:text="${registro.getVersion()}"></span>
 											</h4>
-											<input type="hidden" th:value="${registro.idRegistro}" name="idRegistro"/>
+											<input type="hidden" th:value="${registro.idRegistro}"
+												name="idRegistro" />
 										</div>
 									</div>
-									
+
 									<button th:if="${registro.getVersion() == null}"
 										class="btn bt-primary">Registro</button>
 								</form>
-								<div th:if="${complejos != null || complejo != null}">
+								<div th:if="${complejos != null && complejo != null}">
 									<form class="container form-group" th:object="${complejo}"
 										method="POST" th:action="@{/complejo/listar}">
 										<div class="row my-2">
@@ -59,13 +63,17 @@
 												<div th:each="c: ${complejos}" class="form-check">
 													<input th:field="*{id}" class="form-check-input"
 														type="radio" name="exampleRadios" id="exampleRadios1"
-														th:value="${c.getId()}" checked> <label
+														th:value="${c.getId()}" required> <label
 														class="form-check-label" for="exampleRadios1"> <span
 														th:text="${c.getNombreComplejo()}"></span>
 													</label>
+
 												</div>
+												<small class="text-danger"
+													th:if="${#fields.hasErrors('id')}" th:errors="*{id}">ERROR</small>
 											</div>
-											<input type="hidden" th:value="${registro.idRegistro}" name="idRegistro"/>
+											<input type="hidden" th:value="${registro.idRegistro}"
+												name="idRegistro" />
 										</div>
 										<div th:if="${complejo.getNombreComplejo() != null}"
 											class="row my-2">
@@ -74,7 +82,7 @@
 													Complejo seleccionado: <span
 														th:text="${complejo.getNombreComplejo()}"></span>
 												</h5>
-												
+
 											</div>
 										</div>
 										<button th:if="${complejo.getNombreComplejo() == null}"
@@ -89,14 +97,18 @@
 											<div th:each="e: ${edificios}" class="form-check">
 												<input th:field="*{idEdificio}" class="form-check-input"
 													type="radio" name="exampleRadios" id="exampleRadios1"
-													th:value="${e.getIdEdificio()}" checked> <label
+													th:value="${e.getIdEdificio()}" required> <label
 													class="form-check-label" for="exampleRadios1"> <span
 													th:text="${e.getNombreEdificio()}"></span>
-												</label>
-												<input type="hidden" th:value="${idRegistro}" name="idRegistro"/>
+												</label> <input type="hidden" th:value="${idRegistro}"
+													name="idRegistro" />
 											</div>
 										</div>
-
+										<div>
+											<small class="text-danger"
+												th:if="${#fields.hasErrors('idEdificio')}"
+												th:errors="*{idEdificio}">ERROR</small>
+										</div>
 
 										<button class="btn bt-primary">Edif</button>
 									</form>

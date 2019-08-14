@@ -24,32 +24,25 @@
 			<!-- Grid row -->
 			<div class="row d-flex justify-content-center">
 	
-				<!-- Grid column -->
-				<div class="col-xl-7 pb-2">
-	
-					<p class="card-text">Lorem ipsum dolor sit amet, consectetur
-						adipisicing elit. Fuga aliquid dolorem ea distinctio exercitationem
-						delectus qui, quas eum architecto, amet quasi accusantium, fugit
-						consequatur ducimus obcaecati numquam molestias hic itaque
-						accusantium doloremque laudantium, totam rem aperiam.</p>
-	
-				</div>
-				<!-- Grid column -->
-	
 			</div>
 			<!-- Grid row -->
-			<div th:if="${registro.getVersion() == null}" class="row d-flex justify-content-center">
+			<div th:if="${registro.getVersion() == null || registro.getVersion().length() == 0}" class="row d-flex justify-content-center">
 				<div class="col-md-8">
 				<form th:object="${registro}" method="POST" th:action="@{/doc/upload}">
+				<div class="form-group">
+				<label for="version">Introduce cual será la siguiente versión</label>
 					<input type="text" name="version" th:field="*{version}" class="form-group-item"
-								placeholder="Nombre para la versión">
+							id="version"	placeholder="Nombre para la versión">
+				</div>
+					<small class="text-danger" th:if="${#fields.hasErrors('version')}"
+							th:errors="*{version}">ERROR</small>
 							<button type="submit" class="btn btn-subir-indra">Guardar nombre</button>
 				</form>
 				</div>
 			</div>
 	
 			<!-- Grid seleccionar archivo -->
-			<div th:if="${registro.getVersion() != null}" class="row d-flex justify-content-center">
+			<div th:if="${registro.getVersion() != null && registro.getVersion().length() > 0}" class="row d-flex justify-content-center">
 				<div class="col-md-8">
 					<hr class="my-4">
 					<h5>Versión a añadir: <span th:text="${registro.getVersion()}"></span></h5>

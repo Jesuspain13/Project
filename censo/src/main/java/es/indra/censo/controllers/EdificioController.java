@@ -3,11 +3,14 @@ package es.indra.censo.controllers;
 import java.util.List;
 import java.util.Map;
 
+import javax.validation.Valid;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -23,7 +26,7 @@ import es.indra.censo.service.IEdificioService;
 
 @Controller
 @RequestMapping("/edificio")
-@SessionAttributes("idRegistro")
+@SessionAttributes({"complejo", "registro", "idRegistro", "edificios"})
 public class EdificioController {
 	
 	private Logger log = LoggerFactory.getLogger(EdificioController.class);
@@ -36,10 +39,13 @@ public class EdificioController {
 
 	@PostMapping("listar")
 	@Transactional
-	public String listar(Edificio e, @RequestParam("idRegistro") Integer idRegistro,
+	public String listar(@Valid Edificio e, BindingResult resultValid, @RequestParam("idRegistro") Integer idRegistro,
 			Map<String, Object> model) {
 		try {
-			
+				if (resultValid.hasErrors()) {
+				
+				return "searchform";
+			}
 		
 		Edificio edificio = edificioSvc.findByIdEdificioAndRegistro(e.getIdEdificio(), idRegistro);
 		model.put("edificio", edificio);

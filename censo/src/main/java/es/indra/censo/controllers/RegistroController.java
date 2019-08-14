@@ -26,7 +26,7 @@ import es.indra.censo.service.IRegistroService;
 
 @Controller
 @RequestMapping("/registro")
-@SessionAttributes("idRegistro")
+@SessionAttributes({"registro", "complejos"})
 public class RegistroController {
 	private Logger log = LoggerFactory.getLogger(RegistroController.class);
 
@@ -34,6 +34,8 @@ public class RegistroController {
 
 	@Autowired
 	private IRegistroService registroService;
+	
+
 
 	// Método para mostrar todos los registros del censo.
 	@RequestMapping(value = { "/listar", "/" }, method = RequestMethod.GET)
@@ -93,19 +95,5 @@ public class RegistroController {
 
 	}
 
-	// Método para guardar un nuevo registro.
-	@RequestMapping(value = "/form", method = RequestMethod.POST)
-	public String guardar(@Valid Registro registro, BindingResult result, Model model, RedirectAttributes flash,
-			SessionStatus status) {
-
-		if (result.hasErrors()) {
-			model.addAttribute("titulo", "Crear Nuevo Registro");
-			return "form";
-		}
-
-		registroService.save(registro);
-		flash.addFlashAttribute("success", "¡Se ha creado el nuevo registro con éxito!");
-		return "redirect:listar";
-	}
 
 }

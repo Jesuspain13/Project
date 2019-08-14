@@ -1,16 +1,20 @@
 package es.indra.censo.controllers;
 
+import javax.validation.Valid;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -20,7 +24,7 @@ import es.indra.censo.service.IRegistroService;
 
 @Controller
 @RequestMapping("/doc")
-
+@SessionAttributes("registro")
 public class UploadExcelController {
 	
 	public static final String SUCCESS_MSG = "Acción realizada con éxito.";
@@ -44,7 +48,10 @@ public class UploadExcelController {
 	
 	@PostMapping("/upload")
 	@Secured({"ROLE_ADMIN"})
-	public String uploadExcel(Registro r, Model model, RedirectAttributes flash) {
+	public String uploadExcel(@Valid Registro r, BindingResult resultValid, Model model, RedirectAttributes flash) {
+		if (resultValid.hasErrors()) {
+			return "upload";
+		}
 		Registro registro = registroSvc.save(r);;
 		model.addAttribute("registro", registro);
 		return "upload";
