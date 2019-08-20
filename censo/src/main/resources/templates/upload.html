@@ -12,6 +12,8 @@
 
 		<!--Main layout-->
 
+		<div class="loader"></div>
+
 		<main class="container mt-3"> <!-- Jumbotron -->
 		<div class="row d-flex justify-content-center">
 			<div class="col-md-8">
@@ -37,7 +39,7 @@
 								<label for="version" th:text="#{text.version}">Introduce cual será la siguiente
 									versión</label> <input type="text" name="version" th:field="*{version}"
 									class="form-control" id="version"
-									th:placeholder="#{text.placeholder}" required>
+									th:placeholder="#{text.placeholder}" required onkeyup="typing()">
 									<small class="text-danger"
 												th:if="${#fields.hasErrors('version')}"
 												th:errors="*{version}"></small>
@@ -55,7 +57,7 @@
 												th:errors="*{file}"></small>
 							</div>
 							<button type="submit" id="upload" class="btn btn-subir-indra"
-							th:text="#{text.btn.subir}">Subir</button>
+							th:text="#{text.btn.subir}" disabled>Subir</button>
 
 
 						</form>
@@ -75,11 +77,35 @@
 		<script type="text/javascript">
 
 			$("#upload").click(function() {
-				$(".loader").fadeIn();
+				$(".loader").css("visibility", "visible");
 			});
-			$(window).load(function() {
-				$(".loader").fadeOut("slow");
-			});
+			
+		</script>
+		
+		<script>
+		var x = $("#version").val();
+		if (x.length > 0) {
+			
+			$("#upload").prop("disabled",false);
+		
+		} else {
+			$("#upload").prop("disabled",true);
+		
+		}
+		
+		function typing() {
+			var x = $("#version").val();
+			console.log(x);
+			if (x.length > 0) {
+				
+				$("#upload").prop("disabled",false);
+			
+			} else {
+				$("#upload").prop("disabled",true);
+			
+			}
+		}
+		
 		</script>
 
 

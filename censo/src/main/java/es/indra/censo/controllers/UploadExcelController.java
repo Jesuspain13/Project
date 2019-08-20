@@ -114,8 +114,8 @@ public class UploadExcelController {
 		    return "redirect:/registro/listar";
 		} catch (Exception ex) {
 			log.error(ex.getMessage());
-			flash.addFlashAttribute("error", "Error en la lectura del archivo.\n"
-					+ "Error concreto:" + ex.getMessage());
+			String msg = msgSource.getMessage("text.error.lectura.archivo", null, locale);
+			flash.addFlashAttribute("error", String.format(msg, ex.getMessage()));
 			return "redirect:/doc/upload";
 		}
 	   
