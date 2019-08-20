@@ -2045,7 +2045,7 @@
 
 
 
-		<script  th:inline="javascript">
+		<script th:inline="javascript">
             const url = "http://localhost:8080/planta/ver/1";
             var empleado;
             var puesto;
@@ -2149,15 +2149,15 @@
      		                                    <!--Body-->
      		                                    <div   class="modal-body text-center mb-1">
 
-     		                                   <h4 class="mt-1 mb-2">Nº Puesto: ${puesto.idPuesto}</h4>
+     		                                   	<h4 class="mt-1 mb-2">Nº Puesto: ${puesto.idPuesto}</h4>
+     		                                   	<hr>
 	                                        	<h6 class="mt-1 mb-2">Nombre: ${empleado.nombre}</h6>
 	                                        	<h6 class="mt-1 mb-2">Apellidos: ${empleado.apellido}</h6>
 	                                            <hr>
-
 	                                            <h5 class="mt-1 mb-2">Nº Empleado: ${empleado.numeroEmpleado}</h5>
-	                                            <br>
 	                                            <h5 class="mt-1 mb-2">Nick: ${empleado.nick}</h5>
-	                                            <br>
+	                                            <hr>
+	                                            <button type="button" class="btn btn-primary btn-sm" data-dismiss="modal">Atrás</button>
 
      		                                          
      		                                    </div>
@@ -2185,19 +2185,20 @@
      		                                    <!--Body-->
      		                                    <div  id="modalInsert" class="modal-body text-center mb-1">
 
-     		                                   <h4 class="mt-1 mb-2">Nº Puesto: ${puesto.idPuesto}</h4>
+     		                                   	<h4 class="mt-1 mb-2">Nº Puesto: ${puesto.idPuesto}</h4>
+     		                                  	<hr>
 	                                        	<h6 class="mt-1 mb-2">Nombre: ${empleado.nombre}</h6>
 	                                        	<h6 class="mt-1 mb-2">Apellidos: ${empleado.apellido}</h6>
 	                                            <hr>
 
 	                                            <h5 class="mt-1 mb-2">Nº Empleado: ${empleado.numeroEmpleado}</h5>
-	                                            <br>
+	                                            
 	                                            <h5 class="mt-1 mb-2">Nick: ${empleado.nick}</h5>
-	                                            <br>
-
+	                                            <hr>
+	                                            <button type="button" class="btn btn-primary btn-sm" data-dismiss="modal">Atrás</button>			
      		                                          
      		                                    </div>
-
+     		                                  
      		                                </div>
      		                                <!--/.Content-->
      		                            </div>
@@ -2234,12 +2235,11 @@
 
     	 		                                        	<h4 class="mt-1 mb-2">Nº puesto: ${puesto.idPuesto}</h4>
     	 		                                        	<h5 class="mt-1 mb-2">Estado ${empleado}</h5>
-    	 		                                            <hr>
-
-    	 		                                            
-
-     		                                          
+    	 		                                            <hr>    	 		                                         
+    	 		                                           	<button type="button" class="btn btn-primary btn-sm" data-dismiss="modal">Atrás</button>
+    	 		                            		                                          
      		                                    </div>
+     		                                   
 
      		                                </div>
      		                                <!--/.Content-->
@@ -2266,7 +2266,8 @@
 
     	 		                                        	<h4 class="mt-1 mb-2">Nº puesto:${puesto.idPuesto}</h4>
     	 		                                        	<h5 class="mt-1 mb-2">Estado: ${empleado}</h5>
-    	 		                                            <hr>
+    	 		                                        	<hr>
+    	 		                                            <button type="button" class="btn btn-primary btn-sm" data-dismiss="modal">Atrás</button>
 
     	 		                                            
 

@@ -12,19 +12,17 @@
 
 		<!--Main layout-->
 
-		<div class="loader"></div>
-
 		<main class="container mt-3"> <!-- Jumbotron -->
 		<div class="row d-flex justify-content-center">
 			<div class="col-md-8">
 				<div class="card text-center ">
 					<div class="card-header">
 						<!-- Title -->
-						<h2 class="card-title h2">Sube aquí tu nueva versión del
+						<h2 class="card-title h2" th:text="#{text.title}">Sube aquí tu nueva versión del
 							censo</h2>
 					</div>
 					<!-- Subtitle -->
-					<p class="blue-text my-4 font-weight-bold">Recuerda rellenar
+					<p class="blue-text my-4 font-weight-bold" th:text="#{text.subtitle}">Recuerda rellenar
 						todos los campos</p>
 
 					<!-- Grid row -->
@@ -36,10 +34,10 @@
 						<form th:object="${fileWrapper}" th:action="@{/doc/upload}"
 							method="POST" enctype="multipart/form-data">
 							<div class="form-group mb-3">
-								<label for="version">Introduce cual será la siguiente
+								<label for="version" th:text="#{text.version}">Introduce cual será la siguiente
 									versión</label> <input type="text" name="version" th:field="*{version}"
 									class="form-control" id="version"
-									placeholder="Nombre para la versión" required>
+									th:placeholder="#{text.placeholder}" required>
 									<small class="text-danger"
 												th:if="${#fields.hasErrors('version')}"
 												th:errors="*{version}"></small>
@@ -49,13 +47,15 @@
 								<input th:field="*{file}" type="file" name="file"
 									class="custom-file-input"
 									id="customFileLang" lang="es"> <label
-									class="custom-file-label " for="customFileLang">Seleccionar
+									class="custom-file-label " for="customFileLang"
+									th:text="#{text.seleccionar.archivo}">Seleccionar
 									Archivo</label>
 									<small class="text-danger"
 												th:if="${#fields.hasErrors('file')}"
 												th:errors="*{file}"></small>
 							</div>
-							<button type="submit" id="upload" class="btn btn-subir-indra">Subir</button>
+							<button type="submit" id="upload" class="btn btn-subir-indra"
+							th:text="#{text.btn.subir}">Subir</button>
 
 
 						</form>
@@ -72,14 +72,11 @@
 		<footer th:replace="layout/layout :: footer"></footer>
 		<!-- Footer -->
 
-		<script
-			src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
 		<script type="text/javascript">
-			$("#upload").click(function() {
 
+			$("#upload").click(function() {
 				$(".loader").fadeIn();
 			});
-
 			$(window).load(function() {
 				$(".loader").fadeOut("slow");
 			});

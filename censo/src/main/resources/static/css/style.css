@@ -114,3 +114,24 @@ html, body {
 	height: 4rem;
 	width: 6rem;
 }
+
+.background-login{
+	background: url("../img/backlogin.jpg") no-repeat center center fixed;
+	-webkit-background-size: cover;
+	-moz-background-size: cover;
+	-o-background-size: cover;
+	background-size: cover;
+	
+}
+
+.transparente{
+opacity: 0.8;
+-moz-opacity: 0.8;
+filter: alpha(opacity=70);
+-khtml-opacity: 0.8;
+}
+
+.language-usa{
+	background: url("../img/usa.png") no-repeat center center fixed;
+	
+}

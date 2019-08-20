@@ -18,7 +18,7 @@
 				<div class="row d-flex justify-content-center">
 					<div class="col-md-12">
 						<div class="card">
-							<div class="card-header">
+							<div class="card-header" th:text="#{text.registro.title}">
 								<h2>SELECCIONA EL REGISTRO, EL COMPLEJO Y EL EDIFICIO</h2>
 							</div>
 							<div class="card-body">
@@ -28,7 +28,7 @@
 
 										<!-- Formulario para versión -->
 										<div th:if="${complejo == null}" class="col-md-12">
-											<label for="version">Selecciona la versión</label> <select
+											<label for="version" th:text="#{text.registro.select}">Selecciona la versión</label> <select
 												id="version" th:field="*{idRegistro}"
 												class="browser-default custom-select">
 												<option th:each="r: ${registros}"
@@ -45,7 +45,7 @@
 
 										<!-- Formulario para versión -->
 										<div class="col-md-12">
-											<h4>
+											<h4 th:text="#{text.registro.selected}">
 												Versión seleccionada: <span
 													th:text="${registro.getVersion()}"></span>
 											</h4>
@@ -55,7 +55,7 @@
 									</div>
 
 									<button th:if="${registro.getVersion() == null}"
-										class="btn bt-primary">Registro</button>
+										class="btn bt-primary" th:text="#{text.registro.btn.registro}">Registro</button>
 								</form>
 								<div th:if="${complejos != null && complejo != null}">
 									<form class="container form-group" th:object="${complejo}"
@@ -80,7 +80,7 @@
 										<div th:if="${complejo.getNombreComplejo() != null}"
 											class="row my-2">
 											<div class="col-md-12">
-												<h5>
+												<h5 th:text="#{text.registro.complejo.selected}">
 													Complejo seleccionado: <span
 														th:text="${complejo.getNombreComplejo()}"></span>
 												</h5>
@@ -88,7 +88,7 @@
 											</div>
 										</div>
 										<button th:if="${complejo.getNombreComplejo() == null}"
-											class="btn bt-primary" type="submit">Complejo</button>
+											class="btn bt-primary" type="submit" th:text="#{text.registro.btn.complejo}">Complejo</button>
 									</form>
 								</div>
 								<div th:if="${edificios != null}">
@@ -112,7 +112,7 @@
 												th:errors="*{idEdificio}">ERROR</small>
 										</div>
 
-										<button class="btn bt-primary">Edif</button>
+										<button class="btn bt-primary" th:text="#{text.registro.btn.edificio}">Edif</button>
 									</form>
 								</div>
 							</div>

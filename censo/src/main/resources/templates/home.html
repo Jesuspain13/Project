@@ -35,13 +35,13 @@ html, body, header, #intro {
 
 				<!-- Links -->
 				<ul class="navbar-nav mr-auto smooth-scroll">
-					<li class="nav-item"><a class="nav-link" href="#intro" th:href="@{/}">Home</a>
+					<li class="nav-item"><a class="nav-link" href="#intro" th:href="@{/}" th:text="#{text.home}">Home</a>
 					</li>
 					 <li class="nav-item" sec:authorize="hasRole('ROLE_VISUALIZAR')">
-                        <a class="nav-link" th:href="@{/registro/listar}">Buscar registro</a>
+                        <a class="nav-link" th:href="@{/registro/listar}" th:text="#{text.buscar.registro}">Buscar registro</a>
                     </li>
 					<li class="nav-item" sec:authorize="hasRole('ROLE_ADMIN')"><a
-						class="nav-link" th:href="@{/doc/upload}">Nuevo registro</a></li>
+						class="nav-link" th:href="@{/doc/upload}" th:text="#{text.nuevo.registro}">Nuevo registro</a></li>
 
 
 				</ul>
@@ -51,10 +51,16 @@ html, body, header, #intro {
 				<!-- Social Icon  -->
 				<ul class="navbar-nav nav-flex-icons">
 
-					<li class="nav-item"><a class="nav-link"><i
-							class="fab fa-twitter"></i></a></li>
-					<li class="nav-item"><a class="nav-link"><i
-							class="fab fa-google-plus-g"></i></a></li>
+					<li class="nav-item"><a
+						class="nav-link waves-effect waves-light"
+						th:href="@{/locale(lang=en_US)}"> <img src="/img/usa.png"
+							alt="avatar mx-auto white" class="rounded-circle img-fluid">
+					</a></li>
+					<li class="nav-item"><a
+						class="nav-link waves-effect waves-light"
+						th:href="@{/locale(lang=es_ES)}"> <img src="/img/espana.png"
+							alt="avatar mx-auto white" class="rounded-circle img-fluid">
+					</a></li>
 					<li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink-333" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             <i class="fas fa-user"></i>
@@ -91,7 +97,7 @@ html, body, header, #intro {
 					<div class="col-md-10">
 
 						<!-- Heading -->
-						<h2 class="display-4 font-weight-bold white-text pt-5 mb-2">Bienvenido
+						<h2 class="display-4 font-weight-bold white-text pt-5 mb-2" th:text="#{text.bienvenido}">Bienvenido
 							a Censo Indra</h2>
 
 						<!-- Divider -->
@@ -101,7 +107,8 @@ html, body, header, #intro {
 						<div sec:authorize="!isAuthenticated()">
 						<h4 class="white-text my-4">Por favor, inicie sesión para
 							acceder a la plataforma.</h4>
-						<a type="button" class="btn btn-outline-primary" th:href="@{/login}">
+						<a type="button" class="btn btn-outline-primary" th:href="@{/login}"
+						th:text="#{text.btn.inicio}">
 							Iniciar Sesión<i class="fas fa-sign-in-alt ml-2" ></i>
 						</a>
 						</div>
@@ -110,7 +117,8 @@ html, body, header, #intro {
 						<form th:action="@{/logout}" method="POST">
 									<input type="hidden" th:name="${_csrf.parameterName}"
 										th:value="${_csrf.token}">
-									<button class="btn btn-outline-primary" type="submit">Cerrar Sesión</button>
+									<button class="btn btn-outline-primary" type="submit" 
+									th:text="#{text.btn.cerrar}">Cerrar Sesión</button>
 								</form>
 						</div>
 
@@ -142,6 +150,6 @@ html, body, header, #intro {
 
 
 
-</div>
+
 </body>
 </html>

@@ -105,7 +105,8 @@ public class UploadExcelController {
 			Registro rSearched = null;
 			rSearched = rService.findRegistroByVersion(r.getVersion());
 			if (rSearched != null) {
-				flash.addFlashAttribute("error", "La versión ya existe");
+				flash.addFlashAttribute("error", msgSource
+						.getMessage("text.registro.error.version.duplicada", null, locale));
 				return "redirect:/doc/upload";
 			}
 			docReaderSvc.readDocument(r.getFile(), r.getVersion(), locale);
