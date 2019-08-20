@@ -27,6 +27,11 @@ html, body {
 	background-color: #004254
 }
 
+.indra-btn-pink{
+	background-color: #E88AA2;
+	color: #F8F8FF;
+}
+
 .logo-indra-footer {
 	padding-right: 20px;
 	padding-bottom: 10px;
