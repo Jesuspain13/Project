@@ -38,4 +38,9 @@ public class RegistroService implements IRegistroService {
 		return registroDao.findByVersion(version);
 	}
 
+	@Override
+	public Registro findByIdWithJoinFetch(Integer id) {
+		return registroDao.findByIdWithJoinFetch(id);
+	}
+	
 }

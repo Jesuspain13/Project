@@ -13,15 +13,18 @@ public class ComplejoServiceImpl implements IComplejoService {
 
 	@Autowired
 	private IComplejoDao complejoDao;
-	
-	@Autowired
-	private IRegistroDao registroDao;
+
 	
 	@Override
 	public Complejo findByIdAndRegistro(Integer idComplejo, Integer idRegistro) {
-		Registro r = registroDao.findById(idRegistro).get();
-		return complejoDao.findByIdAndRegistro(idComplejo, r);
+		return complejoDao.findByIdAndRegistro(idComplejo, idRegistro);
 
+	}
+
+	@Override
+	public Complejo findByIdAndRegistroWithJoinFetch(Integer idComplejo, Integer idRegistro) {
+		// TODO Auto-generated method stub
+		return complejoDao.findByIdAndRegistroWithJoinFetch(idComplejo, idRegistro);
 	}
 
 }

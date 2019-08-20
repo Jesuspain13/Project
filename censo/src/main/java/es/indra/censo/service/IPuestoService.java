@@ -19,7 +19,7 @@ public interface IPuestoService {
 
 	public Puesto findPuestoById(Integer id);
 	
-	public List<Puesto> findByPlantaOrdenados(Planta p)  throws NoSorteableException, Exception;
+	//public List<Puesto> findByPlantaOrdenados(Planta p)  throws NoSorteableException, Exception;
 	
 	public List<Puesto> findByPlantaOrdenados(Integer nombrePlanta, Integer idRegistro)  throws NoSorteableException, Exception;
 

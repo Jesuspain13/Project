@@ -22,12 +22,14 @@
 								<h2>SELECCIONA EL REGISTRO, EL COMPLEJO Y EL EDIFICIO </h2> 
 							</div>
 							<div class="card-body">
+							<div th:if="${registro.getVersion() == null || registro.getVersion().length() == 0}" 
+							class="col-md-12">
 								<form class="container form-group" th:object="${registro}"
 									method="POST" th:action="@{listar}">
 									<div class="row my-2">
 
 										<!-- Formulario para versión -->
-										<div th:if="${complejo == null}" class="col-md-12">
+										
 											<label for="version" th:text="#{text.registro.select}">Selecciona la versión</label> <select
 												id="version" th:field="*{idRegistro}"
 												class="browser-default custom-select">
@@ -40,25 +42,30 @@
 												th:if="${#fields.hasErrors('idRegistro')}"
 												th:errors="*{idRegistro}"></small>
 										</div>
-									</div>
+									
+									<button th:if="${registro.getVersion() == null}"
+										class="btn indra-btn-pink animated wobble" th:text="#{text.registro.btn.registro}">Registro</button>
+								</form>
+								</div>
 									<div th:if="${registro.getVersion() != null}" class="row my-2">
 
 										<!-- Formulario para versión -->
 										<div class="col-md-12">
-											<h4 th:text="#{text.registro.selected}">
-												Versión seleccionada: <span
+											<h4 >
+												<span th:text="#{text.registro.selected}"></span>
+												<span
 													th:text="${registro.getVersion()}"></span>
 											</h4>
+
 											<input type="hidden" th:value="${registro.idRegistro}"
 												name="idRegistro" />
 										</div>
 									</div>
 
-									<button th:if="${registro.getVersion() == null}"
-										class="btn indra-btn-pink animated wobble" th:text="#{text.registro.btn.registro}">Registro</button>
-								</form>
-								<div th:if="${complejos != null && complejo != null}">
-									<form class="container form-group" th:object="${complejo}"
+									
+								
+								<div th:if="${complejos != null && complejo != null && registro.getVersion() != null}">
+									<form th:if="${complejo.getNombreComplejo() == null}" class="container form-group" th:object="${complejo}"
 										method="POST" th:action="@{/complejo/listar}">
 										<div class="row my-2">
 											<div class="col-md-4">
@@ -77,19 +84,21 @@
 											<input type="hidden" th:value="${registro.idRegistro}"
 												name="idRegistro" />
 										</div>
+									<button th:if="${complejo.getNombreComplejo() == null}"
+											class="btn indra-btn-pink animated wobble" type="submit" th:text="#{text.registro.btn.complejo}">Complejo</button>
+									</form>
+								
 										<div th:if="${complejo.getNombreComplejo() != null}"
 											class="row my-2">
 											<div class="col-md-12">
-												<h5 th:text="#{text.registro.complejo.selected}">
-													Complejo seleccionado: <span
-														th:text="${complejo.getNombreComplejo()}"></span>
+												<h5>
+													<span th:text="#{text.registro.complejo.selected}"></span>
+													<span th:text="${complejo.getNombreComplejo()}"></span>
 												</h5>
 
 											</div>
 										</div>
-										<button th:if="${complejo.getNombreComplejo() == null}"
-											class="btn indra-btn-pink animated wobble" type="submit" th:text="#{text.registro.btn.complejo}">Complejo</button>
-									</form>
+										
 								</div>
 								<div th:if="${edificios != null}">
 									<form class="container form-group" th:object="${edificio}"
@@ -102,9 +111,11 @@
 													th:value="${e.getIdEdificio()}" required> <label
 													class="form-check-label" for="exampleRadios1"> <span
 													th:text="${e.getNombreEdificio()}"></span>
-												</label> <input type="hidden" th:value="${idRegistro}"
-													name="idRegistro" />
+												</label> 
 											</div>
+												<input type="hidden" th:value="${registro.idRegistro}"
+													name="idRegistro" />
+											
 										</div>
 										<div>
 											<small class="text-danger"
@@ -119,6 +130,7 @@
 						</div>
 					</div>
 				</div>
+			</div>
 				<!-- Fin del Contenedor con nombre de la planta y desplegable de la version-->
 		</section>
 

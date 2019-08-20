@@ -47,7 +47,7 @@ public class Puesto implements Serializable {
 
 	private boolean ocupado;
 	
-	@OneToOne(fetch= FetchType.EAGER, cascade = CascadeType.ALL)
+	@OneToOne(fetch= FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinColumn(name="id_empleado")
 	private Empleado empleado;
 

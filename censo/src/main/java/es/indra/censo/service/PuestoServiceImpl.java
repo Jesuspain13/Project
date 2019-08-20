@@ -47,29 +47,29 @@ public class PuestoServiceImpl implements IPuestoService {
 		return puestoDao.findById(id).get();
 	}
 
-	@Override
-	public List<Puesto> findByPlantaOrdenados(Planta p) throws NoSorteableException, Exception {
-		// TODO Auto-generated method stub
-		try {
-			PlantaWrapperAbs pWrapper;
-			if (p.getNombrePlanta().contains("0")) {
-				pWrapper = new PlantaBajaWrapper();
-				List<Puesto> puestosDesordenados = puestoDao.findByPlanta(p);
-				return pWrapper.ordenarPuesto(p.getNombrePlanta(), puestosDesordenados);
-			} else if (p.getNombrePlanta().contains("1")) {
-				pWrapper = new PlantaWrapper();
-				List<Puesto> puestosDesordenados = puestoDao.findByPlanta(p);
-				return pWrapper.ordenarPuesto(p.getNombrePlanta(), puestosDesordenados);
-			} else {
-				return null;
-			}
-		} catch(NoSorteableException ex) {
-			throw new NoSorteableException(ex.getMessage());
-		} catch (Exception ex) {
-			throw new Exception(ex);
-		}
-
-	}
+//	@Override
+//	public List<Puesto> findByPlantaOrdenados(Planta p) throws NoSorteableException, Exception {
+//		// TODO Auto-generated method stub
+//		try {
+//			PlantaWrapperAbs pWrapper;
+//			if (p.getNombrePlanta().contains("0")) {
+//				pWrapper = new PlantaBajaWrapper();
+//				List<Puesto> puestosDesordenados = puestoDao.findByPlanta(p);
+//				return pWrapper.ordenarPuesto(p.getNombrePlanta(), puestosDesordenados);
+//			} else if (p.getNombrePlanta().contains("1")) {
+//				pWrapper = new PlantaWrapper();
+//				List<Puesto> puestosDesordenados = puestoDao.findByPlanta(p);
+//				return pWrapper.ordenarPuesto(p.getNombrePlanta(), puestosDesordenados);
+//			} else {
+//				return null;
+//			}
+//		} catch(NoSorteableException ex) {
+//			throw new NoSorteableException(ex.getMessage());
+//		} catch (Exception ex) {
+//			throw new Exception(ex);
+//		}
+//
+//	}
 
 	@Override
 	public List<Puesto> findByPlantaOrdenados(Integer nombrePlanta, Integer idRegistro) throws NoSorteableException, Exception {

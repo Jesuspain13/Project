@@ -43,7 +43,7 @@ public class Planta implements Serializable {
 	@JsonIgnore
 	private Registro registro;
 
-	@OneToMany(mappedBy="planta",fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+	@OneToMany(mappedBy="planta",fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private List<Puesto> puestos;
 	
 	@ManyToOne(fetch=FetchType.LAZY)

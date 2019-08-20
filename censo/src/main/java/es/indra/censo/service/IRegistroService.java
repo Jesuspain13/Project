@@ -13,5 +13,7 @@ public interface IRegistroService {
 	public Registro findRegistroById (Integer id);
 	
 	public Registro findRegistroByVersion(String version);
+	
+	public Registro findByIdWithJoinFetch(Integer id);
 
 }

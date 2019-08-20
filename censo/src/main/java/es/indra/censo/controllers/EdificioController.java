@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.bind.support.SessionStatus;
 
 import es.indra.censo.dao.IPuestoDao;
 import es.indra.censo.model.Edificio;
@@ -39,15 +40,17 @@ public class EdificioController {
 
 	@PostMapping("listar")
 	@Transactional
-	public String listar(@Valid Edificio e, BindingResult resultValid, @RequestParam("idRegistro") Integer idRegistro,
-			Map<String, Object> model) {
+	public String listar(@Valid Edificio e, BindingResult resultValid,
+			@RequestParam("idRegistro") Integer idRegistro,
+			SessionStatus status, Map<String, Object> model) {
 		try {
 				if (resultValid.hasErrors()) {
 				
 				return "searchform";
 			}
-		
+
 		Edificio edificio = edificioSvc.findByIdEdificioAndRegistro(e.getIdEdificio(), idRegistro);
+		status.setComplete();
 		model.put("edificio", edificio);
 
 		Planta p = edificio.getPlantas().get(1);

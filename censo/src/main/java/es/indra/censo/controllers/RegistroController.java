@@ -26,7 +26,7 @@ import es.indra.censo.service.IRegistroService;
 
 @Controller
 @RequestMapping("/registro")
-@SessionAttributes({"registro", "complejos"})
+@SessionAttributes({"registro", "complejos", "complejo"})
 public class RegistroController {
 	private Logger log = LoggerFactory.getLogger(RegistroController.class);
 
@@ -61,15 +61,18 @@ public class RegistroController {
 	}
 
 	@PostMapping(value = "/listar")
-	public String listar(Registro registro, Model model) {
+	public String listar(Registro registro, Model model, SessionStatus status) {
 		try {
-			Registro rFound = registroService.findRegistroById(registro.getIdRegistro());
+			Registro rFound = registroService.findByIdWithJoinFetch(registro.getIdRegistro());
+			status.setComplete();
 			model.addAttribute("titulo", "Listado de todos los registros");
-			model.addAttribute("registro", rFound);
+			
 			model.addAttribute("complejos", rFound.getComplejos());
 			Complejo c = new Complejo();
 			model.addAttribute("complejo", c);
-
+			
+			
+			model.addAttribute("registro", rFound);
 			return "searchform";
 		} catch (Exception ex) {
 			log.error(ex.getMessage());

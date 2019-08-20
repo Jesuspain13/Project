@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import es.indra.censo.model.Complejo;
@@ -35,13 +36,14 @@ public class ComplejoController {
 	@PostMapping("listar")
 	public String listar(@Valid Complejo c, BindingResult resutlValid,
 			@RequestParam("idRegistro") Integer idRegistro,
-			Model model, RedirectAttributes flash) {
+			Model model, RedirectAttributes flash, SessionStatus status) {
 		try {
 			if (resutlValid.hasErrors()) {
 				
 				return "searchform";
 			}
-			Complejo complejo = complejoSvc.findByIdAndRegistro(c.getId(), idRegistro);
+			Complejo complejo = complejoSvc.findByIdAndRegistroWithJoinFetch(c.getId(), idRegistro);
+			status.setComplete();
 			model.addAttribute("complejo", complejo);
 			model.addAttribute("idRegistro", idRegistro);
 			model.addAttribute("edificios", complejo.getEdificios());
@@ -52,7 +54,7 @@ public class ComplejoController {
 			return "searchform";
 		} catch (Exception ex) {
 			log.error(ex.getMessage());
-			model.addAttribute("error", UploadExcelController.ERROR_MSG);
+			flash.addFlashAttribute("error", UploadExcelController.ERROR_MSG);
 			return "redirect:/complejo/listar";
 		}
 	}

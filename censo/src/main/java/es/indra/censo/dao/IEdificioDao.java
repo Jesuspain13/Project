@@ -4,7 +4,6 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 
 import es.indra.censo.model.Edificio;
-import es.indra.censo.model.Registro;
 
 public interface IEdificioDao extends CrudRepository <Edificio, Integer> {
 	

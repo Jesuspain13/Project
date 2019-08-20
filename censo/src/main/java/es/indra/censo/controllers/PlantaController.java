@@ -17,8 +17,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import es.indra.censo.dao.IPlantaDao;
 import es.indra.censo.model.Planta;
 import es.indra.censo.model.Puesto;
 import es.indra.censo.model.Registro;
@@ -44,36 +46,8 @@ public class PlantaController {
 	@Autowired
 	private IRegistroService registroSvc;
 
-	/**
-	 * Método para la función javascript que recoge los puestos
-	 * 
-	 * @param nombrePlanta nombre de la planta a buscar
-	 * @param model
-	 * @param flash
-	 * @return
-	 */
-//	@GetMapping(value = "/ver/{nombrePlanta}")
-//	@ResponseBody
-//	public List<Puesto> ver(@PathVariable(value = "nombrePlanta") Integer nombrePlanta, Map<String, Object> model,
-//			RedirectAttributes flash) {
-//		try {
-//
-//			Planta planta = plantaService.findPlantaByNombrePlanta(nombrePlanta);
-//	
-//			List<Puesto> puestos = (puestoService.findByPlantaOrdenados(planta));
-//	
-//			return puestos;
-//		}catch (NoSorteableException ex)  {
-//			log.error(ex.getMessage());
-//			model.put("error", "No se ha podido ordenar la lista de puestos");
-//			return new ArrayList<Puesto>(Arrays.asList(new Puesto()));
-//		} catch (Exception ex)  {
-//			log.error(ex.getMessage());
-//			model.put("error", ex.getMessage());
-//			return new ArrayList<Puesto>(Arrays.asList(new Puesto()));
-//		} 
-//
-//	}
+	@Autowired
+	private IPlantaDao pDao;
 	
 	@RequestMapping(value = "/ver/{nombrePlanta}", method=RequestMethod.GET)
 	@ResponseBody
@@ -89,7 +63,8 @@ public class PlantaController {
 //					.findPlantaByIdPlantaAndRegistro(nombrePlanta, idRegistro);
 
 	
-			List<Puesto> puestos = (puestoService.findByPlantaOrdenados(nombrePlanta, idRegistro));
+			List<Puesto> puestos = puestoService
+					.findByPlantaOrdenados(nombrePlanta, idRegistro);
 	
 			return puestos;
 		}catch (NoSorteableException ex)  {
@@ -107,7 +82,9 @@ public class PlantaController {
 	// Método para mostrar la planta que queramos por Id.
 	@PostMapping(value = "/ver")
 	public String ver(Planta planta, 
-			@RequestParam("idRegistro") Integer idRegistro, Map<String, Object> model, RedirectAttributes flash) {
+			@RequestParam("idRegistro") Integer idRegistro,
+			Map<String, Object> model, RedirectAttributes flash,
+			SessionStatus status) {
 		try {
 			Planta plantaEncontrada = plantaService
 					.findPlantaByIdPlantaAndRegistro(planta.getId(), idRegistro);
@@ -116,7 +93,7 @@ public class PlantaController {
 				flash.addFlashAttribute("error", "¡La planta a la que intenta acceder no existe!");
 				return "redirect:/listar";
 			}
-
+			status.setComplete();
 			model.put("planta", plantaEncontrada);
 			model.put("edificio", plantaEncontrada.getEdificio());
 			model.put("idRegistro", idRegistro);
