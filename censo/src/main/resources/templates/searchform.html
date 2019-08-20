@@ -7,7 +7,7 @@
 </head>
 <body>
 
-	<div class="loader"></div>
+	
 	<div class="main-content">
 		<!--Main Navigation-->
 		<header th:replace="layout/layout :: header"> </header>
@@ -17,9 +17,9 @@
 			<div class="container">
 				<div class="row d-flex justify-content-center">
 					<div class="col-md-12">
-						<div class="card">
-							<div class="card-header" th:text="#{text.registro.title}">
-								<h2>SELECCIONA EL REGISTRO, EL COMPLEJO Y EL EDIFICIO</h2>
+						<div class="card card-cascade wider">
+							<div class="card-header indra-color text-white"  th:text="#{text.registro.title}" >
+								<h2>SELECCIONA EL REGISTRO, EL COMPLEJO Y EL EDIFICIO </h2> 
 							</div>
 							<div class="card-body">
 								<form class="container form-group" th:object="${registro}"
@@ -55,7 +55,7 @@
 									</div>
 
 									<button th:if="${registro.getVersion() == null}"
-										class="btn bt-primary" th:text="#{text.registro.btn.registro}">Registro</button>
+										class="btn indra-btn-pink animated wobble" th:text="#{text.registro.btn.registro}">Registro</button>
 								</form>
 								<div th:if="${complejos != null && complejo != null}">
 									<form class="container form-group" th:object="${complejo}"
@@ -88,7 +88,7 @@
 											</div>
 										</div>
 										<button th:if="${complejo.getNombreComplejo() == null}"
-											class="btn bt-primary" type="submit" th:text="#{text.registro.btn.complejo}">Complejo</button>
+											class="btn indra-btn-pink animated wobble" type="submit" th:text="#{text.registro.btn.complejo}">Complejo</button>
 									</form>
 								</div>
 								<div th:if="${edificios != null}">
@@ -112,7 +112,7 @@
 												th:errors="*{idEdificio}">ERROR</small>
 										</div>
 
-										<button class="btn bt-primary" th:text="#{text.registro.btn.edificio}">Edif</button>
+										<button class="btn indra-btn-pink animated wobble" th:text="#{text.registro.btn.edificio}">Edif</button>
 									</form>
 								</div>
 							</div>
@@ -124,13 +124,7 @@
 
 		<footer th:replace="layout/layout :: footer"></footer>
 
-		<script
-			src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
-		<script type="text/javascript">
-			$(window).load(function() {
-				$(".loader").fadeOut("slow");
-			});
-		</script>
+
 
 	</div>
 </body>
