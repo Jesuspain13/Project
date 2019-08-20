@@ -22,13 +22,14 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import es.indra.censo.docreader.FileWrapper;
 import es.indra.censo.model.Registro;
 import es.indra.censo.service.IDocReaderService;
 import es.indra.censo.service.IRegistroService;
 
 @Controller
 @RequestMapping("/doc")
-@SessionAttributes("registro")
+@SessionAttributes("fileWrapper")
 public class UploadExcelController {
 	
 	@Autowired
@@ -49,32 +50,65 @@ public class UploadExcelController {
 	@GetMapping("/upload")
 	@Secured({"ROLE_ADMIN"})
 	public String uploadExcel(Model model, RedirectAttributes flash) {
-		Registro r = new Registro();
-		model.addAttribute("registro", r);
+		//Registro r = new Registro();
+		FileWrapper r = new FileWrapper();
+		model.addAttribute("fileWrapper", r);
 		return "upload";
 	}
+	
+//	@PostMapping("/upload")
+//	@Secured({"ROLE_ADMIN"})
+//	public String uploadExcel(@Valid FileWrapper r, BindingResult resultValid,
+//			Model model, RedirectAttributes flash, Locale locale) {
+//		if (resultValid.hasErrors()) {
+//			return "upload";
+//		}
+//		
+//		Registro rSearched = null;
+//		rSearched = rService.findRegistroByVersion(r.getVersion());
+//		if (rSearched != null) {
+//			flash.addAttribute("error", "La versión ya existe");
+//			return "redirect:/doc/upload";
+//		}
+//		//Registro registro = registroSvc.save(r);;
+//		model.addAttribute("registro", r);
+//		return "upload";
+//	}
+	
+//	@PostMapping("/upload/{version}")
+//	@Secured({"ROLE_ADMIN"})
+//	public String uploadExcel(@PathVariable("version") String version, @RequestParam("file") MultipartFile file,
+//			Model model, RedirectAttributes flash, Locale locale) {
+//		try {
+//
+//			docReaderSvc.readDocument(file, version, locale);
+//			flash.addFlashAttribute("success", SUCCESS_MSG);
+//		    return "redirect:/registro/listar";
+//		} catch (Exception ex) {
+//			log.error(ex.getMessage());
+//			flash.addFlashAttribute("error", "Error en la lectura del archivo.\n"
+//					+ "Error concreto:" + ex.getMessage());
+//			return "redirect:/doc/upload";
+//		}
+//	   
+//	}
 	
 	@PostMapping("/upload")
 	@Secured({"ROLE_ADMIN"})
-	public String uploadExcel(@Valid Registro r, BindingResult resultValid,
-			Model model, RedirectAttributes flash, Locale locale) {
-		if (resultValid.hasErrors()) {
-			return "upload";
-		}
-		Registro rSearched = null;
-		rSearched = rService.findRegistroByVersion(r.getVersion());
-		//Registro registro = registroSvc.save(r);;
-		model.addAttribute("registro", r);
-		return "upload";
-	}
-	
-	@PostMapping("/upload/{version}")
-	@Secured({"ROLE_ADMIN"})
-	public String uploadExcel(@PathVariable("version") String version, @RequestParam("file") MultipartFile file,
-			Model model, RedirectAttributes flash, Locale locale) {
+	public String uploadExcel(@Valid FileWrapper r,
+			BindingResult resultValid, Model model, RedirectAttributes flash, Locale locale) {
 		try {
-
-			docReaderSvc.readDocument(file, version, locale);
+			if (resultValid.hasErrors()) {
+				return "upload";
+			}
+			//si la versión ya existe vuelve hacia atrás.
+			Registro rSearched = null;
+			rSearched = rService.findRegistroByVersion(r.getVersion());
+			if (rSearched != null) {
+				flash.addFlashAttribute("error", "La versión ya existe");
+				return "redirect:/doc/upload";
+			}
+			docReaderSvc.readDocument(r.getFile(), r.getVersion(), locale);
 			flash.addFlashAttribute("success", SUCCESS_MSG);
 		    return "redirect:/registro/listar";
 		} catch (Exception ex) {

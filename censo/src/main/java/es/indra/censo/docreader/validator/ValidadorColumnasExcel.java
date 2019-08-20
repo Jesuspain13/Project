@@ -1,4 +1,4 @@
-package es.indra.censo.docreader;
+package es.indra.censo.docreader.validator;
 
 import java.util.Iterator;
 
@@ -7,6 +7,8 @@ import org.apache.poi.ss.usermodel.Row;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
+
+import es.indra.censo.docreader.OrdenColumnasException;
 
 @Component
 public class ValidadorColumnasExcel {

@@ -20,6 +20,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import es.indra.censo.dao.IEmpleadoDao;
 import es.indra.censo.dao.IUeDao;
+import es.indra.censo.docreader.validator.ValidadorColumnasExcel;
 import es.indra.censo.model.Complejo;
 import es.indra.censo.model.Edificio;
 import es.indra.censo.model.Empleado;

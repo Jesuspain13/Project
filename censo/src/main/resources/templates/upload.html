@@ -6,98 +6,87 @@
 <meta charset="utf-8" />
 <body>
 	<div class="main-content">
-	<!--Main Navigation-->
-	<header th:replace="layout/layout :: header"> </header>
-	<!--Main Navigation-->
+		<!--Main Navigation-->
+		<header th:replace="layout/layout :: header"> </header>
+		<!--Main Navigation-->
 
-	<!--Main layout-->
-	
-	<div class="loader">
-	
-	</div>
-	
-	<main class="container mt-3"> 
-	
-	<!-- Jumbotron -->
-		<div class="jumbotron text-center ">
-	
-			<!-- Title -->
-			<h2 class="card-title h2">Sube aquí tu nueva versión del censo</h2>
-			<!-- Subtitle -->
-			<p class="blue-text my-4 font-weight-bold">Recuerda rellenar todos
-				los campos</p>
-	
-			<!-- Grid row -->
-			<div class="row d-flex justify-content-center">
-	
-			</div>
-			<!-- Grid row -->
-			<div th:if="${registro.getVersion() == null || registro.getVersion().length() == 0}" class="row d-flex justify-content-center">
-				<div class="col-md-8">
-				<form th:object="${registro}" method="POST" th:action="@{/doc/upload}">
-				<div class="form-group">
-				<label for="version">Introduce cual será la siguiente versión</label>
-					<input type="text" name="version" th:field="*{version}" class="form-group-item"
-							id="version"	placeholder="Nombre para la versión">
-				</div>
-					<small class="text-danger" th:if="${#fields.hasErrors('version')}"
-							th:errors="*{version}">ERROR</small>
-							<button type="submit" class="btn btn-subir-indra">Guardar nombre</button>
-				</form>
-				</div>
-			</div>
-	
-			<!-- Grid seleccionar archivo -->
-			<div th:if="${registro.getVersion() != null && registro.getVersion().length() > 0}" class="row d-flex justify-content-center">
-				<div class="col-md-8">
-					<hr class="my-4">
-					<h5>Versión a añadir: <span th:text="${registro.getVersion()}"></span></h5>
-					<div class="pt-2">
-						<div class="custom-file">
-							<form class="form-group" th:action="@{'/doc/upload/' + ${registro.getVersion()}}" method="POST"
-							enctype="multipart/form-data">
-								
-								<input type="file" name="file" class="custom-file-input input-indra"
+		<!--Main layout-->
+
+		<div class="loader"></div>
+
+		<main class="container mt-3"> <!-- Jumbotron -->
+		<div class="row d-flex justify-content-center">
+			<div class="col-md-8">
+				<div class="card text-center ">
+					<div class="card-header">
+						<!-- Title -->
+						<h2 class="card-title h2">Sube aquí tu nueva versión del
+							censo</h2>
+					</div>
+					<!-- Subtitle -->
+					<p class="blue-text my-4 font-weight-bold">Recuerda rellenar
+						todos los campos</p>
+
+					<!-- Grid row -->
+
+
+
+					<!-- Grid row -->
+					<div class="card-body">
+						<form th:object="${fileWrapper}" th:action="@{/doc/upload}"
+							method="POST" enctype="multipart/form-data">
+							<div class="form-group mb-3">
+								<label for="version">Introduce cual será la siguiente
+									versión</label> <input type="text" name="version" th:field="*{version}"
+									class="form-control" id="version"
+									placeholder="Nombre para la versión" required>
+									<small class="text-danger"
+												th:if="${#fields.hasErrors('version')}"
+												th:errors="*{version}"></small>
+							</div>
+
+							<div class="custom-file">
+								<input th:field="*{file}" type="file" name="file"
+									class="custom-file-input"
 									id="customFileLang" lang="es"> <label
 									class="custom-file-label " for="customFileLang">Seleccionar
 									Archivo</label>
-								<button type="submit" id="upload" class="btn btn-subir-indra">Subir</button>
-			
-							</form>
-						</div>
+									<small class="text-danger"
+												th:if="${#fields.hasErrors('file')}"
+												th:errors="*{file}"></small>
+							</div>
+							<button type="submit" id="upload" class="btn btn-subir-indra">Subir</button>
+
+
+						</form>
 					</div>
-	
-					
+
 				</div>
+
 			</div>
-			<!-- ./Grid seleccionar archivo -->
-	
-	
 		</div>
-	<!-- Jumbotron --> 
-	</main>
-	<!--Main layout-->
+		<!-- ./Grid seleccionar archivo --> <!-- Jumbotron --> </main>
+		<!--Main layout-->
 
-	<!-- Footer -->
-	<footer th:replace="layout/layout :: footer"></footer>
-	<!-- Footer -->
-	
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
-	<script type="text/javascript">
-		
+		<!-- Footer -->
+		<footer th:replace="layout/layout :: footer"></footer>
+		<!-- Footer -->
 
-	$( "#upload" ).click(function() {
-		  
-		  $(".loader").fadeIn();
-		});
-	
-	$(window).load(function() {
-	    $(".loader").fadeOut("slow");
-	});
-	</script>
-	
-	
-	
-</div>
+		<script
+			src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+		<script type="text/javascript">
+			$("#upload").click(function() {
+
+				$(".loader").fadeIn();
+			});
+
+			$(window).load(function() {
+				$(".loader").fadeOut("slow");
+			});
+		</script>
+
+
+
+	</div>
 </body>
 </html>
