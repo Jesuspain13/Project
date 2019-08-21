@@ -1,5 +1,6 @@
 package es.indra.censo;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
 import java.io.File;
@@ -26,14 +27,14 @@ import es.indra.censo.model.Complejo;
 
 
 @RunWith(SpringRunner.class)
-@SpringBootTest(classes = CensoApplication.class)
+@SpringBootTest
 public class TestComplejoDao {
 
 	private File censoTest;
 	private Logger log = LoggerFactory.getLogger(ComplejoController.class);
 
 	@Autowired(required=true)
-	private IComplejoDao complejo;
+	private IComplejoDao cDao;
 
 	@Autowired
 	private ExcelReader reader;
@@ -55,10 +56,15 @@ public class TestComplejoDao {
 
 	@Test
 	public void TestComplejofindByIdAndRegistro() {
-		log.debug("entrando en metodo test");
-		List<Complejo> complejos = (List<Complejo>) complejo.findByIdAndRegistro(1, 1);
-		System.out.print(complejos.get(2).getNombreComplejo());
-		assertNotNull(complejos);
+		log.info("entrando en metodo test");
+		
+		List<Complejo> complejos = (List<Complejo>) cDao.findAll();
+		Complejo complejoParaTestear = complejos.get(0);
+		Complejo complejoATestear =  cDao.findByIdAndRegistro(complejoParaTestear.getId(),
+				complejoParaTestear.getRegistro().getIdRegistro());
+
+		assertNotNull(complejoATestear);
+		assertEquals(complejoATestear.getId(), complejoParaTestear.getId());
 
 	}
 

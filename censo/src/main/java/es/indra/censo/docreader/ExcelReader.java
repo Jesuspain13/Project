@@ -235,14 +235,26 @@ public class ExcelReader {
 	 */
 	private Complejo seleccionarComplejo(TablaModelo tabla, Registro registroGuardado) {
 		Complejo c = null;
+		boolean complejoEncontrado = false;
 		if (registroGuardado.getComplejos().size() > 0) {
-			if (!registroGuardado.getComplejos().get(0).getNombreComplejo().isEmpty()
-					&& registroGuardado.getComplejos().get(0).getNombreComplejo().contains(tabla.getNombreComplejo())) {
-				// si esta creado y coincide en nombre lo usamos
-				c = registroGuardado.getComplejos().get(0);
-			} else if (!registroGuardado.getComplejos().get(0).getNombreComplejo().isEmpty() && !registroGuardado
-					.getComplejos().get(0).getNombreComplejo().contains(tabla.getNombreComplejo())) {
-				c = this.buildComplejo(tabla, registroGuardado);
+			Iterator<Complejo> complejosGuardados = registroGuardado.getComplejos().iterator();
+		
+			while (!complejoEncontrado && complejosGuardados.hasNext()) {
+				Complejo iteracionComplejoActual = complejosGuardados.next();
+				if (!iteracionComplejoActual.getNombreComplejo().isEmpty()
+						&& iteracionComplejoActual.getNombreComplejo().equals(tabla.getNombreComplejo())) {
+					// si esta creado y coincide en nombre lo usamos
+					c = registroGuardado.getComplejos().get(0);
+					complejoEncontrado = true;
+				} else if (!iteracionComplejoActual.getNombreComplejo().isEmpty() &&
+						!iteracionComplejoActual.getNombreComplejo().equals(tabla.getNombreComplejo())) {
+					c = this.buildComplejo(tabla, registroGuardado);
+					complejoEncontrado = true;
+				} else if (iteracionComplejoActual.getNombreComplejo().isEmpty()) {
+					c = this.buildComplejo(tabla, registroGuardado);
+					complejoEncontrado = true;
+				}
+				
 			}
 		} else {
 			// si no tiene nombre es que no hay ninguno, se crea
