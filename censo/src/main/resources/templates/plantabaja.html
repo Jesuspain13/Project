@@ -1146,21 +1146,16 @@
 
 
 
-		
 
-        <script th:inline="javascript">
+
+		<script th:inline="javascript">
 
             const url = 'http://localhost:8080/planta/ver/0';
-            var empleado;
             var puesto;
-            var mostrar;
             var html;
             var idRegistro = [[${idRegistro}]]; 
             var divs = $('div.puestos');
-            var contador = 0;
-            
-            
-                                  
+              
             $.ajax({
     		    url: url,
     		    type: "GET",
@@ -1170,255 +1165,19 @@
     		    contentType: 'application/json',
     		    dataType: 'json',
     		    success: function (data) {
-    		   
-            	for (var i = 0; i < divs.length; i++) {
-            		if (i < data.length) {
-            			puesto = data[i];
-            		
-            			var nameModal = "#modalLoginAvatar" + i;
-                        var idModal = "modalLoginAvatar" + i;
-            		
-            		if (puesto.ocupado) {
-            			
-                        
-                        empleado = puesto.empleado;
-                       
-                       
-                        var styleBtn = "btn btn-link";
-                        
-                        var dpto = empleado.ue.nombreUeRepercutible;
-                        
-                        if(dpto == null){
-                        	
-                          	dpto = empleado.ue;
-                          
-                       }
-						if(dpto.includes("SANIDAD")){
-                         	
-                         	styleBtn ="btn btn-danger";
-                         	
-                        } else if (dpto.includes("OPERACIONES MALAGA")) {
-                        	
-                        	styleBtn ="btn btn-primary";
-                        	
- 						} else if (dpto.includes("CALIDAD")) {
-                        	
-                        	styleBtn ="btn btn-secondary";
-                        	
-						} else if (dpto.includes("INDRA FACTORÍA TECNOLÓGICA (IFT)")) {
-                        	
-                        	styleBtn ="btn btn-amber";
-                        	
-						} else if (dpto.includes("PROGRAMAS INTERNACIONALES DE ATM")) {
-                        	
-                        	styleBtn ="btn btn-warning";
-                        	
-						} else if (dpto.includes("DIRECCION GENERAL TRANSPORTES")) {
-                        	
-                        	styleBtn ="btn btn-pink";
-                        	
-						} else if (dpto.includes("NUCLEO ESTRUCTURA CORPORATIVA")) {
-							                        	
-							 styleBtn ="btn btn-elegant";
-							 
-						} else if (dpto.includes("DISEÑO Y DESARROLLO DEFENSA")) {
-								
-							styleBtn ="btn btn-brown";
-							
-						} else if (dpto.includes("SOLUCIONES GESTION EMPRESARIAL")) {
-								
-							styleBtn ="btn btn-deep-orange";
-                         		
-                        }else{
-                        	
-                        	styleBtn ="btn btn-success";
-                        }
-	
+	            	for (var i = 0; i < divs.length; i++) {
+	            		if (i < data.length) {
+	            			puesto = data[i];
 
-                        if (divs[i].className.includes('puestosInv')) {
-          
-                            html = `<button type="button" id="button" data-toggle="modal" data-target=${nameModal}  class="${styleBtn}" >${puesto.idPuesto}</button>
-    								<p class="name text-center">${empleado.apellido}</p>
-    								<!--Modal: Login with Avatar Form-->
-     		                        <div class="modal fade" id=${idModal} tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-     		                            <div class="modal-dialog cascading-modal modal-avatar modal-sm" role="document">
-     		                                <!--Content-->
-     		                                <div class="modal-content">
+	            			html = seleccionarPuestoOcupadoOVacio(puesto, divs[i], i);
 
-     		                                    <!--Header-->
-     		                                    <div class="modal-header">
-     		                                        <img src="https://mdbootstrap.com/img/Photos/Avatars/img%20%281%29.jpg" alt="avatar" class="rounded-circle img-responsive">
-     		                                    </div>
-     		                                    <!--Body-->
-     		                                    <div   class="modal-body text-center mb-1">
+		                    $(divs[i]).html(html); 
+						}
+             		}
+    		   	}	
+           	 });
 
-	     		                                   	<h4 class="mt-1 mb-2">Nº Puesto: ${puesto.idPuesto}</h4>
-	     		                                   	<hr>
-		                                        	<h6 class="mt-1 mb-2">Nombre: ${empleado.nombre}</h6>
-		                                        	<h6 class="mt-1 mb-2">Apellidos: ${empleado.apellido}</h6>
-		                                            <hr>
-	
-		                                            <h5 class="mt-1 mb-2">Nº Empleado: ${empleado.numeroEmpleado}</h5>		                                            
-		                                            <h5 class="mt-1 mb-2">Nick: ${empleado.nick}</h5>
-		                                            <hr>
-		                                            <button type="button" class="btn btn-primary btn-sm" data-dismiss="modal">Atrás</button>
-
-     		                                          
-     		                                    </div>
-
-     		                                </div>
-     		                                <!--/.Content-->
-     		                            </div>
-     		                        </div>
-     		                        <!--Modal: Login with Avatar Form-->`
-                        } else {
-                            html = `<p class="name text-center">${empleado.apellido}</p>
-     								<button type="button"  id="button" class="${styleBtn}" data-toggle="modal"
-     									data-target=${nameModal}>${puesto.idPuesto}</button>
-     								
-     								<!--Modal: Login with Avatar Form-->
-     		                        <div class="modal fade" id=${idModal} tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-     		                            <div class="modal-dialog cascading-modal modal-avatar modal-sm" role="document">
-     		                                <!--Content-->
-     		                                <div class="modal-content">
-
-     		                                    <!--Header-->
-     		                                    <div class="modal-header">
-     		                                        <img src="https://mdbootstrap.com/img/Photos/Avatars/img%20%281%29.jpg" alt="avatar" class="rounded-circle img-responsive">
-     		                                    </div>
-     		                                    <!--Body-->
-     		                                    <div  id="modalInsert" class="modal-body text-center mb-1">
-
-     		                                   	<h4 class="mt-1 mb-2">Nº Puesto: ${puesto.idPuesto}</h4>
-     		                                   	<hr>
-	                                        	<h6 class="mt-1 mb-2">Nombre: ${empleado.nombre}</h6>
-	                                        	<h6 class="mt-1 mb-2">Apellidos: ${empleado.apellido}</h6>
-	                                            <hr>
-
-	                                            <h5 class="mt-1 mb-2">Nº Empleado: ${empleado.numeroEmpleado}</h5>	                                            
-	                                            <h5 class="mt-1 mb-2">Nick: ${empleado.nick}</h5>
-	                                            <hr>
-	                                            <button type="button" class="btn btn-primary btn-sm" data-dismiss="modal">Atrás</button>
-
-     		                                          
-     		                                    </div>
-
-     		                                </div>
-     		                                <!--/.Content-->
-     		                            </div>
-     		                        </div>
-     		                        <!--Modal: Login with Avatar Form-->`
-     								
-    						
-                        }
-						
-
-                        
-                    } else {
-                        empleado = "VACIO";
-
-                        if (divs[i].className.includes('puestosInv')) {
-                            console.log(puesto);
-                            html = `<button type="button"  id="button" data-toggle="modal" data-target=${nameModal}  class="btn btn-success">${puesto.idPuesto}</button>
-    								<p class="name text-center">${empleado}</p>
-    								<!--Modal: Login with Avatar Form-->
-     		                        <div class="modal fade" id=${idModal} tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-     		                            <div class="modal-dialog cascading-modal modal-avatar modal-sm" role="document">
-     		                                <!--Content-->
-     		                                <div class="modal-content">
-
-     		                                    <!--Header-->
-     		                                    <div class="modal-header">
-     		                                        <img src="https://mdbootstrap.com/img/Photos/Avatars/img%20%281%29.jpg" alt="avatar" class="rounded-circle img-responsive">
-     		                                    </div>
-     		                                    <!--Body-->
-     		                                    <div  id="modalInsert" class="modal-body text-center mb-1">
-
-    	 		                                        	<h4 class="mt-1 mb-2">Nº puesto: ${puesto.idPuesto}</h4>
-    	 		                                        	<h5 class="mt-1 mb-2">Estado ${empleado}</h5>
-    	 		                                        	<hr>
-    	 		                                            <button type="button" class="btn btn-primary btn-sm" data-dismiss="modal">Atrás</button>
-
-    	 		                                            
-
-     		                                          
-     		                                    </div>
-
-     		                                </div>
-     		                                <!--/.Content-->
-     		                            </div>
-     		                        </div>
-     		                        <!--Modal: Login with Avatar Form-->`
-                        } else {
-                            html = `<p class="name text-center">${empleado}</p>
-     								<button type="button" id="button" class="btn btn-success" data-toggle="modal" 
-     									data-target=${nameModal}>${puesto.idPuesto}</button>
-     								
-     								<!--Modal: Login with Avatar Form-->
-     		                        <div class="modal fade" id=${idModal} tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-     		                            <div class="modal-dialog cascading-modal modal-avatar modal-sm" role="document">
-     		                                <!--Content-->
-     		                                <div class="modal-content">
-
-     		                                    <!--Header-->
-     		                                    <div class="modal-header">
-     		                                        <img src="https://mdbootstrap.com/img/Photos/Avatars/img%20%281%29.jpg" alt="avatar" class="rounded-circle img-responsive">
-     		                                    </div>
-     		                                    <!--Body-->
-     		                                    <div  id="modalInsert" class="modal-body text-center mb-1">
-
-    	 		                                        	<h4 class="mt-1 mb-2">Nº puesto:${puesto.idPuesto}</h4>
-    	 		                                        	<h5 class="mt-1 mb-2">Estado: ${empleado}</h5>
-    	 		                                        	<hr>
-    	 		                                            <button type="button" class="btn btn-primary btn-sm" data-dismiss="modal">Atrás</button>
-
-    	 		                                            
-
-     		                                          
-     		                                    </div>
-
-     		                                </div>
-     		                                <!--/.Content-->
-     		                            </div>
-     		                        </div>
-     		                        <!--Modal: Login with Avatar Form-->`
-     								
-    						
-                        }
-                    }
-            		
-            		
-						
-                    $(divs[i]).html(html);
-                    
-                    
-                    
-
-				}
-            		
-             	}
-
-            	
-            
-            	
-
-
-               
-    		    }	
-
-            });
-
-
-            
-            
         </script>
-
-
-
-
-
-
-
 
 	</div>
 
