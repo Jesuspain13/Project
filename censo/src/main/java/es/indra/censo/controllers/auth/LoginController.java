@@ -9,10 +9,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 public class LoginController {
-	
+
 	@GetMapping("/login")
-	public String Login(@RequestParam(value="error", required=false) String error, Model model, Principal principal) {
-		if(principal != null) {
+	public String Login(@RequestParam(value = "error", required = false) String error, Model model,
+			Principal principal) {
+		if (principal != null) {
 			return "redirect:/doc/upload";
 		}
 		if (error != null) {
@@ -20,7 +21,5 @@ public class LoginController {
 		}
 		return "login";
 	}
-	
-	
 
 }

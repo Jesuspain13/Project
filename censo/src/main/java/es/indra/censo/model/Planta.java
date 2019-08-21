@@ -23,9 +23,9 @@ import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 @Entity
 @Table(name = "plantas")
-@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property="id")
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 public class Planta implements Serializable {
-	
+
 	public Planta() {
 		this.puestos = new ArrayList<Puesto>();
 	}
@@ -39,19 +39,18 @@ public class Planta implements Serializable {
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "id_registro")
-	@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+	@JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
 	@JsonIgnore
 	private Registro registro;
 
-	@OneToMany(mappedBy="planta",fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@OneToMany(mappedBy = "planta", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private List<Puesto> puestos;
-	
-	@ManyToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name="id_edificio")
-	@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "id_edificio")
+	@JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
 	@JsonIgnore
 	private Edificio edificio;
-	
 
 	public Integer getId() {
 		return id;
@@ -92,12 +91,10 @@ public class Planta implements Serializable {
 	public void setEdificio(Edificio edificio) {
 		this.edificio = edificio;
 	}
-	
+
 	public void addPuesto(Puesto p) {
 		this.puestos.add(p);
 	}
-
-
 
 	/**
 	 * 

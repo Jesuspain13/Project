@@ -18,26 +18,26 @@ import org.springframework.web.servlet.LocaleResolver;
 import org.springframework.web.servlet.support.SessionFlashMapManager;
 
 @Controller
-public class LoginSuccessHandler extends SimpleUrlAuthenticationSuccessHandler  implements AuthenticationSuccessHandler {
- 
-    public LoginSuccessHandler() {
-        super();
-    }
+public class LoginSuccessHandler extends SimpleUrlAuthenticationSuccessHandler implements AuthenticationSuccessHandler {
+
+	public LoginSuccessHandler() {
+		super();
+	}
 
 //	@Autowired
 //	private MessageSource messageSource;
 //	
 //	@Autowired
 //	private LocaleResolver localeResolver;
-	
+
 	@Override
 	public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response,
 			Authentication authentication) throws IOException, ServletException {
-		//auhentication nos permite obtener el nombre del usuario
+		// auhentication nos permite obtener el nombre del usuario
 		SessionFlashMapManager flashMapManager = new SessionFlashMapManager();
-		//crear el flash
+		// crear el flash
 		FlashMap fm = new FlashMap();
-		
+
 //		Locale locale = localeResolver.resolveLocale(request);
 //		String mensaje = String.format(messageSource.
 //				getMessage("text.login.mensaje.success", null, locale), authentication.getName());
@@ -45,10 +45,8 @@ public class LoginSuccessHandler extends SimpleUrlAuthenticationSuccessHandler  
 //		fm.put("success", mensaje);
 //		//registrar flash en el manager
 //		flashMapManager.saveOutputFlashMap(fm, request, response);
-		
+
 		super.onAuthenticationSuccess(request, response, authentication);
 	}
-	
-	
 
 }

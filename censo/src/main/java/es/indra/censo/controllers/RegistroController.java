@@ -25,7 +25,7 @@ import es.indra.censo.service.IRegistroService;
 
 @Controller
 @RequestMapping("/registro")
-@SessionAttributes({"registro", "complejos", "complejo"})
+@SessionAttributes({ "registro", "complejos", "complejo" })
 public class RegistroController {
 	private Logger log = LoggerFactory.getLogger(RegistroController.class);
 
@@ -33,12 +33,12 @@ public class RegistroController {
 
 	@Autowired
 	private IRegistroService registroService;
-	
+
 	@Autowired
 	private MessageSource msgSource;
 
 	// Método para mostrar todos los registros del censo.
-	@RequestMapping(value ="/listar", method = RequestMethod.GET)
+	@RequestMapping(value = "/listar", method = RequestMethod.GET)
 	public String listar(Model model, RedirectAttributes flash, Locale locale) {
 		try {
 			List<Registro> r = registroService.findAll();
@@ -61,18 +61,17 @@ public class RegistroController {
 	}
 
 	@PostMapping(value = "/listar")
-	public String listar(Registro registro, Model model, SessionStatus status,
-			RedirectAttributes flash, Locale locale) {
+	public String listar(Registro registro, Model model, SessionStatus status, RedirectAttributes flash,
+			Locale locale) {
 		try {
 			Registro rFound = registroService.findByIdWithJoinFetch(registro.getIdRegistro());
 			status.setComplete();
 			model.addAttribute("titulo", "Listado de todos los registros");
-			
+
 			model.addAttribute("complejos", rFound.getComplejos());
 			Complejo c = new Complejo();
 			model.addAttribute("complejo", c);
-			
-			
+
 			model.addAttribute("registro", rFound);
 			return "searchform";
 		} catch (Exception ex) {
@@ -84,28 +83,25 @@ public class RegistroController {
 
 	// Método para mostrar el detalle de los registros por Id.
 	@GetMapping(value = "/ver/{id}")
-	public String ver(@PathVariable(value = "id") Integer id,
-			Map<String, Object> model, RedirectAttributes flash, Locale locale) {
+	public String ver(@PathVariable(value = "id") Integer id, Map<String, Object> model, RedirectAttributes flash,
+			Locale locale) {
 		try {
 			Registro registro = registroService.findRegistroById(id);
-	
+
 			if (registro == null) {
-				flash.addFlashAttribute("error", msgSource
-						.getMessage("text.error.encontrar.registro", null, locale));
+				flash.addFlashAttribute("error", msgSource.getMessage("text.error.encontrar.registro", null, locale));
 				return "redirect:/listar";
 			}
-	
+
 			model.put("registro", registro);
 			model.put("titulo", "Información detallada del registro número: " + registro.getVersion());
 			return "ver";
-	
-		
+
 		} catch (Exception ex) {
 			String msg = msgSource.getMessage("text.error.generico", null, locale);
 			flash.addFlashAttribute("error", String.format(msg, ex.getMessage()));
 			return "redirect:/";
 		}
-
 
 	}
 }

@@ -33,12 +33,12 @@ import es.indra.censo.service.IRegistroService;
 
 @Controller
 @RequestMapping("/planta")
-@SessionAttributes({"planta", "idRegistro"})
+@SessionAttributes({ "planta", "idRegistro" })
 public class PlantaController {
 
 	private Logger log = LoggerFactory.getLogger(ComplejoController.class);
-	
-	@Autowired 
+
+	@Autowired
 	private MessageSource msgSource;
 
 	@Autowired
@@ -46,27 +46,23 @@ public class PlantaController {
 
 	@Autowired
 	private IPuestoService puestoService;
-	
+
 	@Autowired
 	private IRegistroService registroSvc;
 
 	@Autowired
 	private IPlantaDao pDao;
-	
-	@RequestMapping(value = "/ver/{nombrePlanta}", method=RequestMethod.GET)
+
+	@RequestMapping(value = "/ver/{nombrePlanta}", method = RequestMethod.GET)
 	@ResponseBody
-	public List<Puesto> verPlantaPorRegistro(
-			@PathVariable(value = "nombrePlanta") Integer nombrePlanta,
-			@RequestParam("idRegistro") Integer idRegistro,
-			Map<String, Object> model,
-			RedirectAttributes flash) {
+	public List<Puesto> verPlantaPorRegistro(@PathVariable(value = "nombrePlanta") Integer nombrePlanta,
+			@RequestParam("idRegistro") Integer idRegistro, Map<String, Object> model, RedirectAttributes flash) {
 		try {
-	
-			List<Puesto> puestos = puestoService
-					.findByPlantaOrdenados(nombrePlanta, idRegistro);
-	
+
+			List<Puesto> puestos = puestoService.findByPlantaOrdenados(nombrePlanta, idRegistro);
+
 			return puestos;
-		}catch (NoSorteableException ex)  {
+		} catch (NoSorteableException ex) {
 			log.error(ex.getMessage());
 			model.put("error", "No se ha podido ordenar la lista de puestos");
 			return new ArrayList<Puesto>(Arrays.asList(new Puesto()));
@@ -77,18 +73,14 @@ public class PlantaController {
 			return null;
 		}
 
-
 	}
 
 	// Método para mostrar la planta que queramos por Id.
 	@PostMapping(value = "/ver")
-	public String ver(Planta planta, 
-			@RequestParam("idRegistro") Integer idRegistro,
-			Map<String, Object> model, RedirectAttributes flash,
-			SessionStatus status, Locale locale) {
+	public String ver(Planta planta, @RequestParam("idRegistro") Integer idRegistro, Map<String, Object> model,
+			RedirectAttributes flash, SessionStatus status, Locale locale) {
 		try {
-			Planta plantaEncontrada = plantaService
-					.findPlantaByIdPlantaAndRegistro(planta.getId(), idRegistro);
+			Planta plantaEncontrada = plantaService.findPlantaByIdPlantaAndRegistro(planta.getId(), idRegistro);
 
 			if (plantaEncontrada == null) {
 				flash.addFlashAttribute("error", "¡La planta a la que intenta acceder no existe!");
@@ -113,8 +105,8 @@ public class PlantaController {
 
 	// Método para mostrar la planta que queramos por Id.
 	@GetMapping(value = "/ver/azahar")
-	public String verPlantaAzahar(@RequestParam("idRegistro") Integer idRegistro,
-			Map<String, Object> model, RedirectAttributes flash, Locale locale) {
+	public String verPlantaAzahar(@RequestParam("idRegistro") Integer idRegistro, Map<String, Object> model,
+			RedirectAttributes flash, Locale locale) {
 		try {
 			PlantaBajaWrapper pBajaWrapper = new PlantaBajaWrapper();
 			Planta plantaEncontrada = plantaService.findPlantaByNombrePlantaAndRegistro(0, idRegistro);
@@ -132,7 +124,7 @@ public class PlantaController {
 			model.put("titulo", "Esta usted en la planta: " + plantaEncontrada.getNombrePlanta());
 
 			return "plantazahar";
-		} catch (NoSorteableException ex)  {
+		} catch (NoSorteableException ex) {
 			log.error(ex.getMessage());
 			model.put("error", "No se ha podido ordenar la lista de puestos");
 			return "redirect:/registro/listar";

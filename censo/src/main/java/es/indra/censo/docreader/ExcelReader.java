@@ -32,14 +32,12 @@ import es.indra.censo.service.IRegistroService;
 
 @Service
 public class ExcelReader {
-	
+
 	Logger log = LoggerFactory.getLogger(ExcelReader.class);
 
 	@Autowired
 	private IRegistroService rService;
-	
 
-	
 	@Autowired
 	private MessageSource msgSource;
 
@@ -48,41 +46,39 @@ public class ExcelReader {
 
 	@Autowired
 	private IEmpleadoDao empDao;
-	
+
 	@Autowired
 	private ValidadorColumnasExcel validadorColumnas;
-	
+
 	@Autowired
 	private EntityManager em;
-	
+
 	private Locale locale;
-	
 
 	public ExcelReader() {
 	};
 
-
 	@Transactional
 	public void reader(Workbook workbook, String version, Locale locale) throws Exception {
-		
+
 		try {
 			this.locale = locale;
 			Sheet sheet = workbook.getSheetAt(0);
 			Iterator<Row> rows = sheet.rowIterator();
-			
+
 			Registro r = new Registro(version);
-			
-			//Registro registroGuardado = rDao.save(r);
+
+			// Registro registroGuardado = rDao.save(r);
 
 			this.recorrerFilas(workbook, rows, r, sheet.getLastRowNum());
-			
+
 			workbook.close();
 			rService.save(r);
-		} catch(OrdenColumnasException ex) {
+		} catch (OrdenColumnasException ex) {
 
 			log.error(ex.getMessage());
 			throw new OrdenColumnasException(ex.getMessage());
-		}catch (Exception ex) {
+		} catch (Exception ex) {
 
 			log.error(ex.getMessage());
 			throw new Exception(ex);
@@ -99,37 +95,36 @@ public class ExcelReader {
 	 * @return
 	 */
 
-	private Registro recorrerFilas(Workbook workbook, Iterator<Row> rows,
-			Registro registroGuardado, int lastRow) throws Exception {
+	private Registro recorrerFilas(Workbook workbook, Iterator<Row> rows, Registro registroGuardado, int lastRow)
+			throws Exception {
 		try {
 			int contador = 0;
 			Complejo c = null;
 			Ue ue = null;
-			//registroGuardado = rDao.save(registroGuardado);
+			// registroGuardado = rDao.save(registroGuardado);
 			while (rows.hasNext()) {
 				// contador para empezar a guardar valores a partir de la primera linea (la
 				// primera no incluye datos solo titulos)
-				
+
 				if (contador > 0) {
 					Row row = rows.next();
-					
+
 					if (c == null) {
-						
+
 						Map<String, Object> res = this.recorrerCeldasDeFila(workbook, row, registroGuardado);
 						c = (Complejo) res.get("complejo");
 						registroGuardado.addComplejo(c);
 						ue = (Ue) res.get("ue");
-						//comprobar si la ue es null
+						// comprobar si la ue es null
 						if (ue != null) {
 							registroGuardado.addUes((Ue) res.get("ue"));
 						}
-						
-						
+
 					} else {
-						
+
 						Map<String, Object> res = this.recorrerCeldasDeFila(workbook, row, registroGuardado);
 						ue = (Ue) res.get("ue");
-						//comprobar si la ue existe ya
+						// comprobar si la ue existe ya
 						if (ue != null && !registroGuardado.getUes().contains(ue)) {
 							registroGuardado.addUes(ue);
 						}
@@ -142,11 +137,11 @@ public class ExcelReader {
 						String msg = msgSource.getMessage("text.orden.columnas.exception.mensaje", null, this.locale);
 						throw new OrdenColumnasException(msg);
 					}
-	
+
 				}
 				contador++;
 			}
-	
+
 			return registroGuardado;
 		} catch (Exception ex) {
 			throw new Exception(ex.getMessage());
@@ -159,16 +154,15 @@ public class ExcelReader {
 	 * @param rows
 	 */
 	private Map<String, Object> recorrerCeldasDeFila(Workbook wb, Row row, Registro registroGuardado) throws Exception {
-		//Iterator<Cell> cells = row.cellIterator();
+		// Iterator<Cell> cells = row.cellIterator();
 		try {
-		
+
 			TablaModelo tabla = new TablaModelo();
 			// método que recoge los valores de una fila
 			tabla.asignarValores(row);
-	
-			
+
 			Map<String, Object> res = this.constructorEntidades(tabla, registroGuardado);
-			
+
 			return res;
 		} catch (Exception ex) {
 			throw new Exception(ex);
@@ -208,8 +202,8 @@ public class ExcelReader {
 			if (!c.getEdificios().contains(e)) {
 				c.addEdificio(e);
 			}
-			//c.addEdificio(e);
-			//mapa para devolver resultados fuera del método
+			// c.addEdificio(e);
+			// mapa para devolver resultados fuera del método
 			Map<String, Object> res = new HashedMap<String, Object>();
 			res.put("complejo", c);
 			res.put("ue", ue);
@@ -384,7 +378,7 @@ public class ExcelReader {
 	}
 
 	private Ue buildUe(TablaModelo tabla, Registro r) {
-	
+
 		// los dos primeros campos (1 y 2) de la tabla deben ser los datos del complejo
 		Ue ue = new Ue();
 		ue.setIdUe(tabla.getUe());
@@ -418,7 +412,7 @@ public class ExcelReader {
 				ueFound = ueDao.save(ueFound);
 				encontrado = true;
 			}
-	
+
 			while (ueIterator.hasNext() && !encontrado) {
 				// vamos a recorrer la lista y comprobar los nombres
 				Ue iter = ueIterator.next();
@@ -432,7 +426,7 @@ public class ExcelReader {
 					ueFound = iter;
 					encontrado = true;
 					// si el contador se pasa del tamaño de la lista de ue -> se crea un ue
-				}  else {
+				} else {
 					contador++;
 				}
 			}
@@ -441,10 +435,10 @@ public class ExcelReader {
 				ueFound = ueDao.save(ueFound);
 				encontrado = true;
 			}
-			//ueFound = ueDao.findByIdUe(ueFound.getIdUe(), ueFound.getRegistro());
+			// ueFound = ueDao.findByIdUe(ueFound.getIdUe(), ueFound.getRegistro());
 			// guardamos ue en la base de datos
 			return ueFound;
-		}catch(Exception ex) {
+		} catch (Exception ex) {
 			throw new Exception(ex);
 		}
 	}

@@ -10,15 +10,16 @@ import es.indra.censo.model.wrapper.NoSorteableException;
 public interface IPuestoService {
 
 	public List<Puesto> findAll() throws Exception;
-	
-	//De momento no implementado en el controlador, no necesitado.
+
+	// De momento no implementado en el controlador, no necesitado.
 	public void save(Puesto puesto) throws Exception;
 
-	//De momento no implementado en el controlador, no necesitado.
+	// De momento no implementado en el controlador, no necesitado.
 	public void deletePuesto(Integer id) throws Exception;
 
 	public Puesto findPuestoById(Integer id) throws Exception;
-	
-	public List<Puesto> findByPlantaOrdenados(Integer nombrePlanta, Integer idRegistro)  throws NoSorteableException, Exception;
+
+	public List<Puesto> findByPlantaOrdenados(Integer nombrePlanta, Integer idRegistro)
+			throws NoSorteableException, Exception;
 
 }

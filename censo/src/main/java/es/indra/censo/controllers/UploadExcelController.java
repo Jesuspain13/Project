@@ -63,13 +63,13 @@ public class UploadExcelController {
 
 	@PostMapping("/upload")
 	@Secured({ "ROLE_ADMIN" })
-	public String uploadExcel(@Valid FileWrapper r, BindingResult resultValid,
-			Model model, RedirectAttributes flash, Locale locale) {
+	public String uploadExcel(@Valid FileWrapper r, BindingResult resultValid, Model model, RedirectAttributes flash,
+			Locale locale) {
 		try {
 			if (resultValid.hasErrors()) {
 				return "upload";
 			}
-			
+
 			Registro rSearched = null;
 			rSearched = rService.findRegistroByVersion(r.getVersion());
 			// si la versión ya existe vuelve hacia atrás.

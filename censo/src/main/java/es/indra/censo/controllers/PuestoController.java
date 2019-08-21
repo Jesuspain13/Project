@@ -19,7 +19,7 @@ import es.indra.censo.service.IPuestoService;
 @Controller
 @RequestMapping("/puesto")
 public class PuestoController {
-	
+
 	@Autowired
 	private MessageSource msgSource;
 
@@ -32,7 +32,7 @@ public class PuestoController {
 		try {
 			model.addAttribute("titulo", "Distribución de los puestos de trabajo");
 			model.addAttribute("puestos", puestoService.findAll());
-	
+
 			return "redirect:/planta/listar";
 		} catch (Exception ex) {
 			String msg = msgSource.getMessage("text.error.generico", null, locale);
@@ -44,19 +44,19 @@ public class PuestoController {
 
 	// Método para mostrar un puesto a través del Id.
 	@GetMapping(value = "/ver/{id}")
-	public String ver(@PathVariable(value = "id") Integer id,
-			Map<String, Object> model, RedirectAttributes flash, Locale locale) {
+	public String ver(@PathVariable(value = "id") Integer id, Map<String, Object> model, RedirectAttributes flash,
+			Locale locale) {
 		try {
 			Puesto puesto = puestoService.findPuestoById(id);
-	
+
 			if (puesto == null) {
 				flash.addFlashAttribute("error", "¡Lo sentimos, el puesto que está buscando no existe!");
 				return "redirect:/listar";
 			}
-	
+
 			model.put("puesto", puesto);
 			model.put("titulo", "Este es el puesto número: " + puesto.getIdPuesto());
-	
+
 			return "ver";
 		} catch (Exception ex) {
 			String msg = msgSource.getMessage("text.error.generico", null, locale);

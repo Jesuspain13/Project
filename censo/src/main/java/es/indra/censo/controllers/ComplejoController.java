@@ -22,11 +22,11 @@ import es.indra.censo.service.IComplejoService;
 
 @Controller
 @RequestMapping("/complejo")
-@SessionAttributes({"registro", "complejos","idRegistro", "edificios"})
+@SessionAttributes({ "registro", "complejos", "idRegistro", "edificios" })
 public class ComplejoController {
 
 	private Logger log = LoggerFactory.getLogger(ComplejoController.class);
-	
+
 	@Autowired
 	private MessageSource msgSource;
 
@@ -34,12 +34,11 @@ public class ComplejoController {
 	private IComplejoService complejoSvc;
 
 	@PostMapping("listar")
-	public String listar(@Valid Complejo c, BindingResult resutlValid,
-			@RequestParam("idRegistro") Integer idRegistro,
+	public String listar(@Valid Complejo c, BindingResult resutlValid, @RequestParam("idRegistro") Integer idRegistro,
 			Model model, RedirectAttributes flash, SessionStatus status) {
 		try {
 			if (resutlValid.hasErrors()) {
-				
+
 				return "searchform";
 			}
 			Complejo complejo = complejoSvc.findByIdAndRegistroWithJoinFetch(c.getId(), idRegistro);

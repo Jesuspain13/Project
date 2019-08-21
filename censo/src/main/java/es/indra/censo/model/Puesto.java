@@ -23,45 +23,42 @@ import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 @Entity
 @Table(name = "puesto")
-@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property="idPuestoAuto")
-@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "idPuestoAuto")
+@JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
 public class Puesto implements Serializable {
 
 	// Definición de los atributos de la tabla Puesto.
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE)
-	@Column(name="id_puesto_auto")
+	@Column(name = "id_puesto_auto")
 	private Integer idPuestoAuto;
-	
-	@Column(name="id_puesto")
+
+	@Column(name = "id_puesto")
 	private String idPuesto;
 
 // Relación de los puestos con la planta, pendiente de ver la implementación por tema de recursividad.
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "id_planta")
-	@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+	@JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
 	@JsonIgnore
 	private Planta planta;
 
 	private boolean ocupado;
-	
-	@OneToOne(fetch= FetchType.LAZY, cascade = CascadeType.ALL)
-	@JoinColumn(name="id_empleado")
+
+	@OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@JoinColumn(name = "id_empleado")
 	private Empleado empleado;
 
 	@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinColumn(name = "id_registro")
-	@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+	@JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
 	@JsonIgnore
 	private Registro registro;
-	
 
 	// Implementación de los Getters & Setters de la clase Puesto.
 
-	
-	
 	public String getIdPuesto() {
 		return idPuesto;
 	}
@@ -93,7 +90,6 @@ public class Puesto implements Serializable {
 	public void setPlanta(Planta planta) {
 		this.planta = planta;
 	}
-	
 
 	public boolean isOcupado() {
 		return ocupado;
@@ -102,7 +98,7 @@ public class Puesto implements Serializable {
 	public void setOcupado(boolean ocupado) {
 		this.ocupado = ocupado;
 	}
-	
+
 	public Registro getRegistro() {
 		return registro;
 	}

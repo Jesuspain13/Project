@@ -18,8 +18,8 @@ import es.indra.censo.model.Rol;
 import es.indra.censo.model.Usuario;
 
 @Service
-public class JpaUserDetailSvc implements UserDetailsService{
-	
+public class JpaUserDetailSvc implements UserDetailsService {
+
 	@Autowired
 	private IUsuarioDao uDao;
 
@@ -27,14 +27,14 @@ public class JpaUserDetailSvc implements UserDetailsService{
 	@Transactional
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 		Usuario user = uDao.findByUsername(username);
-		
+
 		if (user == null) {
 			throw new UsernameNotFoundException("Username " + username + " no tiene roles asignado");
 		}
-		
-		List<GrantedAuthority> auths  = new ArrayList<GrantedAuthority>();
-		
-		for(Rol userAuth: user.getRoles()) {
+
+		List<GrantedAuthority> auths = new ArrayList<GrantedAuthority>();
+
+		for (Rol userAuth : user.getRoles()) {
 			auths.add(new SimpleGrantedAuthority(userAuth.getAuthority()));
 		}
 		return new User(username, user.getPassword(), user.getEnabled(), true, true, true, auths);
