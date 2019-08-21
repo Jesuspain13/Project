@@ -2,6 +2,8 @@ package es.indra.censo.service;
 
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -12,35 +14,61 @@ import es.indra.censo.model.Registro;
 @Service
 public class RegistroService implements IRegistroService {
 
+	private Logger log = LoggerFactory.getLogger(RegistroService.class);
+
 	@Autowired
 	private IRegistroDao registroDao;
 
 	@Override
-	public List<Registro> findAll() {
-		return (List<Registro>) registroDao.findAll();
+	public List<Registro> findAll() throws Exception {
+		try {
+			return (List<Registro>) registroDao.findAll();
+		} catch (Exception ex) {
+			log.error(ex.getMessage());
+			throw new Exception(ex);
+		}
 	}
 
 	@Override
 	@Transactional
-	public Registro save(Registro registro) {
-		return registroDao.save(registro);
+	public Registro save(Registro registro) throws Exception {
+		try {
+			return registroDao.save(registro);
+		} catch (Exception ex) {
+			log.error(ex.getMessage());
+			throw new Exception(ex);
+		}
 
 	}
 
 	@Override
-	@Transactional(readOnly = true)
-	public Registro findRegistroById(Integer id) {
-		return registroDao.findById(id).get();
-	}
-	
-	@Override
-	public Registro findRegistroByVersion(String version) {
-		return registroDao.findByVersion(version);
+	public Registro findRegistroById(Integer id) throws Exception {
+		try {
+			return registroDao.findById(id).get();
+		} catch (Exception ex) {
+			log.error(ex.getMessage());
+			throw new Exception(ex);
+		}
 	}
 
 	@Override
-	public Registro findByIdWithJoinFetch(Integer id) {
-		return registroDao.findByIdWithJoinFetch(id);
+	public Registro findRegistroByVersion(String version) throws Exception {
+		try {
+			return registroDao.findByVersion(version);
+		} catch (Exception ex) {
+			log.error(ex.getMessage());
+			throw new Exception(ex);
+		}
 	}
-	
+
+	@Override
+	public Registro findByIdWithJoinFetch(Integer id) throws Exception {
+		try {
+			return registroDao.findByIdWithJoinFetch(id);
+		} catch (Exception ex) {
+			log.error(ex.getMessage());
+			throw new Exception(ex);
+		}
+	}
+
 }

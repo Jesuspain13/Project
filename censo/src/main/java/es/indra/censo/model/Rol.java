@@ -9,9 +9,9 @@ import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
 @Entity
-@Table(name="roles", uniqueConstraints= @UniqueConstraint(columnNames= {"user_id", "authority"}))
+@Table(name = "roles", uniqueConstraints = @UniqueConstraint(columnNames = { "user_id", "authority" }))
 public class Rol implements Serializable {
-	
+
 	/**
 	 * 
 	 */
@@ -20,7 +20,7 @@ public class Rol implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
-	
+
 	private String authority;
 
 	public Integer getId() {
@@ -38,7 +38,5 @@ public class Rol implements Serializable {
 	public void setAuthority(String authority) {
 		this.authority = authority;
 	}
-	
-	
 
 }

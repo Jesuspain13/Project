@@ -23,8 +23,8 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 @Entity
-@Table(name="registros")
-@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property="idRegistro")
+@Table(name = "registros")
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "idRegistro")
 
 public class Registro implements Serializable {
 
@@ -32,36 +32,35 @@ public class Registro implements Serializable {
 		this.complejos = new ArrayList<Complejo>();
 		this.ues = new ArrayList<Ue>();
 	}
-	
+
 	public Registro(String version) {
 		this.complejos = new ArrayList<Complejo>();
 		this.ues = new ArrayList<Ue>();
 		this.version = version;
 	}
-	
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name="id_registro")
+	@Column(name = "id_registro")
 	private Integer idRegistro;
-	
+
 	@NotEmpty
 	@NotNull
 	private String version;
-	
-	@Column(name="fecha_subida")
+
+	@Column(name = "fecha_subida")
 	private Date fechaSubida;
-	
+
 	// Relaciones (facilitar guardado)
-	@OneToMany(mappedBy="registro", fetch=FetchType.LAZY, cascade=CascadeType.ALL)
-	@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+	@OneToMany(mappedBy = "registro", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
 	private List<Complejo> complejos;
-	
-	@OneToMany(mappedBy="registro", fetch=FetchType.LAZY, cascade=CascadeType.ALL)
-	@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+
+	@OneToMany(mappedBy = "registro", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
 	private List<Ue> ues;
-	
-	//private Integer idAdmin;
+
+	// private Integer idAdmin;
 
 	public Integer getIdRegistro() {
 		return idRegistro;
@@ -86,12 +85,12 @@ public class Registro implements Serializable {
 	public void setFechaSubida(Date fechaSubida) {
 		this.fechaSubida = fechaSubida;
 	}
-	
+
 	@PrePersist
 	public void establecerFechaSubida() {
 		this.fechaSubida = new Date();
 	}
-	
+
 	public List<Complejo> getComplejos() {
 		return complejos;
 	}
@@ -111,11 +110,10 @@ public class Registro implements Serializable {
 	public void setUes(List<Ue> ues) {
 		this.ues = ues;
 	}
-	
+
 	public void addUes(Ue ue) {
 		this.ues.add(ue);
 	}
-
 
 	/**
 	 * 

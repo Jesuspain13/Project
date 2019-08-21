@@ -11,48 +11,40 @@ import es.indra.censo.controllers.auth.LoginSuccessHandler;
 import es.indra.censo.service.JpaUserDetailSvc;
 
 @Configuration
-public class SpringSecurityConfig extends WebSecurityConfigurerAdapter{
-	
+public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
+
 	@Autowired
 	private LoginSuccessHandler loginSuccessHandler;
-	
+
 	@Autowired
-	private BCryptPasswordEncoder passwordEncoder; 
-	
+	private BCryptPasswordEncoder passwordEncoder;
+
 	@Autowired
 	private JpaUserDetailSvc userDetailsService;
-	
+
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
-		http.authorizeRequests().antMatchers("/", "/home*", "/css/**", "/js/**", "/font/**", "/img/**", "/scs**", "/locale").permitAll()
-		//.antMatchers("/ver/**").hasAnyRole("USER")
-		//.antMatchers("/uploads/**").hasAnyRole("USER")
-		//.antMatchers("/form/**").hasAnyRole("ADMIN")
-		//.antMatchers("/delete/**").hasAnyRole("ADMIN")
-		.antMatchers("/doc/upload").hasAnyRole("ADMIN")
-		.anyRequest().authenticated()
-		.and()
-		.formLogin().successHandler(loginSuccessHandler)
-		.loginPage("/login").permitAll()
-		.and()
-		.logout().permitAll()
-		.and()
-		.exceptionHandling().accessDeniedPage("/error_403");
+		http.authorizeRequests()
+				.antMatchers("/", "/home*", "/css/**", "/js/**", "/font/**", "/img/**", "/scs**", "/locale").permitAll()
+				// .antMatchers("/ver/**").hasAnyRole("USER")
+				// .antMatchers("/uploads/**").hasAnyRole("USER")
+				// .antMatchers("/form/**").hasAnyRole("ADMIN")
+				// .antMatchers("/delete/**").hasAnyRole("ADMIN")
+				.antMatchers("/doc/upload").hasAnyRole("ADMIN").anyRequest().authenticated().and().formLogin()
+				.successHandler(loginSuccessHandler).loginPage("/login").permitAll().and().logout().permitAll().and()
+				.exceptionHandling().accessDeniedPage("/error_403");
 	}
 
 	@Autowired
 	public void ConfigurerGlobal(AuthenticationManagerBuilder build) {
-		//UserBuilder ub = User.withDefaultPasswordEncoder();
-		
+		// UserBuilder ub = User.withDefaultPasswordEncoder();
+
 		try {
-			build.userDetailsService(userDetailsService)
-			.passwordEncoder(passwordEncoder);
+			build.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
-	
-	
 
 }

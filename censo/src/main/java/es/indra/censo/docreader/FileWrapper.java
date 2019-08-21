@@ -8,11 +8,11 @@ import org.springframework.web.multipart.MultipartFile;
 import es.indra.censo.docreader.validator.ValidadorArchivo;
 
 public class FileWrapper {
-	
+
 	@NotNull
 	@NotEmpty
 	public String version;
-	
+
 	@ValidadorArchivo
 	public MultipartFile file;
 
@@ -31,7 +31,5 @@ public class FileWrapper {
 	public void setFile(MultipartFile file) {
 		this.file = file;
 	}
-	
-	
 
 }

@@ -25,19 +25,18 @@ import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 @Entity
 @Table(name = "ue")
-@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property="nombreUeRepercutible")
-@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "nombreUeRepercutible")
+@JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
 public class Ue implements Serializable {
 
 	public Ue() {
 		this.empleados = new ArrayList<Empleado>();
 	}
-	
-	
+
 	// Definición de los atributos de la tabla UE.
 
 	@Id
-	@GeneratedValue(strategy= GenerationType.SEQUENCE)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE)
 	private Integer id;
 
 	@Column(name = "id_ue")
@@ -54,18 +53,17 @@ public class Ue implements Serializable {
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "id_registro")
-	@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+	@JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
 	@JsonIgnore
 	private Registro registro;
 
 	@OneToMany(mappedBy = "ue", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+	@JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
 	@JsonIgnore
 	private List<Empleado> empleados;
 
-	
 	// Implementación de los Getters & Setters de la clase UE.
-	
+
 	public Integer getId() {
 		return id;
 	}
@@ -113,18 +111,18 @@ public class Ue implements Serializable {
 	public void setEmpleados(List<Empleado> empleados) {
 		this.empleados = empleados;
 	}
-	
+
 	public Registro getRegistro() {
-	return registro;
-}
-	
+		return registro;
+	}
+
 	public void addEmpleado(Empleado e) {
 		this.empleados.add(e);
 	}
 
-public void setRegistro(Registro registro) {
-	this.registro = registro;
-}
+	public void setRegistro(Registro registro) {
+		this.registro = registro;
+	}
 
 	/**
 	 * 

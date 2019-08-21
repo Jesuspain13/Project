@@ -24,9 +24,9 @@ import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 @Entity
 @Table(name = "complejos")
-@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property="id")
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 public class Complejo implements Serializable {
-	
+
 	public Complejo() {
 		this.edificios = new ArrayList<Edificio>();
 	}
@@ -44,11 +44,11 @@ public class Complejo implements Serializable {
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "id_registro")
-	@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+	@JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
 	private Registro registro;
-	
-	@OneToMany(mappedBy="complejo",fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+
+	@OneToMany(mappedBy = "complejo", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
 	private List<Edificio> edificios;
 
 	public Integer getId() {
@@ -70,7 +70,6 @@ public class Complejo implements Serializable {
 	public String getNombreComplejo() {
 		return nombreComplejo;
 	}
-	
 
 	public void setNombreComplejo(String nombreComplejo) {
 		this.nombreComplejo = nombreComplejo;
@@ -79,7 +78,6 @@ public class Complejo implements Serializable {
 	public Registro getRegistro() {
 		return registro;
 	}
-	
 
 	public void setRegistro(Registro registro) {
 		this.registro = registro;
@@ -88,7 +86,6 @@ public class Complejo implements Serializable {
 	public void addEdificio(Edificio e) {
 		this.edificios.add(e);
 	}
-
 
 	public List<Edificio> getEdificios() {
 		return edificios;

@@ -246,8 +246,7 @@ public class TablaModelo {
 				} else {
 					setApellidosEmpleado(cell.getStringCellValue());
 				}
-					
-				
+
 				break;
 			// UE
 			case 9:

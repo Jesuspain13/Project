@@ -6,8 +6,7 @@ import es.indra.censo.model.Complejo;
 
 public interface IComplejoService {
 
-	public Complejo findByIdAndRegistro(Integer idComplejo, Integer idRegistro);
-	
-	
-	public Complejo findByIdAndRegistroWithJoinFetch(Integer idComplejo, Integer idRegistro);
+	public Complejo findByIdAndRegistro(Integer idComplejo, Integer idRegistro) throws Exception;
+
+	public Complejo findByIdAndRegistroWithJoinFetch(Integer idComplejo, Integer idRegistro) throws Exception;
 }

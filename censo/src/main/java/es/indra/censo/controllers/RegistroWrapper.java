@@ -3,11 +3,12 @@ package es.indra.censo.controllers;
 public class RegistroWrapper {
 
 	private Integer idRegistro;
-	
+
 	private String planta;
-	
-	public RegistroWrapper(){}
-	
+
+	public RegistroWrapper() {
+	}
+
 	public RegistroWrapper(Integer idRegistro, String planta) {
 		super();
 		this.idRegistro = idRegistro;
@@ -29,7 +30,5 @@ public class RegistroWrapper {
 	public void setPlanta(String planta) {
 		this.planta = planta;
 	}
-	
-	
-	
+
 }

@@ -21,17 +21,18 @@ public class PlantaBajaWrapper extends PlantaWrapperAbs {
 	}
 
 	@Override
-	public List<Puesto> ordenarPuesto(String nombrePlanta, List<Puesto> puestosDesordenados) throws NoSorteableException {
+	public List<Puesto> ordenarPuesto(String nombrePlanta, List<Puesto> puestosDesordenados)
+			throws NoSorteableException {
 
 		try {
 
 			Puesto iteraciónPuestoDesordenado;
 			Puesto ultimoPuestoOrdenado;
 			int value = 0;
-	
+
 			for (int i = 0; i < puestosDesordenados.size() - 21; i++) {
 				iteraciónPuestoDesordenado = puestosDesordenados.get(i);
-	
+
 				// si no contiene Z
 				// comprobar que la lista ya ordenada es mayor a 0
 				if (super.getPuestosOrdenados().size() > 0) {
@@ -47,17 +48,17 @@ public class PlantaBajaWrapper extends PlantaWrapperAbs {
 							|| iteraciónPuestoDesordenado.getIdPuesto().contains("z")) {
 						this.plantaAzahara.add(puestosDesordenados.get(i));
 						// si tiene z pero el id del utlimo puesto añadido es uno de estos valores
-	
+
 						if (this.puestosPreviosAAlfanumericos.contains(value)) {
 							this.añadirValoresAlfanumericos(puestosDesordenados, value, i);
-	
+
 						}
-	
+
 					} else {
-	
+
 						if (this.puestosPreviosAAlfanumericos.contains(value)) {
 							this.añadirValoresAlfanumericos(puestosDesordenados, value, i);
-	
+
 						} else {
 							this.añadirSiNoTieneZ(puestosDesordenados, i);
 						}
@@ -65,13 +66,14 @@ public class PlantaBajaWrapper extends PlantaWrapperAbs {
 				} else {
 					this.añadirSiNoTieneZ(puestosDesordenados, i);
 				}
-	
+
 				value = 0;
 			}
 			System.out.println("");
 			return getPuestosOrdenados();
 		} catch (Exception ex) {
-			throw new NoSorteableException(String.format("la lista de puestos de la planta %s no se ha podido ordenar", nombrePlanta));
+			throw new NoSorteableException(
+					String.format("la lista de puestos de la planta %s no se ha podido ordenar", nombrePlanta));
 		}
 	}
 

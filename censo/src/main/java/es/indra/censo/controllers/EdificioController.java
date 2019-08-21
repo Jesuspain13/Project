@@ -27,44 +27,43 @@ import es.indra.censo.service.IEdificioService;
 
 @Controller
 @RequestMapping("/edificio")
-@SessionAttributes({"complejo", "registro", "idRegistro", "edificios"})
+@SessionAttributes({ "complejo", "registro", "idRegistro", "edificios" })
 public class EdificioController {
-	
+
 	private Logger log = LoggerFactory.getLogger(EdificioController.class);
-	
+
 	@Autowired
 	private IEdificioService edificioSvc;
-	
+
 	@Autowired
 	private IPuestoDao puestoDao;
 
 	@PostMapping("listar")
 	@Transactional
-	public String listar(@Valid Edificio e, BindingResult resultValid,
-			@RequestParam("idRegistro") Integer idRegistro,
+	public String listar(@Valid Edificio e, BindingResult resultValid, @RequestParam("idRegistro") Integer idRegistro,
 			SessionStatus status, Map<String, Object> model) {
 		try {
-				if (resultValid.hasErrors()) {
-				
+			if (resultValid.hasErrors()) {
+
 				return "searchform";
 			}
 
-		Edificio edificio = edificioSvc.findByIdEdificioAndRegistro(e.getIdEdificio(), idRegistro);
-		status.setComplete();
-		model.put("edificio", edificio);
+			Edificio edificio = edificioSvc.findByIdEdificioAndRegistro(e.getIdEdificio(), idRegistro);
+			status.setComplete();
+			model.put("edificio", edificio);
 
-		Planta p = edificio.getPlantas().get(1);
-		PlantaWrapperAbs pWrapper = new PlantaWrapper();
-		List<Puesto> puestosDesordenados = puestoDao.findByPlanta(p);
-		List<Puesto >puestos = (pWrapper.ordenarPuesto(p.getNombrePlanta(), puestosDesordenados));
-		p.setPuestos(puestos);
-		
-		model.put("idRegistro", idRegistro);
-		
-		model.put("planta", p);
-		
-		return "plantaprimera";
-		} catch(Exception ex) {
+			Planta p = edificio.getPlantas().get(1);
+			PlantaWrapperAbs pWrapper = new PlantaWrapper();
+			List<Puesto> puestosDesordenados = puestoDao.findByPlanta(p);
+			List<Puesto> puestos = (pWrapper.ordenarPuesto(p.getNombrePlanta(), puestosDesordenados));
+			p.setPuestos(puestos);
+
+			model.put("idRegistro", idRegistro);
+
+			model.put("planta", p);
+
+			return "plantaprimera";
+		} catch (Exception ex) {
 			log.error(ex.getMessage());
 			model.put("error", UploadExcelController.ERROR_MSG);
 			return "redirect:/registro/listar";

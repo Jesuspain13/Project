@@ -1,16 +1,15 @@
 package es.indra.censo.controllers;
 
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
-
-import javax.validation.Valid;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -26,7 +25,7 @@ import es.indra.censo.service.IRegistroService;
 
 @Controller
 @RequestMapping("/registro")
-@SessionAttributes({"registro", "complejos", "complejo"})
+@SessionAttributes({ "registro", "complejos", "complejo" })
 public class RegistroController {
 	private Logger log = LoggerFactory.getLogger(RegistroController.class);
 
@@ -34,12 +33,13 @@ public class RegistroController {
 
 	@Autowired
 	private IRegistroService registroService;
-	
 
+	@Autowired
+	private MessageSource msgSource;
 
 	// Método para mostrar todos los registros del censo.
-	@RequestMapping(value ="/listar", method = RequestMethod.GET)
-	public String listar(Model model) {
+	@RequestMapping(value = "/listar", method = RequestMethod.GET)
+	public String listar(Model model, RedirectAttributes flash, Locale locale) {
 		try {
 			List<Registro> r = registroService.findAll();
 			// CASO DE NO HABER REGISTROS
@@ -54,49 +54,54 @@ public class RegistroController {
 
 			return "searchform";
 		} catch (Exception ex) {
-			log.error(ex.getMessage());
-			model.addAttribute("error", UploadExcelController.ERROR_MSG);
-			return "redirect:/registro/listar";
+			String msg = msgSource.getMessage("text.error.generico", null, locale);
+			flash.addFlashAttribute("error", String.format(msg, ex.getMessage()));
+			return "redirect:/";
 		}
 	}
 
 	@PostMapping(value = "/listar")
-	public String listar(Registro registro, Model model, SessionStatus status) {
+	public String listar(Registro registro, Model model, SessionStatus status, RedirectAttributes flash,
+			Locale locale) {
 		try {
 			Registro rFound = registroService.findByIdWithJoinFetch(registro.getIdRegistro());
 			status.setComplete();
 			model.addAttribute("titulo", "Listado de todos los registros");
-			
+
 			model.addAttribute("complejos", rFound.getComplejos());
 			Complejo c = new Complejo();
 			model.addAttribute("complejo", c);
-			
-			
+
 			model.addAttribute("registro", rFound);
 			return "searchform";
 		} catch (Exception ex) {
-			log.error(ex.getMessage());
-			model.addAttribute("error", UploadExcelController.ERROR_MSG);
-			return "redirect:/registro/listar";
+			String msg = msgSource.getMessage("text.error.generico", null, locale);
+			flash.addFlashAttribute("error", String.format(msg, ex.getMessage()));
+			return "redirect:/";
 		}
 	}
 
 	// Método para mostrar el detalle de los registros por Id.
 	@GetMapping(value = "/ver/{id}")
-	public String ver(@PathVariable(value = "id") Integer id, Map<String, Object> model, RedirectAttributes flash) {
+	public String ver(@PathVariable(value = "id") Integer id, Map<String, Object> model, RedirectAttributes flash,
+			Locale locale) {
+		try {
+			Registro registro = registroService.findRegistroById(id);
 
-		Registro registro = registroService.findRegistroById(id);
+			if (registro == null) {
+				flash.addFlashAttribute("error", msgSource.getMessage("text.error.encontrar.registro", null, locale));
+				return "redirect:/listar";
+			}
 
-		if (registro == null) {
-			flash.addFlashAttribute("error", "¡El registro al que intenta acceder no existe en la BBDD!");
-			return "redirect:/listar";
+			model.put("registro", registro);
+			model.put("titulo", "Información detallada del registro número: " + registro.getVersion());
+			return "ver";
+
+		} catch (Exception ex) {
+			String msg = msgSource.getMessage("text.error.generico", null, locale);
+			flash.addFlashAttribute("error", String.format(msg, ex.getMessage()));
+			return "redirect:/";
 		}
 
-		model.put("registro", registro);
-		model.put("titulo", "Información detallada del registro número: " + registro.getVersion());
-		return "ver";
-
 	}
-
-
 }

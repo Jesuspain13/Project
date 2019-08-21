@@ -37,9 +37,9 @@ public class Usuario implements Serializable {
 
 	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinColumn(name = "user_id")
-	@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+	@JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
 	private List<Rol> roles;
-	
+
 	private boolean enabled;
 
 	public Integer getId() {
@@ -82,5 +82,4 @@ public class Usuario implements Serializable {
 		this.enabled = enabled;
 	}
 
-	
 }
