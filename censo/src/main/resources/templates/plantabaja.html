@@ -1238,7 +1238,7 @@
                         if (divs[i].className.includes('puestosInv')) {
           
                             html = `<button type="button" id="button" data-toggle="modal" data-target=${nameModal}  class="${styleBtn}" >${puesto.idPuesto}</button>
-    								<p class="name text-center">${empleado.apellido}</p>
+    								<p class="name d-flex align-items-center justify-content-center name text-center">${empleado.apellido}</p>
     								<!--Modal: Login with Avatar Form-->
      		                        <div class="modal fade" id=${idModal} tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
      		                            <div class="modal-dialog cascading-modal modal-avatar modal-sm" role="document">
@@ -1272,7 +1272,7 @@
      		                        </div>
      		                        <!--Modal: Login with Avatar Form-->`
                         } else {
-                            html = `<p class="name text-center">${empleado.apellido}</p>
+                            html = `<p class="name text-center name d-flex align-items-center justify-content-center name text-center">${empleado.apellido}</p>
      								<button type="button"  id="button" class="${styleBtn}" data-toggle="modal"
      									data-target=${nameModal}>${puesto.idPuesto}</button>
      								
@@ -1320,7 +1320,7 @@
                         if (divs[i].className.includes('puestosInv')) {
                             console.log(puesto);
                             html = `<button type="button"  id="button" data-toggle="modal" data-target=${nameModal}  class="btn btn-success">${puesto.idPuesto}</button>
-    								<p class="name text-center">${empleado}</p>
+    								<p class="name d-flex align-items-center justify-content-center name text-center">${empleado}</p>
     								<!--Modal: Login with Avatar Form-->
      		                        <div class="modal fade" id=${idModal} tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
      		                            <div class="modal-dialog cascading-modal modal-avatar modal-sm" role="document">
@@ -1350,7 +1350,7 @@
      		                        </div>
      		                        <!--Modal: Login with Avatar Form-->`
                         } else {
-                            html = `<p class="name text-center">${empleado}</p>
+                            html = `<p class="name d-flex align-items-center justify-content-center name text-center">${empleado}</p>
      								<button type="button" id="button" class="btn btn-success" data-toggle="modal" 
      									data-target=${nameModal}>${puesto.idPuesto}</button>
      								
