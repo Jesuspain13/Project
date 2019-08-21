@@ -73,8 +73,8 @@ public class ExcelReader {
 			Registro r = new Registro(version);
 			
 			//Registro registroGuardado = rDao.save(r);
-
-			this.recorrerFilas(workbook, rows, r, sheet.getLastRowNum());
+			int lastRow = sheet.getLastRowNum();
+			this.recorrerFilas(workbook, rows, r, lastRow);
 			
 			workbook.close();
 			rService.save(r);
