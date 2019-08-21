@@ -6,7 +6,7 @@ import es.indra.censo.model.Empleado;
 
 public interface IEmpleadoService {
 	
-	public List <Empleado> findAll();
+	public List <Empleado> findAll() throws Exception;
 	
-	public Empleado findEmpleadoById (Integer id);
+	public Empleado findEmpleadoById (Integer id) throws Exception;
 }

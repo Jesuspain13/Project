@@ -16,15 +16,23 @@ public class ComplejoServiceImpl implements IComplejoService {
 
 	
 	@Override
-	public Complejo findByIdAndRegistro(Integer idComplejo, Integer idRegistro) {
-		return complejoDao.findByIdAndRegistro(idComplejo, idRegistro);
+	public Complejo findByIdAndRegistro(Integer idComplejo, Integer idRegistro) throws Exception {
+		try {
+			return complejoDao.findByIdAndRegistro(idComplejo, idRegistro);
+		} catch (Exception ex) {
+			throw new Exception(ex);
+		}
 
 	}
 
 	@Override
-	public Complejo findByIdAndRegistroWithJoinFetch(Integer idComplejo, Integer idRegistro) {
-		// TODO Auto-generated method stub
-		return complejoDao.findByIdAndRegistroWithJoinFetch(idComplejo, idRegistro);
+	public Complejo findByIdAndRegistroWithJoinFetch(Integer idComplejo, Integer idRegistro) throws Exception {
+		
+		try {
+			return complejoDao.findByIdAndRegistroWithJoinFetch(idComplejo, idRegistro);
+		} catch (Exception ex) {
+			throw new Exception(ex);
+		}
 	}
 
 }

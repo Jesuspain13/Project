@@ -1,8 +1,10 @@
 package es.indra.censo.controllers;
 
+import java.util.Locale;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -17,35 +19,49 @@ import es.indra.censo.service.IEmpleadoService;
 @Controller
 @RequestMapping("/empleado")
 public class EmpleadoController {
+	
+	@Autowired
+	private MessageSource msgSource;
 
 	@Autowired
 	private IEmpleadoService empleadoService;
 
 	// Método para mostrar todos los empleados del censo.
 	@RequestMapping(value = "/listar", method = RequestMethod.GET)
-	public String listar(Model model) {
-		model.addAttribute("titulo", "Listado de todos los empleados");
-		model.addAttribute("empleados", empleadoService.findAll());
-
-		return "listar";
+	public String listar(Model model, RedirectAttributes flash, Locale locale) {
+		try {
+			model.addAttribute("titulo", "Listado de todos los empleados");
+			model.addAttribute("empleados", empleadoService.findAll());
+	
+			return "listar";
+		} catch (Exception ex) {
+			String msg = msgSource.getMessage("text.error.generico", null, locale);
+			flash.addFlashAttribute("error", String.format(msg, ex.getMessage()));
+			return "redirect:/";
+		}
 
 	}
 
 	// Método para mostrar el detalle el empleado que queramos por Id.
 	@GetMapping(value = "/ver/{id}")
-	public String ver(@PathVariable(value = "id") Integer id, Map<String, Object> model, RedirectAttributes flash) {
-
-		Empleado empleado = empleadoService.findEmpleadoById(id);
-
-		if (empleado == null) {
-			flash.addFlashAttribute("error", "¡El empleado al que intenta acceder no existe en la BBDD!");
-			return "redirect:/listar";
+	public String ver(@PathVariable(value = "id") Integer id, Map<String,
+			Object> model, RedirectAttributes flash, Locale locale) {
+		try {
+			Empleado empleado = empleadoService.findEmpleadoById(id);
+	
+			if (empleado == null) {
+				flash.addFlashAttribute("error", "¡El empleado al que intenta acceder no existe en la BBDD!");
+				return "redirect:/listar";
+			}
+	
+			model.put("empleado", empleado);
+			model.put("titulo", "Información detallada de: " + empleado.getNombre() + " " + empleado.getApellido());
+			return "ver";
+		} catch (Exception ex) {
+			String msg = msgSource.getMessage("text.error.generico", null, locale);
+			flash.addFlashAttribute("error", String.format(msg, ex.getMessage()));
+			return "redirect:/";
 		}
-
-		model.put("empleado", empleado);
-		model.put("titulo", "Información detallada de: " + empleado.getNombre() + " " + empleado.getApellido());
-		return "ver";
-
 	}
 
 }

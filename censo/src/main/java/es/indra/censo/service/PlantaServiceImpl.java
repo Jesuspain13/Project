@@ -16,56 +16,79 @@ public class PlantaServiceImpl implements IPlantaService {
 
 	@Autowired
 	private IPlantaDao plantaDao;
-	
-	@Autowired 
+
+	@Autowired
 	private IRegistroDao registroDao;
 
 	@Override
-	public List<Planta> findAll() {
-		return (List<Planta>) plantaDao.findAll();
+	public List<Planta> findAll() throws Exception {
+		try {
+			return (List<Planta>) plantaDao.findAll();
+		} catch (Exception ex) {
+			throw new Exception(ex);
+		}
+	}
+
+	@Override
+	public void save(Planta planta) throws Exception {
+		try {
+			plantaDao.save(planta);
+		} catch (Exception ex) {
+			throw new Exception(ex);
+		}
+
 	}
 
 	@Override
 	@Transactional
-	public void save(Planta planta) {
-		plantaDao.save(planta);
-
-	}
-
-	@Override
-	@Transactional
-	public void deletePlanta(Integer id) {
-		plantaDao.deleteById(id);
+	public void deletePlanta(Integer id) throws Exception {
+		try {
+			plantaDao.deleteById(id);
+		} catch (Exception ex) {
+			throw new Exception(ex);
+		}
 
 	}
 
 	@Override
 	@Transactional(readOnly = true)
-	public Planta findPlantaById(Integer id) {
-		
-		return plantaDao.findById(id).get();
+	public Planta findPlantaById(Integer id) throws Exception {
+		try {
+			return plantaDao.findById(id).get();
+		} catch (Exception ex) {
+			throw new Exception(ex);
+		}
 	}
 
 	@Override
-	public Planta findPlantaByNombrePlanta(Integer nombrePlanta) {
+	public Planta findPlantaByNombrePlanta(Integer nombrePlanta) throws Exception {
 		// TODO Auto-generated method stub
-		String nombre = nombrePlanta.toString();
-		return plantaDao.findByNombrePlanta(nombre);
+		try {
+			String nombre = nombrePlanta.toString();
+			return plantaDao.findByNombrePlanta(nombre);
+		} catch (Exception ex) {
+			throw new Exception(ex);
+		}
 	}
 
 	@Override
-	public Planta findPlantaByIdPlantaAndRegistro(Integer idPlanta, int idRegistro) {
+	public Planta findPlantaByIdPlantaAndRegistro(Integer idPlanta, int idRegistro) throws Exception {
 		// TODO Auto-generated method stub
+		try {
+			Registro r = registroDao.findById(idRegistro).get();
+			return plantaDao.findByIdPlantaAndRegistro(idPlanta, r);
+		} catch (Exception ex) {
+			throw new Exception(ex);
+		}
+	}
 
-		Registro r = registroDao.findById(idRegistro).get();
-		return plantaDao.findByIdPlantaAndRegistro(idPlanta, r);
+	public Planta findPlantaByNombrePlantaAndRegistro(Integer nombrePlanta, Integer idRegistro) throws Exception {
+		try {
+			String nombre = nombrePlanta.toString();
+			return plantaDao.findByNombrePlantaAndRegistro(nombre, idRegistro);
+		} catch (Exception ex) {
+			throw new Exception(ex);
+		}
 	}
-	
-	public Planta findPlantaByNombrePlantaAndRegistro(Integer nombrePlanta, Integer idRegistro) {
-		String nombre = nombrePlanta.toString();
-		return plantaDao.findByNombrePlantaAndRegistro(nombre, idRegistro);
-	}
-	
-	
 
 }

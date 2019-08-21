@@ -23,53 +23,43 @@ public class PuestoServiceImpl implements IPuestoService {
 	private IPuestoDao puestoDao;
 
 	@Override
-	public List<Puesto> findAll() {
+	public List<Puesto> findAll() throws Exception {
+		try {
 		return (List<Puesto>)puestoDao.findAll();
+		} catch (Exception ex) {
+			throw new Exception(ex);
+		}
 	}
 
 	@Override
 	@Transactional
-	public void save(Puesto puesto) {
+	public void save(Puesto puesto) throws Exception {
+		try {
 		puestoDao.save(puesto);
-
+		} catch (Exception ex) {
+			throw new Exception(ex);
+		}
 	}
 
 	@Override
 	@Transactional
-	public void deletePuesto(Integer id) {
+	public void deletePuesto(Integer id) throws Exception {
+		try {
 		puestoDao.deleteById(id);
+		} catch (Exception ex) {
+			throw new Exception(ex);
+		}
 	}
 
 	@Override
 	@Transactional(readOnly = true)
-	public Puesto findPuestoById(Integer id) {
-		
-		return puestoDao.findById(id).get();
+	public Puesto findPuestoById(Integer id) throws Exception {
+		try {
+			return puestoDao.findById(id).get();
+		} catch (Exception ex) {
+			throw new Exception(ex);
+		}
 	}
-
-//	@Override
-//	public List<Puesto> findByPlantaOrdenados(Planta p) throws NoSorteableException, Exception {
-//		// TODO Auto-generated method stub
-//		try {
-//			PlantaWrapperAbs pWrapper;
-//			if (p.getNombrePlanta().contains("0")) {
-//				pWrapper = new PlantaBajaWrapper();
-//				List<Puesto> puestosDesordenados = puestoDao.findByPlanta(p);
-//				return pWrapper.ordenarPuesto(p.getNombrePlanta(), puestosDesordenados);
-//			} else if (p.getNombrePlanta().contains("1")) {
-//				pWrapper = new PlantaWrapper();
-//				List<Puesto> puestosDesordenados = puestoDao.findByPlanta(p);
-//				return pWrapper.ordenarPuesto(p.getNombrePlanta(), puestosDesordenados);
-//			} else {
-//				return null;
-//			}
-//		} catch(NoSorteableException ex) {
-//			throw new NoSorteableException(ex.getMessage());
-//		} catch (Exception ex) {
-//			throw new Exception(ex);
-//		}
-//
-//	}
 
 	@Override
 	public List<Puesto> findByPlantaOrdenados(Integer nombrePlanta, Integer idRegistro) throws NoSorteableException, Exception {

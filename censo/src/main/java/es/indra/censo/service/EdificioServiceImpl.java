@@ -12,13 +12,14 @@ public class EdificioServiceImpl implements IEdificioService {
 	
 	@Autowired
 	private IEdificioDao edificioDao;
-	
-	@Autowired
-	private IRegistroDao registroDao;
 
 	@Override
-	public Edificio findByIdEdificioAndRegistro(Integer idEdificio, Integer idRegistro) {
-		return edificioDao.findByIdAndRegistro(idEdificio, idRegistro);
+	public Edificio findByIdEdificioAndRegistro(Integer idEdificio, Integer idRegistro) throws Exception {
+		try {
+			return edificioDao.findByIdAndRegistro(idEdificio, idRegistro);
+		} catch (Exception ex) {
+			throw new Exception(ex);
+		}
 	}
 
 }

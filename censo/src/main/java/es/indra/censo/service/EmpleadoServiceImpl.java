@@ -16,15 +16,22 @@ public class EmpleadoServiceImpl implements IEmpleadoService {
 	private IEmpleadoDao empleadoDao;
 
 	@Override
-	public List<Empleado> findAll() {
-		return (List<Empleado>) empleadoDao.findAll();
+	public List<Empleado> findAll() throws Exception {
+		try {
+			return (List<Empleado>) empleadoDao.findAll();
+		} catch (Exception ex) {
+			throw new Exception(ex);
+		}
 	}
 
 	@Override
 	@Transactional(readOnly = true)
-	public Empleado findEmpleadoById(Integer id) {
-
-		return empleadoDao.findById(id).get();
+	public Empleado findEmpleadoById(Integer id) throws Exception {
+		try {	
+			return empleadoDao.findById(id).get();
+		} catch (Exception ex) {
+			throw new Exception(ex);
+		}
 	}
 
 }
