@@ -4,7 +4,6 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 
 import es.indra.censo.model.Planta;
-import es.indra.censo.model.Registro;
 
 public interface IPlantaDao extends CrudRepository<Planta, Integer> {
 

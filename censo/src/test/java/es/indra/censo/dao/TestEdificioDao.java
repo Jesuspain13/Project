@@ -1,4 +1,4 @@
-package es.indra.censo;
+package es.indra.censo.dao;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
@@ -20,21 +20,18 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import es.indra.censo.controllers.ComplejoController;
-import es.indra.censo.dao.IComplejoDao;
 import es.indra.censo.docreader.ExcelReader;
-import es.indra.censo.model.Complejo;
-
-
+import es.indra.censo.model.Edificio;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
-public class TestComplejoDao {
+public class TestEdificioDao {
 
 	private File censoTest;
 	private Logger log = LoggerFactory.getLogger(ComplejoController.class);
 
-	@Autowired(required=true)
-	private IComplejoDao cDao;
+	@Autowired(required = true)
+	private IEdificioDao eDao;
 
 	@Autowired
 	private ExcelReader reader;
@@ -45,7 +42,7 @@ public class TestComplejoDao {
 		censoTest = new File("./src/main/resources/SitiosEdificioTest.xlsx");
 
 		try {
-			 FileInputStream excelFile = new FileInputStream(censoTest);
+			FileInputStream excelFile = new FileInputStream(censoTest);
 			Workbook workbook = WorkbookFactory.create(excelFile);
 			reader.reader(workbook, "1.0.2", new Locale("es", "ES"));
 		} catch (Exception ex) {
@@ -55,16 +52,15 @@ public class TestComplejoDao {
 	}
 
 	@Test
-	public void TestComplejofindByIdAndRegistro() {
-		log.info("entrando en metodo test");
+	public void TestEdificiofindByIdAndRegistro() {
 		
-		List<Complejo> complejos = (List<Complejo>) cDao.findAll();
-		Complejo complejoParaTestear = complejos.get(0);
-		Complejo complejoATestear =  cDao.findByIdAndRegistro(complejoParaTestear.getId(),
-				complejoParaTestear.getRegistro().getIdRegistro());
-
-		assertNotNull(complejoATestear);
-		assertEquals(complejoATestear.getId(), complejoParaTestear.getId());
+		List<Edificio> edificios = (List<Edificio>) eDao.findAll();
+		Edificio edificioParaTestear = edificios.get(0);
+		Edificio edificioATestear = eDao.findByIdAndRegistro(edificioParaTestear.getIdEdificio(), 
+				edificioParaTestear.getRegistro().getIdRegistro());
+		
+		assertNotNull(edificioATestear);
+		assertEquals(edificioATestear.getIdEdificio(), edificioParaTestear.getIdEdificio());
 
 	}
 
