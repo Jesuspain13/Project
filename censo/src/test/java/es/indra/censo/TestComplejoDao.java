@@ -1,0 +1,65 @@
+package es.indra.censo;
+
+import static org.junit.Assert.assertNotNull;
+
+import java.io.File;
+import java.io.FileInputStream;
+import java.util.List;
+import java.util.Locale;
+
+import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.ss.usermodel.WorkbookFactory;
+import org.junit.Before;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.junit4.SpringRunner;
+
+import es.indra.censo.controllers.ComplejoController;
+import es.indra.censo.dao.IComplejoDao;
+import es.indra.censo.docreader.ExcelReader;
+import es.indra.censo.model.Complejo;
+
+
+
+@RunWith(SpringRunner.class)
+@SpringBootTest(classes = CensoApplication.class)
+public class TestComplejoDao {
+
+	private File censoTest;
+	private Logger log = LoggerFactory.getLogger(ComplejoController.class);
+
+	@Autowired(required=true)
+	private IComplejoDao complejo;
+
+	@Autowired
+	private ExcelReader reader;
+
+	@Before
+	public void before() {
+
+		censoTest = new File("./src/main/resources/SitiosEdificioTest.xlsx");
+
+		try {
+			 FileInputStream excelFile = new FileInputStream(censoTest);
+			Workbook workbook = WorkbookFactory.create(excelFile);
+			reader.reader(workbook, "1.0.2", new Locale("es", "ES"));
+		} catch (Exception ex) {
+			ex.printStackTrace();
+			log.error(ex.getMessage());
+		}
+	}
+
+	@Test
+	public void TestComplejofindByIdAndRegistro() {
+		log.debug("entrando en metodo test");
+		List<Complejo> complejos = (List<Complejo>) complejo.findByIdAndRegistro(1, 1);
+		System.out.print(complejos.get(2).getNombreComplejo());
+		assertNotNull(complejos);
+
+	}
+
+}
