@@ -65,7 +65,8 @@ public class ExcelReader {
 			this.locale = locale;
 			Sheet sheet = null;
 			Iterator<Sheet> sheetsIterator = workbook.sheetIterator();
-			//buscar la hoja de calculo que coincida con el nombre (es la que contiene los datos)
+			// buscar la hoja de calculo que coincida con el nombre (es la que contiene los
+			// datos)
 			while (sheetsIterator.hasNext() && !censoEncontrado) {
 				sheet = sheetsIterator.next();
 				if (sheet.getSheetName().contains("Censo")) {
@@ -99,19 +100,23 @@ public class ExcelReader {
 	 * @return
 	 */
 
-	private void recorrerFilas(Workbook workbook, Iterator<Row> rows, Registro registroGuardado)
-			throws Exception {
+	private void recorrerFilas(Workbook workbook, Iterator<Row> rows, Registro registroGuardado) throws Exception {
 		try {
 			int contador = 0;
 			Row row;
-			while (rows.hasNext()) {
-				//primera fila -> comprobar orden de las columnas
+			boolean filasVacias = false;
+			while (rows.hasNext() &&  !filasVacias) {
+				// primera fila -> comprobar orden de las columnas
 				row = rows.next();
+				
 				if (contador == 0) {
 					comprobarOrdenColumnas(row);
 					contador++;
 
-				} else  {
+				} else {
+					if (row == null) {
+						filasVacias = true;
+					}
 					recogerResultadoYAsignarARegistro(workbook, row, registroGuardado);
 				}
 			}
@@ -123,42 +128,44 @@ public class ExcelReader {
 			throw new Exception(ex.getMessage());
 		}
 	}
-	
+
 	/**
-	 * Ejecuta la función recorrer celdas, y asigna el complejo y la ue 
-	 * resultante al registro que se va a guardar
+	 * Ejecuta la función recorrer celdas, y asigna el complejo y la ue resultante
+	 * al registro que se va a guardar
+	 * 
 	 * @param workbook
 	 * @param row
 	 * @param registroGuardado
 	 * @throws Exception
 	 */
-	private void recogerResultadoYAsignarARegistro(Workbook workbook,
-			Row row, Registro registroGuardado) throws Exception {
+	private void recogerResultadoYAsignarARegistro(Workbook workbook, Row row, Registro registroGuardado)
+			throws Exception {
 		try {
 			Map<String, Object> res = this.recorrerCeldasDeFila(workbook, row, registroGuardado);
 			Complejo c = (Complejo) res.get("complejo");
 			if (c != null && !registroGuardado.getComplejos().contains(c)) {
 				registroGuardado.addComplejo(c);
 			}
-			
+
 			Ue ue = (Ue) res.get("ue");
 			// comprobar si la ue es null
 			if (ue != null && !registroGuardado.getUes().contains(ue)) {
 				registroGuardado.addUes(ue);
 			}
-		} catch(Exception ex) {
+		} catch (Exception ex) {
 			throw new Exception(ex);
 		}
 	}
-	
+
 	/**
-	 * Ejecuta la comprobación del orden de las columnas en la primera fila,
-	 * la que contiene los títulos
+	 * Ejecuta la comprobación del orden de las columnas en la primera fila, la que
+	 * contiene los títulos
+	 * 
 	 * @param row
 	 * @throws OrdenColumnasException
 	 */
 	private void comprobarOrdenColumnas(Row row) throws OrdenColumnasException {
-	
+
 		boolean resultadoValidarColumnas = validadorColumnas.iterarCeldadYComprobar(row);
 		if (!resultadoValidarColumnas) {
 			String msg = msgSource.getMessage("text.orden.columnas.exception.mensaje", null, this.locale);
@@ -208,7 +215,7 @@ public class ExcelReader {
 			if (emp != null && ue != null) {
 				puesto.setOcupado(true);
 				puesto.setEmpleado(emp);
-				//ue.addEmpleado(emp);
+				// ue.addEmpleado(emp);
 			} else if (emp == null) {
 				puesto.setEmpleado(null);
 			}
@@ -255,7 +262,7 @@ public class ExcelReader {
 		boolean complejoEncontrado = false;
 		if (registroGuardado.getComplejos().size() > 0) {
 			Iterator<Complejo> complejosGuardados = registroGuardado.getComplejos().iterator();
-		
+
 			while (!complejoEncontrado && complejosGuardados.hasNext()) {
 				Complejo iteracionComplejoActual = complejosGuardados.next();
 				if (!iteracionComplejoActual.getNombreComplejo().isEmpty()
@@ -263,15 +270,15 @@ public class ExcelReader {
 					// si esta creado y coincide en nombre lo usamos
 					c = registroGuardado.getComplejos().get(0);
 					complejoEncontrado = true;
-				} else if (!iteracionComplejoActual.getNombreComplejo().isEmpty() &&
-						!iteracionComplejoActual.getNombreComplejo().equals(tabla.getNombreComplejo())) {
+				} else if (!iteracionComplejoActual.getNombreComplejo().isEmpty()
+						&& !iteracionComplejoActual.getNombreComplejo().equals(tabla.getNombreComplejo())) {
 					c = this.buildComplejo(tabla, registroGuardado);
 					complejoEncontrado = true;
 				} else if (iteracionComplejoActual.getNombreComplejo().isEmpty()) {
 					c = this.buildComplejo(tabla, registroGuardado);
 					complejoEncontrado = true;
 				}
-				
+
 			}
 		} else {
 			// si no tiene nombre es que no hay ninguno, se crea
@@ -348,30 +355,23 @@ public class ExcelReader {
 	private Planta seleccionarPlanta(TablaModelo tabla, Edificio e, Registro r) {
 		Planta p = null;
 		List<Planta> listaPlanta = e.getPlantas();
-		// si la lista de edificios del complejo está vacía
-
 		boolean encontrado = false;
 		int contador = 0;
 		// si el tamaño de la lista es igual a 0 -> se construye una planta
-		if (listaPlanta.size() == 0) {
+		while (listaPlanta.size() > 0 && !encontrado && contador < listaPlanta.size()) {
+			// recorrer Plantas y comprobar sus nombres
+			p = listaPlanta.get(contador);
+			if (p.getNombrePlanta().contains(Long.toString(tabla.getNombrePlanta()))) {
+				encontrado = true;
+				// si el contador se pasa del tamaño de la lista -> crea una planta
+			}
+			contador++;
+		}
+		// si no se encuentra o el tamaño de la lista es 0
+		if (!encontrado || listaPlanta.size() == 0) {
 			p = this.buildPlanta(tabla, e, r);
 			encontrado = true;
 		}
-		while (!encontrado) {
-			// vamos a recorrer la lista y comprobar los nombres (para ver si está creada la
-			// planta
-			if (listaPlanta.get(contador).getNombrePlanta().contains(Long.toString(tabla.getNombrePlanta()))) {
-				p = listaPlanta.get(contador);
-				encontrado = true;
-				// si el contador se pasa del tamaño de la lista -> crea una planta
-			} else if (contador == listaPlanta.size() - 1) {
-				p = this.buildPlanta(tabla, e, r);
-				encontrado = true;
-			} else {
-				contador++;
-			}
-		}
-
 		return p;
 	}
 
@@ -428,44 +428,41 @@ public class ExcelReader {
 	private Ue seleccionarUe(TablaModelo tabla, Registro r) throws Exception {
 		try {
 			Ue ueFound = null;
-			List<Ue> ue = r.getUes();
-			Iterator<Ue> ueIterator = ue.iterator();
+			List<Ue> ues = r.getUes();
+			Iterator<Ue> ueIterator = ues.iterator();
 			boolean encontrado = false;
 			int contador = 0;
 			if (tabla.getUe() == null) {
 				return null;
 			}
 			// si el tamaño es 0 es que no hay ue
-			if (ue.size() == 0) {
-				ueFound = this.buildUe(tabla, r);
-				//ueFound = ueDao.save(ueFound);
-				encontrado = true;
-			}
+//			if (ues.size() == 0) {
+//				ueFound = this.buildUe(tabla, r);
+//				// ueFound = ueDao.save(ueFound);
+//				encontrado = true;
+//			}
 
 			while (ueIterator.hasNext() && !encontrado) {
 				// vamos a recorrer la lista y comprobar los nombres
-				Ue iter = ueIterator.next();
+				ueFound = ueIterator.next();
 				// si es null es que no hay ue (aunque en ocasiones aunque no haya coge un null)
-				if (iter == null) {
+				if (ueFound == null) {
 					ueFound = this.buildUe(tabla, r);
-					
 					encontrado = true;
 					// si el id de la iteración es igual al id de la tabla -> no creamos ue
-				} else if (iter.getNombreUe().contains(tabla.getNombreUe())) {
-					ueFound = iter;
+				} else if (ueFound.getNombreUe().contains(tabla.getNombreUe())) {
 					encontrado = true;
 					// si el contador se pasa del tamaño de la lista de ue -> se crea un ue
 				} else {
 					contador++;
 				}
 			}
-			if (!encontrado) {
+			if (!encontrado || ues.size() == 0) {
 				ueFound = this.buildUe(tabla, r);
-				
+
 				encontrado = true;
 			}
-			
-			
+
 			return ueFound;
 		} catch (Exception ex) {
 			throw new Exception(ex);

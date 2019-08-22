@@ -31,7 +31,7 @@ function seleccionarPuestoOcupadoOVacio(puesto, iteaciónDiv, i) {
 	if (puesto.ocupado) {
 		//si el puesto está ocupado
         empleado = puesto.empleado;
-        console.log(empleado.ue);
+
         var dpto = empleado.ue.nombreUeRepercutible;
        
         if(dpto == null){
