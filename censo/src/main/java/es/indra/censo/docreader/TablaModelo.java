@@ -162,147 +162,157 @@ public class TablaModelo {
 	 * @param cells
 	 */
 	public void asignarValores(Row row) {
-		int i = 0;
-		this.teletrabajo = false;
-		boolean teletrab = this.teletrabajo;
-		Cell cell;
-		while (i < 14 && !teletrab) {
-			cell = row.getCell(i);
-
-			switch (i) {
-			// ID COMPLEJO
-			case 0:
-				setIdComplejo(cell.getStringCellValue());
-				break;
-			// NOMBRE COMPLEJO
-			case 1:
-				setNombreComplejo(cell.getStringCellValue());
-				break;
-			// NOMBRE EDIFICIO
-			case 2:
-				setNombreEdificio(cell.getStringCellValue());
-				break;
-			// NOMBRE PLANTA
-			case 3:
-				setNombrePlanta(Math.round(cell.getNumericCellValue()));
-				break;
-			// ID PUESTO
-			case 4:
-				// Cell cell = cells.next();
-
-				// identificador alfanumerico
-				if (cell.getCellType().toString().contains("STRING")) {
-
-					setIdPuesto(cell.getStringCellValue());
-				} else {
-					long res = (Math.round(cell.getNumericCellValue()));
-					setIdPuesto(Long.toString(res));
-
+		try {
+			int i = 0;
+			this.teletrabajo = false;
+			boolean teletrab = this.teletrabajo;
+			boolean finTesteo = false;
+			Cell cell;
+			while (i < 14 && !teletrab && row != null) {
+				cell = row.getCell(i);
+					
+				
+				switch (i) {
+				// ID COMPLEJO
+				case 0:
+					setIdComplejo(cell.getStringCellValue());
+					break;
+				// NOMBRE COMPLEJO
+				case 1:
+					setNombreComplejo(cell.getStringCellValue());
+					break;
+				// NOMBRE EDIFICIO
+				case 2:
+					setNombreEdificio(cell.getStringCellValue());
+					break;
+				// NOMBRE PLANTA
+				case 3:
+					setNombrePlanta(Math.round(cell.getNumericCellValue()));
+					break;
+				// ID PUESTO
+				case 4:
+					// Cell cell = cells.next();
+	
+					// identificador alfanumerico
+					if (cell.getCellType().toString().contains("STRING")) {
+	
+						setIdPuesto(cell.getStringCellValue());
+					} else {
+						long res = (Math.round(cell.getNumericCellValue()));
+						setIdPuesto(Long.toString(res));
+	
+					}
+					break;
+				// NUMERO EMPLEADO
+				case 5:
+					// Cell cell5 = cells.next();
+					// si la celda es un string va a ser teletrabajo
+					if (cell == null) {
+						setNumeroEmpleado(null);
+					} else if (cell.getCellType().toString().contains("STRING")
+							&& cell.getStringCellValue().contains("TELETRAB")) {
+						this.teletrabajo = true;
+						teletrab = true;
+					} else if (cell.getCellType().toString().contains("STRING")) {
+						setNumeroEmpleado(null);
+					} else {
+						// sino va a ser el numero de empleado
+	
+						setNumeroEmpleado((long) cell.getNumericCellValue());
+	
+					}
+					break;
+				// NICK
+				case 6:
+					// Cell cell6 = cells.next();
+					if (cell == null) {
+						setNick(null);
+					} else if (cell.getStringCellValue().length() > 1) {
+						setNick(cell.getStringCellValue());
+					} else {
+						setNick(null);
+					}
+					break;
+				// NOMBRE EMPLEADO
+				case 7:
+					if (cell == null) {
+						setNombreEmpleado(null);
+					} else {
+						setNombreEmpleado(cell.getStringCellValue());
+					}
+	
+					break;
+				// APELLIDOS EMPLEADO
+				case 8:
+					if (cell == null) {
+						setApellidosEmpleado(null);
+					} else {
+						setApellidosEmpleado(cell.getStringCellValue());
+					}
+	
+					break;
+				// UE
+				case 9:
+					if (cell == null) {
+						setUe(null);
+					} else {
+						setUe(cell.getStringCellValue());
+					}
+	
+					break;
+				// NOMBRE UE
+				case 10:
+					if (cell == null) {
+						setNombreUe(null);
+					} else {
+						setNombreUe(cell.getStringCellValue());
+					}
+	
+					break;
+				// UE REPERCUTIBLE
+				case 11:
+					if (cell == null) {
+						setUeRepercutible(null);
+					} else {
+						setUeRepercutible(cell.getStringCellValue());
+					}
+	
+					break;
+				// NOMBRE UE REPERCUTIBLE
+				case 12:
+					if (cell == null) {
+						setNombreUeRepercutible(null);
+					} else {
+						setNombreUeRepercutible(cell.getStringCellValue());
+					}
+	
+					break;
+				// WP STD
+				case 14:
+					if (cell == null) {
+						setWpStd(null);
+					} else {
+						setWpStd(cell.getStringCellValue());
+					}
+	
+					break;
+	//			case 16:
+	//				setFechaCenso(new Date(this.dateCellFormatter(wb, cells.next())));
+	//				break;
+				default:
+					break;
 				}
-				break;
-			// NUMERO EMPLEADO
-			case 5:
-				// Cell cell5 = cells.next();
-				// si la celda es un string va a ser teletrabajo
-				if (cell == null) {
-					setNumeroEmpleado(null);
-				} else if (cell.getCellType().toString().contains("STRING")
-						&& cell.getStringCellValue().contains("TELETRAB")) {
-					this.teletrabajo = true;
-					teletrab = true;
-				} else if (cell.getCellType().toString().contains("STRING")) {
-					setNumeroEmpleado(null);
-				} else {
-					// sino va a ser el numero de empleado
-
-					setNumeroEmpleado((long) cell.getNumericCellValue());
-
-				}
-				break;
-			// NICK
-			case 6:
-				// Cell cell6 = cells.next();
-				if (cell == null) {
-					setNick(null);
-				} else if (cell.getStringCellValue().length() > 1) {
-					setNick(cell.getStringCellValue());
-				} else {
-					setNick(null);
-				}
-				break;
-			// NOMBRE EMPLEADO
-			case 7:
-				if (cell == null) {
-					setNombreEmpleado(null);
-				} else {
-					setNombreEmpleado(cell.getStringCellValue());
-				}
-
-				break;
-			// APELLIDOS EMPLEADO
-			case 8:
-				if (cell == null) {
-					setApellidosEmpleado(null);
-				} else {
-					setApellidosEmpleado(cell.getStringCellValue());
-				}
-
-				break;
-			// UE
-			case 9:
-				if (cell == null) {
-					setUe(null);
-				} else {
-					setUe(cell.getStringCellValue());
-				}
-
-				break;
-			// NOMBRE UE
-			case 10:
-				if (cell == null) {
-					setNombreUe(null);
-				} else {
-					setNombreUe(cell.getStringCellValue());
-				}
-
-				break;
-			// UE REPERCUTIBLE
-			case 11:
-				if (cell == null) {
-					setUeRepercutible(null);
-				} else {
-					setUeRepercutible(cell.getStringCellValue());
-				}
-
-				break;
-			// NOMBRE UE REPERCUTIBLE
-			case 12:
-				if (cell == null) {
-					setNombreUeRepercutible(null);
-				} else {
-					setNombreUeRepercutible(cell.getStringCellValue());
-				}
-
-				break;
-			// WP STD
-			case 14:
-				if (cell == null) {
-					setWpStd(null);
-				} else {
-					setWpStd(cell.getStringCellValue());
-				}
-
-				break;
-//			case 16:
-//				setFechaCenso(new Date(this.dateCellFormatter(wb, cells.next())));
-//				break;
-			default:
-				break;
+				i++;
+	
 			}
-			i++;
-
+			
+			
+		}catch (Exception ex)
+		{
+			ex.printStackTrace();
+			
 		}
+	
 
-	}
-
+}
 }

@@ -80,11 +80,12 @@ public class ExcelReader {
 				workbook.close();
 				rService.save(r);
 			}
+
 		} catch (OrdenColumnasException ex) {
 			log.error(ex.getMessage());
 			throw new OrdenColumnasException(ex.getMessage());
 		} catch (Exception ex) {
-
+			ex.printStackTrace();
 			log.error(ex.getMessage());
 			throw new Exception(ex);
 		}
@@ -154,7 +155,11 @@ public class ExcelReader {
 				registroGuardado.addUes(ue);
 			}
 		} catch (Exception ex) {
-			throw new Exception(ex);
+
+			ex.printStackTrace();
+			log.error(ex.getMessage());
+			throw new Exception(ex.getMessage());
+
 		}
 	}
 
@@ -172,6 +177,7 @@ public class ExcelReader {
 			String msg = msgSource.getMessage("text.orden.columnas.exception.mensaje", null, this.locale);
 			log.error(msg);
 			throw new OrdenColumnasException(msg);
+
 		}
 	}
 
