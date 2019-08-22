@@ -2,6 +2,7 @@ package es.indra.censo.dao;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -21,6 +22,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import es.indra.censo.controllers.ComplejoController;
 import es.indra.censo.docreader.ExcelReader;
+import es.indra.censo.model.Planta;
 import es.indra.censo.model.Puesto;
 
 @RunWith(SpringRunner.class)
@@ -35,6 +37,12 @@ public class TestPuestoDao {
 	
 	@Autowired
 	private ExcelReader reader;
+	
+	@Autowired
+	private IPlantaDao plaDao;
+	
+	private
+	Planta plantaParaTestear;
 
 	@Before
 	public void before() {
@@ -45,23 +53,26 @@ public class TestPuestoDao {
 			FileInputStream excelFile = new FileInputStream(censoTest);
 			Workbook workbook = WorkbookFactory.create(excelFile);
 			reader.reader(workbook, "1.0.2", new Locale("es", "ES"));
+			
+			List<Planta> plantas = (List<Planta>) plaDao.findAll();
+			plantaParaTestear = plantas.get(0);
 		} catch (Exception ex) {
 			ex.printStackTrace();
 			log.error(ex.getMessage());
 		}
+		
+		
 	}
 	
 	@Test
 	public void TestPuestofindByPlantaAndRegistro() {
 		
-
-		List<Puesto> puestos = (List<Puesto>) pDao.findAll();
-		Puesto puestoParaTestear = puestos.get(0);
-		List<Puesto> puestoATestear = (List<Puesto>) pDao.findByPlantaAndRegistro(puestoParaTestear.getIdPuesto(),
-				puestoParaTestear.getRegistro().getIdRegistro());
-
+		
+		List<Puesto> puestoATestear = pDao.findByPlantaAndRegistro(plantaParaTestear.getNombrePlanta(),
+				plantaParaTestear.getRegistro().getIdRegistro());
+		
 		assertNotNull(puestoATestear);
-		assertEquals(((Puesto) puestoATestear).getIdPuesto(), puestoParaTestear.getIdPuesto());
+		assertTrue(puestoATestear.containsAll(this.plantaParaTestear.getPuestos()));
 
 	}
 
