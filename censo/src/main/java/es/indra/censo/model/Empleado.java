@@ -2,6 +2,7 @@ package es.indra.censo.model;
 
 import java.io.Serializable;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -45,7 +46,7 @@ public class Empleado implements Serializable {
 	@JsonIgnore
 	private Registro registro;
 
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinColumn(name = "id_ue")
 	@JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
 	private Ue ue;
