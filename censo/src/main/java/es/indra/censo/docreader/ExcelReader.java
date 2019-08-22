@@ -87,7 +87,7 @@ public class ExcelReader {
 			log.error(ex.getMessage());
 			throw new OrdenColumnasException(ex.getMessage());
 		} catch (Exception ex) {
-
+			ex.printStackTrace();
 			log.error(ex.getMessage());
 			throw new Exception(ex);
 		}
@@ -152,6 +152,8 @@ public class ExcelReader {
 
 			return registroGuardado;
 		} catch (Exception ex) {
+			ex.printStackTrace();
+			log.error(ex.getMessage());
 			throw new Exception(ex.getMessage());
 		}
 	}
