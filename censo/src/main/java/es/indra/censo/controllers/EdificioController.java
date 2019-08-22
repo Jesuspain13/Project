@@ -1,6 +1,7 @@
 package es.indra.censo.controllers;
 
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 
 import javax.validation.Valid;
@@ -8,6 +9,7 @@ import javax.validation.Valid;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.BindingResult;
@@ -16,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import es.indra.censo.dao.IPuestoDao;
 import es.indra.censo.model.Edificio;
@@ -29,6 +32,9 @@ import es.indra.censo.service.IEdificioService;
 @RequestMapping("/edificio")
 @SessionAttributes({ "complejo", "registro", "idRegistro", "edificios" })
 public class EdificioController {
+	
+	@Autowired
+	private MessageSource msgSource;
 
 	private Logger log = LoggerFactory.getLogger(EdificioController.class);
 
@@ -41,7 +47,7 @@ public class EdificioController {
 	@PostMapping("listar")
 	@Transactional
 	public String listar(@Valid Edificio e, BindingResult resultValid, @RequestParam("idRegistro") Integer idRegistro,
-			SessionStatus status, Map<String, Object> model) {
+			SessionStatus status, Map<String, Object> model, RedirectAttributes flash, Locale locale) {
 		try {
 			if (resultValid.hasErrors()) {
 
@@ -65,7 +71,8 @@ public class EdificioController {
 			return "plantaprimera";
 		} catch (Exception ex) {
 			log.error(ex.getMessage());
-			model.put("error", UploadExcelController.ERROR_MSG);
+			String msg = msgSource.getMessage("text.error.msg", null, locale);
+			flash.addFlashAttribute("error", String.format(msg, ex.getMessage()));
 			return "redirect:/registro/listar";
 		}
 	}

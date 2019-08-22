@@ -27,9 +27,10 @@ import es.indra.censo.service.IRegistroService;
 @RequestMapping("/registro")
 @SessionAttributes({ "registro", "complejos", "complejo" })
 public class RegistroController {
+	
 	private Logger log = LoggerFactory.getLogger(RegistroController.class);
 
-	public static final String ERROR_NO_REGISTRO = "No hay registros. Llama al administrador para que inserte uno.";
+	
 
 	@Autowired
 	private IRegistroService registroService;
@@ -44,7 +45,8 @@ public class RegistroController {
 			List<Registro> r = registroService.findAll();
 			// CASO DE NO HABER REGISTROS
 			if (r.size() < 1) {
-				model.addAttribute("errorCard", ERROR_NO_REGISTRO);
+				
+				
 				return "error/error_404";
 			}
 			Registro rSeleccionado = new Registro();

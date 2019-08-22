@@ -35,9 +35,8 @@ public class UploadExcelController {
 	@Autowired
 	private MessageSource msgSource;
 
-	public static final String SUCCESS_MSG = "Acción realizada con éxito.";
-	public static final String ERROR_MSG = "Ha ocurrido un error. Acción no realizada.";
-
+	
+	
 	Logger log = LoggerFactory.getLogger(UploadExcelController.class);
 
 	@Autowired
@@ -79,7 +78,7 @@ public class UploadExcelController {
 				return "redirect:/doc/upload";
 			}
 			docReaderSvc.readDocument(r.getFile(), r.getVersion(), locale);
-			flash.addFlashAttribute("success", SUCCESS_MSG);
+			flash.addFlashAttribute("success", msgSource.getMessage("text.success.msg", null, locale));
 			return "redirect:/registro/listar";
 		} catch (Exception ex) {
 			log.error(ex.getMessage());

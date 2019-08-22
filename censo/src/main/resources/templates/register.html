@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="/layout/layout :: head"></head>
+<body>
+	<div class="main-content background-login">
+		<!--Main Navigation-->
+		<header th:replace="layout/layout :: header"> </header>
+		<!--Main Navigation-->
+
+		<div class="container my-5 ">
+			<div class="container register">
+				<div class="row">
+					<div class="col-md-3 register-left">
+						<img src="https://image.ibb.co/n7oTvU/logo_white.png" alt="" />
+						<h3>Bienvenido</h3>
+						<p>
+							Si eres un usuario registrado. <br> ¡Por favor inicia
+							sesión!
+						</p>
+						<div class="form-group row d-flex justify-content-center">
+							<input type="submit" class="btn btn-white" value="Entrar" />
+						</div>
+						<br />
+					</div>
+					<div class="col-md-9 register-right">
+
+						<div class="tab-content" id="myTabContent">
+							<div class="tab-pane fade show active" id="home" role="tabpanel"
+								aria-labelledby="home-tab">
+								<h3 class="register-heading">Registrar un Nuevo Usuario</h3>
+								<div class="row register-form">
+
+									<div class="col-md-12">
+										<div class="md-form row">
+											<i class="fas fa-user prefix icon-color"></i> <input
+												type="text" class="form-control" placeholder="Usuario*"
+												value="" />
+										</div>
+
+										<div class="md-form row">
+											<i class="fas fa-unlock-alt prefix icon-color"></i> <input
+												type="password" class="form-control"
+												placeholder="Contraseña*" value="" />
+										</div>
+										<div class="md-form row">
+											<i class="fas fa-lock prefix icon-color"></i> <input
+												type="password" class="form-control"
+												placeholder="Confirmar Contraseña*" value="" />
+										</div>
+
+										<div class="md-form">
+											<select class="form-control">
+												<option class="hidden" selected disabled>Por favor
+													Selecciona un Rol:</option>
+												<option>Administrador</option>
+												<option>Usuario</option>
+											</select>
+										</div>
+										<br>
+
+										<div class="form-group row d-flex justify-content-center">
+											<input type="submit" class="btn btn-primary"
+												value="Crear Usuario" />
+										</div>
+									</div>
+
+
+								</div>
+							</div>
+						</div>
+
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<footer th:replace="layout/layout :: footer"></footer>
+	</div>
+</body>
+</html>
