@@ -168,11 +168,10 @@ public class TablaModelo {
 			boolean teletrab = this.teletrabajo;
 			boolean finTesteo = false;
 			Cell cell;
-			while (i < 14 && !teletrab && !finTesteo) {
+			while (i < 14 && !teletrab && row != null) {
 				cell = row.getCell(i);
-				if (cell == null) {
-					finTesteo = true;
-				}
+					
+				
 				switch (i) {
 				// ID COMPLEJO
 				case 0:
@@ -306,11 +305,14 @@ public class TablaModelo {
 				i++;
 	
 			}
+			
+			
 		}catch (Exception ex)
 		{
 			ex.printStackTrace();
 			
 		}
-	}
+	
 
+}
 }

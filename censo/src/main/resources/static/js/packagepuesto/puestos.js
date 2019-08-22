@@ -22,7 +22,7 @@ function disposicionPuestoVacio(iteracionDiv, puesto, empleado, nameModal, idMod
 }
 
 function seleccionarPuestoOcupadoOVacio(puesto, iteaciónDiv, i) {
-	console.log(puesto);
+	
 	var empleado;
 	var styleBtn;
 	var html; 
@@ -31,9 +31,9 @@ function seleccionarPuestoOcupadoOVacio(puesto, iteaciónDiv, i) {
 	if (puesto.ocupado) {
 		//si el puesto está ocupado
         empleado = puesto.empleado;
-        
+
         var dpto = empleado.ue.nombreUeRepercutible;
-        
+       
         if(dpto == null){
         	
           	dpto = empleado.ue;
