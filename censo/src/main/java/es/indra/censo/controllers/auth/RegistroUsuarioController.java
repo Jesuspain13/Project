@@ -56,7 +56,9 @@ public class RegistroUsuarioController {
 	public String registrarUsuario(Model model, RedirectAttributes flash, Locale locale) {
 		try {
 			UsuarioDTO usuario = new UsuarioDTO();
+			List<Rol> roles = (List<Rol>) rolDao.findAll();
 			model.addAttribute("usuarioDto", usuario);
+			model.addAttribute("roles", roles);
 			return "register";
 		} catch (Exception ex) {
 			ex.printStackTrace();
@@ -71,10 +73,11 @@ public class RegistroUsuarioController {
 	public String registrarUsuario(UsuarioDTO usuarioDto, Model model, RedirectAttributes flash, Locale locale) {
 		try {
 			Rol rol =  rolDao.findById(usuarioDto.getRol()).get();
+			Rol rolParaUsuario = new Rol();
+			rolParaUsuario.setAuthority(rol.getAuthority());
 			List<Rol> rolesList = new ArrayList<Rol>();
-			rolesList.add(rol);
-			//List<GrantedAuthority> auths = new ArrayList<GrantedAuthority>();
-			//auths.add(new SimpleGrantedAuthority(rol.getAuthority()));
+			rolesList.add(rolParaUsuario);
+			
 			Usuario usuario = new Usuario();
 			usuario.setUsername(usuarioDto.getUsername());
 			String passBCryptEncoded = this.passwordEncoder
@@ -82,13 +85,12 @@ public class RegistroUsuarioController {
 			usuario.setPassword(passBCryptEncoded);
 			usuario.setEnabled(true);
 			usuario.setRoles(rolesList);
-			//UserDetails user = new User(usuarioDto.getUsername(), passBCryptEncoded, auths);
-			//userDetailsManager.createUser(user);
-			//model.addAttribute("usuario", usuario);
+		
 			uDao.save(usuario);
 			return "home";
 		} catch (Exception ex) {
-			log.error("ex");
+			ex.printStackTrace();
+			log.error(ex.getMessage());
 			String msg = msgSource.getMessage("text.error.generico", null, locale);
 			flash.addFlashAttribute("error", String.format(msg, ex.getMessage()));
 			return "redirect:/";

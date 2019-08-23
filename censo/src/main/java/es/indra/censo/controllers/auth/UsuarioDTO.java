@@ -1,6 +1,7 @@
 package es.indra.censo.controllers.auth;
 
 import java.util.Base64;
+import java.util.Base64.Decoder;
 
 import es.indra.censo.model.Rol;
 import es.indra.censo.model.Usuario;
@@ -39,10 +40,20 @@ public class UsuarioDTO {
 		this.passwordEncoded = password;
 	}
 	
+	public void decodePassword() {
+		Decoder decoder = Base64.getDecoder();
+		String pass = this.getPasswordEncoded();
+		byte[] decodedBytes = decoder.decode(pass);
+		String passDecoded= new String(decodedBytes);
+		System.out.println(passDecoded);
+		this.passwordDecoded = passDecoded;
+	}
+	
 	public String getPasswordDecoded() {
-		byte[] decodedBytes = Base64.getDecoder().decode(this.getPasswordEncoded());
-		this.passwordDecoded = new String(decodedBytes);
-		return this.passwordDecoded;
+		if (passwordDecoded == null || passwordDecoded.isEmpty()) {
+			this.decodePassword();
+		}
+		return passwordDecoded;
 	}
 
 	
