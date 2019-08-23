@@ -13,13 +13,11 @@ xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 				<div class="row">
 					<div class="col-md-3 register-left">
 						<img src="https://image.ibb.co/n7oTvU/logo_white.png" alt="" />
-						<h3>Bienvenido</h3>
-						<p>
-							Si eres un usuario registrado. <br> �Por favor inicia
-							sesi�n!
-						</p>
-						<div class="form-group row d-flex justify-content-center">
-							<input type="submit" class="btn btn-white" value="Entrar" />
+						<h2 th:text="#{text.usuario.bienvenida}"></h2>
+						<h6 th:text="#{text.usuario.descripcion}"></h6>
+						<div class="card-body text-center">
+							<a th:href="@{/login}" role="button" class="btn btn-pink"
+								th:text="#{text.usuario.btn.buscar}"></a>
 						</div>
 						<br />
 					</div>
@@ -31,28 +29,30 @@ xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 								<div id="resultado"></div>
 								 
 								
-									<h3 class="register-heading">Registrar un Nuevo Usuario</h3>
+
+							
+									<h3 class="register-heading" th:text="#{text.usuario.registrar}"></h3>
 									<div class="row register-form">
 
 										<div class="col-md-12">
 											<div class="md-form row">
 												<i class="fas fa-user prefix icon-color"></i> 
 												<input id="nameInput"
-													type="text" class="form-control" placeholder="Usuario"
+													type="text" class="form-control" th:placeholder="#{text.usuario.place.usuario}"
 													name="username" value=""/>
 											</div>
 	
 											<div class="md-form row">
 												<i class="fas fa-unlock-alt prefix icon-color"></i> <input
 													 class="form-control" type="password"
-													name="password" placeholder="Contrasena"
+													name="password" th:placeholder="#{text.usuario.place.contraseña}"
 													id="passwordInput"
 													/>
 											</div>
 											<div class="md-form row">
 												<i class="fas fa-lock prefix icon-color"></i> <input
 													id="passwordToCheck" type="password" class="form-control"
-													name="passwordRepeat" placeholder="Confirmar Contrase�a*" 
+													name="passwordRepeat" th:placeholder="#{text.usuario.place.confirmar.contraseña}" 
 													onkeyup="checkPassword()"/>
 												<div id="errorPassword" class="alert alert-danger"></div>
 											</div>
@@ -79,7 +79,7 @@ xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 											<div class="form-group row d-flex justify-content-center">
 												<button type="button" class="btn btn-primary"
 													value="Crear Usuario" id="btnEnviar"
-													disabled> Enviar</button>
+													disabled th:text="#{text.usuario.btn.crear}"> Enviar</button>
 											</div>
 											</form>
 										</div>

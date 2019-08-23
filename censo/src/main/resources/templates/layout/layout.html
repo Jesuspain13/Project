@@ -36,19 +36,24 @@
 
 			<div class="collapse navbar-collapse" id="navbarSupportedContent-333">
 				<ul class="navbar-nav mr-auto">
-					<li class="nav-item active"><a class="nav-link" th:href="@{/}" th:text="#{text.home}">Home</a>
-					</li>
+					<li class="nav-item active"><a class="nav-link" th:href="@{/}"
+						th:text="#{text.home}">Home</a></li>
 					<li class="nav-item" sec:authorize="hasRole('ROLE_VISUALIZAR')">
-						<a class="nav-link" th:href="@{/registro/listar}" th:text="#{text.buscar.registro}">Buscar
-							registro</a>
+						<a class="nav-link" th:href="@{/registro/listar}"
+						th:text="#{text.buscar.registro}">Buscar registro</a>
 					</li>
 					<li class="nav-item" sec:authorize="hasRole('ROLE_ADMIN')"><a
-						class="nav-link" th:href="@{/doc/upload}" th:text="#{text.nuevo.registro}">Nuevo registro</a></li>
+						class="nav-link" th:href="@{/doc/upload}"
+						th:text="#{text.nuevo.registro}">Nuevo registro</a></li>
+
+					<li class="nav-item" sec:authorize="hasRole('ROLE_ADMIN')"><a
+						class="nav-link" th:href="@{/usuario/registro}"
+						th:text="#{text.nuevo.usuario}">Nuevo Usuario</a></li>
 
 
 				</ul>
 				<ul class="navbar-nav ml-auto nav-flex-icons">
-					
+
 					<li class="nav-item dropdown"><a
 						class="nav-link dropdown-toggle" id="navbarDropdownMenuLink-333"
 						data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -61,7 +66,8 @@
 								method="POST">
 								<input type="hidden" th:name="${_csrf.parameterName}"
 									th:value="${_csrf.token}">
-								<button class="dropdown-item" type="submit" th:text="#{text.home.cerrar.sesion}">Logout</button>
+								<button class="dropdown-item" type="submit"
+									th:text="#{text.home.cerrar.sesion}">Logout</button>
 							</form>
 						</div></li>
 				</ul>
@@ -112,9 +118,11 @@
 		<script type="text/javascript" th:src="@{/js/bootstrap.min.js}"></script>
 		<!-- MDB core JavaScript -->
 		<script type="text/javascript" th:src="@{/js/mdb.min.js}"></script>
-		
-		<script type="text/javascript" th:src="@{/js/packagepuesto/generarhtmlpuestos.js}"></script>
-		<script type="text/javascript" th:src="@{/js/packagepuesto/puestos.js}"></script>
+
+		<script type="text/javascript"
+			th:src="@{/js/packagepuesto/generarhtmlpuestos.js}"></script>
+		<script type="text/javascript"
+			th:src="@{/js/packagepuesto/puestos.js}"></script>
 
 
 	</footer>
