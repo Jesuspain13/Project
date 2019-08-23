@@ -30,53 +30,64 @@ xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 								aria-labelledby="home-tab">
 								<div id="resultado"></div>
 								 
-								<form id="formRegistro" class="form-group" th:object="${usuarioDto}"
-								 th:action="@{/usuario/registro}" method="POST">
+								
 									<h3 class="register-heading">Registrar un Nuevo Usuario</h3>
 									<div class="row register-form">
 
 										<div class="col-md-12">
 											<div class="md-form row">
 												<i class="fas fa-user prefix icon-color"></i> 
-												<input
+												<input id="nameInput"
 													type="text" class="form-control" placeholder="Usuario"
-													name="username" value="" th:field="*{username}"/>
+													name="username" value=""/>
 											</div>
 	
 											<div class="md-form row">
 												<i class="fas fa-unlock-alt prefix icon-color"></i> <input
-													type="password" class="form-control"
+													 class="form-control" type="password"
 													name="password" placeholder="Contrasena"
-													th:field="*{passwordEncoded}"/>
+													id="passwordInput"
+													/>
 											</div>
 											<div class="md-form row">
 												<i class="fas fa-lock prefix icon-color"></i> <input
 													id="passwordToCheck" type="password" class="form-control"
-													name="passwordRepeat" placeholder="Confirmar Contrase�a*" />
+													name="passwordRepeat" placeholder="Confirmar Contrase�a*" 
+													onkeyup="checkPassword()"/>
 												<div id="errorPassword" class="alert alert-danger"></div>
 											</div>
-
+									
 											<div class="md-form">
-												<select class="form-control">
+												<select id="rolInput" class="form-control">
 													<option class="hidden" selected disabled>Por favor
 														Selecciona un Rol:</option>
-													<option>Administrador</option>
-													<option>Usuario</option>
+													<option  th:each="rol: ${roles}" th:value="${rol.getId()}" th:text="${rol.getAuthority()}">Administrador</option>
 												</select>
 											</div>
 											
 											<br>
+											<form id="formRegistro" th:object="${usuarioDto}"
+								 th:action="@{/usuario/registro}" method="POST">
+											<input id="passResult" type="hidden" value=""
+											th:field="*{passwordEncoded}"/>
+											<input id="nameResult" type="hidden" value=""
+											th:field="*{username}"/>
+											<input id="rolResult" type="hidden" value=""
+											th:field="*{rol}"/>
+											
 	
 											<div class="form-group row d-flex justify-content-center">
-												<button type="submit" class="btn btn-primary"
-													value="Crear Usuario" id="btnEnviar"> Enviar</button>
+												<button type="button" class="btn btn-primary"
+													value="Crear Usuario" id="btnEnviar"
+													disabled> Enviar</button>
 											</div>
+											</form>
 										</div>
 
 	
 									</div>
 									
-								</form>
+								
 								
 							</div>
 						</div>
@@ -89,29 +100,28 @@ xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 		<footer th:replace="layout/layout :: footer"></footer>
 	</div>
 	<script type="text/javascript">
-		$("#btnEnviar").onClick(function () {
+		$("#btnEnviar").click(function() {
 			
-			var contraseñasIguales = checkPassword();
-			if (constraseñasIguales) {
+				var name = $("#nameInput").val();
+				var rolId = $("#rolInput").val();
 				var pass = $("#passwordInput").val();
 			    var passEncoded = window.btoa(pass);
-			    $("#resultado").html('<small>${passEncoded}</small>')
+			    $("#nameResult").val(name);
+			    $("#passResult").val(passEncoded);
+			    $("#rolResult").val(rolId);
 			    $("#formRegistro").submit();
 			   
-			} else {
-				$("#errorPassword").html(`<small>Las contraseñas deben ser iguales</small>`)
-			}
-		    
-	
 		})
 		
 		function checkPassword() {
-			var pass1 = $("#password").val();
+			var pass1 = $("#passwordInput").val();
 			var passToCheck = $("#passwordToCheck").val();
-			if (pass == passToCheck) {
-				return true;
+			if (pass1 == passToCheck) {
+				$("#btnEnviar").prop("disabled", false);
+				$("#errorPassword").html('')
 			} else {
-				return false;
+				$("#btnEnviar").prop("disabled",true);
+				$("#errorPassword").html(`<small>Las contraseñas deben ser iguales</small>`)
 			}
 		}
 	</script>
