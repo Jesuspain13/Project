@@ -23,7 +23,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import es.indra.censo.dao.IRolDao;
+import es.indra.censo.dao.IUsuarioDao;
 import es.indra.censo.model.Rol;
+import es.indra.censo.model.Usuario;
 
 @Controller
 @RequestMapping("/usuario")
@@ -38,22 +40,27 @@ public class RegistroUsuarioController {
 	private IRolDao rolDao;
 	
 	@Autowired
+	private IUsuarioDao uDao;
+	
+	@Autowired
 	private BCryptPasswordEncoder passwordEncoder;
 	
-	@Autowired
-	private UserDetailsManager userDetailsManager;
-	
-	@Autowired
-	private UserDetailsService userDetailService;
+//	
+//	@Autowired
+//	private UserDetailsManager userDetailsManager;
+//	
+//	@Autowired
+//	private UserDetailsService userDetailService;
 	
 	@GetMapping("/registro")
 	public String registrarUsuario(Model model, RedirectAttributes flash, Locale locale) {
 		try {
 			UsuarioDTO usuario = new UsuarioDTO();
-			model.addAttribute("usuario", usuario);
+			model.addAttribute("usuarioDto", usuario);
 			return "register";
 		} catch (Exception ex) {
-			log.error("ex");
+			ex.printStackTrace();
+			log.error(ex.getMessage());
 			String msg = msgSource.getMessage("text.error.generico", null, locale);
 			flash.addFlashAttribute("error", String.format(msg, ex.getMessage()));
 			return "redirect:/";
@@ -61,20 +68,25 @@ public class RegistroUsuarioController {
 	}
 	
 	@PostMapping("/registro")
-	public String registrarUsuario(UsuarioDTO usuarioDTO, Model model, RedirectAttributes flash, Locale locale) {
+	public String registrarUsuario(UsuarioDTO usuarioDto, Model model, RedirectAttributes flash, Locale locale) {
 		try {
-			Rol rol =  rolDao.findById(usuarioDTO.getRol()).get();
+			Rol rol =  rolDao.findById(usuarioDto.getRol()).get();
 			List<Rol> rolesList = new ArrayList<Rol>();
 			rolesList.add(rol);
-			List<GrantedAuthority> auths = new ArrayList<GrantedAuthority>();
-			auths.add(new SimpleGrantedAuthority(rol.getAuthority()));
-			//Usuario userWithData = usuarioDTO.crearUsuario(rol);
+			//List<GrantedAuthority> auths = new ArrayList<GrantedAuthority>();
+			//auths.add(new SimpleGrantedAuthority(rol.getAuthority()));
+			Usuario usuario = new Usuario();
+			usuario.setUsername(usuarioDto.getUsername());
 			String passBCryptEncoded = this.passwordEncoder
-					.encode(usuarioDTO.getPasswordDecoded());
-			UserDetails user = new User(usuarioDTO.getUsername(), passBCryptEncoded, auths);
-			userDetailsManager.createUser(user);
+					.encode(usuarioDto.getPasswordDecoded());
+			usuario.setPassword(passBCryptEncoded);
+			usuario.setEnabled(true);
+			usuario.setRoles(rolesList);
+			//UserDetails user = new User(usuarioDto.getUsername(), passBCryptEncoded, auths);
+			//userDetailsManager.createUser(user);
 			//model.addAttribute("usuario", usuario);
-			return "registro";
+			uDao.save(usuario);
+			return "home";
 		} catch (Exception ex) {
 			log.error("ex");
 			String msg = msgSource.getMessage("text.error.generico", null, locale);

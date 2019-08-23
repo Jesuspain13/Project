@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head th:replace="/layout/layout :: head"></head>
+<body>
+	<div class="main-content background-login">
+		<!--Main Navigation-->
+		<header th:replace="layout/layout :: header"> </header>
+		<!--Main Navigation-->
+
+		<div class="container my-5 ">
+			<div class="container register">
+				<div class="row">
+					<div class="col-md-3 register-left">
+						<img src="https://image.ibb.co/n7oTvU/logo_white.png" alt="" />
+						<h3>Bienvenido</h3>
+						<p>
+							Si eres un usuario registrado. <br> �Por favor inicia
+							sesi�n!
+						</p>
+						<div class="form-group row d-flex justify-content-center">
+							<input type="submit" class="btn btn-white" value="Entrar" />
+						</div>
+						<br />
+					</div>
+					<div class="col-md-9 register-right">
+
+						<div class="tab-content" id="myTabContent">
+							<div class="tab-pane fade show active" id="home" role="tabpanel"
+								aria-labelledby="home-tab">
+								<div id="resultado"></div>
+								 
+								<form id="formRegistro" class="form-group" th:object="${usuarioDto}"
+								 th:action="@{/usuario/registro}" method="POST">
+									<h3 class="register-heading">Registrar un Nuevo Usuario</h3>
+									<div class="row register-form">
+
+										<div class="col-md-12">
+											<div class="md-form row">
+												<i class="fas fa-user prefix icon-color"></i> 
+												<input
+													type="text" class="form-control" placeholder="Usuario"
+													name="username" value="" th:field="*{username}"/>
+											</div>
+	
+											<div class="md-form row">
+												<i class="fas fa-unlock-alt prefix icon-color"></i> <input
+													type="password" class="form-control"
+													name="password" placeholder="Contrasena"
+													th:field="*{passwordEncoded}"/>
+											</div>
+											<div class="md-form row">
+												<i class="fas fa-lock prefix icon-color"></i> <input
+													id="passwordToCheck" type="password" class="form-control"
+													name="passwordRepeat" placeholder="Confirmar Contrase�a*" />
+												<div id="errorPassword" class="alert alert-danger"></div>
+											</div>
+
+											<div class="md-form">
+												<select class="form-control">
+													<option class="hidden" selected disabled>Por favor
+														Selecciona un Rol:</option>
+													<option>Administrador</option>
+													<option>Usuario</option>
+												</select>
+											</div>
+											
+											<br>
+	
+											<div class="form-group row d-flex justify-content-center">
+												<button type="submit" class="btn btn-primary"
+													value="Crear Usuario" id="btnEnviar"> Enviar</button>
+											</div>
+										</div>
+
+	
+									</div>
+									
+								</form>
+								
+							</div>
+						</div>
+
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<footer th:replace="layout/layout :: footer"></footer>
+	</div>
+	<script type="text/javascript">
+		$("#btnEnviar").onClick(function () {
+			
+			var contraseñasIguales = checkPassword();
+			if (constraseñasIguales) {
+				var pass = $("#passwordInput").val();
+			    var passEncoded = window.btoa(pass);
+			    $("#resultado").html('<small>${passEncoded}</small>')
+			    $("#formRegistro").submit();
+			   
+			} else {
+				$("#errorPassword").html(`<small>Las contraseñas deben ser iguales</small>`)
+			}
+		    
+	
+		})
+		
+		function checkPassword() {
+			var pass1 = $("#password").val();
+			var passToCheck = $("#passwordToCheck").val();
+			if (pass == passToCheck) {
+				return true;
+			} else {
+				return false;
+			}
+		}
+	</script>
+</body>
+</html>

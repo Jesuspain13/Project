@@ -1,5 +1,7 @@
 package es.indra.censo.controllers;
 
+import java.util.Locale;
+
 import javax.validation.Valid;
 
 import org.slf4j.Logger;
@@ -35,7 +37,7 @@ public class ComplejoController {
 
 	@PostMapping("listar")
 	public String listar(@Valid Complejo c, BindingResult resutlValid, @RequestParam("idRegistro") Integer idRegistro,
-			Model model, RedirectAttributes flash, SessionStatus status) {
+			Model model, RedirectAttributes flash, SessionStatus status, Locale locale) {
 		try {
 			if (resutlValid.hasErrors()) {
 
@@ -53,7 +55,8 @@ public class ComplejoController {
 			return "searchform";
 		} catch (Exception ex) {
 			log.error(ex.getMessage());
-			flash.addFlashAttribute("error", UploadExcelController.ERROR_MSG);
+			String msg = msgSource.getMessage("text.error.msg", null, locale);
+			flash.addFlashAttribute("error", String.format(msg, ex.getMessage()));
 			return "redirect:/complejo/listar";
 		}
 	}
