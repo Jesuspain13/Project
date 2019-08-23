@@ -10,7 +10,7 @@ public class UsuarioDTO {
 
 	private String username;
 
-	private Integer rol;
+	private String rol;
 
 	private String passwordDecoded;
 	
@@ -24,11 +24,11 @@ public class UsuarioDTO {
 		this.username = username;
 	}
 
-	public Integer getRol() {
+	public String getRol() {
 		return rol;
 	}
 
-	public void setRol(Integer rol) {
+	public void setRol(String rol) {
 		this.rol = rol;
 	}
 

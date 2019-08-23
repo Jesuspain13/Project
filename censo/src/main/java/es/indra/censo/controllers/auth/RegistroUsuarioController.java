@@ -45,12 +45,7 @@ public class RegistroUsuarioController {
 	@Autowired
 	private BCryptPasswordEncoder passwordEncoder;
 	
-//	
-//	@Autowired
-//	private UserDetailsManager userDetailsManager;
-//	
-//	@Autowired
-//	private UserDetailsService userDetailService;
+
 	
 	@GetMapping("/registro")
 	public String registrarUsuario(Model model, RedirectAttributes flash, Locale locale) {
@@ -72,11 +67,6 @@ public class RegistroUsuarioController {
 	@PostMapping("/registro")
 	public String registrarUsuario(UsuarioDTO usuarioDto, Model model, RedirectAttributes flash, Locale locale) {
 		try {
-			Rol rol =  rolDao.findById(usuarioDto.getRol()).get();
-			Rol rolParaUsuario = new Rol();
-			rolParaUsuario.setAuthority(rol.getAuthority());
-			List<Rol> rolesList = new ArrayList<Rol>();
-			rolesList.add(rolParaUsuario);
 			
 			Usuario usuario = new Usuario();
 			usuario.setUsername(usuarioDto.getUsername());
@@ -84,8 +74,8 @@ public class RegistroUsuarioController {
 					.encode(usuarioDto.getPasswordDecoded());
 			usuario.setPassword(passBCryptEncoded);
 			usuario.setEnabled(true);
-			usuario.setRoles(rolesList);
-		
+			this.comprobarPermiso(usuarioDto.getRol(), usuario);
+			
 			uDao.save(usuario);
 			return "home";
 		} catch (Exception ex) {
@@ -94,6 +84,16 @@ public class RegistroUsuarioController {
 			String msg = msgSource.getMessage("text.error.generico", null, locale);
 			flash.addFlashAttribute("error", String.format(msg, ex.getMessage()));
 			return "redirect:/";
+		}
+	}
+	
+	public void comprobarPermiso(String rolSeleccionado, Usuario usuario) {
+		List<Rol> roles = (List<Rol>) rolDao.findAll();
+		if (rolSeleccionado.contains("ADMIN")) {
+			usuario.setRoles(roles);
+		} else if (rolSeleccionado.contains("VISUALIZAR")) {
+			Rol rol = rolDao.findByAuthority(rolSeleccionado);
+			usuario.addRol(rol);
 		}
 	}
  

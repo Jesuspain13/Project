@@ -12,7 +12,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.OneToMany;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
@@ -41,8 +42,10 @@ public class Usuario implements Serializable {
 	@Column(length = 60)
 	private String password;
 
-	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	@JoinColumn(name = "user_id")
+	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@JoinTable(name="usuario_rol",
+	joinColumns= @JoinColumn(name="usuario_id"),
+	inverseJoinColumns= @JoinColumn(name="rol_id"))
 	@JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
 	private List<Rol> roles;
 

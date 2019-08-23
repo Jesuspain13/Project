@@ -61,7 +61,7 @@ xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 												<select id="rolInput" class="form-control">
 													<option class="hidden" selected disabled>Por favor
 														Selecciona un Rol:</option>
-													<option  th:each="rol: ${roles}" th:value="${rol.getId()}" th:text="${rol.getAuthority()}">Administrador</option>
+													<option  th:each="rol: ${roles}" th:value="${rol.getAuthority()}" th:text="${rol.getAuthority()}">Administrador</option>
 												</select>
 											</div>
 											
