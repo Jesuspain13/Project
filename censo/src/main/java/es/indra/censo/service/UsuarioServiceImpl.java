@@ -1,5 +1,7 @@
 package es.indra.censo.service;
 
+import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import org.slf4j.Logger;
@@ -22,7 +24,19 @@ public class UsuarioServiceImpl implements IUsuarioService{
 	public List<Usuario> findUsuarioByName(String username) throws Exception {
 		
 		try {
-			return usuarioDao.findUsuarioByName(username);
+			List user = usuarioDao.findUsuarioByName(username);
+			Iterator userIt = user.iterator();
+			List<Usuario> usuarios = new ArrayList<Usuario>();
+			
+			while(userIt.hasNext()) {
+				List<Object> usuarioSinFormar = (List<Object>) userIt.next();
+				Usuario usuarioFormado = new Usuario();
+				usuarioFormado.setId((Integer)usuarioSinFormar.get(0));
+				usuarioFormado.setUsername(usuarioSinFormar.get(1).toString());
+				usuarioFormado.setEnabled((boolean) usuarioSinFormar.get(2));
+				usuarios.add(usuarioFormado);
+			}
+			return usuarios;
 			
 		}catch (Exception ex){
 			
