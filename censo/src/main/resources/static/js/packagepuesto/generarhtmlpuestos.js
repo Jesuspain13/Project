@@ -1,6 +1,6 @@
 //crea un bloque html en posición normal
 function crearPuesto(puesto, nameModal, idModal, styleBtn) {
-	 var html = `<p class="name d-flex align-items-center justify-content-center name text-center">${puesto.empleado.apellido}</p>
+	 var html = `<p class="name d-flex align-items-center justify-content-center text-center">${puesto.empleado.apellido}</p>
 			<button type="button"  id="button" class="${styleBtn}" data-toggle="modal"
 				data-target=${nameModal}>${puesto.idPuesto}</button>
 			
@@ -44,7 +44,7 @@ function crearPuesto(puesto, nameModal, idModal, styleBtn) {
 function crearPuestoInverso(puesto, nameModal, idModal, styleBtn) {
 
 	var html = `<button type="button" id="button" data-toggle="modal" data-target=${nameModal}  class="${styleBtn}" >${puesto.idPuesto}</button>
-		<p class="name d-flex align-items-center justify-content-center name text-center">${puesto.empleado.apellido}</p>
+		<p class="name d-flex align-items-center justify-content-center text-center">${puesto.empleado.apellido}</p>
 		<!--Modal: Login with Avatar Form-->
          <div class="modal fade" id=${idModal} tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
              <div class="modal-dialog cascading-modal modal-avatar modal-sm" role="document">
@@ -82,7 +82,7 @@ function crearPuestoInverso(puesto, nameModal, idModal, styleBtn) {
 
 // crea el html de un puesto vacío
 function crearPuestoVacio(puesto, empleado, nameModal, idModal, styleBtn) {
-	var html = `<p class="name d-flex align-items-center justify-content-center name text-center">${empleado}</p>
+	var html = `<p class="name d-flex align-items-center justify-content-center text-center">${empleado}</p>
 			<button type="button" id="button" class="btn btn-success" data-toggle="modal" 
 				data-target=${nameModal}>${puesto.idPuesto}</button>
 			
@@ -120,7 +120,7 @@ function crearPuestoVacio(puesto, empleado, nameModal, idModal, styleBtn) {
 //crea el html de un puesto inverso vacío
 function crearPuestoInversoVacio(puesto, empleado, nameModal, idModal, styleBtn) {
 	var html = `<button type="button"  id="button" data-toggle="modal" data-target=${nameModal}  class="btn btn-success">${puesto.idPuesto}</button>
-		<p class="name d-flex align-items-center justify-content-center name text-center">${empleado}</p>
+		<p class="name d-flex align-items-center justify-content-center text-center">${empleado}</p>
 		<!--Modal: Login with Avatar Form-->
          <div class="modal fade" id=${idModal} tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
              <div class="modal-dialog cascading-modal modal-avatar modal-sm" role="document">

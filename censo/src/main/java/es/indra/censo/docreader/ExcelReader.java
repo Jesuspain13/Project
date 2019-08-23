@@ -267,31 +267,24 @@ public class ExcelReader {
 	private Complejo seleccionarComplejo(TablaModelo tabla, Registro registroGuardado) {
 		Complejo c = null;
 		boolean complejoEncontrado = false;
-		if (registroGuardado.getComplejos().size() > 0) {
-			Iterator<Complejo> complejosGuardados = registroGuardado.getComplejos().iterator();
-
-			while (!complejoEncontrado && complejosGuardados.hasNext()) {
-				Complejo iteracionComplejoActual = complejosGuardados.next();
-				if (!iteracionComplejoActual.getNombreComplejo().isEmpty()
-						&& iteracionComplejoActual.getNombreComplejo().equals(tabla.getNombreComplejo())) {
+		List<Complejo> complejosGuardados = registroGuardado.getComplejos();
+		if (complejosGuardados.size() > 0) {
+			Iterator<Complejo> complejosGuardadosIter = complejosGuardados.iterator();
+			while (!complejoEncontrado && complejosGuardadosIter.hasNext()) {
+				c = complejosGuardadosIter.next();
+				if (!c.getNombreComplejo().isEmpty() && c.getNombreComplejo().equals(tabla.getNombreComplejo())) {
 					// si esta creado y coincide en nombre lo usamos
-					c = registroGuardado.getComplejos().get(0);
 					complejoEncontrado = true;
-				} else if (!iteracionComplejoActual.getNombreComplejo().isEmpty()
-						&& !iteracionComplejoActual.getNombreComplejo().equals(tabla.getNombreComplejo())) {
+				} else if ((!c.getNombreComplejo().isEmpty()
+						&& !c.getNombreComplejo().equals(tabla.getNombreComplejo()))) {
 					c = this.buildComplejo(tabla, registroGuardado);
 					complejoEncontrado = true;
-				} else if (iteracionComplejoActual.getNombreComplejo().isEmpty()) {
-					c = this.buildComplejo(tabla, registroGuardado);
-					complejoEncontrado = true;
-				}
-
+				} 
 			}
 		} else {
 			// si no tiene nombre es que no hay ninguno, se crea
 			c = this.buildComplejo(tabla, registroGuardado);
 		}
-
 		return c;
 	}
 
@@ -315,29 +308,22 @@ public class ExcelReader {
 	 */
 	private Edificio seleccionarEdificio(TablaModelo tabla, Complejo c, Registro r) {
 		Edificio e = null;
-		List<Edificio> listaEdif = c.getEdificios();
-		// si la lista de edificios del complejo no está vacía
+		List<Edificio> listaEdificiosGuardados = c.getEdificios();
 		boolean encontrado = false;
 		int contador = 0;
-		if (listaEdif.size() == 0) {
-			e = this.buildEdificio(tabla, c, r);
-			encontrado = true;
-		}
-		while (!encontrado) {
-			// vamos a recorrer la lista y comprobar los nombres
-			if (contador < listaEdif.size()) {
-				if (listaEdif.get(contador).getNombreEdificio().contains(tabla.getNombreEdificio())) {
-					e = listaEdif.get(contador);
-					encontrado = true;
-				}
-			} else if (contador == listaEdif.size() - 1) {
-				e = this.buildEdificio(tabla, c, r);
+
+		while (!encontrado && contador < listaEdificiosGuardados.size()) {
+			e = listaEdificiosGuardados.get(contador);
+			// vamos a recorrer la lista de edificos y comprobar los nombres
+			if (e.getNombreEdificio().contains(tabla.getNombreEdificio())) {
 				encontrado = true;
 			} else {
 				contador++;
 			}
 		}
-
+		if (listaEdificiosGuardados.size() == 0 || !encontrado) {
+			e = this.buildEdificio(tabla, c, r);
+		}
 		return e;
 	}
 
@@ -438,38 +424,20 @@ public class ExcelReader {
 			List<Ue> ues = r.getUes();
 			Iterator<Ue> ueIterator = ues.iterator();
 			boolean encontrado = false;
-			int contador = 0;
 			if (tabla.getUe() == null) {
 				return null;
 			}
-			// si el tamaño es 0 es que no hay ue
-//			if (ues.size() == 0) {
-//				ueFound = this.buildUe(tabla, r);
-//				// ueFound = ueDao.save(ueFound);
-//				encontrado = true;
-//			}
-
 			while (ueIterator.hasNext() && !encontrado) {
 				// vamos a recorrer la lista y comprobar los nombres
 				ueFound = ueIterator.next();
-				// si es null es que no hay ue (aunque en ocasiones aunque no haya coge un null)
-				if (ueFound == null) {
-					ueFound = this.buildUe(tabla, r);
+				if (ueFound.getNombreUe().contains(tabla.getNombreUe())) {
 					encontrado = true;
-					// si el id de la iteración es igual al id de la tabla -> no creamos ue
-				} else if (ueFound.getNombreUe().contains(tabla.getNombreUe())) {
-					encontrado = true;
-					// si el contador se pasa del tamaño de la lista de ue -> se crea un ue
-				} else {
-					contador++;
+
 				}
 			}
 			if (!encontrado || ues.size() == 0) {
 				ueFound = this.buildUe(tabla, r);
-
-				encontrado = true;
 			}
-
 			return ueFound;
 		} catch (Exception ex) {
 			throw new Exception(ex);

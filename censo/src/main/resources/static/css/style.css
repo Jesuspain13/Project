@@ -142,9 +142,9 @@ html, body {
 
 .name {
 	display: inline-block;
-	margin: 0%;
+	margin: 0rem;
 	height: 4rem;
-	width: 6rem;
+	
 }
 
 .background-login {
@@ -164,6 +164,12 @@ html, body {
 
 .language-usa {
 	background: url("../img/usa.png") no-repeat center center fixed;
+<<<<<<< HEAD
+	
+}
+
+table.table td {
+	padding: 1rem;
 }
 
 

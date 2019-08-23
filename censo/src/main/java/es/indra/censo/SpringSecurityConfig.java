@@ -2,6 +2,7 @@ package es.indra.censo;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
@@ -22,14 +23,14 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
 	@Autowired
 	private JpaUserDetailSvc userDetailsService;
 
+	@Autowired
+	private DaoAuthenticationProvider authProvider;
+	
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		http.authorizeRequests()
 				.antMatchers("/", "/home*", "/css/**", "/js/**", "/font/**", "/img/**", "/scs**", "/locale").permitAll()
-				// .antMatchers("/ver/**").hasAnyRole("USER")
-				// .antMatchers("/uploads/**").hasAnyRole("USER")
-				// .antMatchers("/form/**").hasAnyRole("ADMIN")
-				// .antMatchers("/delete/**").hasAnyRole("ADMIN")
+				
 				.antMatchers("/doc/upload").hasAnyRole("ADMIN").anyRequest().authenticated().and().formLogin()
 				.successHandler(loginSuccessHandler).loginPage("/login").permitAll().and().logout().permitAll().and()
 				.exceptionHandling().accessDeniedPage("/error_403");
@@ -46,5 +47,10 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
 			e.printStackTrace();
 		}
 	}
+	
+	@Override
+    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+        auth.authenticationProvider(authProvider);
+    }
 
 }

@@ -24,12 +24,6 @@ public class LoginSuccessHandler extends SimpleUrlAuthenticationSuccessHandler i
 		super();
 	}
 
-//	@Autowired
-//	private MessageSource messageSource;
-//	
-//	@Autowired
-//	private LocaleResolver localeResolver;
-
 	@Override
 	public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response,
 			Authentication authentication) throws IOException, ServletException {
@@ -38,13 +32,6 @@ public class LoginSuccessHandler extends SimpleUrlAuthenticationSuccessHandler i
 		// crear el flash
 		FlashMap fm = new FlashMap();
 
-//		Locale locale = localeResolver.resolveLocale(request);
-//		String mensaje = String.format(messageSource.
-//				getMessage("text.login.mensaje.success", null, locale), authentication.getName());
-//		
-//		fm.put("success", mensaje);
-//		//registrar flash en el manager
-//		flashMapManager.saveOutputFlashMap(fm, request, response);
 
 		super.onAuthenticationSuccess(request, response, authentication);
 	}

@@ -35,6 +35,7 @@ public class EmpleadoController {
 
 			return "listar";
 		} catch (Exception ex) {
+			
 			String msg = msgSource.getMessage("text.error.generico", null, locale);
 			flash.addFlashAttribute("error", String.format(msg, ex.getMessage()));
 			return "redirect:/";
