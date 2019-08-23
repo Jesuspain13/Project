@@ -1,6 +1,7 @@
 package es.indra.censo.model;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -24,6 +25,11 @@ public class Usuario implements Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	
+	public Usuario() {
+		this.roles = new ArrayList<Rol>();
+	}
+
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -64,6 +70,10 @@ public class Usuario implements Serializable {
 
 	public void setPassword(String password) {
 		this.password = password;
+	}
+	
+	public void addRol(Rol rol) {
+		this.roles.add(rol);
 	}
 
 	public List<Rol> getRoles() {
