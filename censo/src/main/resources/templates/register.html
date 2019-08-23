@@ -15,11 +15,22 @@
 						<img src="https://image.ibb.co/n7oTvU/logo_white.png" alt="" />
 						<h2 th:text="#{text.usuario.bienvenida}"></h2>
 						<h6 th:text="#{text.usuario.descripcion}"></h6>
-						<div class="card-body text-center">
+
+						<!-- Input para introducir nombre usuario -->
+
+						<div class="form-group row d-flex justify-content-center">
+							<input type="text" class="form-control"
+								>
+						</div>
+						<!-- ./ Fin Input para introducir nombre usuario -->
+
+						<!-- Boton para buscar -->
 							<a th:href="@{/login}" role="button" class="btn btn-pink"
 								th:text="#{text.usuario.btn.buscar}"></a>
-						</div>
-						<br />
+								
+						<!-- Boton para buscar -->
+					
+						
 					</div>
 					<div class="col-md-9 register-right">
 
@@ -31,31 +42,36 @@
 								<form id="formRegistro" class="form-group"
 									th:object="${usuarioDto}" th:action="@{/usuario/registro}"
 									method="POST">
-									<h3 class="register-heading" th:text="#{text.usuario.registrar}"></h3>
+									<h3 class="register-heading"
+										th:text="#{text.usuario.registrar}"></h3>
 									<div class="row register-form">
 
 										<div class="col-md-12">
 											<div class="md-form row">
 												<i class="fas fa-user prefix icon-color"></i> <input
-													type="text" class="form-control" th:placeholder="#{text.usuario.place.usuario}"
+													type="text" class="form-control"
+													th:placeholder="#{text.usuario.place.usuario}"
 													name="username" value="" th:field="*{username}" />
 											</div>
 
 											<div class="md-form row">
 												<i class="fas fa-unlock-alt prefix icon-color"></i> <input
 													type="password" class="form-control" name="password"
-													th:placeholder="#{text.usuario.place.contraseña}" th:field="*{passwordEncoded}" />
+													th:placeholder="#{text.usuario.place.contraseña}"
+													th:field="*{passwordEncoded}" />
 											</div>
 											<div class="md-form row">
 												<i class="fas fa-lock prefix icon-color"></i> <input
 													id="passwordToCheck" type="password" class="form-control"
-													name="passwordRepeat" th:placeholder="#{text.usuario.place.confirmar.contraseña}" />
+													name="passwordRepeat"
+													th:placeholder="#{text.usuario.place.confirmar.contraseña}" />
 												<div id="errorPassword" class="alert alert-danger"></div>
 											</div>
 
 											<div class="md-form">
 												<select class="form-control">
-													<option class="hidden" selected disabled th:text="#{text.usuario.select.please}"></option>
+													<option class="hidden" selected disabled
+														th:text="#{text.usuario.select.please}"></option>
 													<option>Administrador</option>
 													<option>Usuario</option>
 												</select>
@@ -65,7 +81,8 @@
 
 											<div class="form-group row d-flex justify-content-center">
 												<button type="submit" class="btn btn-primary"
-													value="Crear Usuario" id="btnEnviar"th:text="#{text.usuario.btn.crear}">Enviar</button>
+													value="Crear Usuario" id="btnEnviar"
+													th:text="#{text.usuario.btn.crear}">Enviar</button>
 											</div>
 										</div>
 
