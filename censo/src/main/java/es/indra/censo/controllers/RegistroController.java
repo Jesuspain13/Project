@@ -29,14 +29,26 @@ import es.indra.censo.service.IRegistroService;
 public class RegistroController {
 	
 	private Logger log = LoggerFactory.getLogger(RegistroController.class);
-
 	
-
 	@Autowired
 	private IRegistroService registroService;
 
 	@Autowired
 	private MessageSource msgSource;
+
+	@GetMapping(value="/ver")
+	public String verTodos(Model model, RedirectAttributes flash, Locale locale) {
+		try {
+			List<Registro> registros = registroService.findAll();
+			model.addAttribute("registros", registros);
+			return "listaregistros";
+		} catch (Exception ex) {
+			log.error(ex.getMessage());
+			return "redirect:/";
+		}
+	}
+
+	
 
 	// Método para mostrar todos los registros del censo.
 	@RequestMapping(value = "/listar", method = RequestMethod.GET)

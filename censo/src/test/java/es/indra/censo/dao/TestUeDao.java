@@ -45,7 +45,7 @@ public class TestUeDao {
 		try {
 			FileInputStream excelFile = new FileInputStream(censoTest);
 			Workbook workbook = WorkbookFactory.create(excelFile);
-			reader.reader(workbook, "1.0.2", new Locale("es", "ES"));
+			reader.reader(workbook, "1.0.2", new Locale("es", "ES"), "Jesus");
 		} catch (Exception ex) {
 			ex.printStackTrace();
 			log.error(ex.getMessage());

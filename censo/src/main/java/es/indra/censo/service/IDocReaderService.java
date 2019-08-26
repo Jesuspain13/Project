@@ -6,6 +6,6 @@ import org.springframework.web.multipart.MultipartFile;
 
 public interface IDocReaderService {
 
-	public void readDocument(MultipartFile file, String version, Locale locale) throws Exception;
+	public void readDocument(MultipartFile file, String version, Locale locale, String nombreAutor) throws Exception;
 
 }

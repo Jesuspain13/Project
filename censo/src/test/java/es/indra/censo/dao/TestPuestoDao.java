@@ -52,7 +52,7 @@ public class TestPuestoDao {
 		try {
 			FileInputStream excelFile = new FileInputStream(censoTest);
 			Workbook workbook = WorkbookFactory.create(excelFile);
-			reader.reader(workbook, "1.0.2", new Locale("es", "ES"));
+			reader.reader(workbook, "1.0.2", new Locale("es", "ES"), "Jesus");
 			
 			List<Planta> plantas = (List<Planta>) plaDao.findAll();
 			plantaParaTestear = plantas.get(0);

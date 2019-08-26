@@ -20,6 +20,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import es.indra.censo.dao.IEmpleadoDao;
 import es.indra.censo.dao.IUeDao;
+import es.indra.censo.dao.IUsuarioDao;
 import es.indra.censo.docreader.validator.ValidadorColumnasExcel;
 import es.indra.censo.model.Complejo;
 import es.indra.censo.model.Edificio;
@@ -28,6 +29,7 @@ import es.indra.censo.model.Planta;
 import es.indra.censo.model.Puesto;
 import es.indra.censo.model.Registro;
 import es.indra.censo.model.Ue;
+import es.indra.censo.model.Usuario;
 import es.indra.censo.service.IRegistroService;
 
 @Service
@@ -52,19 +54,24 @@ public class ExcelReader {
 
 	@Autowired
 	private EntityManager em;
+	
+	@Autowired
+	private IUsuarioDao uDao;
 
 	private Locale locale;
+	
 
 	public ExcelReader() {
 	};
 
 	@Transactional
-	public void reader(Workbook workbook, String version, Locale locale) throws Exception {
+	public void reader(Workbook workbook, String version, Locale locale, String nombreAutor) throws Exception {
 		boolean censoEncontrado = false;
 		try {
 			this.locale = locale;
 			Sheet sheet = null;
 			Iterator<Sheet> sheetsIterator = workbook.sheetIterator();
+			Usuario autor = this.encontrarAutor(nombreAutor);
 			// buscar la hoja de calculo que coincida con el nombre (es la que contiene los
 			// datos)
 			while (sheetsIterator.hasNext() && !censoEncontrado) {
@@ -73,11 +80,12 @@ public class ExcelReader {
 					censoEncontrado = true;
 				}
 			}
-			if (sheet != null && censoEncontrado) {
+			if (sheet != null && censoEncontrado && (autor != null || autor.getUsername() != null)) {
 				Iterator<Row> rows = sheet.rowIterator();
 				Registro r = new Registro(version);
 				this.recorrerFilas(workbook, rows, r);
 				workbook.close();
+				r.setAutorSubida(autor);
 				rService.save(r);
 			}
 
@@ -89,6 +97,11 @@ public class ExcelReader {
 			log.error(ex.getMessage());
 			throw new Exception(ex);
 		}
+	}
+	
+	private Usuario encontrarAutor(String nombreAutor) {
+		Usuario usuarioEncontrado = uDao.findByUsername(nombreAutor);
+		return usuarioEncontrado;
 	}
 
 	/**

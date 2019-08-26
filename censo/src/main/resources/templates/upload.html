@@ -56,6 +56,9 @@
 												th:if="${#fields.hasErrors('file')}"
 												th:errors="*{file}"></small>
 							</div>
+							
+							<input name="admin" type="hidden"
+							 th:value="${#authentication.getPrincipal().getUsername()}"/>
 							<button type="submit" id="upload" class="btn btn-subir-indra"
 							th:text="#{text.btn.subir}" disabled>Subir</button>
 

@@ -12,6 +12,8 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.PrePersist;
 import javax.persistence.Table;
@@ -60,7 +62,9 @@ public class Registro implements Serializable {
 	@JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
 	private List<Ue> ues;
 
-	// private Integer idAdmin;
+	@ManyToOne(fetch=FetchType.EAGER, cascade= {CascadeType.PERSIST, CascadeType.MERGE})
+	@JoinColumn(name="usuario_id")
+	private Usuario autorSubida;
 
 	public Integer getIdRegistro() {
 		return idRegistro;
@@ -113,6 +117,16 @@ public class Registro implements Serializable {
 
 	public void addUes(Ue ue) {
 		this.ues.add(ue);
+	}
+	
+	
+
+	public Usuario getAutorSubida() {
+		return autorSubida;
+	}
+
+	public void setAutorSubida(Usuario autorSubida) {
+		this.autorSubida = autorSubida;
 	}
 
 	/**
