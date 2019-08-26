@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import es.indra.censo.model.Empleado;
@@ -62,6 +64,33 @@ public class EmpleadoController {
 			String msg = msgSource.getMessage("text.error.generico", null, locale);
 			flash.addFlashAttribute("error", String.format(msg, ex.getMessage()));
 			return "redirect:/";
+		}
+	}
+	
+	@GetMapping(value = "/info")
+	@ResponseBody
+	public Empleado verInfo(@RequestParam(name = "id") Integer id,
+			Locale locale) {
+		try {
+			System.out.println("método buscar json");
+			Empleado empleado = empleadoService.findEmpleadoByIdPuesto(id);
+
+			if (empleado == null) {
+				//flash.addFlashAttribute("error", "¡El empleado al que intenta acceder no existe en la BBDD!");
+				System.out.println("empleado no encontrado");
+				empleado = new Empleado();
+				empleado.setNombre("VACIO");
+		}
+
+			//model.put("empleado", empleado);
+			//model.put("titulo", "Información detallada de: " + empleado.getNombre() + " " + empleado.getApellido());
+			System.out.println("previo fin de metodo, mandar resultado");
+			return empleado;
+		} catch (Exception ex) {
+			ex.printStackTrace();
+			//String msg = msgSource.getMessage("text.error.generico", null, locale);
+			//flash.addFlashAttribute("error", String.format(msg, ex.getMessage()));
+			return null;
 		}
 	}
 

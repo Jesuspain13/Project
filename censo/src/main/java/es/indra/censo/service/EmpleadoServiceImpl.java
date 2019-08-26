@@ -29,12 +29,23 @@ public class EmpleadoServiceImpl implements IEmpleadoService {
 			throw new Exception(ex);
 		}
 	}
-
+	
 	@Override
 	@Transactional(readOnly = true)
 	public Empleado findEmpleadoById(Integer id) throws Exception {
 		try {
 			return empleadoDao.findById(id).get();
+		} catch (Exception ex) {
+			log.error(ex.getMessage());
+			throw new Exception(ex);
+		}
+	}
+
+	@Override
+	@Transactional(readOnly = true)
+	public Empleado findEmpleadoByIdPuesto(Integer id) throws Exception {
+		try {
+			return empleadoDao.findEmpleadoByIdPuesto(id);
 		} catch (Exception ex) {
 			log.error(ex.getMessage());
 			throw new Exception(ex);

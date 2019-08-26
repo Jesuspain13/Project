@@ -5,7 +5,7 @@ $( "#buscar" ).click(function() {
 		var usuarios;
 		var usuario;
 
-		const url = 'http://localhost:8080/listausuarios/buscar';
+		const url = 'http://localhost:8080/usuarios/buscar';
 		var htmlToRender = `
 		<div class="container">
 		<div class="row d-flex justify-content-center">
@@ -46,12 +46,16 @@ $( "#buscar" ).click(function() {
     		    	usuarios = data;
     		    	for (var i = 0; i < usuarios.length; i++) {
     		    		usuario = usuarios[i];
-    		    		urlDelete = "/listausuarios/eliminar/" + usuario.id;
+    		    		urlDelete = "/usuarios/eliminar/" + usuario.id;
+    		    		urlUpdate = "/usuarios/modificar/" + usuario.id;
     		    		htmlWithRows = htmlWithRows + `<tr>
     							<td class="align-middle">${usuario.username}</td>
     							<td class="align-middle"> ${usuario.roles[0].authority}</td>
     							<td>
     								<a class="btn btn-danger" href=${urlDelete}>Eliminar</a>
+    							</td>
+    							<td>
+    								<a class="btn btn-success" href=${urlUpdate}>Modificar</a>
     							</td>
     						</th>
     						`;

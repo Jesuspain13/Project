@@ -7,6 +7,12 @@ import es.indra.censo.model.Rol;
 import es.indra.censo.model.Usuario;
 
 public class UsuarioDTO {
+	
+	public UsuarioDTO(String username) {
+		this.username = username;
+	}
+	
+	public UsuarioDTO() {}
 
 	private String username;
 

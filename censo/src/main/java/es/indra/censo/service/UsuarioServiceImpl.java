@@ -5,19 +5,29 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import es.indra.censo.controllers.auth.UsuarioDTO;
+import es.indra.censo.dao.IRolDao;
 import es.indra.censo.dao.IUsuarioDao;
+import es.indra.censo.model.Rol;
 import es.indra.censo.model.Usuario;
 
 @Service
-public class UsuarioServiceImpl implements IUsuarioService{
-	
+public class UsuarioServiceImpl implements IUsuarioService {
+
 	private Logger log = LoggerFactory.getLogger(UsuarioServiceImpl.class);
-	
+
 	@Autowired
 	private IUsuarioDao usuarioDao;
+
+	@Autowired
+	private BCryptPasswordEncoder passwordEncoder;
+	
+	@Autowired
+	private IRolDao rolDao;
 
 //	@Override
 //	public List<Usuario> findUsuarioByName(String username) throws Exception {
@@ -45,24 +55,24 @@ public class UsuarioServiceImpl implements IUsuarioService{
 //		}
 //		
 //	}
-	
+
 	@Override
 	public List<Usuario> findUsuarioByName(String username) throws Exception {
-		
+
 		try {
 			List<Usuario> users = usuarioDao.findFullUsuarioByName(username);
-		
-			for (Usuario u: users) {
+
+			for (Usuario u : users) {
 				u.setPassword(null);
 			}
 			return users;
-			
-		}catch (Exception ex){
+
+		} catch (Exception ex) {
 			log.error(ex.getMessage());
 			throw new Exception(ex);
-			
+
 		}
-		
+
 	}
 
 	/**
@@ -75,13 +85,81 @@ public class UsuarioServiceImpl implements IUsuarioService{
 		try {
 			Usuario user = usuarioDao.findById(id).get();
 			user.setEnabled(false);
-		}catch(Exception ex) {
+		} catch (Exception ex) {
 			log.error(ex.getMessage());
 			throw new Exception(ex);
 		}
- 		
+
 	}
 
+	public Usuario findUsuarioById(Integer id) throws Exception {
+		try {
+			return usuarioDao.findById(id).get();
+		} catch (Exception ex) {
+			log.error(ex.getMessage());
+			throw new Exception(ex);
+		}
+	}
+
+	public void updateUsuario(Usuario usuario) throws Exception {
+		try {
+			usuarioDao.save(usuario);
+		} catch (Exception ex) {
+			log.error(ex.getMessage());
+			throw new Exception(ex);
+		}
+	}
+
+	@Override
+	@Transactional
+	public void modificarUsuario(int id, UsuarioDTO usuarioConDatosNuevos) throws Exception {
+		try {
+			Usuario usuarioAModificar = usuarioDao.findById(id).get();
+			usuarioAModificar.setUsername(usuarioConDatosNuevos.getUsername());
+			String passBCryptEncoded = this.passwordEncoder.encode(usuarioConDatosNuevos.getPasswordDecoded());
+			usuarioAModificar.setPassword(passBCryptEncoded);
+
+			usuarioDao.save(usuarioAModificar);
+		} catch (Exception ex) {
+			log.error(ex.getMessage());
+			throw new Exception(ex);
+		}
+	}
+
+	@Override
+	@Transactional
+	public void guardarUsuario(UsuarioDTO usuarioConDatosNuevos) throws Exception {
+		try {
+
+			Usuario usuario = new Usuario();
+			usuario.setUsername(usuarioConDatosNuevos.getUsername());
+			String pass1 = usuarioConDatosNuevos.getPasswordEncoded();
+			String pass = usuarioConDatosNuevos.getPasswordDecoded();
+			System.out.println("contraseña codificada: " + pass1);
+			System.out.println("contraseña: " + pass);
+			String passBCryptEncoded = this.passwordEncoder
+					.encode(pass);
+			usuario.setPassword(passBCryptEncoded);
+			usuario.setEnabled(true);
+			this.comprobarPermiso(usuarioConDatosNuevos.getRol(), usuario);
+
+			usuarioDao.save(usuario);
+		} catch (
+
+		Exception ex) {
+			log.error(ex.getMessage());
+			throw new Exception(ex);
+		}
+	}
 	
+	public void comprobarPermiso(String rolSeleccionado, Usuario usuario) {
+		List<Rol> roles = (List<Rol>) rolDao.findAll();
+		if (rolSeleccionado.contains("ADMIN")) {
+			usuario.setRoles(roles);
+		} else if (rolSeleccionado.contains("VISUALIZAR")) {
+			Rol rol = rolDao.findByAuthority(rolSeleccionado);
+			usuario.addRol(rol);
+		}
+	}
 
 }
