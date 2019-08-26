@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
-xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+	xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head th:replace="/layout/layout :: head"></head>
 <body>
 	<div class="main-content background-login">
@@ -15,24 +15,29 @@ xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 						<img src="https://image.ibb.co/n7oTvU/logo_white.png" alt="" />
 						<h2 th:text="#{text.usuario.bienvenida}"></h2>
 						<h6 th:text="#{text.usuario.descripcion}"></h6>
-						<div class="card-body text-center">
-							<a th:href="@{/login}" role="button" class="btn btn-pink"
+
+						<!-- Input para introducir nombre usuario -->
+
+						<div class="form-group row d-flex justify-content-center">
+							<input type="text" id="usuarioBuscar" class="form-control"
+								placeholder=" Usuario a Buscar">
+						</div>
+						<!-- ./ Fin Input para introducir nombre usuario -->
+
+						<!-- Boton para buscar -->
+						<div id="buscar">
+							<a  role="button" class="btn btn-pink"
 								th:text="#{text.usuario.btn.buscar}"></a>
 						</div>
-						<br />
+						<!-- Boton para buscar -->
+
+
 					</div>
 					<div class="col-md-9 register-right">
-
+				
 						<div class="tab-content" id="myTabContent">
 							<div class="tab-pane fade show active" id="home" role="tabpanel"
 								aria-labelledby="home-tab">
-								<div id="resultado"></div>
-								 
-								
-
-							
-									<h3 class="register-heading" th:text="#{text.usuario.registrar}"></h3>
-									<div class="row register-form">
 
 										<div class="col-md-12">
 											<div class="md-form row">
@@ -82,13 +87,14 @@ xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 													disabled th:text="#{text.usuario.btn.crear}"> Enviar</button>
 											</div>
 											</form>
-										</div>
 
-	
-									</div>
-									
 								
-								
+
+
+								</div>
+
+
+
 							</div>
 						</div>
 
@@ -100,30 +106,33 @@ xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 		<footer th:replace="layout/layout :: footer"></footer>
 	</div>
 	<script type="text/javascript">
-		$("#btnEnviar").click(function() {
-			
-				var name = $("#nameInput").val();
-				var rolId = $("#rolInput").val();
-				var pass = $("#passwordInput").val();
-			    var passEncoded = window.btoa(pass);
-			    $("#nameResult").val(name);
-			    $("#passResult").val(passEncoded);
-			    $("#rolResult").val(rolId);
-			    $("#formRegistro").submit();
-			   
-		})
+	$("#btnEnviar").click(function() {
 		
-		function checkPassword() {
-			var pass1 = $("#passwordInput").val();
-			var passToCheck = $("#passwordToCheck").val();
-			if (pass1 == passToCheck) {
-				$("#btnEnviar").prop("disabled", false);
-				$("#errorPassword").html('')
-			} else {
-				$("#btnEnviar").prop("disabled",true);
-				$("#errorPassword").html(`<small>Las contraseñas deben ser iguales</small>`)
-			}
-		}
+		var name = $("#nameInput").val();
+		var rolId = $("#rolInput").val();
+		var pass = $("#passwordInput").val();
+	    var passEncoded = window.btoa(pass);
+	    $("#nameResult").val(name);
+	    $("#passResult").val(passEncoded);
+	    $("#rolResult").val(rolId);
+	    $("#formRegistro").submit();
+	   
+})
+
+function checkPassword() {
+	var pass1 = $("#passwordInput").val();
+	var passToCheck = $("#passwordToCheck").val();
+	if (pass1 == passToCheck) {
+		$("#btnEnviar").prop("disabled", false);
+		$("#errorPassword").html('')
+	} else {
+		$("#btnEnviar").prop("disabled",true);
+		$("#errorPassword").html(`<small>Las contraseñas deben ser iguales</small>`)
+	}
+}
 	</script>
+
+	<script type="text/javascript"
+		th:src="@{/js/usuarios/buscarusuarios.js}"></script>
 </body>
 </html>

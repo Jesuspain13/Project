@@ -31,13 +31,6 @@ public class Rol implements Serializable {
 	private Integer rolId;
 
 	private String authority;
-	
-//	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-//	@JoinTable(name="rol_usuario",
-//	joinColumns= @JoinColumn(name="rol_id"),
-//	inverseJoinColumns= @JoinColumn(name="usuario_id"))
-//	@JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
-//	private List<Usuario> usuarios;
 
 	public Integer getRolId() {
 		return rolId;

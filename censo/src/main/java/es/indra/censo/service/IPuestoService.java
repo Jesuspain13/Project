@@ -2,9 +2,7 @@ package es.indra.censo.service;
 
 import java.util.List;
 
-import es.indra.censo.model.Planta;
 import es.indra.censo.model.Puesto;
-import es.indra.censo.model.Registro;
 import es.indra.censo.model.wrapper.NoSorteableException;
 
 public interface IPuestoService {
