@@ -16,4 +16,5 @@ public interface IRegistroService {
 
 	public Registro findByIdWithJoinFetch(Integer id) throws Exception;
 
+	public void deleteRegistroById(Integer id) throws Exception;
 }

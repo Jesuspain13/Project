@@ -1,5 +1,6 @@
 package es.indra.censo.controllers;
 
+import java.lang.ProcessBuilder.Redirect;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -46,6 +48,8 @@ public class RegistroController {
 			return "listaregistros";
 		} catch (Exception ex) {
 			log.error(ex.getMessage());
+			String msg = msgSource.getMessage("text.error.generico", null, locale);
+			flash.addFlashAttribute("error", String.format(msg, ex.getMessage()));
 			return "redirect:/";
 		}
 	}
@@ -70,6 +74,7 @@ public class RegistroController {
 
 			return "searchform";
 		} catch (Exception ex) {
+			log.error(ex.getMessage());
 			String msg = msgSource.getMessage("text.error.generico", null, locale);
 			flash.addFlashAttribute("error", String.format(msg, ex.getMessage()));
 			return "redirect:/";
@@ -91,6 +96,7 @@ public class RegistroController {
 			model.addAttribute("registro", rFound);
 			return "searchform";
 		} catch (Exception ex) {
+			log.error(ex.getMessage());
 			String msg = msgSource.getMessage("text.error.generico", null, locale);
 			flash.addFlashAttribute("error", String.format(msg, ex.getMessage()));
 			return "redirect:/";
@@ -114,10 +120,25 @@ public class RegistroController {
 			return "ver";
 
 		} catch (Exception ex) {
+			log.error(ex.getMessage());
 			String msg = msgSource.getMessage("text.error.generico", null, locale);
 			flash.addFlashAttribute("error", String.format(msg, ex.getMessage()));
 			return "redirect:/";
 		}
 
+	}
+	
+	@PostMapping(value= "/borrar")
+	public String borrar(@RequestParam(name= "id") Integer id, Model model, 
+			RedirectAttributes flash, Locale locale) {
+		try {
+			registroService.deleteRegistroById(id);
+			return "redirect:/registro/ver";
+		} catch (Exception ex) {
+			log.error(ex.getMessage());
+			String msg = msgSource.getMessage("text.error.generico", null, locale);
+			flash.addFlashAttribute("error", String.format(msg, ex.getMessage()));
+			return "redirect:/";
+		}
 	}
 }

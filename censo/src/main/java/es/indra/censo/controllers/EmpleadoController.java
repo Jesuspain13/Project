@@ -3,6 +3,8 @@ package es.indra.censo.controllers;
 import java.util.Locale;
 import java.util.Map;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Controller;
@@ -21,6 +23,8 @@ import es.indra.censo.service.IEmpleadoService;
 @Controller
 @RequestMapping("/empleado")
 public class EmpleadoController {
+	
+	Logger log = LoggerFactory.getLogger(EmpleadoController.class);
 
 	@Autowired
 	private MessageSource msgSource;
@@ -37,7 +41,7 @@ public class EmpleadoController {
 
 			return "listar";
 		} catch (Exception ex) {
-			
+			log.error(ex.getMessage());
 			String msg = msgSource.getMessage("text.error.generico", null, locale);
 			flash.addFlashAttribute("error", String.format(msg, ex.getMessage()));
 			return "redirect:/";
@@ -61,6 +65,7 @@ public class EmpleadoController {
 			model.put("titulo", "Información detallada de: " + empleado.getNombre() + " " + empleado.getApellido());
 			return "ver";
 		} catch (Exception ex) {
+			log.error(ex.getMessage());
 			String msg = msgSource.getMessage("text.error.generico", null, locale);
 			flash.addFlashAttribute("error", String.format(msg, ex.getMessage()));
 			return "redirect:/";
@@ -76,20 +81,16 @@ public class EmpleadoController {
 			Empleado empleado = empleadoService.findEmpleadoByIdPuesto(id);
 
 			if (empleado == null) {
-				//flash.addFlashAttribute("error", "¡El empleado al que intenta acceder no existe en la BBDD!");
-				System.out.println("empleado no encontrado");
 				empleado = new Empleado();
 				empleado.setNombre("VACIO");
 		}
 
-			//model.put("empleado", empleado);
-			//model.put("titulo", "Información detallada de: " + empleado.getNombre() + " " + empleado.getApellido());
+			
 			System.out.println("previo fin de metodo, mandar resultado");
 			return empleado;
 		} catch (Exception ex) {
-			ex.printStackTrace();
-			//String msg = msgSource.getMessage("text.error.generico", null, locale);
-			//flash.addFlashAttribute("error", String.format(msg, ex.getMessage()));
+			log.error(ex.getMessage());
+			
 			return null;
 		}
 	}

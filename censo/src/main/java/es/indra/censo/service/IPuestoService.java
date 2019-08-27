@@ -17,7 +17,7 @@ public interface IPuestoService {
 
 	public Puesto findPuestoById(Integer id) throws Exception;
 
-	public List<Puesto> findByPlantaOrdenados(Integer nombrePlanta, Integer idRegistro)
+	public List<Puesto> findByPlantaOrdenados(String nombrePlanta, Integer idRegistro)
 			throws NoSorteableException, Exception;
 
 }

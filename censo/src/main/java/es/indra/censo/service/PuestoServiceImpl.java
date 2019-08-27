@@ -72,21 +72,28 @@ public class PuestoServiceImpl implements IPuestoService {
 	}
 
 	@Override
-	public List<Puesto> findByPlantaOrdenados(Integer nombrePlanta, Integer idRegistro)
+	public List<Puesto> findByPlantaOrdenados(String nombrePlanta, Integer idRegistro)
 			throws NoSorteableException, Exception {
 		// TODO Auto-generated method stub
 		try {
 			String nombre = nombrePlanta.toString();
 			PlantaWrapperAbs pWrapper;
-			List<Puesto> puestosDesordenados = puestoDao.findByPlantaAndRegistro(nombre, idRegistro);
+			List<Puesto> puestosDesordenados;
 			if (nombre.contains("0")) {
+				puestosDesordenados = puestoDao.findByPlantaAndRegistro(nombre, idRegistro);
 				pWrapper = new PlantaBajaWrapper();
 
 				return pWrapper.ordenarPuesto(nombre, puestosDesordenados);
 			} else if (nombre.contains("1")) {
+				puestosDesordenados = puestoDao.findByPlantaAndRegistro(nombre, idRegistro);
 				pWrapper = new PlantaWrapper();
 
 				return pWrapper.ordenarPuesto(nombre, puestosDesordenados);
+			} else if (nombre.contains("azahar")) {
+				puestosDesordenados = puestoDao.findByPlantaAndRegistro("0", idRegistro);
+				PlantaBajaWrapper pWrapperAzahar = new PlantaBajaWrapper();
+				pWrapperAzahar.ordenarPuesto("0", puestosDesordenados);
+				return pWrapperAzahar.getPlantaAzahara();
 			} else {
 				throw new NoSorteableException(
 						msgSource.getMessage("text.error.encontrar.planta", null, new Locale("es", "ES")));

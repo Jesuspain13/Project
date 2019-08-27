@@ -47,19 +47,13 @@ public class PlantaController {
 	@Autowired
 	private IPuestoService puestoService;
 
-	@Autowired
-	private IRegistroService registroSvc;
-
-	@Autowired
-	private IPlantaDao pDao;
-
 	@RequestMapping(value = "/ver/{nombrePlanta}", method = RequestMethod.GET)
 	@ResponseBody
 	public List<Puesto> verPlantaPorRegistro(@PathVariable(value = "nombrePlanta") Integer nombrePlanta,
 			@RequestParam("idRegistro") Integer idRegistro, Map<String, Object> model, RedirectAttributes flash) {
 		try {
 
-			List<Puesto> puestos = puestoService.findByPlantaOrdenados(nombrePlanta, idRegistro);
+			List<Puesto> puestos = puestoService.findByPlantaOrdenados(nombrePlanta.toString(), idRegistro);
 
 			return puestos;
 		} catch (NoSorteableException ex) {
@@ -81,7 +75,6 @@ public class PlantaController {
 			RedirectAttributes flash, SessionStatus status, Locale locale) {
 		try {
 			Planta plantaEncontrada = plantaService.findPlantaByIdPlantaAndRegistro(planta.getId(), idRegistro);
-
 			if (plantaEncontrada == null) {
 				flash.addFlashAttribute("error", "¡La planta a la que intenta acceder no existe!");
 				return "redirect:/listar";
@@ -108,20 +101,22 @@ public class PlantaController {
 	public String verPlantaAzahar(@RequestParam("idRegistro") Integer idRegistro, Map<String, Object> model,
 			RedirectAttributes flash, Locale locale) {
 		try {
-			PlantaBajaWrapper pBajaWrapper = new PlantaBajaWrapper();
-			Planta plantaEncontrada = plantaService.findPlantaByNombrePlantaAndRegistro(0, idRegistro);
-
-			if (plantaEncontrada == null) {
+			//PlantaBajaWrapper pBajaWrapper = new PlantaBajaWrapper();
+			//Planta plantaEncontrada = plantaService.findPlantaByNombrePlantaAndRegistro(0, idRegistro);
+			List<Puesto> puestosPlantaAzahar = puestoService.findByPlantaOrdenados("azahar", idRegistro);
+			
+			if (puestosPlantaAzahar == null) {
 				flash.addFlashAttribute("error", "Error al encontrar la planta");
 				return "redirect:/registro/listar";
 			}
-			pBajaWrapper.ordenarPuesto(plantaEncontrada.getNombrePlanta(), plantaEncontrada.getPuestos());
+			Puesto p = puestosPlantaAzahar.get(0);
+			//pBajaWrapper.ordenarPuesto(plantaEncontrada.getNombrePlanta(), plantaEncontrada.getPuestos());
 
-			model.put("planta", plantaEncontrada);
-			model.put("edificio", plantaEncontrada.getEdificio());
-			model.put("puestos", pBajaWrapper.getPlantaAzahara());
+			model.put("planta", p.getPlanta());
+			model.put("edificio", p.getPlanta().getEdificio());
+			model.put("puestos", puestosPlantaAzahar);
 			model.put("idRegistro", idRegistro);
-			model.put("titulo", "Esta usted en la planta: " + plantaEncontrada.getNombrePlanta());
+			model.put("titulo", "Esta usted en la planta: " +  p.getPlanta().getNombrePlanta());
 
 			return "plantazahar";
 		} catch (NoSorteableException ex) {

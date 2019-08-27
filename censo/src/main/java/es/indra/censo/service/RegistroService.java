@@ -70,5 +70,15 @@ public class RegistroService implements IRegistroService {
 			throw new Exception(ex);
 		}
 	}
+	
+	@Override
+	public void deleteRegistroById(Integer id) throws Exception {
+		try {
+			registroDao.deleteById(id);;
+		} catch (Exception ex) {
+			log.error(ex.getMessage());
+			throw new Exception(ex);
+		}
+	}
 
 }
