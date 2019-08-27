@@ -20,16 +20,16 @@
 						<i class="fas fa-exclamation-triangle"></i>
 						<h5>ERROR</h5>
 					</div>
-					
-					
+
+
 					<div class="card-body text-center">
-						<p th:text="#{text.error403.sorry}">
-							<span
-								th:text="${#httpServletRequest.remoteUser}"></span>
+						<p>
+							<span th:text="${#httpServletRequest.remoteUser}"></span>
 						</p>
-						<p th:text="#{text.error403.permisos}"> No tiene permisos para acceder a está pagina, contacte con el administrador</p>
-						<a th:href="@{/}" role="button" class="btn btn-amber" th:text="#{text.error404.btn.back}">Volver
-								al inicio</a>
+						<p th:text="#{text.error403.permisos}">No tiene permisos para
+							acceder a está pagina, contacte con el administrador</p>
+						<a th:href="@{/}" role="button" class="btn btn-amber"
+							th:text="#{text.error404.btn.back}">Volver al inicio</a>
 					</div>
 				</div>
 			</div>
