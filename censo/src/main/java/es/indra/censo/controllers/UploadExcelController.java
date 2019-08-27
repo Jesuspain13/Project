@@ -35,8 +35,6 @@ public class UploadExcelController {
 	@Autowired
 	private MessageSource msgSource;
 
-	
-	
 	Logger log = LoggerFactory.getLogger(UploadExcelController.class);
 
 	@Autowired
@@ -63,14 +61,12 @@ public class UploadExcelController {
 	@PostMapping("/upload")
 	@Secured({ "ROLE_ADMIN" })
 	public String uploadExcel(@Valid FileWrapper r, BindingResult resultValid,
-			@RequestParam("admin") String nombreAutor, 
-			Model model, RedirectAttributes flash,
-			Locale locale) {
+			@RequestParam("admin") String nombreAutor, Model model, RedirectAttributes flash, Locale locale) {
 		try {
 			if (resultValid.hasErrors()) {
 				return "upload";
 			}
-			
+
 			Registro rSearched = null;
 			rSearched = rService.findRegistroByVersion(r.getVersion());
 			// si la versión ya existe vuelve hacia atrás.

@@ -14,9 +14,9 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
 public class LocaleController {
-	
+
 	Logger log = LoggerFactory.getLogger(LocaleController.class);
-	
+
 	@Autowired
 	private MessageSource msgSource;
 
@@ -24,9 +24,9 @@ public class LocaleController {
 	public String locale(HttpServletRequest request, Locale locale, RedirectAttributes flash) {
 		try {
 			String ultimaUrl = request.getHeader("referer");
-	
+
 			return "redirect:".concat(ultimaUrl);
-		} catch(Exception ex) {
+		} catch (Exception ex) {
 			log.error(ex.getMessage());
 			String msg = msgSource.getMessage("text.error.generico", null, locale);
 			flash.addFlashAttribute("error", String.format(msg, ex.getMessage()));

@@ -3,6 +3,8 @@ package es.indra.censo.controllers;
 import java.util.Locale;
 import java.util.Map;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Controller;
@@ -20,6 +22,8 @@ import es.indra.censo.service.IPuestoService;
 @RequestMapping("/puesto")
 public class PuestoController {
 
+	Logger log = LoggerFactory.getLogger(PuestoController.class);
+
 	@Autowired
 	private MessageSource msgSource;
 
@@ -35,6 +39,7 @@ public class PuestoController {
 
 			return "redirect:/planta/listar";
 		} catch (Exception ex) {
+			log.error(ex.getMessage());
 			String msg = msgSource.getMessage("text.error.generico", null, locale);
 			flash.addFlashAttribute("error", String.format(msg, ex.getMessage()));
 			return "redirect:/";
@@ -59,6 +64,7 @@ public class PuestoController {
 
 			return "ver";
 		} catch (Exception ex) {
+			log.error(ex.getMessage());
 			String msg = msgSource.getMessage("text.error.generico", null, locale);
 			flash.addFlashAttribute("error", String.format(msg, ex.getMessage()));
 			return "redirect:/";

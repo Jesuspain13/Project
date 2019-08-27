@@ -32,7 +32,7 @@ import es.indra.censo.service.IEdificioService;
 @RequestMapping("/edificio")
 @SessionAttributes({ "complejo", "registro", "idRegistro", "edificios" })
 public class EdificioController {
-	
+
 	@Autowired
 	private MessageSource msgSource;
 
