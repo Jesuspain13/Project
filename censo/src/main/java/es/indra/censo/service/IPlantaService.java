@@ -21,5 +21,7 @@ public interface IPlantaService {
 	public Planta findPlantaByIdPlantaAndRegistro(Integer idPlanta, int idRegistro) throws Exception;
 
 	public Planta findPlantaByNombrePlantaAndRegistro(Integer nombrePlanta, Integer idRegistro) throws Exception;
+	
+	public List<Planta> findPlantasByIdEdificioAndIdRegistro(Integer idEdificio, Integer idRegistro) throws Exception;
 
 }

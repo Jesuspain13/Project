@@ -44,6 +44,7 @@ public class Planta implements Serializable {
 	private Registro registro;
 
 	@OneToMany(mappedBy = "planta", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
 	private List<Puesto> puestos;
 
 	@ManyToOne(fetch = FetchType.LAZY)

@@ -39,12 +39,12 @@ public class TestEdificioDao {
 	@Before
 	public void before() {
 
-		censoTest = new File("./src/main/resources/SitiosEdificioTest.xlsx");
+		censoTest = new File("./src/main/resources/Test.xlsx");
 
 		try {
 			FileInputStream excelFile = new FileInputStream(censoTest);
 			Workbook workbook = WorkbookFactory.create(excelFile);
-			reader.reader(workbook, "1.0.2", new Locale("es", "ES"), "Jesus");
+			reader.reader(workbook, "1.0.2", new Locale("es", "ES"), "admin");
 		} catch (Exception ex) {
 			ex.printStackTrace();
 			log.error(ex.getMessage());
@@ -53,12 +53,12 @@ public class TestEdificioDao {
 
 	@Test
 	public void TestEdificiofindByIdAndRegistro() {
-		
+
 		List<Edificio> edificios = (List<Edificio>) eDao.findAll();
 		Edificio edificioParaTestear = edificios.get(0);
-		Edificio edificioATestear = eDao.findByIdAndRegistro(edificioParaTestear.getIdEdificio(), 
+		Edificio edificioATestear = eDao.findByIdAndRegistro(edificioParaTestear.getIdEdificio(),
 				edificioParaTestear.getRegistro().getIdRegistro());
-		
+
 		assertNotNull(edificioATestear);
 		assertEquals(edificioATestear.getIdEdificio(), edificioParaTestear.getIdEdificio());
 
