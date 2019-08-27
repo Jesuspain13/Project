@@ -42,6 +42,12 @@
 						<a class="nav-link" th:href="@{/registro/listar}"
 						th:text="#{text.buscar.registro}">Buscar registro</a>
 					</li>
+
+					<li class="nav-item" sec:authorize="hasRole('ROLE_ADMIN')">
+						<a class="nav-link" th:href="@{/registro/ver}"
+						th:text="#{text.ver.registro}">Ver registro</a>
+					</li>
+
 					<li class="nav-item" sec:authorize="hasRole('ROLE_ADMIN')"><a
 						class="nav-link" th:href="@{/doc/upload}"
 						th:text="#{text.nuevo.registro}">Nuevo registro</a></li>
@@ -123,8 +129,9 @@
 			th:src="@{/js/packagepuesto/generarhtmlpuestos.js}"></script>
 		<script type="text/javascript"
 			th:src="@{/js/packagepuesto/puestos.js}"></script>
-		<script type="text/javascript" th:src="@{/js/packagepuesto/infoempleado.js}"></script>
-		
+		<script type="text/javascript"
+			th:src="@{/js/packagepuesto/infoempleado.js}"></script>
+
 
 
 	</footer>

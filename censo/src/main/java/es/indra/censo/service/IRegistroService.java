@@ -2,11 +2,16 @@ package es.indra.censo.service;
 
 import java.util.List;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+
 import es.indra.censo.model.Registro;
 
 public interface IRegistroService {
 
 	public List<Registro> findAll() throws Exception;
+	
+	public Page<Registro> findAll(Pageable pageable);
 
 	public Registro save(Registro registro) throws Exception;
 
