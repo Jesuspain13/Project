@@ -10,11 +10,9 @@
 		<!--Main Navigation-->
 
 		<!--Main layout-->
+
+		<div class="loader"></div>
 		<main>
-
-
-
-
 
 		<div class="container py-4">
 			<div class="row d-flex justify-content-center">
@@ -48,15 +46,26 @@
 										<p th:text="${r.getAutorSubida().getUsername()}"></p>
 									</td>
 									<td>
-										<a class="btn btn-danger btn-sm" onclick="return confirm('¿Estas seguro que quieres eliminar?');" th:text="#{text.registro.btn.borrar}">
-											<i class="fas fa-trash-alt mr-1" ></i> Eliminar
-										</a>
+										<form th:action="@{/registro/borrar}" method="POST">
+											<input type="hidden" name="id"
+												th:value="${r.getIdRegistro()}">
+											<button class="btn btn-danger btn-sm"
+												onclick="return confirm('¿Estas seguro que quieres eliminar?');"
+												th:text="#{text.registro.btn.borrar}" id="upload">
+												<i class="fas fa-trash-alt mr-1"></i> Eliminar
+											</button>
+
+										</form>
 									</td>
 								</tr>
 							</tbody>
 						</table>
 
 					</div>
+
+					<!-- Agregamos el fragmento de la paginación -->
+					<nav th:replace="paginator-nav :: paginator"></nav>
+					<!-- ./Agregamos el fragmento de la paginación -->
 				</div>
 			</div>
 
@@ -65,6 +74,14 @@
 		</main>
 		<footer th:replace="layout/layout :: footer"></footer>
 		<!-- Footer -->
+		
+		<script type="text/javascript">
+
+			$("#upload").click(function() {
+				$(".loader").css("visibility", "visible");
+			});
+			
+		</script>
 
 	</div>
 </body>

@@ -1,6 +1,6 @@
 package es.indra.censo.controllers;
 
-import java.lang.ProcessBuilder.Redirect;
+
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
@@ -9,6 +9,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -22,9 +25,11 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import es.indra.censo.controllers.paginator.PageRender;
 import es.indra.censo.model.Complejo;
 import es.indra.censo.model.Registro;
 import es.indra.censo.service.IRegistroService;
+
 
 @Controller
 @RequestMapping("/registro")
@@ -41,10 +46,22 @@ public class RegistroController {
 
 	@GetMapping(value="/ver")
 	@Secured({ "ROLE_ADMIN" })
-	public String verTodos(Model model, RedirectAttributes flash, Locale locale) {
+	public String verTodos(@RequestParam(name = "page", defaultValue = "0") int page, Model model, 
+			RedirectAttributes flash, Locale locale) {
 		try {
-			List<Registro> registros = registroService.findAll();
+			
+			Pageable pageRequest = PageRequest.of(page, 3);
+			Page<Registro> registros = registroService.findAll(pageRequest);
+			
+			PageRender <Registro> pageRender = new PageRender<>("/registro/ver", registros);
 			model.addAttribute("registros", registros);
+			
+			// Pasamos a la vista la paginación, una vez obtenida.
+			model.addAttribute("page", pageRender);
+			
+			
+				
+			
 			return "listaregistros";
 		} catch (Exception ex) {
 			log.error(ex.getMessage());
@@ -52,6 +69,10 @@ public class RegistroController {
 			flash.addFlashAttribute("error", String.format(msg, ex.getMessage()));
 			return "redirect:/";
 		}
+		
+						
+
+				
 	}
 
 	
@@ -133,6 +154,8 @@ public class RegistroController {
 			RedirectAttributes flash, Locale locale) {
 		try {
 			registroService.deleteRegistroById(id);
+			String msg = msgSource.getMessage("text.registro.exito", null, locale);
+			flash.addFlashAttribute("success", String.format(msg));
 			return "redirect:/registro/ver";
 		} catch (Exception ex) {
 			log.error(ex.getMessage());
