@@ -10,29 +10,32 @@
 	<!--Main Navigation-->
 	<header th:replace="layout/layout :: header"> </header>
 	<!--Main Navigation-->
-<main>
+	<main>
 	<div class="container py-3">
 		<div class="row">
 
 			<div class="col-md-12">
-				<div class="card bg-danger">
-					<div class="card-header text-center">
-						<h5>Error.</h5>
+				<div class="card">
+					<div class="card-header bg-danger text-center text-white">
+						<i class="fas fa-exclamation-triangle"></i>
+						<h5>ERROR</h5>
 					</div>
-					<div class="card-body">
-						<p>
-							Lo sentimos, el usuario <span
-								th:text="${#httpServletRequest.remoteUser}"></span> no tiene
-							permiso
+					
+					
+					<div class="card-body text-center">
+						<p th:text="#{text.error403.sorry}">
+							<span
+								th:text="${#httpServletRequest.remoteUser}"></span>
 						</p>
-						<a th:href="@{/}" role="button" class="btn btn-light">Volver
-							al inicio</a>
+						<p th:text="#{text.error403.permisos}"> No tiene permisos para acceder a está pagina, contacte con el administrador</p>
+						<a th:href="@{/}" role="button" class="btn btn-amber" th:text="#{text.error404.btn.back}">Volver
+								al inicio</a>
 					</div>
 				</div>
 			</div>
 		</div>
 	</div>
-</main>
+	</main>
 	<!-- Footer -->
 	<footer th:replace="layout/layout :: footer"></footer>
 	<!-- Footer -->
