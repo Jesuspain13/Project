@@ -8,6 +8,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -37,6 +38,7 @@ public class RegistroController {
 	private MessageSource msgSource;
 
 	@GetMapping(value="/ver")
+	@Secured({ "ROLE_ADMIN" })
 	public String verTodos(Model model, RedirectAttributes flash, Locale locale) {
 		try {
 			List<Registro> registros = registroService.findAll();
