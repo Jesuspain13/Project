@@ -25,8 +25,8 @@
 						<!-- ./ Fin Input para introducir nombre usuario -->
 
 						<!-- Boton para buscar -->
-						<div id="buscar">
-							<a role="button" class="btn btn-pink"
+						<div >
+							<a id="buscar" role="button" class="btn btn-pink"
 								th:text="#{text.usuario.btn.buscar}"></a>
 						</div>
 						<!-- Boton para buscar -->
@@ -40,8 +40,8 @@
 								aria-labelledby="home-tab">
 
 								<div class="col-md-12">
-									<!-- FORMULARIO PARA CREAR UN USUARIO -->
-									<div th:if="${usuario == null && usuarioDto != null}">
+								<!-- FORMULARIO PARA CREAR UN USUARIO -->
+									<div id="formularioGuardar" th:if="${usuario == null && usuarioDto != null}">
 										<div class="md-form row d-flex justify-content-center">
 											<div class="form-group">
 												<i class="fas fa-user prefix icon-color"></i> <input
@@ -100,7 +100,30 @@
 											</div>
 										</form>
 									</div>
-									<!-- FORMULARIO PARA ACTUALIZAR UN USUARIO -->
+								<!-- FIN FORMULARIO GUARDAR UN USUARIO -->
+								
+								<!-- TABLA DE BÚSQUEDA DE USUARIOS -->
+									<div class="table-responsive" id="buscarTabla"
+														style='display: none'>
+										<table class="table">
+											<thead>
+												<tr>
+													<th th:text="#{text.editar.usuario}">NOMBRE</th>
+													<th th:text="#{text.editar.rol}">ROL</th>
+													<th th:text="#{text.editar.estado}">ESTADO</th>
+													<th th:text="#{text.editar.propiedades}">ELIMINAR</th>
+													
+												</tr>
+											</thead>
+											<tbody id="tableBody">
+	
+											</tbody>
+										</table>
+	
+									</div>
+								<!-- FIN TABLA DE BÚSQUEDA DE USUARIOS -->
+								
+								<!-- FORMULARIO PARA ACTUALIZAR UN USUARIO -->
 									<div th:if="${usuario != null}">
 										<div class="md-form row d-flex justify-content-center">
 											<div class="form-group">
@@ -128,6 +151,7 @@
 												<div id="errorPassword" class="alert alert-danger"></div>
 											</div>
 										</div>
+										<!-- TABLA PARA ROLES -->
 										<div id="table">
 											<table class="table">
 												<thead>
@@ -159,7 +183,7 @@
 										</form>
 
 									</div>
-
+								<!-- FIN FORMULARIO PARA ACTUALIZAR UN USUARIO -->
 								</div>
 
 
@@ -181,6 +205,7 @@
 		th:src="@{/js/usuarios/buscarusuarios.js}"></script>
 		
 	<script type="text/javascript" th:src="@{/js/usuarios/mostrarroles.js}"></script>
+	
 	<script type="text/javascript" th:inline="javascript">
 		
 			var roles =  [[${roles}]]; 

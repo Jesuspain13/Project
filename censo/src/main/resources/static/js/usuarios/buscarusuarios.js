@@ -1,38 +1,20 @@
 
 $( "#buscar" ).click(function() {
+	
+	$("div#formularioGuardar").css("display", "none")
+	$("div#buscarTabla").css("display", "block")
+	
 
 		var x = $("#usuarioBuscar").val();
 		var usuarios;
 		var usuario;
+		var status= `<i class="fas fa-times active-false"></i>`;
 
 		const url = 'http://localhost:8080/usuarios/buscar';
-		var htmlToRender = `
-		<div class="container">
-		<div class="row d-flex justify-content-center">
-		<div class="col-md-10 text-center t-flex justify-content-center">
-		<div class="table-responsive">
-			<table class="table">
-				<thead>
-					<tr>
-						<th>NOMBRE</th>
-						<th>ROL</th>
-						<th>ELIMINAR</th>
-					</tr>
-				</thead>
-				<tbody id="tableBody">
-					
-				</tbody>
-			</table>
-			</div>
-		</div>
-		</div>
-		</div>
-		`;
 		
-		var htmlWithRows;
 		
-		$("#myTabContent").html(htmlToRender);
-	    
+		var htmlWithRowsToRender;
+
 
 		$.ajax({
     		    url: url,
@@ -48,19 +30,25 @@ $( "#buscar" ).click(function() {
     		    		usuario = usuarios[i];
     		    		urlDelete = "/usuarios/eliminar/" + usuario.id;
     		    		urlUpdate = "/usuarios/modificar/" + usuario.id;
-    		    		htmlWithRows = htmlWithRows + `<tr>
+    		    		
+    		    		if (usuario.enabled){
+    		    			status = `<i class="fas fa-check active-true"></i>`;
+    		    		
+    		    		}
+    		    		htmlWithRowsToRender = htmlWithRowsToRender + `<tr>
     							<td class="align-middle">${usuario.username}</td>
     							<td class="align-middle"> ${usuario.roles[0].authority}</td>
+    							<td class="text-center align-middle"> ${status}</td>
     							<td>
-    								<a class="btn btn-danger" href=${urlDelete}>Eliminar</a>
+    								<a class="btn btn-success" href=${urlUpdate}><i class="fas fa-edit mr-1"></i></a>
     							</td>
     							<td>
-    								<a class="btn btn-success" href=${urlUpdate}>Modificar</a>
+    								<a class="btn btn-danger" href=${urlDelete}><i class="fas fa-trash-alt mr-1"></i></a>
     							</td>
     						</th>
     						`;
     	    		    }
-    		    	$("#tableBody").html(htmlWithRows)
+    		    	$("#tableBody").html(htmlWithRowsToRender)
     		    	}
 	            
 					

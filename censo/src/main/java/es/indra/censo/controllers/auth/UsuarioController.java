@@ -3,6 +3,8 @@ package es.indra.censo.controllers.auth;
 import java.util.List;
 import java.util.Locale;
 
+import javax.validation.Valid;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -48,7 +50,7 @@ public class UsuarioController {
 	@GetMapping("/buscar")
 	@ResponseBody
 	public List<Usuario> listarUsuarioPorNombre(@RequestParam(name = "nombre") String nombre,
-			RedirectAttributes flash) {
+			RedirectAttributes flash, Locale locale) {
 
 		String name = nombre;
 
@@ -58,7 +60,7 @@ public class UsuarioController {
 			return usuarios;
 		} catch (Exception ex) {
 			log.error(ex.getMessage());
-			String msg = msgSource.getMessage("text.error.generico", null, new Locale("es", "ES"));
+			String msg = msgSource.getMessage("text.error.generico", null, locale);
 			flash.addFlashAttribute("error", String.format(msg, ex.getMessage()));
 
 			return null;
@@ -72,14 +74,15 @@ public class UsuarioController {
 	 * @return
 	 */
 	@GetMapping("/eliminar/{id}")
-	public String borrarUsuarioPorId(@PathVariable(name = "id") Integer id, RedirectAttributes flash) {
+	public String borrarUsuarioPorId(@PathVariable(name = "id") Integer id, RedirectAttributes flash, Locale locale) {
 		try {
 			usuarioService.deleteUsuarioById(id);
-			flash.addFlashAttribute("success", "Se ha borrado el usuario");
+			String msg = msgSource.getMessage("text.usuario.delete", null, locale);
+			flash.addFlashAttribute("success", String.format(msg));
 			return "redirect:/usuarios/registro";
 		} catch (Exception ex) {
 			log.error(ex.getMessage());
-			String msg = msgSource.getMessage("text.error.generico", null, new Locale("es", "ES"));
+			String msg = msgSource.getMessage("text.error.generico", null, locale);
 			flash.addFlashAttribute("error", String.format(msg, ex.getMessage()));
 
 			return "redirect:/usuario/registro";
@@ -95,21 +98,20 @@ public class UsuarioController {
 	 * @return
 	 */
 	@GetMapping("/modificar/{id}")
-	public String modificarUsuario(@PathVariable(name = "id") Integer id, RedirectAttributes flash, Model model) {
+	public String modificarUsuario(@PathVariable(name = "id") Integer id, RedirectAttributes flash, Model model, Locale locale) {
 		try {
 			Usuario usuario = usuarioService.findUsuarioById(id);
 			UsuarioDTO usuarioDto = new UsuarioDTO();
 			usuarioDto.setUsername(usuario.getUsername());
 			usuarioDto.setIdUser(usuario.getId());
 			model.addAttribute("usuario", usuarioDto);
-		
 			model.addAttribute("roles", usuario.getRoles());
-			flash.addFlashAttribute("success", "Se ha borrado el usuario");
+
 			return "register";
 		} catch (Exception ex) {
 			ex.printStackTrace();
 			log.error(ex.getMessage());
-			String msg = msgSource.getMessage("text.error.generico", null, new Locale("es", "ES"));
+			String msg = msgSource.getMessage("text.error.generico", null, locale);
 			flash.addFlashAttribute("error", String.format(msg, ex.getMessage()));
 
 			return "redirect:/usuarios/registro";
