@@ -104,8 +104,7 @@ public class UsuarioController {
 			UsuarioDTO usuarioDto = new UsuarioDTO(usuario.getUsername());
 
 			model.addAttribute("usuario", usuarioDto);
-			String msg = msgSource.getMessage("text.usuario.delete", null, locale);
-			flash.addFlashAttribute("success", String.format(msg));
+			
 			return "register";
 		} catch (Exception ex) {
 			ex.printStackTrace();
