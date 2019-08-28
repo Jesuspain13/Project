@@ -101,22 +101,20 @@ public class PlantaController {
 	public String verPlantaAzahar(@RequestParam("idRegistro") Integer idRegistro, Map<String, Object> model,
 			RedirectAttributes flash, Locale locale) {
 		try {
-			//PlantaBajaWrapper pBajaWrapper = new PlantaBajaWrapper();
-			//Planta plantaEncontrada = plantaService.findPlantaByNombrePlantaAndRegistro(0, idRegistro);
+
 			List<Puesto> puestosPlantaAzahar = puestoService.findByPlantaOrdenados("azahar", idRegistro);
-			
+
 			if (puestosPlantaAzahar == null) {
 				flash.addFlashAttribute("error", "Error al encontrar la planta");
 				return "redirect:/registro/listar";
 			}
 			Puesto p = puestosPlantaAzahar.get(0);
-			//pBajaWrapper.ordenarPuesto(plantaEncontrada.getNombrePlanta(), plantaEncontrada.getPuestos());
 
 			model.put("planta", p.getPlanta());
 			model.put("edificio", p.getPlanta().getEdificio());
 			model.put("puestos", puestosPlantaAzahar);
 			model.put("idRegistro", idRegistro);
-			model.put("titulo", "Esta usted en la planta: " +  p.getPlanta().getNombrePlanta());
+			model.put("titulo", "Esta usted en la planta: " + p.getPlanta().getNombrePlanta());
 
 			return "plantazahar";
 		} catch (NoSorteableException ex) {

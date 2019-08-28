@@ -32,7 +32,7 @@ import es.indra.censo.service.IEdificioService;
 @RequestMapping("/edificio")
 @SessionAttributes({ "complejo", "registro", "idRegistro", "edificios" })
 public class EdificioController {
-	
+
 	@Autowired
 	private MessageSource msgSource;
 
@@ -58,15 +58,15 @@ public class EdificioController {
 			status.setComplete();
 			model.put("edificio", edificio);
 
-			Planta p = edificio.getPlantas().get(1);
-			PlantaWrapperAbs pWrapper = new PlantaWrapper();
-			List<Puesto> puestosDesordenados = puestoDao.findByPlanta(p);
-			List<Puesto> puestos = (pWrapper.ordenarPuesto(p.getNombrePlanta(), puestosDesordenados));
-			p.setPuestos(puestos);
+//			Planta p = edificio.getPlantas().get(1);
+//			PlantaWrapperAbs pWrapper = new PlantaWrapper();
+//			List<Puesto> puestosDesordenados = puestoDao.findByPlanta(p);
+//			List<Puesto> puestos = (pWrapper.ordenarPuesto(p.getNombrePlanta(), puestosDesordenados));
+//			p.setPuestos(puestos);
 
 			model.put("idRegistro", idRegistro);
 
-			model.put("planta", p);
+			model.put("planta", edificio.getPlantas().get(1));
 
 			return "plantaprimera";
 		} catch (Exception ex) {

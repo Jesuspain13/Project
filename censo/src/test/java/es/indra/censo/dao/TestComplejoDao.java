@@ -40,12 +40,12 @@ public class TestComplejoDao {
 	@Before
 	public void before() {
 
-		censoTest = new File("./src/main/resources/SitiosEdificioTest.xlsx");
+		censoTest = new File("./src/main/resources/Test.xlsx");
 
 		try {
 			FileInputStream excelFile = new FileInputStream(censoTest);
 			Workbook workbook = WorkbookFactory.create(excelFile);
-			reader.reader(workbook, "1.0.2", new Locale("es", "ES"), "Jesus");
+			reader.reader(workbook, "1.0.2", new Locale("es", "ES"), "admin");
 		} catch (Exception ex) {
 			ex.printStackTrace();
 			log.error(ex.getMessage());
@@ -54,7 +54,6 @@ public class TestComplejoDao {
 
 	@Test
 	public void TestComplejofindByIdAndRegistro() {
-		
 
 		List<Complejo> complejos = (List<Complejo>) cDao.findAll();
 		Complejo complejoParaTestear = complejos.get(0);

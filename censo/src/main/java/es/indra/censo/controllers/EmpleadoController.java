@@ -23,7 +23,7 @@ import es.indra.censo.service.IEmpleadoService;
 @Controller
 @RequestMapping("/empleado")
 public class EmpleadoController {
-	
+
 	Logger log = LoggerFactory.getLogger(EmpleadoController.class);
 
 	@Autowired
@@ -71,11 +71,10 @@ public class EmpleadoController {
 			return "redirect:/";
 		}
 	}
-	
+
 	@GetMapping(value = "/info")
 	@ResponseBody
-	public Empleado verInfo(@RequestParam(name = "id") Integer id,
-			Locale locale) {
+	public Empleado verInfo(@RequestParam(name = "id") Integer id, Locale locale) {
 		try {
 			System.out.println("método buscar json");
 			Empleado empleado = empleadoService.findEmpleadoByIdPuesto(id);
@@ -83,14 +82,13 @@ public class EmpleadoController {
 			if (empleado == null) {
 				empleado = new Empleado();
 				empleado.setNombre("VACIO");
-		}
+			}
 
-			
 			System.out.println("previo fin de metodo, mandar resultado");
 			return empleado;
 		} catch (Exception ex) {
 			log.error(ex.getMessage());
-			
+
 			return null;
 		}
 	}

@@ -25,8 +25,8 @@
 						<!-- ./ Fin Input para introducir nombre usuario -->
 
 						<!-- Boton para buscar -->
-						<div id="buscar">
-							<a role="button" class="btn btn-pink"
+						<div >
+							<a id="buscar" role="button" class="btn btn-pink"
 								th:text="#{text.usuario.btn.buscar}"></a>
 						</div>
 						<!-- Boton para buscar -->
@@ -40,162 +40,178 @@
 								aria-labelledby="home-tab">
 
 								<div class="col-md-12">
-									<div class="container">
-										<div class="row d-flex justify-content-center">
-										
-										
-											<div class="col-md-10">
-											
-												<!-- FORMULARIO PARA CREAR UN USUARIO -->
-												<div id="formulario"
-													th:if="${usuario == null && usuarioDto != null}">
-													<div class="md-form row d-flex justify-content-center">
-														<div class="form-group">
-															<i class="fas fa-user prefix icon-color"></i> <input
-																type="text" class="nameInput form-control"
-																th:placeholder="#{text.usuario.place.usuario}"
-																name="username" value="" />
-														</div>
-													</div>
-
-													<div class="md-form row d-flex justify-content-center">
-														<div class="form-group">
-															<i class="fas fa-unlock-alt prefix icon-color"></i> <input
-																class="form-control passwordInput" type="password"
-																name="password"
-																th:placeholder="#{text.usuario.place.contraseña}" />
-														</div>
-													</div>
-													<div class="md-form row d-flex justify-content-center">
-														<div class="form-group">
-															<i class="fas fa-lock prefix icon-color"></i> <input
-																type="password" class="passwordToCheck form-control"
-																name="passwordRepeat"
-																th:placeholder="#{text.usuario.place.confirmar.contraseña}"
-																onkeyup="checkPassword()" />
-															<div id="errorPassword" class="alert alert-danger" hidden></div>
-														</div>
-													</div>
-
-
-													<div class="md-form row d-flex justify-content-center">
-														<div class="form-group">
-															<select id="rolInput" class="form-control">
-																<option class="hidden" selected disabled>Por
-																	favor Selecciona un Rol:</option>
-																<option th:each="rol: ${roles}"
-																	th:value="${rol.getAuthority()}"
-																	th:text="${rol.getAuthority()}">Administrador</option>
-															</select>
-														</div>
-													</div>
-
-													<br>
-													<form class="formRegistro" id="formRegistro"
-														th:object="${usuarioDto}"
-														th:action="@{/usuarios/registro}" method="POST">
-														<input class="passResult" type="hidden" value=""
-															th:field="*{passwordEncoded}" /> <input
-															class="nameResult" type="hidden" value=""
-															th:field="*{username}" /> <input id="rolResult"
-															type="hidden" value="" th:field="*{rol}" />
-
-
-														<div class="form-group row d-flex justify-content-center">
-															<button type="button" class="btn btn-primary enviar"
-																value="Crear Usuario" id="btnEnviar" disabled
-																th:text="#{text.usuario.btn.crear}">Enviar</button>
-														</div>
-													</form>
-												</div>
-
-
-												<!-- FORMULARIO PARA ACTUALIZAR UN USUARIO -->
-												<div id="formulario" th:if="${usuario != null}">
-													<div class="md-form row d-flex justify-content-center">
-														<div class="form-group">
-															<i class="fas fa-user prefix icon-color"></i> <input
-																id="nameInput" type="text" class="form-control"
-																th:placeholder="#{text.usuario.place.usuario}"
-																name="username" th:value="${usuario.getUsername()}" />
-														</div>
-													</div>
-													<div class="md-form row d-flex justify-content-center">
-														<div class="form-group">
-															<i class="fas fa-unlock-alt prefix icon-color"></i> <input
-																class="passwordInput form-control" type="password"
-																name="password"
-																th:placeholder="#{text.usuario.place.contraseña}" />
-														</div>
-													</div>
-													<div class="md-form row d-flex justify-content-center">
-														<div class="form-group">
-															<i class="fas fa-lock prefix icon-color"></i> <input
-																type="password" class="passwordToCheck form-control"
-																name="passwordRepeat"
-																th:placeholder="#{text.usuario.place.confirmar.contraseña}"
-																onkeyup="checkPassword()" />
-															<div id="errorPassword" class="alert alert-danger"></div>
-														</div>
-													</div>
-													<div id="table"> </div>
-													<form class="formRegistro" th:object="${usuario}"
-														th:action="@{''}" method="POST">
-														<div>
-															<input id="nameResult" type="hidden" value=""
-																th:field="*{username}" /> <input class="passResult"
-																type="hidden" value="" th:field="*{passwordEncoded}" />
-														</div>
-
-														<div class="form-group row d-flex justify-content-center">
-															<button type="button" class="btn btn-primary enviar"
-																value="Crear Usuario" id="btnEnviar" disabled
-																th:text="#{text.usuario.btn.crear}">Enviar</button>
-														</div>
-													</form>
-
-												</div>
-
-												<!-- fin FORMULARIO PARA ACTUALIZAR UN USUARIO -->
-
-												<div class="table-responsive" id="buscarTabla"
-													style='display: none'>
-													<table class="table">
-														<thead>
-															<tr>
-																<th th:text="#{text.editar.usuario}">NOMBRE</th>
-																<th th:text="#{text.editar.rol}">ROL</th>
-																<th th:text="#{text.editar.estado}">ESTADO</th>
-																<th th:text="#{text.editar.propiedades}">ELIMINAR</th>
-																
-															</tr>
-														</thead>
-														<tbody id="tableBody">
-
-														</tbody>
-													</table>
-
-												</div>
-
-
-
+								<!-- FORMULARIO PARA CREAR UN USUARIO -->
+									<div id="formularioGuardar" th:if="${usuario == null && usuarioDto != null}">
+										<div class="md-form row d-flex justify-content-center">
+											<div class="form-group">
+												<i class="fas fa-user prefix icon-color"></i> <input
+													type="text" class="nameInput form-control"
+													th:placeholder="#{text.usuario.place.usuario}"
+													name="username" value="" />
 											</div>
 										</div>
 
+										<div class="md-form row d-flex justify-content-center">
+											<div class="form-group">
+												<i class="fas fa-unlock-alt prefix icon-color"></i> <input
+													class="form-control passwordInput" type="password"
+													name="password"
+													th:placeholder="#{text.usuario.place.contraseña}" />
+											</div>
+										</div>
+										<div class="md-form row d-flex justify-content-center">
+											<div class="form-group">
+												<i class="fas fa-lock prefix icon-color"></i> <input
+													type="password" class="passwordToCheck form-control"
+													name="passwordRepeat"
+													th:placeholder="#{text.usuario.place.confirmar.contraseña}"
+													onkeyup="checkPassword()" />
+												<div id="errorPassword" class="alert alert-danger" hidden></div>
+											</div>
+										</div>
+
+
+										<div class="md-form row d-flex justify-content-center">
+											<div class="form-group">
+												<select id="rolInput" class="form-control">
+													<option class="hidden" selected disabled>Por favor
+														Selecciona un Rol:</option>
+													<option th:each="rol: ${roles}"
+														th:value="${rol.getAuthority()}"
+														th:text="${rol.getAuthority()}">Administrador</option>
+												</select>
+											</div>
+										</div>
+
+										<br>
+										<form class="formRegistro" id="formRegistro"
+											th:object="${usuarioDto}" th:action="@{/usuarios/registro}"
+											method="POST">
+											<input class="passResult" type="hidden" value=""
+												th:field="*{passwordEncoded}" /> <input class="nameResult"
+												type="hidden" value="" th:field="*{username}" /> <input
+												id="rolResult" type="hidden" value="" th:field="*{rol}" />
+
+
+											<div class="form-group row d-flex justify-content-center">
+												<button type="button" class="btn btn-primary enviar"
+													value="Crear Usuario" id="btnEnviar" disabled
+													th:text="#{text.usuario.btn.crear}">Enviar</button>
+											</div>
+										</form>
 									</div>
+								<!-- FIN FORMULARIO GUARDAR UN USUARIO -->
+								
+								<!-- TABLA DE BÚSQUEDA DE USUARIOS -->
+									<div class="table-responsive" id="buscarTabla"
+														style='display: none'>
+										<table class="table">
+											<thead>
+												<tr>
+													<th th:text="#{text.editar.usuario}">NOMBRE</th>
+													<th th:text="#{text.editar.rol}">ROL</th>
+													<th th:text="#{text.editar.estado}">ESTADO</th>
+													<th th:text="#{text.editar.propiedades}">ELIMINAR</th>
+													
+												</tr>
+											</thead>
+											<tbody id="tableBody">
+	
+											</tbody>
+										</table>
+	
+									</div>
+								<!-- FIN TABLA DE BÚSQUEDA DE USUARIOS -->
+								
+								<!-- FORMULARIO PARA ACTUALIZAR UN USUARIO -->
+									<div th:if="${usuario != null}">
+										<div class="md-form row d-flex justify-content-center">
+											<div class="form-group">
+												<i class="fas fa-user prefix icon-color"></i> <input
+													id="nameInput" type="text" class="form-control"
+													th:placeholder="#{text.usuario.place.usuario}"
+													name="username" th:value="${usuario.getUsername()}" />
+											</div>
+										</div>
+										<div class="md-form row d-flex justify-content-center">
+											<div class="form-group">
+												<i class="fas fa-unlock-alt prefix icon-color"></i> <input
+													class="passwordInput form-control" type="password"
+													name="password"
+													th:placeholder="#{text.usuario.place.contraseña}" />
+											</div>
+										</div>
+										<div class="md-form row d-flex justify-content-center">
+											<div class="form-group">
+												<i class="fas fa-lock prefix icon-color"></i> <input
+													type="password" class="passwordToCheck form-control"
+													name="passwordRepeat"
+													th:placeholder="#{text.usuario.place.confirmar.contraseña}"
+													onkeyup="checkPassword()" />
+												<div id="errorPassword" class="alert alert-danger"></div>
+											</div>
+										</div>
+										<!-- TABLA PARA ROLES -->
+										<div id="table">
+											<table class="table">
+												<thead>
+													<tr>
+														<th>ROL</th>
+														<th>Quitar</th>
+													</tr>
+												</thead>
+												<input type="hidden" id="inputUserId" th:value="${usuario.getIdUser()}">
+												<tbody id="rolesBodyTable">
+												
+
+												</tbody>
+											</table>
+										</div>
+										<form class="formRegistro" th:object="${usuario}"
+											th:action="@{''}" method="POST">
+											<div>
+												<input id="nameResult" type="hidden" value=""
+													th:field="*{username}" /> <input class="passResult"
+													type="hidden" value="" th:field="*{passwordEncoded}" />
+											</div>
+
+											<div class="form-group row d-flex justify-content-center">
+												<button type="button" class="btn btn-primary enviar"
+													value="Crear Usuario" id="btnEnviar" disabled
+													th:text="#{text.usuario.btn.crear}">Enviar</button>
+											</div>
+										</form>
+
+									</div>
+								<!-- FIN FORMULARIO PARA ACTUALIZAR UN USUARIO -->
 								</div>
+
+
+
 							</div>
 						</div>
+
 					</div>
 				</div>
 			</div>
-
-			<footer th:replace="layout/layout :: footer"></footer>
 		</div>
-		<script type="text/javascript"
-			th:src="@{/js/usuarios/encriptarpassword.js}"></script>
 
-		<script type="text/javascript"
-			th:src="@{/js/usuarios/buscarusuarios.js}"></script>
+		<footer th:replace="layout/layout :: footer"></footer>
+	</div>
+	<script type="text/javascript"
+		th:src="@{/js/usuarios/encriptarpassword.js}"></script>
+
+	<script type="text/javascript"
+		th:src="@{/js/usuarios/buscarusuarios.js}"></script>
+		
+	<script type="text/javascript" th:src="@{/js/usuarios/mostrarroles.js}"></script>
+	
+	<script type="text/javascript" th:inline="javascript">
+		
+			var roles =  [[${roles}]]; 
+			var user =  [[${usuario}]]; 
+			mostrarRoles(roles, user.username)
+		
+		</script>
 </body>
 </html>

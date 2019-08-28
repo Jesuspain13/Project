@@ -1,3 +1,4 @@
+
 $(".enviar").click(function() {
 			$(".passResult").val("");
 			var name = $(".nameInput").val();
@@ -27,3 +28,5 @@ $(".enviar").click(function() {
 				$("#errorPassword").prop('hidden', false);
 			}
 		}
+
+

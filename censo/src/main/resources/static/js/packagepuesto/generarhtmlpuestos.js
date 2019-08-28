@@ -46,10 +46,11 @@ function crearPuestoInversoVacio(puesto, empleado, nameModal, idModal, styleBtn)
 
 function generarModal(empleado) {
 	var htmlModal;
-	if (empleado.nombre == "VACIO") {
+	if (empleado == null) {
+		empleado = "VACIO";
 		htmlModal = ` <div  id="modalInsert" class="modal-body text-center mb-1">
 	       	<hr>
-	   	<h6 class="mt-1 mb-2">Estado: ${empleado.nombre}</h6>
+	   	<h6 class="mt-1 mb-2">Estado: ${empleado}</h6>
 	       <hr>
 	
 	       <button type="button" class="btn btn-primary btn-sm" data-dismiss="modal">Atrás</button>

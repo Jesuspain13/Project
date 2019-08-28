@@ -101,10 +101,15 @@ public class UsuarioController {
 	public String modificarUsuario(@PathVariable(name = "id") Integer id, RedirectAttributes flash, Model model, Locale locale) {
 		try {
 			Usuario usuario = usuarioService.findUsuarioById(id);
-			UsuarioDTO usuarioDto = new UsuarioDTO(usuario.getUsername());
-
+			UsuarioDTO usuarioDto = new UsuarioDTO();
+			usuarioDto.setUsername(usuario.getUsername());
+			usuarioDto.setIdUser(usuario.getId());
 			model.addAttribute("usuario", usuarioDto);
-			
+
+
+			model.addAttribute("roles", usuario.getRoles());
+
+
 			return "register";
 		} catch (Exception ex) {
 			ex.printStackTrace();

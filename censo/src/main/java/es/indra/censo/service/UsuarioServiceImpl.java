@@ -134,7 +134,7 @@ public class UsuarioServiceImpl implements IUsuarioService {
 			Usuario usuario = new Usuario();
 			usuario.setUsername(usuarioConDatosNuevos.getUsername());
 			String pass1 = usuarioConDatosNuevos.getPasswordEncoded();
-			String pass = usuarioConDatosNuevos.getPasswordDecoded();
+			String pass = usuarioConDatosNuevos.decodePasswordEncoded();
 			System.out.println("contraseña codificada: " + pass1);
 			System.out.println("contraseña: " + pass);
 			String passBCryptEncoded = this.passwordEncoder

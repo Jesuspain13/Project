@@ -35,16 +35,16 @@ import es.indra.censo.service.IRegistroService;
 @RequestMapping("/registro")
 @SessionAttributes({ "registro", "complejos", "complejo" })
 public class RegistroController {
-	
+
 	private Logger log = LoggerFactory.getLogger(RegistroController.class);
-	
+
 	@Autowired
 	private IRegistroService registroService;
 
 	@Autowired
 	private MessageSource msgSource;
 
-	@GetMapping(value="/ver")
+	@GetMapping(value = "/ver")
 	@Secured({ "ROLE_ADMIN" })
 	public String verTodos(@RequestParam(name = "page", defaultValue = "0") int page, Model model, 
 			RedirectAttributes flash, Locale locale) {
@@ -83,8 +83,6 @@ public class RegistroController {
 				
 	}
 
-	
-
 	// Método para mostrar todos los registros del censo.
 	@RequestMapping(value = "/listar", method = RequestMethod.GET)
 	public String listar(Model model, RedirectAttributes flash, Locale locale) {
@@ -92,8 +90,7 @@ public class RegistroController {
 			List<Registro> r = registroService.findAll();
 			// CASO DE NO HABER REGISTROS
 			if (r.size() < 1) {
-				
-				
+
 				return "error/error_404";
 			}
 			Registro rSeleccionado = new Registro();
@@ -156,10 +153,9 @@ public class RegistroController {
 		}
 
 	}
-	
-	@PostMapping(value= "/borrar")
-	public String borrar(@RequestParam(name= "id") Integer id, Model model, 
-			RedirectAttributes flash, Locale locale) {
+
+	@PostMapping(value = "/borrar")
+	public String borrar(@RequestParam(name = "id") Integer id, Model model, RedirectAttributes flash, Locale locale) {
 		try {
 			registroService.deleteRegistroById(id);
 			String msg = msgSource.getMessage("text.registro.exito", null, locale);

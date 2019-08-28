@@ -99,5 +99,17 @@ public class PlantaServiceImpl implements IPlantaService {
 			throw new Exception(ex);
 		}
 	}
+	
+	@Override
+	public List<Planta> findPlantasByIdEdificioAndIdRegistro(Integer idEdificio, Integer idRegistro) throws Exception {
+		try {
+			
+			return plantaDao.findByIdEdificioAndRegistro(idEdificio, idRegistro);
+		}catch (Exception ex) {
+			log.error(ex.getMessage());
+			throw new Exception(ex);
+		}
+	}
+	
 
 }

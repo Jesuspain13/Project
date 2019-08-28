@@ -1,6 +1,5 @@
 package es.indra.censo.dao;
 
-import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
@@ -19,11 +18,13 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.transaction.annotation.Transactional;
 
 import es.indra.censo.controllers.ComplejoController;
 import es.indra.censo.docreader.ExcelReader;
 import es.indra.censo.model.Planta;
 import es.indra.censo.model.Puesto;
+import es.indra.censo.model.Registro;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
@@ -40,22 +41,18 @@ public class TestPuestoDao {
 	
 	@Autowired
 	private IPlantaDao plaDao;
-	
-	private
-	Planta plantaParaTestear;
 
 	@Before
 	public void before() {
 
-		censoTest = new File("./src/main/resources/SitiosEdificioTest.xlsx");
+		censoTest = new File("./src/main/resources/Test.xlsx");
 
 		try {
 			FileInputStream excelFile = new FileInputStream(censoTest);
 			Workbook workbook = WorkbookFactory.create(excelFile);
-			reader.reader(workbook, "1.0.2", new Locale("es", "ES"), "Jesus");
+			reader.reader(workbook, "1.0.2", new Locale("es", "ES"), "admin");
 			
-			List<Planta> plantas = (List<Planta>) plaDao.findAll();
-			plantaParaTestear = plantas.get(0);
+			
 		} catch (Exception ex) {
 			ex.printStackTrace();
 			log.error(ex.getMessage());
@@ -65,14 +62,18 @@ public class TestPuestoDao {
 	}
 	
 	@Test
+	@Transactional
 	public void TestPuestofindByPlantaAndRegistro() {
-		
+		List<Planta> plantas = (List<Planta>) plaDao.findAll();
+		Planta plantaParaTestear = plantas.get(0);
+		Registro registroABuscar = plantaParaTestear.getRegistro();
+		List<Puesto> puestosParaTestear = plantaParaTestear.getPuestos();
 		
 		List<Puesto> puestoATestear = pDao.findByPlantaAndRegistro(plantaParaTestear.getNombrePlanta(),
-				plantaParaTestear.getRegistro().getIdRegistro());
+				registroABuscar.getIdRegistro());
 		
 		assertNotNull(puestoATestear);
-		assertTrue(puestoATestear.containsAll(this.plantaParaTestear.getPuestos()));
+		assertTrue(puestoATestear.containsAll(puestosParaTestear));
 
 	}
 

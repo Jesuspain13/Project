@@ -1,7 +1,7 @@
 
 $( "#buscar" ).click(function() {
 	
-	$("div#formulario").css("display", "none")
+	$("div#formularioGuardar").css("display", "none")
 	$("div#buscarTabla").css("display", "block")
 	
 

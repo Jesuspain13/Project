@@ -2078,8 +2078,9 @@
 	            			puesto = data[i];
 	            		
 	            			html = seleccionarPuestoOcupadoOVacio(puesto, divs[i], i);
-							
-	                    $(divs[i]).html(html);
+	            			$(divs[i]).data("empleado", puesto.empleado);
+	    					$(divs[i]).attr("id", puesto.idPuestoAuto);
+	                    	$(divs[i]).html(html);
 	
 					}
 	             }

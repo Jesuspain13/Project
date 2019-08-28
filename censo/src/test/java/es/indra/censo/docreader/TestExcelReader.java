@@ -63,7 +63,7 @@ public class TestExcelReader {
 		try {
 			int contador = 0;
 			boolean puestoOcupado = false;
-			this.reader.reader(this.workbook, "1.0.2", new Locale("es", "ES"), "Jesus");
+			this.reader.reader(this.workbook, "1.0.2", new Locale("es", "ES"), "admin");
 			List<Registro> registro = (List<Registro>) rDao.findAll();
 			assertNotNull(registro);
 			assertFalse((registro.isEmpty()));
