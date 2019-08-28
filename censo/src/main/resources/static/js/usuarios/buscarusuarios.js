@@ -8,7 +8,7 @@ $( "#buscar" ).click(function() {
 		var x = $("#usuarioBuscar").val();
 		var usuarios;
 		var usuario;
-		var status= `<i class="fas fa-times"></i>`;
+		var status= `<i class="fas fa-times active-false"></i>`;
 
 		const url = 'http://localhost:8080/usuarios/buscar';
 		
@@ -32,7 +32,7 @@ $( "#buscar" ).click(function() {
     		    		urlUpdate = "/usuarios/modificar/" + usuario.id;
     		    		
     		    		if (usuario.enabled){
-    		    			status = `<i class="fas fa-check"></i>`;
+    		    			status = `<i class="fas fa-check active-true"></i>`;
     		    		
     		    		}
     		    		htmlWithRowsToRender = htmlWithRowsToRender + `<tr>
