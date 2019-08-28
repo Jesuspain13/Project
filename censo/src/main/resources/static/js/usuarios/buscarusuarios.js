@@ -9,6 +9,8 @@ $( "#buscar" ).click(function() {
 		var usuarios;
 		var usuario;
 		var status= `<i class="fas fa-times active-false"></i>`;
+		
+		
 
 		const url = 'http://localhost:8080/usuarios/buscar';
 		
@@ -30,6 +32,7 @@ $( "#buscar" ).click(function() {
     		    		usuario = usuarios[i];
     		    		urlDelete = "/usuarios/eliminar/" + usuario.id;
     		    		urlUpdate = "/usuarios/modificar/" + usuario.id;
+    		    		urlActivate = "";
     		    		
     		    		if (usuario.enabled){
     		    			status = `<i class="fas fa-check active-true"></i>`;
@@ -45,6 +48,7 @@ $( "#buscar" ).click(function() {
     							<td>
     								<a class="btn btn-danger" href=${urlDelete}><i class="fas fa-trash-alt mr-1"></i></a>
     							</td>
+    							
     						</th>
     						`;
     	    		    }
