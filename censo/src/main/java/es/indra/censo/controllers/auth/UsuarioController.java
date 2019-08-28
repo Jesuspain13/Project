@@ -98,9 +98,12 @@ public class UsuarioController {
 	public String modificarUsuario(@PathVariable(name = "id") Integer id, RedirectAttributes flash, Model model) {
 		try {
 			Usuario usuario = usuarioService.findUsuarioById(id);
-			UsuarioDTO usuarioDto = new UsuarioDTO(usuario.getUsername());
-
+			UsuarioDTO usuarioDto = new UsuarioDTO();
+			usuarioDto.setUsername(usuario.getUsername());
+			usuarioDto.setIdUser(usuario.getId());
 			model.addAttribute("usuario", usuarioDto);
+		
+			model.addAttribute("roles", usuario.getRoles());
 			flash.addFlashAttribute("success", "Se ha borrado el usuario");
 			return "register";
 		} catch (Exception ex) {
