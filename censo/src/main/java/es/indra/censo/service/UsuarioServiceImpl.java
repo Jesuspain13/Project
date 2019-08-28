@@ -29,33 +29,6 @@ public class UsuarioServiceImpl implements IUsuarioService {
 	@Autowired
 	private IRolDao rolDao;
 
-//	@Override
-//	public List<Usuario> findUsuarioByName(String username) throws Exception {
-//		
-//		try {
-//			List user = usuarioDao.findUsuarioByName(username);
-//			Iterator userIt = user.iterator();
-//			List<Usuario> usuarios = new ArrayList<Usuario>();
-//			
-//			while(userIt.hasNext()) {
-//				List<Object> usuarioSinFormar = (List<Object>) userIt.next();
-//				Usuario usuarioFormado = new Usuario();
-//				usuarioFormado.setId((Integer)usuarioSinFormar.get(0));
-//				usuarioFormado.setUsername(usuarioSinFormar.get(1).toString());
-//				usuarioFormado.setEnabled((boolean) usuarioSinFormar.get(2));
-//				usuarios.add(usuarioFormado);
-//			}
-//			return usuarios;
-//			
-//		}catch (Exception ex){
-//			
-//			log.error(ex.getMessage());
-//			throw new Exception(ex);
-//			
-//		}
-//		
-//	}
-
 	@Override
 	public List<Usuario> findUsuarioByName(String username) throws Exception {
 
@@ -144,9 +117,7 @@ public class UsuarioServiceImpl implements IUsuarioService {
 			this.comprobarPermiso(usuarioConDatosNuevos.getRol(), usuario);
 
 			usuarioDao.save(usuario);
-		} catch (
-
-		Exception ex) {
+		} catch (Exception ex) {
 			log.error(ex.getMessage());
 			throw new Exception(ex);
 		}
@@ -159,6 +130,25 @@ public class UsuarioServiceImpl implements IUsuarioService {
 		} else if (rolSeleccionado.contains("VISUALIZAR")) {
 			Rol rol = rolDao.findByAuthority(rolSeleccionado);
 			usuario.addRol(rol);
+		}
+	}
+
+	@Override
+	@Transactional
+	public void eliminarRolUsuario(Integer rolId, Integer usuarioId) throws Exception {
+		// TODO Auto-generated method stub
+		try {
+			Usuario user = usuarioDao.findById(usuarioId).get();
+			Rol rolABorrar = rolDao.findById(rolId).get();
+			if (rolABorrar == null || user == null) {
+				
+				throw new Exception("NOT FOUND");
+			}
+			user.deleteRol(rolABorrar);
+			
+		} catch (Exception ex) {
+			log.error(ex.getMessage());
+			throw new Exception(ex);
 		}
 	}
 

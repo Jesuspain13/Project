@@ -1,9 +1,9 @@
 package es.indra.censo.controllers.auth;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
-
-import javax.validation.Valid;
+import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -15,6 +15,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -188,11 +189,29 @@ public class UsuarioController {
 			usuarioService.guardarUsuario(usuarioDto);
 			return "home";
 		} catch (Exception ex) {
-			ex.printStackTrace();
+			
 			log.error(ex.getMessage());
 			String msg = msgSource.getMessage("text.error.generico", null, locale);
 			flash.addFlashAttribute("error", String.format(msg, ex.getMessage()));
 			return "redirect:/";
+		}
+	}
+	
+	@GetMapping("/delete/rol")
+	@ResponseBody
+	public Map<String, Object> eliminarRol(@RequestParam(name="rolId") Integer rolId,
+			@RequestParam(name="usuarioId") Integer usuarioId) {
+		try {
+			Map<String, Object> result = new HashMap<String, Object>();
+			usuarioService.eliminarRolUsuario(rolId, usuarioId);
+			result.put("borrado", true);
+			return result;
+		}catch (Exception ex) {
+			ex.printStackTrace();
+			log.error(ex.getMessage());
+			Map<String, Object> badResult = new HashMap<String, Object>();
+			badResult.put("borrado", false);
+			return badResult;
 		}
 	}
 

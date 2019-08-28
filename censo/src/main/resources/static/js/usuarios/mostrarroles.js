@@ -6,12 +6,10 @@ function mostrarRoles(roles, username) {
 		
 		rolIter = roles[i];
 		console.log(rolIter);
-		rolesRow = rolesRow + `<tr>
+		rolesRow = rolesRow + `<tr id='${rolIter.rolId}'>
 	    <td>${rolIter.authority}</td>
 	    <td>
-	 
-	    
-	    	<button  class="btn btn-danger btnBorrarRol" value='${rolIter.rolId}'>Borrar</button>
+	    	<button  class="btn btn-danger btnBorrarRol" value='${rolIter.rolId}' onclick="eliminarRol(this)">Borrar</button>
 	 
 	    </td>
 	   
@@ -20,11 +18,32 @@ function mostrarRoles(roles, username) {
 	}
 	$("#rolesBodyTable").html(rolesRow);
 
+}
 
-$(".btnBorrarRol").click(function() {
+function eliminarRol(button) {
+	var url = "http://localhost:8080/usuarios/delete/rol"
 	var userId = $("input#inputUserId").val();
-	var rolId = $(this).val();
-	console.log("idUsuario: " + userId + " rolId: " + rolId);
-});
+	var rolId = $(button).val();
+	var row = "tr#" + rolId;
 
+	
+	$.ajax({
+	    url: url,
+	    type: "GET",
+	    data: {
+	        "rolId" : rolId,
+	        "usuarioId" : userId
+	    },
+	    contentType: 'application/json',
+	    dataType: 'json',
+	    success: function (data) {
+	    	console.log(data);
+	    	console.log("Se ha eliminado el rol con exito")
+	    	$(row).remove();
+	    },
+	    error: function(error) {
+	    	console.log(error);
+	    	console.log("Error al eliminar el rol");
+	    }
+	});
 }

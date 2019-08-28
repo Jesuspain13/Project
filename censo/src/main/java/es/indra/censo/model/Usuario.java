@@ -78,6 +78,10 @@ public class Usuario implements Serializable {
 	public void addRol(Rol rol) {
 		this.roles.add(rol);
 	}
+	
+	public void deleteRol(Rol rol) {
+		this.roles.remove(rol);
+	}
 
 	public List<Rol> getRoles() {
 		return roles;

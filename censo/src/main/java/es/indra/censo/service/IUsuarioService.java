@@ -29,6 +29,8 @@ public interface IUsuarioService {
 	 * @throws Exception
 	 */
 	public void guardarUsuario(UsuarioDTO usuarioConDatosNuevos) throws Exception;
+	
+	public void eliminarRolUsuario(Integer rolId, Integer usuarioId) throws Exception;
 
 
 }
