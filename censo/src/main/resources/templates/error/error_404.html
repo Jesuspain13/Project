@@ -21,11 +21,21 @@
 							<h5>Error</h5>
 
 						</div>
-						
+
 						<div class="card-body text-center">
-							<p th:text="#{text.error404}"></p>
-							<a th:href="@{/}" role="button" class="btn btn-amber" th:text="#{text.error404.btn.back}">Volver
-								al inicio</a>
+							<div sec:authorize="hasRole('VISUALIZAR') && !hasRole('ADMIN')" id="user">
+								<p th:text="#{text.error404}"></p>
+								
+								<a th:href="@{/}" role="button" class="btn btn-amber"
+									th:text="#{text.error404.btn.back}">Volver al inicio</a>
+							</div>
+
+							<div sec:authorize="hasRole('ADMIN')" id="admin">
+								<p th:text="#{text.error404.admin}"></p>
+								<a th:href="@{/doc/upload}" role="button"
+									class="btn btn-primary" th:text="#{text.error404.btn.insert}">Volver
+									al inicio</a>
+							</div>
 						</div>
 					</div>
 				</div>

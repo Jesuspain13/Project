@@ -50,6 +50,14 @@ public class RegistroController {
 			RedirectAttributes flash, Locale locale) {
 		try {
 			
+			List<Registro> r = registroService.findAll();
+			// CASO DE NO HABER REGISTROS
+			if (r.size() < 1) {
+				
+				
+				return "error/error_404";
+			}
+			
 			Pageable pageRequest = PageRequest.of(page, 3);
 			Page<Registro> registros = registroService.findAll(pageRequest);
 			
