@@ -28,6 +28,7 @@ public class UsuarioServiceImpl implements IUsuarioService {
 	
 	@Autowired
 	private IRolDao rolDao;
+	
 
 	@Override
 	public List<Usuario> findUsuarioByName(String username) throws Exception {
@@ -164,6 +165,29 @@ public class UsuarioServiceImpl implements IUsuarioService {
 				throw new Exception("NOT FOUND");
 			}
 			user.addRol(rolAñadir);
+			
+		} catch (Exception ex) {
+			log.error(ex.getMessage());
+			throw new Exception(ex);
+		}
+	}
+
+	@Override
+	@Transactional
+	public void modificarEstado(int id) throws Exception {
+		
+		
+		try {
+			Usuario user = usuarioDao.findById(id).get();
+			
+			boolean enabled=user.getEnabled();
+			
+			if(enabled) {
+				user.setEnabled(false);
+			}else {
+				user.setEnabled(true);
+			}
+			
 			
 		} catch (Exception ex) {
 			log.error(ex.getMessage());
