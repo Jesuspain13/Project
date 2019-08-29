@@ -153,6 +153,26 @@ public class UsuarioServiceImpl implements IUsuarioService {
 			throw new Exception(ex);
 		}
 	}
+	
+	@Override
+	@Transactional
+	public void añadirRolUsuario(Integer rolId, Integer usuarioId) throws Exception {
+		// TODO Auto-generated method stub
+		try {
+			Usuario user = usuarioDao.findById(usuarioId).get();
+			Rol rolAñadir= rolDao.findById(rolId).get();
+			if (rolAñadir == null || user == null) {
+				
+				throw new Exception("NOT FOUND");
+			}
+			user.addRol(rolAñadir);
+			
+		} catch (Exception ex) {
+			log.error(ex.getMessage());
+			throw new Exception(ex);
+		}
+	}
+
 
 	@Override
 	@Transactional

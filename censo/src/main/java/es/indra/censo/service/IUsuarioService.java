@@ -39,7 +39,9 @@ public interface IUsuarioService {
 	
 	public void eliminarRolUsuario(Integer rolId, Integer usuarioId) throws Exception;
 	
-	
+
+	public void añadirRolUsuario(Integer rolId, Integer usuarioId) throws Exception;
+
 
 
 }

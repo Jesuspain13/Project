@@ -15,7 +15,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -24,6 +24,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import es.indra.censo.dao.IRolDao;
 import es.indra.censo.model.Rol;
 import es.indra.censo.model.Usuario;
+import es.indra.censo.service.IRolService;
 import es.indra.censo.service.IUsuarioService;
 
 @Controller
@@ -41,6 +42,10 @@ public class UsuarioController {
 
 	@Autowired
 	private IRolDao rolDao;
+	
+	@Autowired
+	private IRolService rolSvc;
+
 
 	/**
 	 * encuentra todos los usuarios que contengan el nombre
@@ -99,16 +104,26 @@ public class UsuarioController {
 	 * @return
 	 */
 	@GetMapping("/modificar/{id}")
-	public String modificarUsuario(@PathVariable(name = "id") Integer id, RedirectAttributes flash, Model model, Locale locale) {
+	public String modificarUsuario(@PathVariable(name = "id") Integer id, RedirectAttributes flash,
+			Model model, Locale locale) {
 		try {
 			Usuario usuario = usuarioService.findUsuarioById(id);
+			// Si no encuentra usuario
+			if (usuario == null) {
+				String msg = msgSource.getMessage("text.error.encontrar.usuario", null, locale);
+				flash.addFlashAttribute("error", msg);
+				return "redirect:/usuarios/registro";
+			}
 			UsuarioDTO usuarioDto = new UsuarioDTO();
 			usuarioDto.setUsername(usuario.getUsername());
 			usuarioDto.setIdUser(usuario.getId());
+			//buscar roles que no tiene el usuario a modificar
+			List<Rol> rolesQueNoTiene = rolSvc.encontrarRolesQueNoTiene(usuario);
 			model.addAttribute("usuario", usuarioDto);
 
 
 			model.addAttribute("roles", usuario.getRoles());
+			model.addAttribute("rolesNoAsignados", rolesQueNoTiene);
 
 
 			return "register";
@@ -197,10 +212,11 @@ public class UsuarioController {
 		}
 	}
 	
-	@GetMapping("/delete/rol")
+	@GetMapping(value="/borrar/rol")
 	@ResponseBody
 	public Map<String, Object> eliminarRol(@RequestParam(name="rolId") Integer rolId,
-			@RequestParam(name="usuarioId") Integer usuarioId) {
+			@RequestParam(name="usuarioId") Integer usuarioId){
+			 
 		try {
 			Map<String, Object> result = new HashMap<String, Object>();
 			usuarioService.eliminarRolUsuario(rolId, usuarioId);
@@ -215,6 +231,26 @@ public class UsuarioController {
 		}
 	}
 	
+
+	@GetMapping(value="/add/rol")
+	@ResponseBody
+	public Map<String, Object> añadirRol(@RequestParam(name="rolId") Integer rolId,
+			@RequestParam(name="usuarioId") Integer usuarioId){
+			 
+		try {
+			Map<String, Object> result = new HashMap<String, Object>();
+			usuarioService.añadirRolUsuario(rolId, usuarioId);
+			result.put("añadido", true);
+			return result;
+		}catch (Exception ex) {
+			ex.printStackTrace();
+			log.error(ex.getMessage());
+			Map<String, Object> badResult = new HashMap<String, Object>();
+			badResult.put("añadido", false);
+			return badResult;
+		}
+	}
+
 	@GetMapping("/modificarEstado")
 	@ResponseBody
 	public Map<String, Object> modificarEstado(@RequestParam(name="idUsuario")Integer idUsuario) {

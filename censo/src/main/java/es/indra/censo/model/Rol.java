@@ -3,18 +3,16 @@ package es.indra.censo.model;
 import java.io.Serializable;
 import java.util.List;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
@@ -31,6 +29,11 @@ public class Rol implements Serializable {
 	private Integer rolId;
 
 	private String authority;
+	
+	@ManyToMany(mappedBy="roles", fetch=FetchType.LAZY)
+	@JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
+	@JsonIgnore
+	private List<Usuario> usuarios;
 
 	public Integer getRolId() {
 		return rolId;
@@ -48,14 +51,14 @@ public class Rol implements Serializable {
 		this.authority = authority;
 	}
 
-//	public List<Usuario> getUsuarios() {
-//		return usuarios;
-//	}
-//
-//	public void setUsuarios(List<Usuario> usuarios) {
-//		this.usuarios = usuarios;
-//	}
-//	
+	public List<Usuario> getUsuarios() {
+		return usuarios;
+	}
+
+	public void setUsuarios(List<Usuario> usuarios) {
+		this.usuarios = usuarios;
+	}
+	
 	
 
 }
