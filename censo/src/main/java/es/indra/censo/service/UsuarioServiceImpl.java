@@ -172,6 +172,7 @@ public class UsuarioServiceImpl implements IUsuarioService {
 		}
 	}
 
+
 	@Override
 	@Transactional
 	public void modificarEstado(int id) throws Exception {

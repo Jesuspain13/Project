@@ -120,8 +120,11 @@ public class UsuarioController {
 			//buscar roles que no tiene el usuario a modificar
 			List<Rol> rolesQueNoTiene = rolSvc.encontrarRolesQueNoTiene(usuario);
 			model.addAttribute("usuario", usuarioDto);
+
+
 			model.addAttribute("roles", usuario.getRoles());
 			model.addAttribute("rolesNoAsignados", rolesQueNoTiene);
+
 
 			return "register";
 		} catch (Exception ex) {
@@ -228,6 +231,7 @@ public class UsuarioController {
 		}
 	}
 	
+
 	@GetMapping(value="/add/rol")
 	@ResponseBody
 	public Map<String, Object> añadirRol(@RequestParam(name="rolId") Integer rolId,
@@ -246,7 +250,7 @@ public class UsuarioController {
 			return badResult;
 		}
 	}
-	
+
 	@GetMapping("/modificarEstado")
 	@ResponseBody
 	public Map<String, Object> modificarEstado(@RequestParam(name="idUsuario")Integer idUsuario) {
