@@ -214,5 +214,22 @@ public class UsuarioController {
 			return badResult;
 		}
 	}
+	
+	@GetMapping("/modificarEstado")
+	@ResponseBody
+	public Map<String, Object> modificarEstado(@RequestParam(name="idUsuario")Integer idUsuario) {
+		
+		try {
+			Map<String, Object> result = new HashMap<String, Object>();
+			usuarioService.modificarEstado(idUsuario);
+			return result;
+		} catch (Exception ex) {
+			ex.printStackTrace();
+			log.error(ex.getMessage());
+			return null;
+			
+		}
+				
+	}
 
 }

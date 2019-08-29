@@ -24,13 +24,22 @@ public interface IUsuarioService {
 	public void modificarUsuario(int id, UsuarioDTO usuarioConDatosNuevos) throws Exception;
 	
 	/**
-	 * Crea ujn usuario nuevo a partir de losd atos recogidos desde el formulario
+	 * Modifica el estado del usuario dependendiendo del click del botón pulsado por el usuario.
+	 * @param id
+	 * @throws Exception
+	 */
+	public void modificarEstado (int id) throws Exception;
+	
+	/**
+	 * Crea un usuario nuevo a partir de los datos recogidos desde el formulario
 	 * @param usuarioConDatosNuevos datos del formulario
 	 * @throws Exception
 	 */
 	public void guardarUsuario(UsuarioDTO usuarioConDatosNuevos) throws Exception;
 	
 	public void eliminarRolUsuario(Integer rolId, Integer usuarioId) throws Exception;
+	
+	
 
 
 }
