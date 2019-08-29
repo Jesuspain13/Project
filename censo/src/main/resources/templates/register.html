@@ -42,7 +42,7 @@
 								<div class="col-md-12">
 
 
-									<!-- FORMULARIO PARA CREAR UN USUARIO -->
+								<!-- FORMULARIO PARA CREAR UN USUARIO -->
 									<div id="formularioGuardar"
 										th:if="${usuario == null && usuarioDto != null}">
 										<div class="md-form row d-flex justify-content-center">
@@ -103,9 +103,9 @@
 											</div>
 										</form>
 									</div>
-									<!-- FIN FORMULARIO GUARDAR UN USUARIO -->
+								<!-- FIN FORMULARIO GUARDAR UN USUARIO -->
 
-									<!-- TABLA DE BÚSQUEDA DE USUARIOS -->
+								<!-- TABLA DE BÚSQUEDA DE USUARIOS -->
 									<div class="table-responsive" id="buscarTabla"
 										style='display: none'>
 										<table class="table text-center">
@@ -125,9 +125,9 @@
 										</table>
 
 									</div>
-									<!-- FIN TABLA DE BÚSQUEDA DE USUARIOS -->
+								<!-- FIN TABLA DE BÚSQUEDA DE USUARIOS -->
 
-									<!-- FORMULARIO PARA ACTUALIZAR UN USUARIO -->
+								<!-- FORMULARIO PARA ACTUALIZAR UN USUARIO -->
 									<div th:if="${usuario != null}">
 										<div class="md-form row d-flex justify-content-center">
 											<div class="form-group">
@@ -157,31 +157,32 @@
 												</div>
 											</div>
 										</div>
-										<!-- TABLA ELIMINAR ROLES -->
+									<!-- FIN FORMULARIO PARA ACTUALIZAR UN USUARIO -->
+										
+									<!-- TABLA ELIMINAR ROLES -->
 										<div id="table">
 											<table class="table">
 												<thead>
 													<tr>
 														<th>ROL</th>
-														<th>Quitar</th>
+														<th th:text="#{text.table.title.borrar}">Quitar</th>
 													</tr>
 												</thead>
-												<input type="hidden" id="inputUserId"
-													th:value="${usuario.getIdUser()}" />
+
 												<tbody id="rolesBodyTableDelete">
 
 												</tbody>
 											</table>
 										</div>
-										<!-- FIN TABLA ELIMINAR ROLES -->
+									<!-- FIN TABLA ELIMINAR ROLES -->
 										
-										<!-- TABLA GUARDAR ROL EXISTENTE -->
+									<!-- TABLA GUARDAR ROL EXISTENTE -->
 										<div id="tableAdd">
 											<table class="table">
 												<thead>
 													<tr>
 														<th>ROL</th>
-														<th>Asignar</th>
+														<th th:text="#{text.table.title.add}">Asignar</th>
 													</tr>
 												</thead>
 												<!--  <input type="hidden" id="inputUserId" th:value="${usuario.getIdUser()}">-->
@@ -207,7 +208,7 @@
 												</tbody>
 											</table>
 										</div>
-										<!-- FIN TABLA GUARDAR ROL EXISTENTE -->
+									<!-- FIN TABLA GUARDAR ROL EXISTENTE -->
 										<form class="formRegistro" th:object="${usuario}"
 											th:action="@{''}" method="POST">
 											<div>
