@@ -28,7 +28,7 @@ import es.indra.censo.service.IRolService;
 import es.indra.censo.service.IUsuarioService;
 
 @Controller
-@RequestMapping(value= "/usuarios")
+@RequestMapping("/usuarios")
 @Secured({ "ROLE_ADMIN" })
 public class UsuarioController {
 
@@ -245,6 +245,23 @@ public class UsuarioController {
 			badResult.put("añadido", false);
 			return badResult;
 		}
+	}
+	
+	@GetMapping("/modificarEstado")
+	@ResponseBody
+	public Map<String, Object> modificarEstado(@RequestParam(name="idUsuario")Integer idUsuario) {
+		
+		try {
+			Map<String, Object> result = new HashMap<String, Object>();
+			usuarioService.modificarEstado(idUsuario);
+			return result;
+		} catch (Exception ex) {
+			ex.printStackTrace();
+			log.error(ex.getMessage());
+			return null;
+			
+		}
+				
 	}
 
 }

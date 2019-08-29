@@ -171,4 +171,27 @@ public class UsuarioServiceImpl implements IUsuarioService {
 		}
 	}
 
+	@Override
+	@Transactional
+	public void modificarEstado(int id) throws Exception {
+		
+		
+		try {
+			Usuario user = usuarioDao.findById(id).get();
+			
+			boolean enabled=user.getEnabled();
+			
+			if(enabled) {
+				user.setEnabled(false);
+			}else {
+				user.setEnabled(true);
+			}
+			
+			
+		} catch (Exception ex) {
+			log.error(ex.getMessage());
+			throw new Exception(ex);
+		}
+	}
+
 }
