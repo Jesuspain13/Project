@@ -128,6 +128,24 @@
 								<!-- FIN TABLA DE BÚSQUEDA DE USUARIOS -->
 
 								<!-- FORMULARIO PARA ACTUALIZAR UN USUARIO -->
+
+									<!-- Card para mostrar al usuario cuando no hay registros encontrados en la búsqueda -->
+									<div class="card mt-5 ml-4" style='display: none' id="buscarVacio">
+										<div class="card-header yellow accent-4 text-center">
+											<i class="fas fa-search text-white"></i>
+											<h3 class="text-white" th:text="#{text.busqueda.titulo}">¡Lo Sentimos!</h3>
+										</div>
+										<div class="card-body text-center">
+											<h6 th:text="#{text.busqueda.info}">No hay usuarios que coincidan con la búsqueda
+												realizada.</h6>
+										</div>
+									</div>
+
+
+									<!-- Card para mostrar al usuario cuando no hay registros encontrados en la búsqueda -->
+									
+									
+									<!-- FORMULARIO PARA ACTUALIZAR UN USUARIO -->
 									<div th:if="${usuario != null}">
 										<div class="md-form row d-flex justify-content-center">
 											<div class="form-group">
@@ -255,7 +273,10 @@
 		
 			var roles =  [[${roles}]]; 
 			var user =  [[${usuario}]]; 
-			mostrarRolesUsuario(roles, user);
+			if (user != null) {
+				mostrarRolesUsuario(roles, user);
+			}
+			
 			
 			
 		
