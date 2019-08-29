@@ -19,12 +19,11 @@ $(".enviar").click(function() {
 			var passToCheck = $(".passwordToCheck").val();
 			if (pass1 == passToCheck) {
 				$(".enviar").prop("disabled", false);
-				$("#errorPassword").html("")
+				
 				$("#errorPassword").prop('hidden', true);
 			} else {
 				$(".enviar").prop("disabled", true);
-				$("#errorPassword").html(
-						`<small>Las contraseñas deben ser iguales</small>`)
+		
 				$("#errorPassword").prop('hidden', false);
 			}
 		}

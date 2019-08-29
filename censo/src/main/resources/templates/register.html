@@ -148,10 +148,12 @@
 													name="passwordRepeat"
 													th:placeholder="#{text.usuario.place.confirmar.contraseña}"
 													onkeyup="checkPassword()" />
-												<div id="errorPassword" class="alert alert-danger"></div>
+												<div id="errorPassword" class="alert alert-danger" hidden>
+													<small>Las contraseñas deben ser iguales</small>
+												</div>
 											</div>
 										</div>
-										<!-- TABLA PARA ROLES -->
+										<!-- TABLA ELIMINAR ROLES -->
 										<div id="table">
 											<table class="table">
 												<thead>
@@ -161,12 +163,47 @@
 													</tr>
 												</thead>
 												<input type="hidden" id="inputUserId" th:value="${usuario.getIdUser()}">
-												<tbody id="rolesBodyTable">
+												<tbody id="rolesBodyTableDelete">
 												
 
 												</tbody>
 											</table>
 										</div>
+										<!-- FIN TABLA ELIMINAR ROLES -->
+										
+										<!-- TABLA GUARDAR ROL EXISTENTE -->
+										<div id="tableAdd">
+											<table class="table">
+												<thead>
+													<tr>
+														<th>ROL</th>
+														<th>Asignar</th>
+													</tr>
+												</thead>
+												<!--  <input type="hidden" id="inputUserId" th:value="${usuario.getIdUser()}">-->
+												<tbody id="rolesBodyTableAdd">
+													<tr th:id=" ${rol.getRolId()}" th:each="rol: ${rolesNoAsignados}">
+												    		
+														<td>
+														 	<span th:text="${rol.getAuthority()}"></span>
+														 </td>
+													    <td>
+													    	<form th:id="'formAñadir' + ${rol.getRolId()}" >
+													    		<input type="hidden" th:id="inputUserId + ${rol.getRolId()}" 
+													    		th:value="${usuario.getIdUser()}">
+													    		<input type="hidden" th:id="inputRolAuthority + ${rol.getRolId()}" 
+													    		th:value="${rol.getAuthority()}">
+													    	
+													    		<button  class="btn btn-success" th:value="${rol.getRolId()}"
+													    	 	type="button" onclick="añadirRol(this)" th:text="#{text.boton.añadir}"></button>
+												    		</form>
+												    	</td>
+													</tr>
+
+												</tbody>
+											</table>
+										</div>
+										<!-- FIN TABLA GUARDAR ROL EXISTENTE -->
 										<form class="formRegistro" th:object="${usuario}"
 											th:action="@{''}" method="POST">
 											<div>
@@ -210,7 +247,7 @@
 		
 			var roles =  [[${roles}]]; 
 			var user =  [[${usuario}]]; 
-			mostrarRoles(roles, user.username);
+			mostrarRolesUsuario(roles, user);
 			
 			
 		
