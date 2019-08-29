@@ -33,21 +33,34 @@ $( "#buscar" ).click(function() {
     		    dataType: 'json',
     		    success: function (data) {
     		    	usuarios = data;
+    		    	
+    		    	
+    		    	$("div#formularioGuardar").css("display", "none")
+    		    	
+    		    	if (data.length<1){
+    		    		$("#buscarTabla").css("display", "none")
+    		    		$("div#buscarVacio").css("display", "block")
+		    		}
+    		    	
+    		    	if(data.length>0){
+    		    		console.log("pasa");
+    		    		$("tbody#tableBody").html("")
+		    			$("div#buscarVacio").css("display", "none")
+		    		}
+    		    
+    		    	
+    		    	    		    	
     		    	for (var i = 0; i < usuarios.length; i++) {
     		    		usuario = usuarios[i];
     		    		var idStatus = "status" + usuario.id;
     		    		urlDelete = "/usuarios/eliminar/" + usuario.id;
     		    		urlUpdate = "/usuarios/modificar/" + usuario.id;
     		    		
-    		    		console.log ( "buscar usu:" + idStatus);
+    		    		
     		    		
     		    		var enabled;
-    		    		$("div#formularioGuardar").css("display", "none")
     		    		
-    		    		if (data.length<1){
-    		    			
-    		    			
-    		    		}
+    		    		 		    		
     		    		
     		    		$("div#buscarTabla").css("display", "block")
     		    		
@@ -80,6 +93,10 @@ $( "#buscar" ).click(function() {
     						`;
     	    		    }
     		    	$("#tableBody").html(htmlWithRowsToRender)
+    		    	},
+    		    	
+    		    	error:function(error){
+    		    		console.log(error);
     		    	}
 	            
 
@@ -89,7 +106,7 @@ $( "#buscar" ).click(function() {
 });
 
 function generarListaRoles(roles) {
-	console.log(roles)
+	
 	var html = "";
 	for (var i = 0; i < roles.length; i++) {
 		html = html + `
@@ -98,6 +115,6 @@ function generarListaRoles(roles) {
 			</ul>
 		`;
 	}
-	console.log(html)
+	
 	return html;
 }

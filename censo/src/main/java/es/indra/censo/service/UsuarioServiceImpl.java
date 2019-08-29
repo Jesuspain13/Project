@@ -1,5 +1,6 @@
 package es.indra.censo.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.slf4j.Logger;
@@ -25,17 +26,18 @@ public class UsuarioServiceImpl implements IUsuarioService {
 
 	@Autowired
 	private BCryptPasswordEncoder passwordEncoder;
-	
+
 	@Autowired
 	private IRolDao rolDao;
-	
 
 	@Override
 	public List<Usuario> findUsuarioByName(String username) throws Exception {
 
 		try {
 			List<Usuario> users = usuarioDao.findFullUsuarioByName(username);
-
+			if (users == null || users.size() < 1) {
+				return new ArrayList<Usuario>();
+			}
 			for (Usuario u : users) {
 				u.setPassword(null);
 			}
@@ -111,8 +113,7 @@ public class UsuarioServiceImpl implements IUsuarioService {
 			String pass = usuarioConDatosNuevos.decodePasswordEncoded();
 			System.out.println("contraseña codificada: " + pass1);
 			System.out.println("contraseña: " + pass);
-			String passBCryptEncoded = this.passwordEncoder
-					.encode(pass);
+			String passBCryptEncoded = this.passwordEncoder.encode(pass);
 			usuario.setPassword(passBCryptEncoded);
 			usuario.setEnabled(true);
 			this.comprobarPermiso(usuarioConDatosNuevos.getRol(), usuario);
@@ -123,7 +124,7 @@ public class UsuarioServiceImpl implements IUsuarioService {
 			throw new Exception(ex);
 		}
 	}
-	
+
 	public void comprobarPermiso(String rolSeleccionado, Usuario usuario) {
 		List<Rol> roles = (List<Rol>) rolDao.findAll();
 		if (rolSeleccionado.contains("ADMIN")) {
@@ -142,11 +143,11 @@ public class UsuarioServiceImpl implements IUsuarioService {
 			Usuario user = usuarioDao.findById(usuarioId).get();
 			Rol rolABorrar = rolDao.findById(rolId).get();
 			if (rolABorrar == null || user == null) {
-				
+
 				throw new Exception("NOT FOUND");
 			}
 			user.deleteRol(rolABorrar);
-			
+
 		} catch (Exception ex) {
 			log.error(ex.getMessage());
 			throw new Exception(ex);
@@ -156,20 +157,18 @@ public class UsuarioServiceImpl implements IUsuarioService {
 	@Override
 	@Transactional
 	public void modificarEstado(int id) throws Exception {
-		
-		
+
 		try {
 			Usuario user = usuarioDao.findById(id).get();
-			
-			boolean enabled=user.getEnabled();
-			
-			if(enabled) {
+
+			boolean enabled = user.getEnabled();
+
+			if (enabled) {
 				user.setEnabled(false);
-			}else {
+			} else {
 				user.setEnabled(true);
 			}
-			
-			
+
 		} catch (Exception ex) {
 			log.error(ex.getMessage());
 			throw new Exception(ex);
