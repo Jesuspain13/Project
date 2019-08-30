@@ -41,6 +41,11 @@ html, body, header, #intro {
 						<a class="nav-link" th:href="@{/registro/listar}"
 						th:text="#{text.buscar.registro}">Buscar registro</a>
 					</li>
+					
+					<li class="nav-item" sec:authorize="hasRole('ROLE_VISUALIZAR')">
+						<a class="nav-link" th:href="@{/empleado/buscar/nombre}"
+						th:text="#{text.buscar.empleado}">Buscar Empleado</a>
+					</li>
 
 					<li class="nav-item" sec:authorize="hasRole('ROLE_ADMIN')">
 						<a class="nav-link" th:href="@{/registro/ver}"
