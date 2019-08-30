@@ -27,7 +27,7 @@ public class RolServiceImpl implements IRolService {
 			if (user.getRoles() == null || user.getRoles().size() < 1) {
 				return (List<Rol>) rolDao.findAll();
 			}
-			return rolDao.findByIdUsuarioNotEqual(user.getRoles());
+			return rolDao.findRolesNotEqualsToOtherRoles (user.getRoles());
 			
 		} catch(InvalidDataAccessResourceUsageException ex) {
 			log.error(ex.getMessage());
