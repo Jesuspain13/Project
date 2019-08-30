@@ -92,6 +92,7 @@ public class UsuarioServiceImpl implements IUsuarioService {
 		try {
 			Usuario usuarioAModificar = usuarioDao.findById(id).get();
 			usuarioAModificar.setUsername(usuarioConDatosNuevos.getUsername());
+			usuarioConDatosNuevos.decodePasswordEncoded();
 			String passBCryptEncoded = this.passwordEncoder.encode(usuarioConDatosNuevos.getPasswordDecoded());
 			usuarioAModificar.setPassword(passBCryptEncoded);
 
