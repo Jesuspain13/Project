@@ -5,6 +5,9 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -46,6 +49,17 @@ public class EmpleadoServiceImpl implements IEmpleadoService {
 	public Empleado findEmpleadoByIdPuesto(Integer id) throws Exception {
 		try {
 			return empleadoDao.findEmpleadoByIdPuesto(id);
+		} catch (Exception ex) {
+			log.error(ex.getMessage());
+			throw new Exception(ex);
+		}
+	}
+
+	@Override
+	public Page<Empleado> findEmpleadoByNombreYApellidos(String nombre, String apellidos, int pageNumber) throws Exception {
+		try {
+			Pageable pageRequest = PageRequest.of(pageNumber, 3);
+			return empleadoDao.findEmpleadoByNameAndSurname(nombre.toUpperCase(), apellidos.toUpperCase(), pageRequest);
 		} catch (Exception ex) {
 			log.error(ex.getMessage());
 			throw new Exception(ex);

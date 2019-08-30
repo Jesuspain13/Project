@@ -3,20 +3,25 @@ package es.indra.censo.controllers;
 import java.util.Locale;
 import java.util.Map;
 
+import javax.websocket.Session;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import es.indra.censo.controllers.paginator.PageRender;
 import es.indra.censo.model.Empleado;
 import es.indra.censo.service.IEmpleadoService;
 
@@ -86,6 +91,55 @@ public class EmpleadoController {
 
 			System.out.println("previo fin de metodo, mandar resultado");
 			return empleado;
+		} catch (Exception ex) {
+			log.error(ex.getMessage());
+
+			return null;
+		}
+	}
+	
+	@GetMapping("/buscar/nombre")
+	public String buscarPorNombre(Model model, RedirectAttributes flash, Locale locale) {
+		try {
+			return "listarempleado";
+		}catch (Exception ex) {
+			log.error(ex.getMessage());
+
+			return null;
+		}
+	}
+	
+	
+	@PostMapping("/buscar/nombre")
+	public String buscarPorNombre(@RequestParam(name="nombre") String nombre,
+			@RequestParam(name="apellido") String apellido,
+			Model model, RedirectAttributes flash, Locale locale) {
+		try {
+			Page<Empleado> pageSelected = empleadoService.findEmpleadoByNombreYApellidos(nombre, apellido, 0);
+			PageRender<Empleado> pgr = new PageRender<Empleado>("/buscar/nombre/", pageSelected);
+			model.addAttribute("pageSelected", pageSelected);
+			model.addAttribute("pageRender", pgr);
+			
+			return "listarempleado";
+			 
+		} catch (Exception ex) {
+			log.error(ex.getMessage());
+
+			return null;
+		}
+	}
+	
+	@GetMapping("/buscar/nombre/{page}")
+	public String cambiarPáginaPaginador(@PathVariable(value="page") int pageNumber, Model model,
+			RedirectAttributes flash, Locale locale) {
+		try {
+			Page<Empleado> pageSelected = empleadoService.findEmpleadoByNombreYApellidos(nombre, apellido, pageNumber);
+			PageRender<Empleado> pgr = new PageRender<Empleado>("/buscar/nombre/", pageSelected);
+			model.addAttribute("pageSelected", pageSelected);
+			model.addAttribute("pageRender", pgr);
+			
+			return "listarEmpleado";
+			 
 		} catch (Exception ex) {
 			log.error(ex.getMessage());
 

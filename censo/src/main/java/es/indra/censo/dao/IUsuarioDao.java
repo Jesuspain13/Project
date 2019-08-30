@@ -14,9 +14,6 @@ public interface IUsuarioDao extends CrudRepository<Usuario, Integer> {
 
 	public Usuario findByUsername(String name);
 	
-	@Query("SELECT u.id, u.username, u.enabled FROM Usuario u WHERE u.username LIKE CONCAT('%',:username,'%')")
-	public List<List<Object>> findUsuarioByName(@Param("username") String username);
-	
 	@Query("SELECT u FROM Usuario u WHERE u.username LIKE CONCAT('%',:username,'%')")
 	public List<Usuario> findFullUsuarioByName(@Param("username") String username);
 
