@@ -127,7 +127,7 @@
 									</div>
 								<!-- FIN TABLA DE BÚSQUEDA DE USUARIOS -->
 
-								<!-- FORMULARIO PARA ACTUALIZAR UN USUARIO -->
+								
 
 									<!-- Card para mostrar al usuario cuando no hay registros encontrados en la búsqueda -->
 									<div class="card mt-5 ml-4" style='display: none' id="buscarVacio">
@@ -146,7 +146,7 @@
 									
 									
 									<!-- FORMULARIO PARA ACTUALIZAR UN USUARIO -->
-									<div th:if="${usuario != null}">
+									<div id="formularioActualizado" th:if="${usuario != null}">
 										<div class="md-form row d-flex justify-content-center">
 											<div class="form-group">
 												<i class="fas fa-user prefix icon-color"></i> <input

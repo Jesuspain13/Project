@@ -36,6 +36,7 @@ $( "#buscar" ).click(function() {
     		    	
     		    	
     		    	$("div#formularioGuardar").css("display", "none")
+    		    	$("div#formularioActualizado").css("display", "none")
     		    	
     		    	if (data.length<1){
     		    		$("#buscarTabla").css("display", "none")
@@ -47,6 +48,7 @@ $( "#buscar" ).click(function() {
     		    		$("tbody#tableBody").html("")
 		    			$("div#buscarVacio").css("display", "none")
 		    		}
+    		    
     		    
     		    	
     		    	    		    	
