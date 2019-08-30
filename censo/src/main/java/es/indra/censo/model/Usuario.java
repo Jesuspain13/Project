@@ -99,4 +99,20 @@ public class Usuario implements Serializable {
 		this.enabled = enabled;
 	}
 
+	@Override
+	public boolean equals(Object obj) {
+		// TODO Auto-generated method stub
+		Usuario usuario = (Usuario) obj;
+		if (this.getId() == this.getId() && 
+				this.getUsername().length() == usuario.getUsername().length() && 
+				this.getUsername().contentEquals(usuario.getUsername()) && 
+				this.getPassword().contentEquals(usuario.getPassword())) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+	
+	
+
 }

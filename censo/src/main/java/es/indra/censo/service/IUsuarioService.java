@@ -13,8 +13,6 @@ public interface IUsuarioService {
 	
 	public Usuario findUsuarioById(Integer id) throws Exception;
 	
-	public void updateUsuario(Usuario usuario) throws Exception;
-	
 	/**
 	 * asigna los datos recogidos en el formulario al usuario que coincida con el id
 	 * @param id id del usuario a modificar
