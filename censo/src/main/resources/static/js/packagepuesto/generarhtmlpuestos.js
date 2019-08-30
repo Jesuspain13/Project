@@ -52,8 +52,11 @@ function generarModal(empleado) {
 	       	<hr>
 	   	<h6 class="mt-1 mb-2">Estado: ${empleado}</h6>
 	       <hr>
+	       
+	       <button type="button" class="btn btn-success btn-sm"><i class="fas fa-user-plus"></i></button>
+	       <hr>
 	
-	       <button type="button" class="btn btn-primary btn-sm" data-dismiss="modal">Atrás</button>
+	       <button type="button" class="btn btn-danger btn-sm" data-dismiss="modal"><i class="fas fa-times"></i></button>
 
               
         </div>
@@ -74,7 +77,7 @@ function generarModal(empleado) {
 	       <h5 class="mt-1 mb-2">Nº Empleado: ${empleado.numeroEmpleado}</h5>	                                            
 	       <h5 class="mt-1 mb-2">Nick: ${empleado.nick}</h5>
 	       <hr>
-	       <button type="button" class="btn btn-primary btn-sm" data-dismiss="modal">Atrás</button>
+	       <button type="button" class="btn btn-danger btn-sm" data-dismiss="modal"><i class="fas fa-times"></i></button>
 
               
         </div>
