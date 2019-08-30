@@ -7,6 +7,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import es.indra.censo.model.Empleado;
 import es.indra.censo.model.Puesto;
 import es.indra.censo.service.IPuestoService;
 
@@ -69,6 +71,18 @@ public class PuestoController {
 			flash.addFlashAttribute("error", String.format(msg, ex.getMessage()));
 			return "redirect:/";
 		}
+	}
+	
+	//Método para crear un usuario a través del IdPuesto e IdRegistro
+	@Secured("ROLE_ADMIN")
+	@RequestMapping(value = "/crear")
+	public String Crear (Map<String, Object> model) {
+		
+		Empleado empleado = new Empleado();
+		model.put("empleado", empleado);
+		model.put("titulo", "Crear Empleado");
+		return "crear";
+		
 	}
 
 }
