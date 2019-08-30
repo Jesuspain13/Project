@@ -6,7 +6,6 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 
 import es.indra.censo.model.Rol;
-import es.indra.censo.model.Usuario;
 
 public interface IRolDao extends CrudRepository<Rol, Integer> {
 	
@@ -14,6 +13,7 @@ public interface IRolDao extends CrudRepository<Rol, Integer> {
 	public Rol findByAuthority(String authority);
 	
 	@Query("SELECT r FROM Rol r WHERE r NOT IN ?1")
-	public List<Rol> findRolesNotEqualsToOtherRoles(List<Rol> roles);
+	public List<Rol> findRolesNotEqualsToOtherRoles (List<Rol> roles);
+
 
 }

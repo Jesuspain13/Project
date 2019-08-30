@@ -70,16 +70,16 @@ function renderizarFila(rolId, authority, userId, addOrDelete) {
 	if (addOrDelete) {
 		 html = `
 			<tr id=${rolId}>
-			    <td>${authority}</td>
-			    <td>
+			    <td class="td-rol text-center align-middle">${authority}</td>
+			    <td class="td-rol text-center align-middle">
 			    	<form>
 			    		<input type="hidden" id=${idInputUser}
 			    		value="${userId}">
 			    		<input type="hidden" id=${idInputAuthority}
 			    		value="${authority}">
 			    	
-			    		<button  class="btn btn-success" value="${rolId}"
-			    	 	type="button" onclick="añadirRol(this)"> Añadir </button>
+			    		<button class="btn btn-success" value="${rolId}"
+			    	 	type="button" onclick="añadirRol(this)"> <i class="fas fa-plus-circle"></i> </button>
 		    		</form>
 			 
 			    </td>
@@ -91,16 +91,16 @@ function renderizarFila(rolId, authority, userId, addOrDelete) {
 	} else {
 		html = `
 		<tr id='${rolId}'>
-	    <td>${authority}</td>
-	    <td>
+	    <td class="td-rol text-center align-middle">${authority}</td>
+	    <td class="td-rol text-center align-middle">
 	    	<form>
 	    		<input type="hidden" id=${idInputUser}
 	    		value="${userId}">
 	    		<input type="hidden" id=${idInputAuthority}
 	    		value="${authority}">
 	    	
-	    		<button  class="btn btn-danger" value="${rolId}"
-	    	 	type="button" onclick="eliminarRol(this)"> Borrar </button>
+	    		<button class="btn btn-danger" value="${rolId}"
+	    	 	type="button" onclick="eliminarRol(this)"><i class="fas fa-minus"></i></button>
     		</form>
 	 
 	    </td>

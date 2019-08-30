@@ -42,7 +42,7 @@
 								<div class="col-md-12">
 
 
-								<!-- FORMULARIO PARA CREAR UN USUARIO -->
+									<!-- FORMULARIO PARA CREAR UN USUARIO -->
 									<div id="formularioGuardar"
 										th:if="${usuario == null && usuarioDto != null}">
 										<div class="md-form row d-flex justify-content-center">
@@ -77,7 +77,8 @@
 										<div class="md-form row d-flex justify-content-center">
 											<div class="form-group">
 												<select id="rolInput" class="form-control">
-													<option class="hidden" selected disabled>Por favor
+													<option class="hidden" selected disabled
+														th:text="#{text.select.info}">Por favor
 														Selecciona un Rol:</option>
 													<option th:each="rol: ${roles}"
 														th:value="${rol.getAuthority()}"
@@ -103,9 +104,9 @@
 											</div>
 										</form>
 									</div>
-								<!-- FIN FORMULARIO GUARDAR UN USUARIO -->
+									<!-- FIN FORMULARIO GUARDAR UN USUARIO -->
 
-								<!-- TABLA DE BÚSQUEDA DE USUARIOS -->
+									<!-- TABLA DE BÚSQUEDA DE USUARIOS -->
 									<div class="table-responsive" id="buscarTabla"
 										style='display: none'>
 										<table class="table text-center">
@@ -125,28 +126,30 @@
 										</table>
 
 									</div>
-								<!-- FIN TABLA DE BÚSQUEDA DE USUARIOS -->
+									<!-- FIN TABLA DE BÚSQUEDA DE USUARIOS -->
 
-								
+
 
 									<!-- Card para mostrar al usuario cuando no hay registros encontrados en la búsqueda -->
-									<div class="card mt-5 ml-4" style='display: none' id="buscarVacio">
+									<div class="card mt-5 ml-4" style='display: none'
+										id="buscarVacio">
 										<div class="card-header yellow accent-4 text-center">
 											<i class="fas fa-search text-white"></i>
-											<h3 class="text-white" th:text="#{text.busqueda.titulo}">¡Lo Sentimos!</h3>
+											<h3 class="text-white" th:text="#{text.busqueda.titulo}">¡Lo
+												Sentimos!</h3>
 										</div>
 										<div class="card-body text-center">
-											<h6 th:text="#{text.busqueda.info}">No hay usuarios que coincidan con la búsqueda
-												realizada.</h6>
+											<h6 th:text="#{text.busqueda.info}">No hay usuarios que
+												coincidan con la búsqueda realizada.</h6>
 										</div>
 									</div>
 
 
 									<!-- Card para mostrar al usuario cuando no hay registros encontrados en la búsqueda -->
-									
-									
+
+
 									<!-- FORMULARIO PARA ACTUALIZAR UN USUARIO -->
-									<div id="formularioActualizado" th:if="${usuario != null}">
+									<div class="container" id="formularioActualizado" th:if="${usuario != null}">
 										<div class="md-form row d-flex justify-content-center">
 											<div class="form-group">
 												<i class="fas fa-user prefix icon-color"></i> <input
@@ -175,58 +178,79 @@
 												</div>
 											</div>
 										</div>
-									<!-- FIN FORMULARIO PARA ACTUALIZAR UN USUARIO -->
+										<!-- FIN FORMULARIO PARA ACTUALIZAR UN USUARIO -->
+
+										<!-- TABLA ELIMINAR ROLES -->
+										<div class="container">
+											<div class="md-form row d-flex justify-content-center">
+												<div class="col-md-12 text-center">
+
+													<div id="table">
+														<table class="table">
+															<thead>
+																<tr>
+																	<th class="text-center align-middle">ROL</th>
+																	<th class="text-center align-middle"
+																		th:text="#{text.table.title.borrar}">Quitar</th>
+																</tr>
+															</thead>
+
+															<tbody id="rolesBodyTableDelete">
+
+
+															</tbody>
+														</table>
+													</div>
+												
+										<!-- FIN TABLA ELIMINAR ROLES -->
+
 										
-									<!-- TABLA ELIMINAR ROLES -->
-										<div id="table">
-											<table class="table">
-												<thead>
-													<tr>
-														<th>ROL</th>
-														<th th:text="#{text.table.title.borrar}">Quitar</th>
-													</tr>
-												</thead>
-
-												<tbody id="rolesBodyTableDelete">
-
-												</tbody>
-											</table>
-										</div>
-									<!-- FIN TABLA ELIMINAR ROLES -->
+										<!-- TABLA GUARDAR ROL EXISTENTE -->
 										
-									<!-- TABLA GUARDAR ROL EXISTENTE -->
-										<div id="tableAdd">
-											<table class="table">
-												<thead>
-													<tr>
-														<th>ROL</th>
-														<th th:text="#{text.table.title.add}">Asignar</th>
-													</tr>
-												</thead>
-												<!--  <input type="hidden" id="inputUserId" th:value="${usuario.getIdUser()}">-->
-												<tbody id="rolesBodyTableAdd">
-													<tr th:id=" ${rol.getRolId()}" th:each="rol: ${rolesNoAsignados}">
-												    		
-														<td>
-														 	<span th:text="${rol.getAuthority()}"></span>
-														 </td>
-													    <td>
-													    	<form th:id="'formAñadir' + ${rol.getRolId()}" >
-													    		<input type="hidden" th:id="inputUserId + ${rol.getRolId()}" 
-													    		th:value="${usuario.getIdUser()}">
-													    		<input type="hidden" th:id="inputRolAuthority + ${rol.getRolId()}" 
-													    		th:value="${rol.getAuthority()}">
-													    	
-													    		<button  class="btn btn-success" th:value="${rol.getRolId()}"
-													    	 	type="button" onclick="añadirRol(this)" th:text="#{text.boton.añadir}"></button>
-												    		</form>
-												    	</td>
-													</tr>
 
-												</tbody>
-											</table>
+													<div id="tableAdd">
+														<table class="table">
+															<thead>
+																<tr>
+																	<th class="text-center align-middle">ROL</th>
+																	<th class="text-center align-middle"
+																		th:text="#{text.table.title.add}">Asignar</th>
+																</tr>
+															</thead>
+															<!--  <input type="hidden" id="inputUserId" th:value="${usuario.getIdUser()}">-->
+															
+															
+															<tbody id="rolesBodyTableAdd">
+																<tr th:id=" ${rol.getRolId()}"
+																	th:each="rol: ${rolesNoAsignados}">
+
+																	<td class="td-rol text-center align-middle"><span
+																		th:text="${rol.getAuthority()}"></span></td>
+																	<td class="td-rol text-center align-middle">
+																		<form th:id="'formAñadir' + ${rol.getRolId()}">
+																			<input type="hidden"
+																				th:id="inputUserId + ${rol.getRolId()}"
+																				th:value="${usuario.getIdUser()}"> <input
+																				type="hidden"
+																				th:id="inputRolAuthority + ${rol.getRolId()}"
+																				th:value="${rol.getAuthority()}">
+
+																			<button class="btn btn-success"
+																				th:value="${rol.getRolId()}" type="button"
+																				onclick="añadirRol(this)">
+																				<i class="fas fa-plus-circle"></i>
+																			</button>
+																		</form>
+																	</td>
+																</tr>
+
+															</tbody>
+														</table>
+													</div>
+												</div>
+											</div>
 										</div>
-									<!-- FIN TABLA GUARDAR ROL EXISTENTE -->
+										<!-- FIN TABLA GUARDAR ROL EXISTENTE -->
 										<form class="formRegistro" th:object="${usuario}"
 											th:action="@{''}" method="POST">
 											<div>
