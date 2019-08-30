@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head th:replace="layout/layout :: head"></head>
+<meta charset="utf-8" />
+<body>
+	<div class="main-content">
+		<!--Main Navigation-->
+		<header th:replace="layout/layout :: header"> </header>
+		<!--Main Navigation-->
+
+		<!--Main layout-->
+		<main>
+		<div class="container py-4">
+
+			<!-- Crear una tarjeta para contener todo -->
+			<div class="card">
+
+				<!--Card con los inputs de búsqueda-->
+
+				<div class="card-header cyan lighten-2">
+					<!-- Material auto-sizing form -->
+					<form>
+						<!-- Grid row -->
+						<div class="form-row align-items-center ml-2 my-2">
+							<h3 class="text-white">Introduce el Nombre y Apellidos del
+								empleado a buscar:</h3>
+							<!-- Grid column -->
+							<div class="col-5">
+								<!-- Material input -->
+								<div class="md-form">
+									<input type="text" class="form-control mb-3"
+										id="inlineFormInputMD" placeholder="Name"> <label
+										class="sr-only" for="inlineFormInputMD">Nombre</label>
+								</div>
+							</div>
+							<!-- Grid column -->
+
+							<!-- Grid column -->
+							<div class="col-5">
+								<!-- Material input -->
+								<label class="sr-only " for="inlineFormInputGroupMD">Apellido</label>
+								<div class="md-form input-group mb-3">
+									<div class="input-group-prepend"></div>
+									<input type="text"
+										class="form-control pl-0 rounded-0 text-white"
+										id="inlineFormInputGroupMD" placeholder="Last Name">
+								</div>
+							</div>
+							<!-- Grid column -->
+
+							<!-- Grid column -->
+							<div class="col-2">
+								<button type="submit" class="btn btn-elegant mb-0">Buscar</button>
+							</div>
+							<!-- Grid column -->
+						</div>
+						<!-- Grid row -->
+					</form>
+					<!-- Material auto-sizing form -->
+				</div>
+				<!--Fin Card con los inputs de búsqueda-->
+
+				<br>
+				<!-- Tarjeta 1 con el título -->
+				<div class="card-header cyan lighten-2 text-white"
+					th:text="${titulo}">
+					<div class="row">
+						<div class="col-3">Resultados de la Búsqueda:</div>
+						<div class="col-9">
+							15 <a> empleado/s encontrado/s</a>
+						</div>
+					</div>
+
+				</div>
+				<!-- Fin Tarjeta 1 con el título -->
+
+
+				<!-- Tarjeta 2 con el cuerpo de la búsqueda-->
+
+				<div class="card-body">
+
+					<!--Tabla de la base de datos con todos sus atributos-->
+
+					<div class="table-responsive">
+						<table class="table table-striped">
+							<thead>
+								<tr>
+
+									<th th:text="#{}">Nombre</th>
+									<th th:text="#{}">Apellidos</th>
+									<th th:text="#{}">Nick</th>
+									<th th:text="#{}">Nº Puesto</th>
+									<th th:text="#{}">Número Empleado</th>
+									<th th:text="#{}">Departamento</th>
+									<th th:text="#{}">Ubicación del Empleado</th>
+
+
+
+								</tr>
+							</thead>
+							<tbody>
+								<tr th:each="">
+
+									<td th:text="${}"></td>
+									<td th:text="${}"></td>
+									<td th:text="${}"></td>
+									<td th:text="${}"></td>
+									<td th:text="${}"></td>
+									<td th:text="${}"></td>
+									<td><button type="button"
+											class="btn btn-unique text-center">Ver Ubicación</button></td>
+
+								</tr>
+							</tbody>
+
+
+						</table>
+					</div>
+					<!-- Agregamos el fragmento de la paginación -->
+					<nav th:replace="paginator-nav :: paginator"></nav>
+					<!-- ./Agregamos el fragmento de la paginación -->
+
+				</div>
+
+				<!-- Fin Tarjeta 2 con el cuerpo de la búsqueda-->
+
+				<!-- Card con el mensaje de que no hay resultados coincidientes-->
+				<div class="col-md-12">
+					<div class="card">
+						<div
+							class="card-header deep-orange lighten-2 text-center text-white">
+							<img src="./img/buscar.png" class="rounded mx-auto d-block my-2"
+								alt="...">
+							<h3>¡Sin Resultados!</h3>
+
+						</div>
+
+
+						<div class="card-body text-center">
+
+							<p th:text="#{}">No encontramos empleados con ese Nombre y
+								Apellidos.</p>
+							<p th:text="#{}">¡Por favor, inténtalo de nuevo!</p>
+						</div>
+					</div>
+				</div>
+				<!-- Card con el mensaje de que no hay resultados coincidientes-->
+
+			</div>
+		</div>
+		</main>
+		<!--Main layout-->
+		<footer th:replace="layout/layout :: footer"></footer>
+		<!-- Footer -->
+
+
+
+	</div>
+</body>
+</body>
+</html>
