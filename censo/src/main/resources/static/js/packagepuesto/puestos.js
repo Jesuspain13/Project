@@ -56,3 +56,12 @@ function seleccionarPuestoOcupadoOVacio(puesto, iteaciónDiv, i) {
     }
     return html;
 }
+
+function pintarBordesPuestoBuscado(iteaciónDiv) {
+	var classBootstrap = $(iteaciónDiv).prop('class');
+	var newClass = classBootstrap + " border-success rounded";
+
+	$(iteaciónDiv).prop("class", newClass);
+	$(iteaciónDiv).css({"border" : "0.15rem",
+		"border-style" : "solid"});
+}

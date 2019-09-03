@@ -1,9 +1,8 @@
 package es.indra.censo.controllers;
 
+import java.util.List;
 import java.util.Locale;
 import java.util.Map;
-
-import javax.websocket.Session;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -19,14 +18,20 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import es.indra.censo.controllers.paginator.PageRender;
+import es.indra.censo.model.Edificio;
 import es.indra.censo.model.Empleado;
+import es.indra.censo.model.Planta;
+import es.indra.censo.model.Registro;
 import es.indra.censo.service.IEmpleadoService;
+import es.indra.censo.service.IRegistroService;
 
 @Controller
 @RequestMapping("/empleado")
+@SessionAttributes({"nombreBuscado", "apellidoBuscado", "idRegistro", "registros"})
 public class EmpleadoController {
 
 	Logger log = LoggerFactory.getLogger(EmpleadoController.class);
@@ -36,6 +41,9 @@ public class EmpleadoController {
 
 	@Autowired
 	private IEmpleadoService empleadoService;
+	
+	@Autowired
+	private IRegistroService registroSvc;
 
 	// Método para mostrar todos los empleados del censo.
 	@RequestMapping(value = "/listar", method = RequestMethod.GET)
@@ -101,49 +109,99 @@ public class EmpleadoController {
 	@GetMapping("/buscar/nombre")
 	public String buscarPorNombre(Model model, RedirectAttributes flash, Locale locale) {
 		try {
-			return "listarempleado";
+			List<Registro> registrosEncontrados = registroSvc.findAll();
+			model.addAttribute("registros", registrosEncontrados);
+			return "listarempleados";
 		}catch (Exception ex) {
 			log.error(ex.getMessage());
-
-			return null;
+			String msg = msgSource.getMessage("text.error.generico", null, locale);
+			flash.addFlashAttribute("error", String.format(msg, ex.getMessage()));
+			return "redirect:/";
 		}
 	}
 	
 	
 	@PostMapping("/buscar/nombre")
 	public String buscarPorNombre(@RequestParam(name="nombre") String nombre,
-			@RequestParam(name="apellido") String apellido,
+			@RequestParam(name="apellidos") String apellido,
+			@RequestParam(name="registro") int registro,
 			Model model, RedirectAttributes flash, Locale locale) {
 		try {
-			Page<Empleado> pageSelected = empleadoService.findEmpleadoByNombreYApellidos(nombre, apellido, 0);
-			PageRender<Empleado> pgr = new PageRender<Empleado>("/buscar/nombre/", pageSelected);
+			int r = registro;
+			System.out.println(r);
+			Page<Empleado> pageSelected = empleadoService.findEmpleadoByNombreYApellidos(registro, nombre, apellido, 0);
+			PageRender<Empleado> pgr = new PageRender<Empleado>("/empleado/buscar/nombre/pagina", pageSelected);
 			model.addAttribute("pageSelected", pageSelected);
-			model.addAttribute("pageRender", pgr);
+			model.addAttribute("page", pgr);
+			model.addAttribute("nombreBuscado", nombre);
+			model.addAttribute("apellidoBuscado", apellido);
+			model.addAttribute("idRegistro", registro);
 			
-			return "listarempleado";
+			return "listarempleados";
 			 
 		} catch (Exception ex) {
 			log.error(ex.getMessage());
-
-			return null;
+			String msg = msgSource.getMessage("text.error.generico", null, locale);
+			flash.addFlashAttribute("error", String.format(msg, ex.getMessage()));
+			return "redirect:/";
 		}
 	}
 	
-	@GetMapping("/buscar/nombre/{page}")
-	public String cambiarPáginaPaginador(@PathVariable(value="page") int pageNumber, Model model,
+	@GetMapping("/buscar/nombre/pagina")
+	public String cambiarPáginaPaginador(@RequestParam(name="page") int page,
+			@RequestParam(name="nombre") String nombre,
+			@RequestParam(name="apellidos") String apellido,
+			@RequestParam(name="registro") int registro,
+			Model model,
 			RedirectAttributes flash, Locale locale) {
 		try {
-			Page<Empleado> pageSelected = empleadoService.findEmpleadoByNombreYApellidos(nombre, apellido, pageNumber);
-			PageRender<Empleado> pgr = new PageRender<Empleado>("/buscar/nombre/", pageSelected);
+			System.out.println(registro);
+			Page<Empleado> pageSelected = empleadoService.findEmpleadoByNombreYApellidos(registro, nombre, apellido, page);
+			PageRender<Empleado> pgr = new PageRender<Empleado>("/buscar/nombre/pagina", pageSelected);
 			model.addAttribute("pageSelected", pageSelected);
-			model.addAttribute("pageRender", pgr);
+			model.addAttribute("page", pgr);
+			model.addAttribute("idRegistro", registro);
 			
-			return "listarEmpleado";
+			return "listarempleados";
 			 
 		} catch (Exception ex) {
 			log.error(ex.getMessage());
+			String msg = msgSource.getMessage("text.error.generico", null, locale);
+			flash.addFlashAttribute("error", String.format(msg, ex.getMessage()));
+			return "redirect:/";
+		}
+	}
+	
+	//metodo buscar usuario por id con puesto y planta para el ver ubicacion
+	@GetMapping("/buscar/ubicacion")
+	public String verUbicacionEmpleado(@RequestParam(name="idEmpleado") int idEmpleado,
+			@RequestParam(name="idRegistro") int idRegistro,
+			Model model, RedirectAttributes flash, Locale locale) {
+		try {
+			Empleado empleadoSeleccionado = empleadoService.findEmpleadoByIdWithPuestoAndPlanta(idEmpleado, idRegistro);
+			Planta plantaDelEmpleado = empleadoSeleccionado.getPuesto().getPlanta();
+			Edificio edificioDelEmpleado = plantaDelEmpleado.getEdificio();
+			
+			model.addAttribute("edificio", edificioDelEmpleado);
 
-			return null;
+			model.addAttribute("idRegistro", idRegistro);
+
+			model.addAttribute("planta", plantaDelEmpleado);
+			
+			model.addAttribute("empleadoSeleccionado", empleadoSeleccionado);
+			
+			if (plantaDelEmpleado.getNombrePlanta().equals("0")) {
+				return "plantabaja";
+			}
+			
+			return "plantaprimera";
+			
+			
+		}catch (Exception ex) {
+			log.error(ex.getMessage());
+			String msg = msgSource.getMessage("text.error.generico", null, locale);
+			flash.addFlashAttribute("error", String.format(msg, ex.getMessage()));
+			return "redirect:/";
 		}
 	}
 

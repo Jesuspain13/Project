@@ -2053,13 +2053,12 @@
 
 
 		<script th:inline="javascript">
+		//variable para las busquedas de usuario
+        	var idUsuarioBuscado = [[${empleadoSeleccionado}]]
             const url = "http://localhost:8080/planta/ver/1";
-            var empleado;
             var puesto;
-            var mostrar;
             var html;
             var idRegistro = [[${idRegistro}]]; 
-            var data
             var divs = $('div.puestos');
             
 
@@ -2080,14 +2079,49 @@
 	            			html = seleccionarPuestoOcupadoOVacio(puesto, divs[i], i);
 	            			$(divs[i]).data("empleado", puesto.empleado);
 	    					$(divs[i]).attr("id", puesto.idPuestoAuto);
-	                    	$(divs[i]).html(html);
+	    					$(divs[i]).html(html);
+	    					console.log(puesto);
+	    					//añadir departamento en la clase
+	    					if (puesto != null && puesto.empleado != null) {
+	    						añadirDepartamento(divs[i], puesto.empleado.ue);
+	    					}
+	    					
 	
-					}
-	             }
-			    }
-	         });
+	                    	if (idUsuarioBuscado != null && idUsuarioBuscado.puesto.idPuestoAuto == puesto.idPuestoAuto) {
+	    						
+								pintarBordesPuestoBuscado(divs[i]);
+								
+	            			} 
+	   
+						}
+            		
+             		}
+	            	if (idUsuarioBuscado != null) {
+	            		//ir al empleado buscado
+		            	$([document.documentElement, document.body]).animate({
+	            	        scrollTop: $("div#" + idUsuarioBuscado.puesto.idPuestoAuto).offset().top
+	            	    }, 1200);
+	            	}
+	            	
+
+    		    }	
+
+            });
+			
+				
+				
+			function añadirDepartamento(iteracionDiv, nombreUe) {
+				var clase = $(iteracionDiv).prop('class');
+				var claseModificada = clase + " " + nombreUe;
+				$(iteracionDiv).prop('class', claseModificada)
+			}
+			
+            
+            
+            
 
         </script>
+        
 	</div>
 </body>
 

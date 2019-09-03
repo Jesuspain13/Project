@@ -1161,6 +1161,8 @@
             var puesto;
             var html;
             var idRegistro = [[${idRegistro}]]; 
+            //variable para las busquedas de usuario
+            var idUsuarioBuscado = [[${empleadoSeleccionado}]]
             var divs = $('div.puestos');
               
             $.ajax({
@@ -1174,27 +1176,40 @@
     		    success: function (data) {
 	            	for (var i = 0; i < divs.length; i++) {
 	            		if (i < data.length) {
+	            			
 	            			puesto = data[i];
 
+	            			
 	            			html = seleccionarPuestoOcupadoOVacio(puesto, divs[i], i);
 	    					$(divs[i]).data("empleado", puesto.empleado);
 	    					$(divs[i]).attr("id", puesto.idPuestoAuto);
 	    					var x = $(divs[i]).data("empleado");
-	    					console.log(x);
+	    					
 	                    	$(divs[i]).html(html);
+	                    	
+							if (idUsuarioBuscado.puesto.idPuestoAuto == puesto.idPuestoAuto) {
+						
+								pintarBordesPuestoBuscado(divs[i]);
+	            			} 
 	   
 						}
             		
              		}
-
+	            	//ir al empleado buscado
+	            	$([document.documentElement, document.body]).animate({
+            	        scrollTop: $("div#" + idUsuarioBuscado.puesto.idPuestoAuto).offset().top
+            	    }, 1200);
     		    }	
 
             });
+            
 
         </script>
         
         <script type="text/javascript" th:src="@{/js/packagepuesto/infoempleado.js}"></script>
 
+
+		
 	</div>
 
 </body>

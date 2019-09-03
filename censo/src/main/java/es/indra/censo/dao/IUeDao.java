@@ -9,5 +9,5 @@ public interface IUeDao extends CrudRepository<Ue, Integer> {
 
 	@Query("SELECT u FROM Ue u WHERE u.idUe=?1 AND u.registro.idRegistro=?2")
 	public Ue findByIdUe(String idUe, Integer registro);
-
+	
 }

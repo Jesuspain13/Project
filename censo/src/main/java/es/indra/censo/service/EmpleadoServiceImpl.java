@@ -56,10 +56,22 @@ public class EmpleadoServiceImpl implements IEmpleadoService {
 	}
 
 	@Override
-	public Page<Empleado> findEmpleadoByNombreYApellidos(String nombre, String apellidos, int pageNumber) throws Exception {
+	public Page<Empleado> findEmpleadoByNombreYApellidos(Integer idRegistro,
+			String nombre, String apellidos, int pageNumber) throws Exception {
 		try {
-			Pageable pageRequest = PageRequest.of(pageNumber, 3);
-			return empleadoDao.findEmpleadoByNameAndSurname(nombre.toUpperCase(), apellidos.toUpperCase(), pageRequest);
+			Pageable pageRequest = PageRequest.of(pageNumber, 5);
+			return empleadoDao.findEmpleadoByNameAndSurname(idRegistro, nombre.toUpperCase(), apellidos.toUpperCase(), pageRequest);
+		} catch (Exception ex) {
+			log.error(ex.getMessage());
+			throw new Exception(ex);
+		}
+	}
+	
+	@Override
+	public Empleado findEmpleadoByIdWithPuestoAndPlanta(Integer idEmpleado, Integer idRegistro) throws Exception {
+		try {
+			
+			return empleadoDao.findByIdWithPuestoAndPlanta(idEmpleado, idRegistro);
 		} catch (Exception ex) {
 			log.error(ex.getMessage());
 			throw new Exception(ex);
