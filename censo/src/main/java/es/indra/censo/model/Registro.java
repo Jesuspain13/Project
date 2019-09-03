@@ -33,11 +33,13 @@ public class Registro implements Serializable {
 	public Registro() {
 		this.complejos = new ArrayList<Complejo>();
 		this.ues = new ArrayList<Ue>();
+		this.uesRep = new ArrayList<UeRepercutible>();
 	}
 
 	public Registro(String version) {
 		this.complejos = new ArrayList<Complejo>();
 		this.ues = new ArrayList<Ue>();
+		this.uesRep = new ArrayList<UeRepercutible>();
 		this.version = version;
 	}
 
@@ -61,6 +63,18 @@ public class Registro implements Serializable {
 	@OneToMany(mappedBy = "registro", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
 	private List<Ue> ues;
+	
+	@OneToMany(mappedBy = "registro", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
+	private List<UeRepercutible> uesRep;
+
+	public List<UeRepercutible> getUesRep() {
+		return uesRep;
+	}
+
+	public void setUesRep(List<UeRepercutible> uesRep) {
+		this.uesRep = uesRep;
+	}
 
 	@ManyToOne(fetch=FetchType.EAGER, cascade= {CascadeType.PERSIST, CascadeType.MERGE})
 	@JoinColumn(name="usuario_id")
@@ -127,6 +141,10 @@ public class Registro implements Serializable {
 
 	public void setAutorSubida(Usuario autorSubida) {
 		this.autorSubida = autorSubida;
+	}
+	
+	public void addUeRepercutible(UeRepercutible ueRep) {
+		this.uesRep.add(ueRep);
 	}
 
 	/**

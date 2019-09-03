@@ -1187,7 +1187,12 @@
 	    					
 	                    	$(divs[i]).html(html);
 	                    	
-							if (idUsuarioBuscado.puesto.idPuestoAuto == puesto.idPuestoAuto) {
+	                    	//añadir departamento en la clase
+	    					if (puesto != null && puesto.empleado != null) {
+	    						añadirDepartamento(divs[i], puesto.empleado.ue.ueRepercutible.idAuto);
+	    					}
+	                    	
+							if (idUsuarioBuscado != null && idUsuarioBuscado.puesto.idPuestoAuto == puesto.idPuestoAuto) {
 						
 								pintarBordesPuestoBuscado(divs[i]);
 	            			} 
@@ -1195,10 +1200,12 @@
 						}
             		
              		}
-	            	//ir al empleado buscado
-	            	$([document.documentElement, document.body]).animate({
-            	        scrollTop: $("div#" + idUsuarioBuscado.puesto.idPuestoAuto).offset().top
-            	    }, 1200);
+	            	if (idUsuarioBuscado != null) {
+		            	//ir al empleado buscado
+		            	$([document.documentElement, document.body]).animate({
+	            	        scrollTop: $("div#" + idUsuarioBuscado.puesto.idPuestoAuto).offset().top
+	            	    }, 1200);
+	            	}
     		    }	
 
             });

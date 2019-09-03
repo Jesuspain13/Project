@@ -32,12 +32,12 @@ function seleccionarPuestoOcupadoOVacio(puesto, iteaciónDiv, i) {
 		//si el puesto está ocupado
         empleado = puesto.empleado;
 
-        var dpto = empleado.ue.nombreUeRepercutible;
-       
+        var dpto = empleado.ue.ueRepercutible.nombreUeRepercutible;
+
         if(dpto == null){
         	
-          	dpto = empleado.ue;
-          
+          	dpto = empleado.ue.ueRepercutible;
+          	
        } 
 		styleBtn = seleccionarDpto(dpto);
        
@@ -64,4 +64,10 @@ function pintarBordesPuestoBuscado(iteaciónDiv) {
 	$(iteaciónDiv).prop("class", newClass);
 	$(iteaciónDiv).css({"border" : "0.15rem",
 		"border-style" : "solid"});
+}
+
+function añadirDepartamento(iteracionDiv, nombreUe) {
+	var clase = $(iteracionDiv).prop('class');
+	var claseModificada = clase + " dpto" + nombreUe;
+	$(iteracionDiv).prop('class', claseModificada)
 }

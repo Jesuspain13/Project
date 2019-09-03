@@ -23,8 +23,10 @@ import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import es.indra.censo.dao.IPlantaDao;
+import es.indra.censo.dao.IUeRepercutibleDao;
 import es.indra.censo.model.Planta;
 import es.indra.censo.model.Puesto;
+import es.indra.censo.model.UeRepercutible;
 import es.indra.censo.model.wrapper.NoSorteableException;
 import es.indra.censo.model.wrapper.PlantaBajaWrapper;
 import es.indra.censo.service.IPlantaService;
@@ -46,6 +48,9 @@ public class PlantaController {
 
 	@Autowired
 	private IPuestoService puestoService;
+	
+	@Autowired
+	private IUeRepercutibleDao ueRepDao;
 
 	@RequestMapping(value = "/ver/{nombrePlanta}", method = RequestMethod.GET)
 	@ResponseBody
@@ -75,6 +80,7 @@ public class PlantaController {
 			RedirectAttributes flash, SessionStatus status, Locale locale) {
 		try {
 			Planta plantaEncontrada = plantaService.findPlantaByIdPlantaAndRegistro(planta.getId(), idRegistro);
+			List<UeRepercutible> departamentos = (List<UeRepercutible>) ueRepDao.findAllByIdRegistro(idRegistro);
 			if (plantaEncontrada == null) {
 				flash.addFlashAttribute("error", "¡La planta a la que intenta acceder no existe!");
 				return "redirect:/listar";
@@ -83,6 +89,7 @@ public class PlantaController {
 			model.put("planta", plantaEncontrada);
 			model.put("edificio", plantaEncontrada.getEdificio());
 			model.put("idRegistro", idRegistro);
+			model.put("departamentos", departamentos);
 			model.put("titulo", "Esta usted en la planta: " + planta.getNombrePlanta());
 			if (plantaEncontrada.getNombrePlanta().contains("0")) {
 				return "plantabaja";

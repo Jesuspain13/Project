@@ -21,8 +21,10 @@ import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import es.indra.censo.dao.IUeDao;
+import es.indra.censo.dao.IUeRepercutibleDao;
 import es.indra.censo.model.Edificio;
 import es.indra.censo.model.Ue;
+import es.indra.censo.model.UeRepercutible;
 import es.indra.censo.service.IEdificioService;
 
 @Controller
@@ -39,7 +41,7 @@ public class EdificioController {
 	private IEdificioService edificioSvc;
 	
 	@Autowired
-	private IUeDao ueDao;
+	private IUeRepercutibleDao ueRepDao;
 
 	@PostMapping("listar")
 	@Transactional
@@ -52,7 +54,7 @@ public class EdificioController {
 			}
 
 			Edificio edificio = edificioSvc.findByIdEdificioAndRegistro(e.getIdEdificio(), idRegistro);
-			List<Ue> departamentos = (List<Ue>) ueDao.findAll();
+			List<UeRepercutible> departamentos = (List<UeRepercutible>) ueRepDao.findAllByIdRegistro(idRegistro);
 			status.setComplete();
 			model.put("edificio", edificio);
 

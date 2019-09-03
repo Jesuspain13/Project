@@ -115,7 +115,12 @@ public class TablaModelo {
 	}
 
 	public String getNombreUeRepercutible() {
-		return nombreUeRepercutible;
+		if (this.nombreUeRepercutible != null) {
+			return nombreUeRepercutible;
+		} else {
+			return "";
+		}
+		
 	}
 
 	public void setNombreUeRepercutible(String nombreUeRepercutible) {
@@ -283,6 +288,7 @@ public class TablaModelo {
 					if (cell == null) {
 						setNombreUeRepercutible(null);
 					} else {
+						System.out.println(cell.getStringCellValue());
 						setNombreUeRepercutible(cell.getStringCellValue());
 					}
 	

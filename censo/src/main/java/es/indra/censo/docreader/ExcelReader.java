@@ -5,8 +5,6 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
-import javax.persistence.EntityManager;
-
 import org.apache.commons.collections4.map.HashedMap;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
@@ -18,8 +16,6 @@ import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import es.indra.censo.dao.IEmpleadoDao;
-import es.indra.censo.dao.IUeDao;
 import es.indra.censo.dao.IUsuarioDao;
 import es.indra.censo.docreader.validator.ValidadorColumnasExcel;
 import es.indra.censo.model.Complejo;
@@ -29,6 +25,7 @@ import es.indra.censo.model.Planta;
 import es.indra.censo.model.Puesto;
 import es.indra.censo.model.Registro;
 import es.indra.censo.model.Ue;
+import es.indra.censo.model.UeRepercutible;
 import es.indra.censo.model.Usuario;
 import es.indra.censo.service.IRegistroService;
 
@@ -44,21 +41,15 @@ public class ExcelReader {
 	private MessageSource msgSource;
 
 	@Autowired
-	private IUeDao ueDao;
-
-	@Autowired
-	private IEmpleadoDao empDao;
-
-	@Autowired
 	private ValidadorColumnasExcel validadorColumnas;
-
-	@Autowired
-	private EntityManager em;
 	
 	@Autowired
 	private IUsuarioDao uDao;
 
 	private Locale locale;
+	
+	private Ue ue;
+	private UeRepercutible ueRep;
 	
 
 	public ExcelReader() {
@@ -122,7 +113,8 @@ public class ExcelReader {
 			while (rows.hasNext() && !filasVacias) {
 				// primera fila -> comprobar orden de las columnas
 				row = rows.next();
-
+				this.ue = null;
+				this.ueRep = null;
 				if (contador == 0) {
 					comprobarOrdenColumnas(row);
 					contador++;
@@ -162,10 +154,15 @@ public class ExcelReader {
 				registroGuardado.addComplejo(c);
 			}
 
-			Ue ue = (Ue) res.get("ue");
+			this.ue = (Ue) res.get("ue");
+			this.ueRep = (UeRepercutible) res.get("ueRep");
 			// comprobar si la ue es null
 			if (ue != null && !registroGuardado.getUes().contains(ue)) {
 				registroGuardado.addUes(ue);
+				
+			}
+			if (ueRep != null && !registroGuardado.getUesRep().contains(ueRep)) {
+				registroGuardado.addUeRepercutible(ueRep);
 			}
 		} catch (Exception ex) {
 
@@ -230,6 +227,7 @@ public class ExcelReader {
 			Planta p = seleccionarPlanta(tabla, e, registroGuardado);
 			Puesto puesto = this.buildPuesto(tabla, p, registroGuardado);
 			Ue ue = seleccionarUe(tabla, registroGuardado);
+			UeRepercutible ueRep = this.seleccionarUeRepercutible(tabla, registroGuardado);
 			Empleado emp = this.buildEmpleado(tabla, ue, registroGuardado);
 			// comprobar si el empleado creado es null
 			if (emp != null && ue != null) {
@@ -246,11 +244,16 @@ public class ExcelReader {
 			if (!c.getEdificios().contains(e)) {
 				c.addEdificio(e);
 			}
+			if (ue != null && ue.getUeRepercutible() == null) {
+				ue.setUeRepercutible(ueRep);
+				ueRep.addUe(ue);
+			}
 
 			// mapa para devolver resultados fuera del método
 			Map<String, Object> res = new HashedMap<String, Object>();
 			res.put("complejo", c);
 			res.put("ue", ue);
+			res.put("ueRep", ueRep);
 			return res;
 		} catch (Exception ex) {
 			throw new Exception(ex);
@@ -418,12 +421,11 @@ public class ExcelReader {
 		Ue ue = new Ue();
 		ue.setIdUe(tabla.getUe());
 		ue.setNombreUe(tabla.getNombreUe());
-		ue.setNombreUeRepercutible(tabla.getNombreUeRepercutible());
-		ue.setUeRepercutible(tabla.getUeRepercutible());
+		
 		ue.setRegistro(r);
 		return ue;
 	}
-
+	
 	/**
 	 * comprueba si el Planta está creado, sino, o si coincide con el de la fila
 	 * 
@@ -452,6 +454,44 @@ public class ExcelReader {
 				ueFound = this.buildUe(tabla, r);
 			}
 			return ueFound;
+		} catch (Exception ex) {
+			throw new Exception(ex);
+		}
+	}
+	
+	private UeRepercutible buildUeRepercituble(TablaModelo tabla, Registro r) {
+
+		// los dos primeros campos (1 y 2) de la tabla deben ser los datos del complejo
+		UeRepercutible ue = new UeRepercutible();
+		
+		ue.setNombreUeRepercutible(tabla.getNombreUeRepercutible());
+		ue.setIdUeRepercutible(tabla.getUeRepercutible());
+		ue.setRegistro(r);
+		return ue;
+	}
+
+	
+	private UeRepercutible seleccionarUeRepercutible(TablaModelo tabla, Registro r) throws Exception {
+		try {
+			UeRepercutible ueRepFound = null;
+			List<UeRepercutible> ues = r.getUesRep();
+			Iterator<UeRepercutible> ueIterator = ues.iterator();
+			boolean encontrado = false;
+			if (tabla.getUeRepercutible() == null) {
+				return null;
+			}
+			while (ueIterator.hasNext() && !encontrado && ues.size() > 0) {
+				// vamos a recorrer la lista y comprobar los nombres
+				ueRepFound = ueIterator.next();
+				if (ueRepFound.getNombreUeRepercutible() != null && ueRepFound.getNombreUeRepercutible().contains(tabla.getNombreUeRepercutible())) {
+					encontrado = true;
+
+				}
+			}
+			if (!encontrado || ues.size() == 0) {
+				ueRepFound = this.buildUeRepercituble(tabla, r);
+			}
+			return ueRepFound;
 		} catch (Exception ex) {
 			throw new Exception(ex);
 		}

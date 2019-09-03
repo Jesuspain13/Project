@@ -2080,10 +2080,10 @@
 	            			$(divs[i]).data("empleado", puesto.empleado);
 	    					$(divs[i]).attr("id", puesto.idPuestoAuto);
 	    					$(divs[i]).html(html);
-	    					console.log(puesto);
+
 	    					//añadir departamento en la clase
 	    					if (puesto != null && puesto.empleado != null) {
-	    						añadirDepartamento(divs[i], puesto.empleado.ue);
+	    						añadirDepartamento(divs[i], puesto.empleado.ue.ueRepercutible.idAuto);
 	    					}
 	    					
 	
@@ -2107,18 +2107,6 @@
     		    }	
 
             });
-			
-				
-				
-			function añadirDepartamento(iteracionDiv, nombreUe) {
-				var clase = $(iteracionDiv).prop('class');
-				var claseModificada = clase + " " + nombreUe;
-				$(iteracionDiv).prop('class', claseModificada)
-			}
-			
-            
-            
-            
 
         </script>
         

@@ -17,11 +17,11 @@
 						</div>
 						<div class="card-body">
 							<div class="container ">
-								<div class="row ">
+								<div class="row my-3">
 									<div class="col-md-12 text-center">
 										<select id="selectDpto">
 											<option th:each="ue : ${departamentos}"
-												th:value="${ue.getId()}" 
+												th:value="${ue.getIdAuto()}" 
 												th:text="${ue.getNombreUeRepercutible()}">
 										</select>
 									</div>
@@ -31,6 +31,12 @@
 										<button id="btnBusquedaDpto" type="button"
 											class="btn btn-success" onclick="buscarDpto()"
 											th:text="#{text.buscar.dpto.boton}"></button>
+									</div>
+								</div>
+								
+								<div class="row d-flex justify-content-center my-3">
+									<div class="col-md-12">
+										<p id="msgDptoNoEncontrado" class="alert alert-warning" style="display: none;">El departamento buscado no se encuentra en esta planta</p>
 									</div>
 								</div>
 								

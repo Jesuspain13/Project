@@ -22,10 +22,12 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import es.indra.censo.controllers.paginator.PageRender;
+import es.indra.censo.dao.IUeRepercutibleDao;
 import es.indra.censo.model.Edificio;
 import es.indra.censo.model.Empleado;
 import es.indra.censo.model.Planta;
 import es.indra.censo.model.Registro;
+import es.indra.censo.model.UeRepercutible;
 import es.indra.censo.service.IEmpleadoService;
 import es.indra.censo.service.IRegistroService;
 
@@ -44,6 +46,9 @@ public class EmpleadoController {
 	
 	@Autowired
 	private IRegistroService registroSvc;
+	
+	@Autowired
+	private IUeRepercutibleDao ueRepDao;
 
 	// Método para mostrar todos los empleados del censo.
 	@RequestMapping(value = "/listar", method = RequestMethod.GET)
@@ -181,6 +186,7 @@ public class EmpleadoController {
 			Empleado empleadoSeleccionado = empleadoService.findEmpleadoByIdWithPuestoAndPlanta(idEmpleado, idRegistro);
 			Planta plantaDelEmpleado = empleadoSeleccionado.getPuesto().getPlanta();
 			Edificio edificioDelEmpleado = plantaDelEmpleado.getEdificio();
+			List<UeRepercutible> departamentos = (List<UeRepercutible>) ueRepDao.findAllByIdRegistro(idRegistro);
 			
 			model.addAttribute("edificio", edificioDelEmpleado);
 
@@ -189,6 +195,8 @@ public class EmpleadoController {
 			model.addAttribute("planta", plantaDelEmpleado);
 			
 			model.addAttribute("empleadoSeleccionado", empleadoSeleccionado);
+			
+			model.addAttribute("departamentos", departamentos);
 			
 			if (plantaDelEmpleado.getNombrePlanta().equals("0")) {
 				return "plantabaja";
