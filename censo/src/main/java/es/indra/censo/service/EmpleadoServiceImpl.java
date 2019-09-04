@@ -78,4 +78,11 @@ public class EmpleadoServiceImpl implements IEmpleadoService {
 		}
 	}
 
+	@Override
+	@Transactional
+	public void crearEmpleado(Empleado empleado) throws Exception {
+		empleadoDao.save(empleado);
+		
+	}
+
 }

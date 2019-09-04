@@ -54,7 +54,6 @@ public class Puesto implements Serializable {
 	@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinColumn(name = "id_registro")
 	@JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
-	@JsonIgnore
 	private Registro registro;
 
 	// Implementación de los Getters & Setters de la clase Puesto.

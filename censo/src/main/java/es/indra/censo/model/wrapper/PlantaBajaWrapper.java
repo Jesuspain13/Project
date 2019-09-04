@@ -221,5 +221,7 @@ public class PlantaBajaWrapper extends PlantaWrapperAbs {
 	public void setPlantaAzahara(List<Puesto> plantaAzahara) {
 		this.plantaAzahara = plantaAzahara;
 	}
+	
+
 
 }

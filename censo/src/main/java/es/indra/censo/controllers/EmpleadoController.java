@@ -9,7 +9,9 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.data.domain.Page;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -22,13 +24,17 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import es.indra.censo.controllers.paginator.PageRender;
+import es.indra.censo.dao.IUeDao;
 import es.indra.censo.dao.IUeRepercutibleDao;
 import es.indra.censo.model.Edificio;
 import es.indra.censo.model.Empleado;
 import es.indra.censo.model.Planta;
+import es.indra.censo.model.Puesto;
 import es.indra.censo.model.Registro;
+import es.indra.censo.model.Ue;
 import es.indra.censo.model.UeRepercutible;
 import es.indra.censo.service.IEmpleadoService;
+import es.indra.censo.service.IPuestoService;
 import es.indra.censo.service.IRegistroService;
 
 @Controller
@@ -49,6 +55,12 @@ public class EmpleadoController {
 	
 	@Autowired
 	private IUeRepercutibleDao ueRepDao;
+	
+	@Autowired
+	private IPuestoService puestoSvc;
+	
+	@Autowired
+	private IUeDao ueDao;
 
 	// Método para mostrar todos los empleados del censo.
 	@RequestMapping(value = "/listar", method = RequestMethod.GET)
@@ -210,6 +222,48 @@ public class EmpleadoController {
 			String msg = msgSource.getMessage("text.error.generico", null, locale);
 			flash.addFlashAttribute("error", String.format(msg, ex.getMessage()));
 			return "redirect:/";
+		}
+	}
+	
+	@PostMapping("/nuevo")
+	@Transactional
+	public String guardarEmpleado(NuevoEmpleadoDTO empleado, Model model,
+			RedirectAttributes flash, Locale locale) {
+		String planta = null;
+		try {
+			//buscamos el puesto y la ue seleccionada
+			System.out.println("puesto" + empleado.getPuesto());
+			System.out.println("registro" + empleado.getRegistro());
+			Puesto puestoAModificar = puestoSvc.findPuestoByIdAndRegistro(empleado.getPuesto(), empleado.getRegistro());
+			
+			planta =  puestoAModificar.getPlanta().getNombrePlanta();
+			Ue ue = ueDao.findByIdUe(empleado.getUe());
+			System.out.println("ue: "+ ue.getNombreUe());
+			//creamos el empleado y asignamos los campos
+			Empleado empleadoGuardado = new Empleado();
+			empleadoGuardado.setNombre(empleado.getNombre());
+			empleadoGuardado.setApellido(empleado.getApellidos());
+			empleadoGuardado.setNick(empleado.getNick());
+			empleadoGuardado.setNumeroEmpleado(empleado.getNumero());
+			empleadoGuardado.setRegistro(puestoAModificar.getRegistro());
+			empleadoGuardado.setUe(ue);
+			puestoAModificar.setEmpleado(empleadoGuardado);
+			puestoAModificar.setOcupado(true);
+			puestoSvc.save(puestoAModificar);
+			
+			String urlRedirect = "redirect:/planta/mostrar/%s?idRegistro=%s";
+		
+			flash.addFlashAttribute("idRegistro", empleado.getRegistro());
+			return String.format(urlRedirect, planta, empleado.getRegistro());
+		}catch (Exception ex) {
+			ex.printStackTrace();
+			log.error(ex.getMessage());
+			if (planta != null) {
+				return "redirect:/planta/ver/" + planta;
+			} else {
+				return "redirect:/";
+			}
+			
 		}
 	}
 

@@ -1,5 +1,5 @@
 //crea un bloque html en posición normal
-function crearPuesto(puesto, nameModal, idModal, styleBtn) {
+function crearPuesto(puesto, styleBtn) {
 	 var html = `<p class="name d-flex align-items-center justify-content-center text-center">${puesto.empleado.apellido}</p>
 			<button type="button" id=${puesto.idPuestoAuto} class="${styleBtn}" data-toggle="modal"
 				data-target="modal" onclick="clickPuesto(this.id)">${puesto.idPuesto}</button>
@@ -11,7 +11,7 @@ function crearPuesto(puesto, nameModal, idModal, styleBtn) {
 	}
 
 //Crea un bloque html en posición inversa
-function crearPuestoInverso(puesto, nameModal, idModal, styleBtn) {
+function crearPuestoInverso(puesto, styleBtn) {
 
 	var html = `<button type="button" id=${puesto.idPuestoAuto} data-toggle="modal" data-target="modal"  class="${styleBtn}" 
 				onclick="clickPuesto(this.id)">${puesto.idPuesto}</button>
@@ -23,10 +23,12 @@ function crearPuestoInverso(puesto, nameModal, idModal, styleBtn) {
 }
 
 // crea el html de un puesto vacío
-function crearPuestoVacio(puesto, empleado, nameModal, idModal, styleBtn) {
+function crearPuestoVacio(puesto, empleado, styleBtn) {
 	var html = `<p class="name d-flex align-items-center justify-content-center text-center">${empleado}</p>
-			<button type="button" id=${puesto.idPuestoAuto} class="btn btn-success" data-toggle="modal" 
-				data-target="modal" onclick="clickPuesto(this.id)">${puesto.idPuesto}</button>
+			<button type="button" 
+			id=${puesto.idPuestoAuto} class="btn btn-success" data-toggle="modal" 
+				data-target="modal" onclick="clickPuesto(this.id)">${puesto.idPuesto}
+			</button>
 			
 			<!--Modal: Login with Avatar Form-->
          
@@ -35,25 +37,29 @@ function crearPuestoVacio(puesto, empleado, nameModal, idModal, styleBtn) {
 }
 
 //crea el html de un puesto inverso vacío
-function crearPuestoInversoVacio(puesto, empleado, nameModal, idModal, styleBtn) {
-	var html = `<button type="button"   id=${puesto.idPuestoAuto}  data-toggle="modal" data-target=${nameModal} 
-	onclick="clickPuesto(this.id)" class="btn btn-success">${puesto.idPuesto}</button>
+function crearPuestoInversoVacio(puesto, empleado, styleBtn) {
+	var html = `<button type="button"
+				id=${puesto.idPuestoAuto}  data-toggle="modal" data-target="modal" 
+				onclick="clickPuesto(this.id)" class="btn btn-success">${puesto.idPuesto}
+				</button>
 		<p class="name d-flex align-items-center justify-content-center text-center">${empleado}</p>
 		`
 		return html;
 		
 }
 
-function generarModal(empleado) {
+function generarModal(puesto) {
 	var htmlModal;
-	if (empleado == null) {
-		empleado = "VACIO";
-		htmlModal = ` <div  id="modalInsert" class="modal-body text-center mb-1">
+	if (!puesto.ocupado) {
+		var empleado = "VACIO";
+		htmlModal = ` <div  id="modalInsert" >
 	       	<hr>
 	   	<h6 class="mt-1 mb-2">Estado: ${empleado}</h6>
 	       <hr>
-	
+			
 	       <button type="button" class="btn btn-primary btn-sm" data-dismiss="modal">Atrás</button>
+	       <button type="button" class="btn btn-success btn-sm"
+	       onclick="mostrarFormulario(${puesto.idPuestoAuto}, ${idRegistro})">Asignar Empleado</button>
 
               
         </div>
@@ -64,15 +70,15 @@ function generarModal(empleado) {
             <img src="https://mdbootstrap.com/img/Photos/Avatars/img%20%281%29.jpg" alt="avatar" class="rounded-circle img-responsive">
         </div>
         <!--Body-->
-        <div  id="modalInsert" class="modal-body text-center mb-1">
+        <div  id="modalInsert" >
 
 	       	<hr>
-	   	<h6 class="mt-1 mb-2">Nombre: ${empleado.nombre}</h6>
-	   	<h6 class="mt-1 mb-2">Apellidos: ${empleado.apellido}</h6>
+	   	<h6 class="mt-1 mb-2">Nombre: ${puesto.empleado.nombre}</h6>
+	   	<h6 class="mt-1 mb-2">Apellidos: ${puesto.empleado.apellido}</h6>
 	       <hr>
 	
-	       <h5 class="mt-1 mb-2">Nº Empleado: ${empleado.numeroEmpleado}</h5>	                                            
-	       <h5 class="mt-1 mb-2">Nick: ${empleado.nick}</h5>
+	       <h5 class="mt-1 mb-2">Nº Empleado: ${puesto.empleado.numeroEmpleado}</h5>	                                            
+	       <h5 class="mt-1 mb-2">Nick: ${puesto.empleado.nick}</h5>
 	       <hr>
 	       <button type="button" class="btn btn-primary btn-sm" data-dismiss="modal">Atrás</button>
 

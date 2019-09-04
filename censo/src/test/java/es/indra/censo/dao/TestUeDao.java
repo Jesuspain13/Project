@@ -61,7 +61,7 @@ public class TestUeDao {
 		List<Ue> ues = (List<Ue>) ueDao.findAll();
 		Ue ueParaTestear = ues.get(0);
 		Integer idRegistro = ueParaTestear.getRegistro().getIdRegistro();
-		Ue ueATestear = ueDao.findByIdUe(ueParaTestear.getIdUe(), idRegistro );
+		Ue ueATestear = ueDao.findByIdUe(ueParaTestear.getId());
 		
 		assertNotNull(ueATestear);
 		assertEquals(ueATestear.getIdUe(), ueParaTestear.getIdUe());

@@ -18,4 +18,6 @@ public interface IEmpleadoService {
 	public Page<Empleado> findEmpleadoByNombreYApellidos(Integer idRegistro, String nombre, String apellidos, int pageNumber) throws Exception;
 
 	public Empleado findEmpleadoByIdWithPuestoAndPlanta(Integer idEmpleado, Integer idRegistro) throws Exception;
+	
+	public void crearEmpleado (Empleado empleado)throws Exception;
 }

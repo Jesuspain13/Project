@@ -95,6 +95,75 @@
 	<!--Main Navigation-->
 
 	<!--Main layout-->
+	
+	<div th:fragment="formularioNuevoEmpleado"
+	 style="display: none;" 
+	 class="container modal-body text-center mb-1" id="formularioCrearEmpleado">
+						<div class="row my-1">
+							<div class="col-md-6 text-center">
+								<h4>Crear un usuario para el puesto</h4>
+							</div>
+						</div>
+						<form th:action="@{/empleado/nuevo}" class="form-group" th:object="${empleado}" method="POST">
+							<div class="row my-1">
+								<div class="col-md-6">
+									<input th:field="*{nombre}" id="nombre" class="form-control" name="nombre"
+										th:placeholder="#{text.azahar.nombre}" required>
+								</div>
+							</div>
+
+							<div class="row mb-1">
+								<div class="col-md-6">
+									<input th:field="*{apellidos}" id="apellidos" class="form-control" name="apellidos"
+										th:placeholder="#{text.azahar.apellido}" required>
+								</div>
+							</div>
+
+							<div class="row mb-1">
+								<div class="col-md-6">
+									<input th:field="*{nick}" id="nick" class="form-control" name="nick"
+										th:placeholder="#{text.azahar.nick}" required>
+								</div>
+							</div>
+
+							<div class="row mb-1">
+								<div class="col-md-6">
+									<input th:field="*{numero}" type="number" id="numero" class="form-control" name="numero"
+										th:placeholder="#{text.azahar.nempleado}" required>
+								</div>
+							</div>
+
+							<div class="row mb-1">
+								<div class="col-md-6">
+									<input th:field="*{registro}" type="hidden" id="registro" class="form-control" name="registro"
+										th:value="${idRegistro}" required>
+								</div>
+								
+							</div>
+
+							<div class="row mb-1">
+								<div class="col-md-6">
+									<input th:field="*{puesto}" type="hidden" id="inputPuesto" class="form-control" 
+									name="puesto" required>
+								</div>
+							</div>
+
+							<div class="row mb-1">
+								<div class="col-md-6">
+									<select th:field="*{ue}" id="ue" class="form-control" name="ue">
+										<option th:each="d : ${subDptos}" th:text="${d.getNombreUe()}"
+										th:value="${d.getId()}">
+										</option>
+									</select>
+								</div>
+							</div>
+
+							<div>
+								<button type="submit" class="btn btn-outline-success" 
+								>Crear y asignar</button>
+							</div>
+						</form>
+					</div>
 
 	<!--Main layout-->
 
@@ -142,7 +211,7 @@
 			
 		<script th:src="@{/js/packagepuesto/busquedadptos.js}"></script>
 
-
+		<script th:src="@{/js/packagepuesto/crearempleado.js}"></script>
 
 	</footer>
 

@@ -23,13 +23,14 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import es.indra.censo.dao.IUeDao;
 import es.indra.censo.dao.IUeRepercutibleDao;
 import es.indra.censo.model.Edificio;
+import es.indra.censo.model.Empleado;
 import es.indra.censo.model.Ue;
 import es.indra.censo.model.UeRepercutible;
 import es.indra.censo.service.IEdificioService;
 
 @Controller
 @RequestMapping("/edificio")
-@SessionAttributes({ "complejo", "registro", "idRegistro", "edificios", "departamentos"})
+@SessionAttributes({ "complejo", "registro", "idRegistro", "edificios", "departamentos", "subDptos"})
 public class EdificioController {
 
 	@Autowired
@@ -42,11 +43,16 @@ public class EdificioController {
 	
 	@Autowired
 	private IUeRepercutibleDao ueRepDao;
+	
+	@Autowired
+	private IUeDao ueDao;
 
 	@PostMapping("listar")
 	@Transactional
-	public String listar(@Valid Edificio e, BindingResult resultValid, @RequestParam("idRegistro") Integer idRegistro,
-			SessionStatus status, Map<String, Object> model, RedirectAttributes flash, Locale locale) {
+	public String listar(@Valid Edificio e, BindingResult resultValid,
+			@RequestParam("idRegistro") Integer idRegistro,
+			SessionStatus status, Map<String, Object> model,
+			RedirectAttributes flash, Locale locale) {
 		try {
 			if (resultValid.hasErrors()) {
 
@@ -55,6 +61,7 @@ public class EdificioController {
 
 			Edificio edificio = edificioSvc.findByIdEdificioAndRegistro(e.getIdEdificio(), idRegistro);
 			List<UeRepercutible> departamentos = (List<UeRepercutible>) ueRepDao.findAllByIdRegistro(idRegistro);
+			List<Ue> subDptos = (List<Ue>) ueDao.findAllByIdRegistro(idRegistro);
 			status.setComplete();
 			model.put("edificio", edificio);
 
@@ -62,6 +69,8 @@ public class EdificioController {
 
 			model.put("planta", edificio.getPlantas().get(1));
 			model.put("departamentos", departamentos);
+			model.put("subDptos", subDptos);
+			model.put("empleado", new NuevoEmpleadoDTO());
 
 			return "plantaprimera";
 		} catch (Exception ex) {

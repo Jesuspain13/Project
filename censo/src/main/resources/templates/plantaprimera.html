@@ -2038,7 +2038,12 @@
     		<div class="modal-dialog cascading-modal modal-avatar modal-sm" role="document">
     		<!--Content-->
    				<div class="modal-content">
-    			</div>
+					<!-- CONTENEDOR PARA MOSTRAR LA INFORMACIÓN DEL USUARIO -->
+					<div id="infoEmpleado" class="modal-body text-center mb-1"></div>
+
+					<!-- FORMULARIO PARA PUESTOS VACIOS PARA CREAR UN EMPLEADO Y ASIGNARLO AL PUESTO -->
+					<div th:replace="/layout/layout :: formularioNuevoEmpleado"></div>
+				</div>
     		</div>
    	 	</div>
 
@@ -2076,22 +2081,7 @@
 	            		if (i < data.length) {
 	            			puesto = data[i];
 	            		
-	            			html = seleccionarPuestoOcupadoOVacio(puesto, divs[i], i);
-	            			$(divs[i]).data("empleado", puesto.empleado);
-	    					$(divs[i]).attr("id", puesto.idPuestoAuto);
-	    					$(divs[i]).html(html);
-
-	    					//añadir departamento en la clase
-	    					if (puesto != null && puesto.empleado != null) {
-	    						añadirDepartamento(divs[i], puesto.empleado.ue.ueRepercutible.idAuto);
-	    					}
-	    					
-	
-	                    	if (idUsuarioBuscado != null && idUsuarioBuscado.puesto.idPuestoAuto == puesto.idPuestoAuto) {
-	    						
-								pintarBordesPuestoBuscado(divs[i]);
-								
-	            			} 
+	            			renderizarPuesto(puesto, divs[i], idUsuarioBuscado);
 	   
 						}
             		

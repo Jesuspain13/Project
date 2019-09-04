@@ -40,9 +40,9 @@ public class PuestoServiceImpl implements IPuestoService {
 
 	@Override
 	@Transactional
-	public void save(Puesto puesto) throws Exception {
+	public Puesto save(Puesto puesto) throws Exception {
 		try {
-			puestoDao.save(puesto);
+			return puestoDao.save(puesto);
 		} catch (Exception ex) {
 			log.error(ex.getMessage());
 			throw new Exception(ex);
@@ -106,6 +106,16 @@ public class PuestoServiceImpl implements IPuestoService {
 			throw new Exception(ex);
 		}
 
+	}
+
+	@Override
+	public Puesto findPuestoByIdAndRegistro(Integer id, Integer idRegistro) throws Exception {
+		try {
+			return puestoDao.findByIdAndRegistro(id, idRegistro);
+		} catch (Exception ex) {
+			log.error(ex.getMessage());
+			throw new Exception(ex);
+		}
 	}
 
 }
