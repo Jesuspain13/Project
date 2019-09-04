@@ -11,6 +11,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -22,10 +23,8 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import es.indra.censo.dao.IPlantaDao;
 import es.indra.censo.dao.IUeDao;
 import es.indra.censo.dao.IUeRepercutibleDao;
-import es.indra.censo.model.Empleado;
 import es.indra.censo.model.Planta;
 import es.indra.censo.model.Puesto;
 import es.indra.censo.model.Ue;
@@ -34,7 +33,6 @@ import es.indra.censo.model.wrapper.NoSorteableException;
 import es.indra.censo.model.wrapper.PlantaBajaWrapper;
 import es.indra.censo.service.IPlantaService;
 import es.indra.censo.service.IPuestoService;
-import es.indra.censo.service.IRegistroService;
 
 @Controller
 @RequestMapping("/planta")
@@ -52,6 +50,8 @@ public class PlantaController {
 	@Autowired
 	private IPuestoService puestoService;
 	
+	
+	
 	@Autowired
 	private IUeRepercutibleDao ueRepDao;
 	
@@ -60,11 +60,13 @@ public class PlantaController {
 
 	@RequestMapping(value = "/ver/{nombrePlanta}", method = RequestMethod.GET)
 	@ResponseBody
+	@Transactional
 	public List<Puesto> verPlantaPorRegistro(@PathVariable(value = "nombrePlanta") Integer nombrePlanta,
 			@RequestParam("idRegistro") Integer idRegistro, Map<String, Object> model, RedirectAttributes flash) {
 		try {
 
 			List<Puesto> puestos = puestoService.findByPlantaOrdenados(nombrePlanta.toString(), idRegistro);
+
 
 			return puestos;
 		} catch (NoSorteableException ex) {

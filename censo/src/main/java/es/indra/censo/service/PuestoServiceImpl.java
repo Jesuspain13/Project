@@ -92,8 +92,7 @@ public class PuestoServiceImpl implements IPuestoService {
 			} else if (nombre.contains("azahar")) {
 				puestosDesordenados = puestoDao.findByPlantaAndRegistro("0", idRegistro);
 				PlantaBajaWrapper pWrapperAzahar = new PlantaBajaWrapper();
-				pWrapperAzahar.ordenarPuesto("0", puestosDesordenados);
-				return pWrapperAzahar.getPlantaAzahara();
+				return pWrapperAzahar.recuperarPuestosAzahar(puestosDesordenados);
 			} else {
 				throw new NoSorteableException(
 						msgSource.getMessage("text.error.encontrar.planta", null, new Locale("es", "ES")));

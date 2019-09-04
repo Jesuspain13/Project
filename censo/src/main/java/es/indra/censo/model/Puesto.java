@@ -48,6 +48,7 @@ public class Puesto implements Serializable {
 	private boolean ocupado;
 
 	@OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 	@JoinColumn(name = "id_empleado")
 	private Empleado empleado;
 

@@ -9,7 +9,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.data.domain.Page;
-import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
@@ -196,19 +195,24 @@ public class EmpleadoController {
 			Model model, RedirectAttributes flash, Locale locale) {
 		try {
 			Empleado empleadoSeleccionado = empleadoService.findEmpleadoByIdWithPuestoAndPlanta(idEmpleado, idRegistro);
+			System.out.println(empleadoSeleccionado.getNombre());
+			System.out.println(empleadoSeleccionado.getApellido());
 			Planta plantaDelEmpleado = empleadoSeleccionado.getPuesto().getPlanta();
 			Edificio edificioDelEmpleado = plantaDelEmpleado.getEdificio();
 			List<UeRepercutible> departamentos = (List<UeRepercutible>) ueRepDao.findAllByIdRegistro(idRegistro);
+			List<Ue> subDptos = (List<Ue>) ueDao.findAllByIdRegistro(idRegistro);
 			
 			model.addAttribute("edificio", edificioDelEmpleado);
 
-			model.addAttribute("idRegistro", idRegistro);
+			model.addAttribute("idRegistro", empleadoSeleccionado.getRegistro().getIdRegistro());
 
 			model.addAttribute("planta", plantaDelEmpleado);
 			
 			model.addAttribute("empleadoSeleccionado", empleadoSeleccionado);
 			
 			model.addAttribute("departamentos", departamentos);
+			model.addAttribute("subDptos", subDptos);
+			model.addAttribute("empleado", new NuevoEmpleadoDTO());
 			
 			if (plantaDelEmpleado.getNombrePlanta().equals("0")) {
 				return "plantabaja";
