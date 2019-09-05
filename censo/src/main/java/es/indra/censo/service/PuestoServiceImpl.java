@@ -5,6 +5,7 @@ import java.util.Locale;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.BeanFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Service;
@@ -27,6 +28,9 @@ public class PuestoServiceImpl implements IPuestoService {
 
 	@Autowired
 	private IPuestoDao puestoDao;
+	
+	@Autowired
+	private BeanFactory beanFactory;
 
 	@Override
 	public List<Puesto> findAll() throws Exception {
@@ -76,24 +80,34 @@ public class PuestoServiceImpl implements IPuestoService {
 			throws NoSorteableException, Exception {
 		// TODO Auto-generated method stub
 		try {
-			String nombre = nombrePlanta.toString();
+			String originalName = nombrePlanta;
+			String nombre = nombrePlanta;
 			PlantaWrapperAbs pWrapper;
 			List<Puesto> puestosDesordenados;
-			if (nombre.contains("0")) {
+			// si contiene 0 o azahar se busca la misma planta -> 0
+			if (nombre.contains("0") || nombre.contains("azahar")) {
+				nombre = "0";
 				puestosDesordenados = puestoDao.findByPlantaAndRegistro(nombre, idRegistro);
-				pWrapper = new PlantaBajaWrapper();
-
+				//pWrapper = new PlantaBajaWrapper();
+				pWrapper = beanFactory.getBean(PlantaBajaWrapper.class);
+				//si la planta a buscar es azahar es encesario un método de la clase PlantaBajaWrapper
+				if (originalName.contains("azahar")) {
+					PlantaBajaWrapper pWrapperAzahar = (PlantaBajaWrapper) pWrapper;
+					return pWrapperAzahar.recuperarPuestosAzahar(puestosDesordenados);
+				}
+				
 				return pWrapper.ordenarPuesto(nombre, puestosDesordenados);
 			} else if (nombre.contains("1")) {
 				puestosDesordenados = puestoDao.findByPlantaAndRegistro(nombre, idRegistro);
 				pWrapper = new PlantaWrapper();
 
 				return pWrapper.ordenarPuesto(nombre, puestosDesordenados);
-			} else if (nombre.contains("azahar")) {
-				puestosDesordenados = puestoDao.findByPlantaAndRegistro("0", idRegistro);
-				PlantaBajaWrapper pWrapperAzahar = new PlantaBajaWrapper();
-				return pWrapperAzahar.recuperarPuestosAzahar(puestosDesordenados);
-			} else {
+			}
+//			else if (nombre.contains("azahar")) {
+//				puestosDesordenados = puestoDao.findByPlantaAndRegistro("0", idRegistro);
+//				PlantaBajaWrapper pWrapperAzahar = new PlantaBajaWrapper();
+//				return pWrapperAzahar.recuperarPuestosAzahar(puestosDesordenados);
+			 else {
 				throw new NoSorteableException(
 						msgSource.getMessage("text.error.encontrar.planta", null, new Locale("es", "ES")));
 			}

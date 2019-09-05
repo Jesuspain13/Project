@@ -13,8 +13,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
-
-import org.hibernate.annotations.NaturalId;
+import org.springframework.data.annotation.Transient;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -25,7 +24,7 @@ import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 @Table(name = "puesto")
 @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "idPuestoAuto")
 @JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
-public class Puesto implements Serializable {
+public class Puesto implements Serializable, Comparable<Puesto> {
 
 	// Definición de los atributos de la tabla Puesto.
 
@@ -48,7 +47,7 @@ public class Puesto implements Serializable {
 	private boolean ocupado;
 
 	@OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+	@JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
 	@JoinColumn(name = "id_empleado")
 	private Empleado empleado;
 
@@ -56,6 +55,9 @@ public class Puesto implements Serializable {
 	@JoinColumn(name = "id_registro")
 	@JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
 	private Registro registro;
+
+	@Transient
+	private Double valor = 0.0;
 
 	// Implementación de los Getters & Setters de la clase Puesto.
 
@@ -107,9 +109,79 @@ public class Puesto implements Serializable {
 		this.registro = registro;
 	}
 
+	public void calcularValor() {
+
+		// List<String> lista = Arrays.asList(stringSeparado);
+		String iteracion;
+		Double d;
+		String auxParaQuitarA;
+
+		if (getIdPuesto().contains("A")) {
+			auxParaQuitarA = getIdPuesto().replace("A", "");
+			d = Double.parseDouble(auxParaQuitarA);
+			d += 0.6;
+		} else {
+			d = Double.parseDouble(getIdPuesto());
+		}
+
+		this.valor += d;
+	}
+
+	public Double getValor() {
+		return valor;
+	}
+
+	public void setValor(Double valor) {
+		this.valor = valor;
+	}
+
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+
+	@Override
+	public boolean equals(Object obj) {
+		// TODO Auto-generated method stub
+		return ((Puesto) obj).getIdPuesto().equals(this.getIdPuesto());
+	}
+
+	@Override
+	public int compareTo(Puesto o) {
+		Puesto p = o;
+		String valor1 = p.getIdPuesto();
+		String valor2 = this.getIdPuesto();
+		int aux = 0;
+		if (p.getIdPuesto().contains("A")) {
+			String x = p.getIdPuesto().replace("A", "");
+			aux = Integer.parseInt(x);
+			// valor1 -> o
+			valor1 = Integer.toString(aux) + "A";
+			valor2 = this.getIdPuesto();
+		} else if (this.getIdPuesto().contains("A")) {
+			String x = this.getIdPuesto().replace("A", "");
+			aux = Integer.parseInt(x);
+			// valor 2 -> this
+			valor2 = Integer.toString(aux) + "A";
+			valor1 = p.getIdPuesto();
+		} else if (this.getIdPuesto().contains("A") && p.getIdPuesto().contains("A")) {
+			String x = this.getIdPuesto().replace("A", "");
+			aux = Integer.parseInt(x);
+			// valor 2 -> this
+			valor2 = Integer.toString(aux) + "A";
+			String y = p.getIdPuesto().replace("A", "");
+			aux = Integer.parseInt(y);
+			// valor1 -> o
+			valor1 = Integer.toString(aux) + "A";
+		}
+		System.out.println("valor1 " + valor1 + " valor2 " + valor2 + " resultado " + valor2.compareTo(valor1));
+		return valor2.compareTo(valor1);
+	}
+
+	@Override
+	public String toString() {
+		// TODO Auto-generated method stub
+		return "Id Puesto: " + getIdPuesto();
+	}
 
 }

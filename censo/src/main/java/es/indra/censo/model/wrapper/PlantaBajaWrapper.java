@@ -1,249 +1,35 @@
 package es.indra.censo.model.wrapper;
 
 import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.Comparator;
 import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import es.indra.censo.model.Puesto;
 
+@Component
 public class PlantaBajaWrapper extends PlantaWrapperAbs {
-	Integer[] nums = { 31, 98, 160, 167, 168, 169, 170, 171, 172, 173, 174, 175, 176, 177, 178, 179, 180, 181, 182, 183,
-			184, 185, 186, 187 };
-	List<Integer> posicionesAlfanum = Arrays.asList(nums);
-	List<Integer> puestosPreviosAAlfanumericos = Arrays.asList(3, 9, 15, 21, 27, 33, 39, 45, 51, 57, 63, 69, 75, 81, 87,
-			93, 99, 105, 111, 117, 123, 129, 135, 141);
+	
+	private List<Puesto> puestosAzahar = new ArrayList<Puesto>();
 
-	private List<Puesto> plantaAzahara;
 
 	public PlantaBajaWrapper() {
 		super();
-		this.plantaAzahara = new ArrayList<Puesto>();
-	}
-	
-	@Override
-	public List<Puesto> ordenarPuesto(String nombrePlanta, List<Puesto> puestosDesordenados) throws NoSorteableException {
-		try {
-			this.separarPuestos(puestosDesordenados);
-			return this.puestosNormales;
-		} catch (Exception ex) {
-			throw new NoSorteableException(
-					String.format("la lista de puestos de la planta %s no se ha podido ordenar", nombrePlanta));
-		}
 	}
 
-//	@Override
-//	public List<Puesto> ordenarPuesto(String nombrePlanta, List<Puesto> puestosDesordenados)
-//			throws NoSorteableException {
-//
-//		try {
-//
-//			Puesto iteraciónPuestoDesordenado;
-//			Puesto ultimoPuestoOrdenado;
-//			int value = 0;
-//
-//			for (int i = 0; i < puestosDesordenados.size() - 21; i++) {
-//				iteraciónPuestoDesordenado = puestosDesordenados.get(i);
-//
-//				// si no contiene Z
-//				// comprobar que la lista ya ordenada es mayor a 0
-//				if (super.getPuestosOrdenados().size() > 0) {
-//					int lastIndex = super.getPuestosOrdenados().size() - 1;
-//					// comprobar si el anterior valor guardado en lista ordenada tiene A
-//					ultimoPuestoOrdenado = super.getPuestosOrdenados().get(lastIndex);
-//					if (!ultimoPuestoOrdenado.getIdPuesto().contains("A")
-//							|| !ultimoPuestoOrdenado.getIdPuesto().contains("A")) {
-//						value = Integer.parseInt(ultimoPuestoOrdenado.getIdPuesto());
-//					}
-//					// comprobar que el valor que vamos a coger no tiene z
-//					if (iteraciónPuestoDesordenado.getIdPuesto().contains("Z")
-//							|| iteraciónPuestoDesordenado.getIdPuesto().contains("z")) {
-//						this.plantaAzahara.add(puestosDesordenados.get(i));
-//						// si tiene z pero el id del utlimo puesto añadido es uno de estos valores
-//
-//						if (this.puestosPreviosAAlfanumericos.contains(value)) {
-//							this.añadirValoresAlfanumericos(puestosDesordenados, value, i);
-//
-//						}
-//
-//					} else {
-//
-//						if (this.puestosPreviosAAlfanumericos.contains(value)) {
-//							this.añadirValoresAlfanumericos(puestosDesordenados, value, i);
-//
-//						} else {
-//							this.añadirSiNoTieneZ(puestosDesordenados, i);
-//						}
-//					}
-//				} else {
-//					this.añadirSiNoTieneZ(puestosDesordenados, i);
-//				}
-//
-//				value = 0;
-//			}
-//			System.out.println("");
-//			return getPuestosOrdenados();
-//		} catch (Exception ex) {
-//			throw new NoSorteableException(
-//					String.format("la lista de puestos de la planta %s no se ha podido ordenar", nombrePlanta));
-//		}
-//	}
-//
-//	/**
-//	 * método para en caso de que el puesto en la posición i no tenga Z se añade a
-//	 * la lista
-//	 * 
-//	 * @param puestosDesordenados
-//	 * @param value
-//	 * @param i
-//	 */
-//	private void añadirSiNoTieneZ(List<Puesto> puestosDesordenados, int i) {
-//		if (!posicionesAlfanum.contains(i) && (!puestosDesordenados.get(i).getIdPuesto().contains("Z")
-//				|| !puestosDesordenados.get(i).getIdPuesto().contains("z"))) {
-//			super.addPuesto(puestosDesordenados.get(i));
-//		}
-//	}
-//
-//	private void añadirValoresAlfanumericos(List<Puesto> puestosDesordenados, int value, int i) {
-//		switch (value) {
-//		case 3:
-//			super.addPuesto(puestosDesordenados.get(31));
-//			this.añadirSiNoTieneZ(puestosDesordenados, i);
-//
-//			break;
-//		case 9:
-//			super.addPuesto(puestosDesordenados.get(98));
-//
-//			break;
-//		case 15:
-//			super.addPuesto(puestosDesordenados.get(160));
-//
-//			this.añadirSiNoTieneZ(puestosDesordenados, i);
-//			break;
-//		case 21:
-//			super.addPuesto(puestosDesordenados.get(167));
-//
-//			this.añadirSiNoTieneZ(puestosDesordenados, i);
-//			break;
-//		case 27:
-//			super.addPuesto(puestosDesordenados.get(168));
-//
-//			this.añadirSiNoTieneZ(puestosDesordenados, i);
-//			break;
-//		case 33:
-//
-//			super.addPuesto(puestosDesordenados.get(169));
-//
-//			this.añadirSiNoTieneZ(puestosDesordenados, i);
-//			break;
-//		case 39:
-//
-//			super.addPuesto(puestosDesordenados.get(170));
-//
-//			break;
-//		case 45:
-//			super.addPuesto(puestosDesordenados.get(171));
-//
-//			this.añadirSiNoTieneZ(puestosDesordenados, i);
-//			break;
-//		case 51:
-//			super.addPuesto(puestosDesordenados.get(172));
-//
-//			this.añadirSiNoTieneZ(puestosDesordenados, i);
-//			break;
-//		case 57:
-//			super.addPuesto(puestosDesordenados.get(173));
-//
-//			this.añadirSiNoTieneZ(puestosDesordenados, i);
-//			break;
-//		case 63:
-//			super.addPuesto(puestosDesordenados.get(174));
-//
-//			this.añadirSiNoTieneZ(puestosDesordenados, i);
-//			break;
-//		case 69:
-//			super.addPuesto(puestosDesordenados.get(175));
-//
-//			break;
-//		case 75:
-//			super.addPuesto(puestosDesordenados.get(176));
-//
-//			this.añadirSiNoTieneZ(puestosDesordenados, i);
-//			break;
-//		case 81:
-//			super.addPuesto(puestosDesordenados.get(177));
-//
-//			this.añadirSiNoTieneZ(puestosDesordenados, i);
-//			break;
-//		case 87:
-//			super.addPuesto(puestosDesordenados.get(178));
-//
-//			this.añadirSiNoTieneZ(puestosDesordenados, i);
-//			break;
-//		case 93:
-//			super.addPuesto(puestosDesordenados.get(179));
-//
-//			this.añadirSiNoTieneZ(puestosDesordenados, i);
-//			break;
-//		case 99:
-//			super.addPuesto(puestosDesordenados.get(180));
-//
-//			break;
-//		case 105:
-//			super.addPuesto(puestosDesordenados.get(181));
-//
-//			this.añadirSiNoTieneZ(puestosDesordenados, i);
-//			break;
-//		case 111:
-//			super.addPuesto(puestosDesordenados.get(182));
-//
-//			this.añadirSiNoTieneZ(puestosDesordenados, i);
-//			break;
-//		case 117:
-//			super.addPuesto(puestosDesordenados.get(183));
-//
-//			this.añadirSiNoTieneZ(puestosDesordenados, i);
-//			break;
-//		case 123:
-//			super.addPuesto(puestosDesordenados.get(184));
-//
-//			this.añadirSiNoTieneZ(puestosDesordenados, i);
-//			break;
-//		case 129:
-//			super.addPuesto(puestosDesordenados.get(185));
-//
-//			break;
-//		case 135:
-//			super.addPuesto(puestosDesordenados.get(186));
-//
-//			this.añadirSiNoTieneZ(puestosDesordenados, i);
-//			break;
-//		case 141:
-//			super.addPuesto(puestosDesordenados.get(187));
-//
-//			this.añadirSiNoTieneZ(puestosDesordenados, i);
-//			break;
-//		}
-//	}
-
-	public List<Puesto> getPlantaAzahara() {
-		return plantaAzahara;
-	}
-
-	public void setPlantaAzahara(List<Puesto> plantaAzahara) {
-		this.plantaAzahara = plantaAzahara;
-	}
-	
-	
-	// NUEVO ALGORITMO DE ORDENACION
-	private List<Puesto> puestosNormales = new ArrayList<Puesto>();
-	private List<Puesto> puestosAzahar = new ArrayList<Puesto>();
-	private List<Puesto> puestosConA = new ArrayList<Puesto>();
-	
+	/**
+	 * Método que devuelve la lista de puestos de la planta azahar si ya está ordenada 
+	 * y, si no lo está, ejecuta el método que la ordena
+	 * @param puestosPlanta
+	 * @return
+	 * @throws NoSorteableException
+	 */
 	public List<Puesto> recuperarPuestosAzahar(List<Puesto> puestosPlanta) throws NoSorteableException {
 		try {
-			if (puestosAzahar.size() < 1) {
-				ordenarPuesto("Azahar", puestosPlanta);
-			}
+			this.puestosAzahar.clear();
+			this.decidirTipoPuesto(puestosPlanta);
 			return this.puestosAzahar;
 		} catch (Exception ex) {
 			throw new NoSorteableException(ex.getMessage());
@@ -251,69 +37,44 @@ public class PlantaBajaWrapper extends PlantaWrapperAbs {
 	}
 	
 	/**
-	 * Recorre la lista de puestos y los ordena
-	 * @param puestosPlanta
-	 * @return
-	 */
-	public List<Puesto> separarPuestos(List<Puesto> puestosPlanta) {
-		String idPuesto = null;
-		for (Puesto p: puestosPlanta) {
-			
-			//comprobamos si tiene Z/z o A/a o es numerico y lo añadimos a su lista
-			this.decidirTipoPuesto(idPuesto, p);
-			
-		}
-		//una vez separados los tipos de puestos -> introducir los A en los normales
-		this.introducirAlfanumericosAMostrarEnNormales("A");
-		return puestosNormales;
-	}
-	
-	/**
 	 * Recibe el nombre del puesto y comprueba si contiene Z / A o es normal(numerico)
 	 * @param idPuesto
 	 */
-	private void decidirTipoPuesto(String idPuesto, Puesto p) {
-		//nombre del puesto en cada iteración
-		idPuesto = p.getIdPuesto();
-		if (idPuesto.contains("Z") || idPuesto.contains("z")) {
-			puestosAzahar.add(p);
-		} else if(idPuesto.contains("A") || idPuesto.contains("a")) {
-			puestosConA.add(p);
-		} else {
-			puestosNormales.add(p);
-		}
-	}
-	
-	/**
-	 * recorre los puestos con A, compara el id de ese puesto sin la letra con el id del puesto normal.
-	 * Si coinciden, es que el puesto con A va delante de él
-	 * @param letraDeAlfanumericos
-	 */
-	private void introducirAlfanumericosAMostrarEnNormales(String letraDeAlfanumericos) {
-		boolean introducido;
-		int iteracionPuestoSinLetra;
-		int iteracionPuestoNormal;
-		String sinLetra;
-		int contador = 0;
-		for (Puesto p: puestosConA) {
-			sinLetra = p.getIdPuesto().replace(letraDeAlfanumericos, "");
-			iteracionPuestoSinLetra = Integer.parseInt(sinLetra);
-			introducido = false;
-			while(!introducido) {
-				
-				if (!puestosNormales.get(contador).getIdPuesto().contains("A")) {
-					iteracionPuestoNormal = Integer.parseInt(puestosNormales.get(contador).getIdPuesto());
-					if (iteracionPuestoSinLetra == iteracionPuestoNormal) {
-						
-						int indiceDondeIntroducir = contador+1;
-						puestosNormales.add(indiceDondeIntroducir, p);
-						introducido = true;
-					}
-				}
-				contador++;
+	@Override
+	public List<Puesto> decidirTipoPuesto(List<Puesto> puestosDesordenados) {
+		String idPuesto;
+		List<Puesto> puestosAMostrar = new ArrayList<Puesto>();
+		for (Puesto p: puestosDesordenados) {
+			//nombre del puesto en cada iteración
+			idPuesto = p.getIdPuesto();
+			if (idPuesto.contains("Z") || idPuesto.contains("z")) {
+				this.puestosAzahar.add(p);
+			} else {
+				p.calcularValor();
+				puestosAMostrar.add(p);
 			}
 		}
+		return puestosAMostrar;
 	}
+	
+
+	
+//	private List<Puesto> ordenarListaPuestos(List<Puesto> puestosDesordenados) {
+//		try {
+//			List<Puesto> result;
+//			//recorre la lista y separa los puestos de la vista de los de otra planta aunque esten en el excel
+//			result = this.decidirTipoPuesto(puestosDesordenados);
+//			result.sort(new ComparadorPuestos<Puesto>());
+//			for (Puesto p: result) {
+//				System.out.println(p);
+//			}
+//			return result;
+//		} catch(Exception ex) {
+//			ex.printStackTrace();
+//			return null;
+//		}
+//	}
+	
 	
 	
 }

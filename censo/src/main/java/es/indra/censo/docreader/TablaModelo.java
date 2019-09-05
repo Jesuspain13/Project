@@ -200,7 +200,7 @@ public class TablaModelo {
 	
 					// identificador alfanumerico
 					if (cell.getCellType().toString().contains("STRING")) {
-	
+						
 						setIdPuesto(cell.getStringCellValue());
 					} else {
 						long res = (Math.round(cell.getNumericCellValue()));
