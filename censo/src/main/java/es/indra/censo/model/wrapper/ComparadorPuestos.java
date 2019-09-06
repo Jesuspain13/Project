@@ -28,7 +28,7 @@ public class ComparadorPuestos<T> implements Comparator<T>{
 		} else {
 			result = Math.ceil(p1.getValor() - p2.getValor());
 		}
-		System.out.println("valor1: " + p1.getValor() + " valor2: " + p2.getValor() + " resultado: " + result);
+
 		return (int) (result);
 	}
 	

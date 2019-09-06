@@ -288,7 +288,6 @@ public class TablaModelo {
 					if (cell == null) {
 						setNombreUeRepercutible(null);
 					} else {
-						System.out.println(cell.getStringCellValue());
 						setNombreUeRepercutible(cell.getStringCellValue());
 					}
 	

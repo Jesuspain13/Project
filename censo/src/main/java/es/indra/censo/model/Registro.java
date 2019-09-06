@@ -35,12 +35,15 @@ public class Registro implements Serializable {
 		this.complejos = new ArrayList<Complejo>();
 		this.ues = new ArrayList<Ue>();
 		this.uesRep = new ArrayList<UeRepercutible>();
+		this.plantas = new ArrayList<Planta>();
+
 	}
 
 	public Registro(String version) {
 		this.complejos = new ArrayList<Complejo>();
 		this.ues = new ArrayList<Ue>();
 		this.uesRep = new ArrayList<UeRepercutible>();
+		this.plantas = new ArrayList<Planta>();
 		this.version = version;
 	}
 
@@ -61,6 +64,11 @@ public class Registro implements Serializable {
 	@JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
 	@JsonIgnore
 	private List<Complejo> complejos;
+	
+	@OneToMany(mappedBy = "registro", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
+	@JsonIgnore
+	private List<Planta> plantas;
 
 	@OneToMany(mappedBy = "registro", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
@@ -125,6 +133,22 @@ public class Registro implements Serializable {
 		this.complejos.add(c);
 	}
 
+	public List<Planta> getPlantas() {
+		return plantas;
+	}
+
+	public void setPlantas(List<Planta> plantas) {
+		this.plantas = plantas;
+	}
+	
+	public void clearPlantas() {
+		this.plantas.clear();
+	}
+	
+	public void addPlanta(Planta p) {
+		this.plantas.add(p);
+	}
+
 	public List<Ue> getUes() {
 		return ues;
 	}
@@ -136,7 +160,6 @@ public class Registro implements Serializable {
 	public void addUes(Ue ue) {
 		this.ues.add(ue);
 	}
-	
 	
 
 	public Usuario getAutorSubida() {

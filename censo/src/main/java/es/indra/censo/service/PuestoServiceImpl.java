@@ -1,7 +1,7 @@
 package es.indra.censo.service;
 
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Locale;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -13,10 +13,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import es.indra.censo.dao.IPuestoDao;
 import es.indra.censo.model.Puesto;
-import es.indra.censo.model.wrapper.NoSorteableException;
-import es.indra.censo.model.wrapper.PlantaBajaWrapper;
-import es.indra.censo.model.wrapper.PlantaWrapper;
-import es.indra.censo.model.wrapper.PlantaWrapperAbs;
 
 @Service
 public class PuestoServiceImpl implements IPuestoService {
@@ -75,50 +71,26 @@ public class PuestoServiceImpl implements IPuestoService {
 		}
 	}
 
+	
 	@Override
-	public List<Puesto> findByPlantaOrdenados(String nombrePlanta, Integer idRegistro)
-			throws NoSorteableException, Exception {
-		// TODO Auto-generated method stub
+	public List<Puesto> findByPlantaOrdenados(String nombrePlanta, Integer idRegistro) throws Exception {
 		try {
-			String originalName = nombrePlanta;
-			String nombre = nombrePlanta;
-			PlantaWrapperAbs pWrapper;
-			List<Puesto> puestosDesordenados;
-			// si contiene 0 o azahar se busca la misma planta -> 0
-			if (nombre.contains("0") || nombre.contains("azahar")) {
-				nombre = "0";
-				puestosDesordenados = puestoDao.findByPlantaAndRegistro(nombre, idRegistro);
-				//pWrapper = new PlantaBajaWrapper();
-				pWrapper = beanFactory.getBean(PlantaBajaWrapper.class);
-				//si la planta a buscar es azahar es encesario un método de la clase PlantaBajaWrapper
-				if (originalName.contains("azahar")) {
-					PlantaBajaWrapper pWrapperAzahar = (PlantaBajaWrapper) pWrapper;
-					return pWrapperAzahar.recuperarPuestosAzahar(puestosDesordenados);
+			List<Puesto> sinFiltrar = puestoDao.findByPlantaAndRegistro(nombrePlanta, idRegistro);;
+			List<Puesto> filtrado = new ArrayList<Puesto>();
+			for (Puesto p: sinFiltrar) {
+				//puestos que no se muestran en la lista
+				if (!p.getIdPuesto().contains("D") && !p.getIdPuesto().contains("147") &&
+						!p.getIdPuesto().contains("159") && !p.getIdPuesto().contains("213A") &&
+						!p.getIdPuesto().contains("230A")) {
+						filtrado.add(p);
+						
 				}
-				
-				return pWrapper.ordenarPuesto(nombre, puestosDesordenados);
-			} else if (nombre.contains("1")) {
-				puestosDesordenados = puestoDao.findByPlantaAndRegistro(nombre, idRegistro);
-				pWrapper = new PlantaWrapper();
-
-				return pWrapper.ordenarPuesto(nombre, puestosDesordenados);
-			}
-//			else if (nombre.contains("azahar")) {
-//				puestosDesordenados = puestoDao.findByPlantaAndRegistro("0", idRegistro);
-//				PlantaBajaWrapper pWrapperAzahar = new PlantaBajaWrapper();
-//				return pWrapperAzahar.recuperarPuestosAzahar(puestosDesordenados);
-			 else {
-				throw new NoSorteableException(
-						msgSource.getMessage("text.error.encontrar.planta", null, new Locale("es", "ES")));
-			}
-		} catch (NoSorteableException ex) {
-			log.error(ex.getMessage());
-			throw new NoSorteableException(ex.getMessage());
-		} catch (Exception ex) {
+			} 
+			return filtrado;
+		}  catch (Exception ex) {
 			log.error(ex.getMessage());
 			throw new Exception(ex);
 		}
-
 	}
 
 	@Override

@@ -40,12 +40,12 @@ public class Edificio implements Serializable {
 	@Column(name = "nombre_edificio")
 	private String nombreEdificio;
 
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinColumn(name = "id_complejo")
 	@JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
 	private Complejo complejo;
 
-	@ManyToOne(fetch = FetchType.EAGER)
+	@ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	@JoinColumn(name = "id_registro")
 	// @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 	private Registro registro;

@@ -104,8 +104,13 @@ public class PlantaController {
 			model.put("titulo", "Esta usted en la planta: " + planta.getNombrePlanta());
 			if (plantaEncontrada.getNombrePlanta().contains("0")) {
 				return "plantabaja";
+			} else if(plantaEncontrada.getNombrePlanta().contains("1")) {
+				return "plantaprimera";
+			} else {
+				model.put("puestos", plantaEncontrada.getPuestos());
+				return "plantazahar";
 			}
-			return "plantaprimera";
+			
 		} catch (Exception ex) {
 			log.error(ex.getMessage());
 			flash.addFlashAttribute("error", msgSource.getMessage("text.error.encontrar.planta", null, locale));

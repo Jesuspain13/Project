@@ -42,6 +42,7 @@ public class PlantaBajaWrapper extends PlantaWrapperAbs {
 	 */
 	@Override
 	public List<Puesto> decidirTipoPuesto(List<Puesto> puestosDesordenados) {
+		this.puestosAzahar.clear();
 		String idPuesto;
 		List<Puesto> puestosAMostrar = new ArrayList<Puesto>();
 		for (Puesto p: puestosDesordenados) {
@@ -56,24 +57,18 @@ public class PlantaBajaWrapper extends PlantaWrapperAbs {
 		}
 		return puestosAMostrar;
 	}
+
+	public List<Puesto> getPuestosAzahar() {
+		return puestosAzahar;
+	}
+
+	public void setPuestosAzahar(List<Puesto> puestosAzahar) {
+		this.puestosAzahar = puestosAzahar;
+	}
 	
 
 	
-//	private List<Puesto> ordenarListaPuestos(List<Puesto> puestosDesordenados) {
-//		try {
-//			List<Puesto> result;
-//			//recorre la lista y separa los puestos de la vista de los de otra planta aunque esten en el excel
-//			result = this.decidirTipoPuesto(puestosDesordenados);
-//			result.sort(new ComparadorPuestos<Puesto>());
-//			for (Puesto p: result) {
-//				System.out.println(p);
-//			}
-//			return result;
-//		} catch(Exception ex) {
-//			ex.printStackTrace();
-//			return null;
-//		}
-//	}
+
 	
 	
 	
