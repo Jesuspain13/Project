@@ -1,4 +1,3 @@
-
 function clickPuesto(e) {
 
 			var id = e;

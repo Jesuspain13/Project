@@ -56,11 +56,6 @@ function generarModal(puesto) {
 	       	<hr>
 	   	<h6 class="mt-1 mb-2">Estado: ${empleado}</h6>
 	       <hr>
-
-	       
-	       <button type="button" class="btn btn-success btn-sm"><i class="fas fa-user-plus"></i></button>
-	       <hr>
-	
 			
 	       <button type="button" class="btn btn-danger btn-sm" data-dismiss="modal" onclick="esconderFormulario()">Atrás</button>
 	       <button type="button" class="btn btn-success btn-sm"
@@ -75,7 +70,6 @@ function generarModal(puesto) {
         </div>
         <!--Body-->
         <div  id="modalInsert" >
-
 	       	<hr>
 	   	<h6 class="mt-1 mb-2">Nombre: ${puesto.empleado.nombre}</h6>
 	   	<h6 class="mt-1 mb-2">Apellidos: ${puesto.empleado.apellido}</h6>
@@ -84,11 +78,9 @@ function generarModal(puesto) {
 	       <h5 class="mt-1 mb-2">Nº Empleado: ${puesto.empleado.numeroEmpleado}</h5>	                                            
 	       <h5 class="mt-1 mb-2">Nick: ${puesto.empleado.nick}</h5>
 	       <hr>
-	       <button type="button" class="btn btn-danger btn-sm" data-dismiss="modal"><i class="fas fa-times"></i></button>
-
+	       <button type="button" class="btn btn-primary btn-sm" data-dismiss="modal">Atrás</button>
               
         </div>
-
 `
 	}
 		return htmlModal;
