@@ -5,6 +5,11 @@ function mostrarFormulario(idPuesto, idRegistro) {
 	$("input#registro").val(idRegistro);
 }
 
+function esconderFormulario() {
+	$("div#modalInsert").css("display", "block");
+	$("div#formularioCrearEmpleado").css("display", "none");
+}
+
 function recogerDatosYGuardarUsuario() {
 	var datos = recogerDatos();
 	var url = "http://localhost:8080/empleado/nuevo"

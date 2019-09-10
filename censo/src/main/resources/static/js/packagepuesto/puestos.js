@@ -31,13 +31,13 @@ function seleccionarPuestoOcupadoOVacio(puesto, iteaciónDiv, i) {
 		//si el puesto está ocupado
         empleado = puesto.empleado;
 
-        var dpto = empleado.ue.ueRepercutible.nombreUeRepercutible;
+        var dpto = empleado.ue;
 
-        if(dpto == null){
+        if(dpto != null){
         	
-          	dpto = empleado.ue.ueRepercutible;
+          	dpto = dpto.ueRepercutible.nombreUeRepercutible;
           	
-       } 
+       }
 		styleBtn = seleccionarDpto(dpto);
        
 
@@ -80,7 +80,7 @@ function renderizarPuesto(puesto, iteracionDiv, idUsuarioBuscado) {
 	$(iteracionDiv).html(html);
 	
 	//añadir departamento en la clase
-	if (puesto != null && puesto.empleado != null) {
+	if (puesto != null && puesto.empleado != null &&  puesto.empleado.ue != null) {
 		añadirDepartamento(iteracionDiv, puesto.empleado.ue.ueRepercutible.idAuto);
 	}
 	//pinta los bordes si es el usuario buscado

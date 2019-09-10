@@ -6,7 +6,6 @@ function clickPuesto(e) {
 		
 			var idToSearch = "div#" + id;
 		
-			
 	    	var puesto = $(idToSearch).data("puesto");
 	    	
 	    	var html = generarModal(puesto);

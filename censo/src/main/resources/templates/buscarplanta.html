@@ -92,13 +92,7 @@
 
 								</div>
 							</form>
-							<form class="row form d-flex justify-content-center mt-3"
-								th:if="${planta.getNombrePlanta().contains('0')}"
-								th:action="@{/planta/ver/azahar}" method="GET">
-								<input type="hidden" th:value="${idRegistro}" name="idRegistro" />
-								<button type="submit" class="btn btn-pink"
-									th:text="#{text.edificio.btn.azahar}">Planta azahar</button>
-							</form>
+							
 						</div>
 					</div>
 				</div>

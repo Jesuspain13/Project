@@ -25,8 +25,23 @@ import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 @Table(name = "empleado")
 @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "idEmpleadoAuto")
 public class Empleado implements Serializable {
+	
+	public Empleado() {
+		
+	}
 
 	// Definición de los atributos de la tabla Empleado
+
+	public Empleado(Integer numeroEmpleado, String nick, String nombre, String apellido, Registro registro, Ue ue) {
+		super();
+		this.numeroEmpleado = numeroEmpleado;
+		this.nick = nick;
+		this.nombre = nombre;
+		this.apellido = apellido;
+		this.registro = registro;
+		this.ue = ue;
+		//this.puesto = puesto;
+	}
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE)

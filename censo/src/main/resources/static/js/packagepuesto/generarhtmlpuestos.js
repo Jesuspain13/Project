@@ -57,7 +57,7 @@ function generarModal(puesto) {
 	   	<h6 class="mt-1 mb-2">Estado: ${empleado}</h6>
 	       <hr>
 			
-	       <button type="button" class="btn btn-primary btn-sm" data-dismiss="modal">Atrás</button>
+	       <button type="button" class="btn btn-danger btn-sm" data-dismiss="modal" onclick="esconderFormulario()">Atrás</button>
 	       <button type="button" class="btn btn-success btn-sm"
 	       onclick="mostrarFormulario(${puesto.idPuestoAuto}, ${idRegistro})">Asignar Empleado</button>
 
@@ -94,7 +94,10 @@ function generarModal(puesto) {
 function seleccionarDpto(dpto) {
 	
 	var styleBtn;
-	if(dpto.includes("SANIDAD")){
+	if (dpto == null){
+    	
+    	styleBtn ="btn btn-success";
+    }else if(dpto.includes("SANIDAD")){
      	
      	styleBtn ="btn btn-danger";
      	
@@ -130,9 +133,6 @@ function seleccionarDpto(dpto) {
 			
 		styleBtn ="btn btn-deep-orange";
      		
-    }else{
-    	
-    	styleBtn ="btn btn-success";
     }
 	return styleBtn;
 }

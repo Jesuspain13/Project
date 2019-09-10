@@ -243,7 +243,8 @@ public class ExcelReader {
 			UeRepercutible ueRep = this.seleccionarUeRepercutible(tabla, registroGuardado);
 			Empleado emp = this.buildEmpleado(tabla, ue, registroGuardado);
 			// comprobar si el empleado creado es null
-			if (emp != null && ue != null) {
+			
+			if (emp != null) {
 				puesto.setOcupado(true);
 				puesto.setEmpleado(emp);
 
@@ -487,7 +488,8 @@ public class ExcelReader {
 	private Empleado buildEmpleado(TablaModelo tabla, Ue ue, Registro r) throws Exception {
 		// los dos primeros campos (1 y 2) de la tabla deben ser los datos del complejo
 		try {
-			if (tabla.isTeletrabajo()) {
+			//siendo la columna de apellidos el mínimo de datos para reconocer que existe un usuario
+			if (tabla.getApellidosEmpleado() == null) {
 				return null;
 			}
 			Empleado emp = new Empleado();
@@ -495,6 +497,8 @@ public class ExcelReader {
 			emp.setApellido(tabla.getApellidosEmpleado());
 			if (tabla.getNumeroEmpleado() != null) {
 				emp.setNumeroEmpleado((tabla.getNumeroEmpleado().intValue()));
+			} else {
+				emp.setNumeroEmpleado(null);
 			}
 			emp.setNick(tabla.getNick());
 			emp.setUe(ue);

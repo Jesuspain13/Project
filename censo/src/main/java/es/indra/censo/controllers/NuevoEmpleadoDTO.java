@@ -2,6 +2,8 @@ package es.indra.censo.controllers;
 
 import java.io.Serializable;
 
+import javax.validation.constraints.NotEmpty;
+
 public class NuevoEmpleadoDTO implements Serializable {
 	
 	/**
@@ -9,8 +11,10 @@ public class NuevoEmpleadoDTO implements Serializable {
 	 */
 	private static final long serialVersionUID = 1L;
 
+	@NotEmpty
 	public String nombre;
 	
+	@NotEmpty
 	public String apellidos;
 	
 	public String nick;
