@@ -64,16 +64,16 @@
 
 
 				</ul>
-				<ul class="navbar-nav ml-auto nav-flex-icons">
+				<ul class="navbar-nav ml-auto mr-auto nav-flex-icons">
 
 					<li class="nav-item dropdown"><a
 						class="nav-link dropdown-toggle" id="navbarDropdownMenuLink-333"
 						data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 							<i class="fas fa-user"></i>
 					</a>
-						<div class="dropdown-menu dropdown-menu-right"
-							aria-labelledby="navbarDropdownMenuLink-333">
-							<div class="container"></div>
+						<div class="dropdown-menu dropdown-menu-left dropdown-info"
+							aria-labelledby="navbarDropdownMenuLink">
+							<div class="container">
 							<form sec:authorize="isAuthenticated()" th:action="@{/logout}"
 								method="POST">
 								<input type="hidden" th:name="${_csrf.parameterName}"
@@ -81,7 +81,9 @@
 								<button class="dropdown-item" type="submit"
 									th:text="#{text.home.cerrar.sesion}">Logout</button>
 							</form>
-						</div></li>
+							</div>
+						</div>
+						</li>
 				</ul>
 			</div>
 
