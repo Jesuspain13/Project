@@ -24,7 +24,7 @@ import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 @Table(name = "puesto")
 @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "idPuestoAuto")
 @JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
-public class Puesto implements Serializable, Cloneable {
+public class Puesto implements Serializable {
 
 	// Definición de los atributos de la tabla Puesto.
 	
@@ -126,8 +126,6 @@ public class Puesto implements Serializable, Cloneable {
 	}
 
 	public void calcularValor() {
-
-		// List<String> lista = Arrays.asList(stringSeparado);
 		Double d;
 		String auxParaQuitarA;
 
@@ -162,18 +160,6 @@ public class Puesto implements Serializable, Cloneable {
 		// TODO Auto-generated method stub
 		return "Id Puesto: " + getIdPuesto();
 	}
-	public Puesto clonePuesto() throws CloneNotSupportedException, Exception {
-		try {
-			return (Puesto) this.clone();
-		} catch (Exception ex) {
-			ex.printStackTrace();
-			throw new Exception(ex);
-		}
-	}
+	
 
-	@Override
-	protected Object clone() throws CloneNotSupportedException {
-		// TODO Auto-generated method stub
-		return super.clone();
-	}
 }
