@@ -3,6 +3,12 @@ html, body {
 	position: relative;
 }
 
+.full-height {
+  height: 50rem;
+  overflow:scroll
+}
+
+
 .main-content {
 	min-height: 100vh; /* will cover the 100% of viewport */
 	overflow: hidden;
