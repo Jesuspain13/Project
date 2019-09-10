@@ -2033,19 +2033,21 @@
 
 			<!-- Contenedor con el mapa de la primera planta-->
 		</div>
-	<!--  MODAL -->
-<div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-    		<div class="modal-dialog cascading-modal modal-avatar modal-sm" role="document">
-    		<!--Content-->
-   				<div class="modal-content">
+		<!--  MODAL -->
+		<div class="modal fade" id="modal" tabindex="-1" role="dialog"
+			aria-labelledby="myModalLabel" aria-hidden="true"  data-keyboard="false" data-backdrop="static">
+			<div class="modal-dialog cascading-modal modal-avatar modal-sm"
+				role="document">
+				<!--Content-->
+				<div class="modal-content">
 					<!-- CONTENEDOR PARA MOSTRAR LA INFORMACIÓN DEL USUARIO -->
 					<div id="infoEmpleado" class="modal-body text-center mb-1"></div>
 
 					<!-- FORMULARIO PARA PUESTOS VACIOS PARA CREAR UN EMPLEADO Y ASIGNARLO AL PUESTO -->
 					<div th:replace="/layout/layout :: formularioNuevoEmpleado"></div>
 				</div>
-    		</div>
-   	 	</div>
+			</div>
+		</div>
 
 		</main>
 		<!--Main layout-->
@@ -2099,7 +2101,7 @@
             });
 
         </script>
-        
+
 	</div>
 </body>
 
