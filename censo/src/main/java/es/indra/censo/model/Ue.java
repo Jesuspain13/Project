@@ -16,8 +16,6 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-import org.hibernate.annotations.NaturalId;
-
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
@@ -25,7 +23,7 @@ import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 @Entity
 @Table(name = "ue")
-@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "nombreUeRepercutible")
+//@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = {"id", "ueRepercutible"})
 @JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
 public class Ue implements Serializable {
 
@@ -44,12 +42,11 @@ public class Ue implements Serializable {
 
 	@Column(name = "nombre_ue")
 	private String nombreUe;
+	
+	@ManyToOne(fetch=FetchType.EAGER)
+	@JoinColumn(name="id_ue_repercutible")
+	private UeRepercutible ueRepercutible;
 
-	@Column(name = "ue_repercutible")
-	private String ueRepercutible;
-
-	@Column(name = "nombre_ue_repercutible")
-	private String nombreUeRepercutible;
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "id_registro")
@@ -88,20 +85,12 @@ public class Ue implements Serializable {
 		this.nombreUe = nombreUe;
 	}
 
-	public String getUeRepercutible() {
+	public UeRepercutible getUeRepercutible() {
 		return ueRepercutible;
 	}
 
-	public void setUeRepercutible(String ueRepercutible) {
+	public void setUeRepercutible(UeRepercutible ueRepercutible) {
 		this.ueRepercutible = ueRepercutible;
-	}
-
-	public String getNombreUeRepercutible() {
-		return nombreUeRepercutible;
-	}
-
-	public void setNombreUeRepercutible(String nombreUeRepercutible) {
-		this.nombreUeRepercutible = nombreUeRepercutible;
 	}
 
 	public List<Empleado> getEmpleados() {

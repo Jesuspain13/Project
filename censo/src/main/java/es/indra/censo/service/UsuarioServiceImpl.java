@@ -77,14 +77,6 @@ public class UsuarioServiceImpl implements IUsuarioService {
 		}
 	}
 
-	public void updateUsuario(Usuario usuario) throws Exception {
-		try {
-			usuarioDao.save(usuario);
-		} catch (Exception ex) {
-			log.error(ex.getMessage());
-			throw new Exception(ex);
-		}
-	}
 
 	@Override
 	@Transactional
@@ -92,7 +84,12 @@ public class UsuarioServiceImpl implements IUsuarioService {
 		try {
 			Usuario usuarioAModificar = usuarioDao.findById(id).get();
 			usuarioAModificar.setUsername(usuarioConDatosNuevos.getUsername());
-			String passBCryptEncoded = this.passwordEncoder.encode(usuarioConDatosNuevos.getPasswordDecoded());
+			String contraseñaFormularioDesencriptada = usuarioConDatosNuevos.getPasswordDecoded();
+			if (contraseñaFormularioDesencriptada == null ||
+					contraseñaFormularioDesencriptada.isEmpty()) {
+				contraseñaFormularioDesencriptada = usuarioConDatosNuevos.decodePasswordEncoded();
+			}
+			String passBCryptEncoded = this.passwordEncoder.encode(contraseñaFormularioDesencriptada);
 			usuarioAModificar.setPassword(passBCryptEncoded);
 
 			usuarioDao.save(usuarioAModificar);
@@ -125,7 +122,7 @@ public class UsuarioServiceImpl implements IUsuarioService {
 		}
 	}
 
-	public void comprobarPermiso(String rolSeleccionado, Usuario usuario) {
+	private void comprobarPermiso(String rolSeleccionado, Usuario usuario) {
 		List<Rol> roles = (List<Rol>) rolDao.findAll();
 		if (rolSeleccionado.contains("ADMIN")) {
 			usuario.setRoles(roles);

@@ -15,7 +15,7 @@ public interface IPlantaDao extends CrudRepository<Planta, Integer> {
 			+ "WHERE p.id=?1 AND p.registro.idRegistro=?2")
 	public Planta findByIdPlantaAndRegistro(Integer idPlanta, Integer r);
 
-	@Query("SELECT p FROM Planta p WHERE p.nombrePlanta=?1 AND p.registro.idRegistro=?2")
+	@Query("SELECT p FROM Planta p LEFT JOIN FETCH p.edificio WHERE p.nombrePlanta=?1 AND p.registro.idRegistro=?2")
 	public Planta findByNombrePlantaAndRegistro(String nombrePlanta, Integer idRegistro);
 	
 	@Query("SELECT p FROM Planta p "

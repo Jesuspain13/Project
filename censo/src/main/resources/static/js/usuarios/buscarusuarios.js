@@ -13,7 +13,7 @@ $( "#buscar" ).click(function() {
 		var usuario;
 		
 		var status= `<i class="fas fa-times active-false"></i>`;
-		
+		var buttonIcon;
 		
 
 		const url = 'http://localhost:8080/usuarios/buscar';
@@ -75,7 +75,12 @@ $( "#buscar" ).click(function() {
     		    		
     		    		if (usuario.enabled){
     		    			status = `<i class="fas fa-check active-true"></i>`;
-    		    		
+    		    			buttonIcon = {"class": "btn btn-danger text-center",
+    	    		    			"icon": `<i class="fas fa-times "></i>`}
+    		    		} else {
+    		    			status = `<i class="fas fa-times active-false"></i>`
+    		    			buttonIcon = {"class": "btn btn-success text-center",
+    		    			"icon": `<i class="fas fa-check "></i>`}
     		    		}
     		    		var authoritiesToShow = generarListaRoles(usuario.roles)
     		    		htmlWithRowsToRender = htmlWithRowsToRender + `<tr>
@@ -86,8 +91,8 @@ $( "#buscar" ).click(function() {
     								<a  class="btn btn-warning text-center" href=${urlUpdate}><i class="fas fa-edit mr-1"></i></a>
     							</td>
     							<td  class="align-middle">
-    		 						<button  class="btn btn-danger text-center"  value=${usuario.id} onclick="enviarModificacionEstado(this)">
-    								<i class="fas fa-times mr-1"></i></button>
+    		 						<button  class="${buttonIcon.class}"  value=${usuario.id} onclick="enviarModificacionEstado(this)">
+    								${buttonIcon.icon}</button>
     							</td>
     						
     							    							

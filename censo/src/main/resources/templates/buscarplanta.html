@@ -7,54 +7,97 @@
 <body>
 
 	<section th:fragment="plantaForm">
-	
 		<div class="container my-3">
-			<div class="row d-flex justify-content-center" th:object="${planta}">
-				<div class="col-md-12">
-					<form class="form-group" method="POST" th:action="@{/planta/ver}"
-					th:object="${planta}">
-						<div class="container">
-							<div class="row">
-								<div class="col-md-6">
-								<h2 th:text="#{text.edificio.name}"></h2>
-									<h2 >
-										<span th:text="${edificio.getNombreEdificio()}"></span>
-									</h2>
+			<div class="row">
+				<div class="col-md-7">
+					<div class="card">
+						<div class="card-header">
+							<h3 th:text="#{text.busqueda.dpto.titulo}">Selecciona un
+								departamento</h3>
+						</div>
+						<div class="card-body">
+							<div class="container ">
+								<div class="row my-3">
+									<div class="col-md-12 text-center">
+										<select id="selectDpto">
+											<option th:each="ue : ${departamentos}"
+												th:value="${ue.getIdAuto()}" 
+												th:text="${ue.getNombreUeRepercutible()}">
+										</select>
+									</div>
 								</div>
-								<div class="col-md-6">
-									<label for="planta" th:text="#{text.edificio.select}">Selecciona una planta</label> <select
-										id="planta" th:field="*{id}"
-										class="browser-default custom-select">
-										<option th:each="p: ${edificio.getPlantas()}"
-											th:value="${p.getId()}"> <span
-												th:text="${p.getNombrePlanta()}"></span>
-										</option>
-										
-									</select>
-									<input type="hidden" th:value="${idRegistro}" name="idRegistro"/>
+								<div class="row d-flex justify-content-center">
+									<div class="col-md-6">
+										<button id="btnBusquedaDpto" type="button"
+											class="btn btn-success" onclick="buscarDpto()"
+											th:text="#{text.buscar.dpto.boton}"></button>
+									</div>
 								</div>
+								
+								<div class="row d-flex justify-content-center my-3">
+									<div class="col-md-12">
+										<p id="msgDptoNoEncontrado" class="alert alert-warning" style="display: none;">El departamento buscado no se encuentra en esta planta</p>
+									</div>
+								</div>
+								
 							</div>
 						</div>
-						
-						
-						
-						<div class="row d-flex justify-content-center mt-3">
-							<button type="submit" class="btn btn-primary" th:text="#{text.edificio.btn.buscar}">Buscar
-								planta</button>
-						
-
-						</div>
-					</form>
-					<form class="row form d-flex justify-content-center mt-3" th:if="${planta.getNombrePlanta().contains('0')}"
-					 th:action="@{/planta/ver/azahar}"
-					 method="GET">
-						<input type="hidden" th:value="${idRegistro}" name="idRegistro"/>
-						<button type="submit" 
-							class="btn btn-pink" th:text="#{text.edificio.btn.azahar}">Planta azahar</button>
-					</form>
+					</div>
 				</div>
-			</div>
-		</div>
+
+
+
+
+				<div class="col-md-5">
+					<div class="card">
+						<div class="card-header">
+							<h3 th:text="#{text.busqueda.dpto.titulo}">Selecciona un
+								departamento</h3>
+						</div>
+						<div class="card-body">
+							<form class="form-group" method="POST" th:action="@{/planta/ver}"
+								th:object="${planta}">
+								<div class="container">
+									<div class="row mb-3">
+										<div class="col-md-12 text-center">
+											<div>
+											<span class="font-weight-bold" th:text="#{text.edificio.name}"></span>
+											
+												<span class="font-weight-bold" th:text="${edificio.getNombreEdificio()}"></span>
+											</div>
+										</div>
+									</div>
+									<hr>
+									<div class="row d-flex justify-content-center">
+										<div class="col-md-6 text-center">
+											<label for="planta" th:text="#{text.edificio.select}">Selecciona
+												una planta</label> <select id="planta" th:field="*{id}"
+												class="browser-default custom-select">
+												<option th:each="p: ${edificio.getPlantas()}"
+													th:value="${p.getId()}" th:text="${p.getNombrePlanta()}">
+												</option>
+
+											</select> <input type="hidden" th:value="${idRegistro}"
+												name="idRegistro" />
+										</div>
+									</div>
+								</div>
+
+
+
+								<div class="row d-flex justify-content-center mt-3">
+									<button type="submit" class="btn btn-primary"
+										th:text="#{text.edificio.btn.buscar}">Buscar planta</button>
+
+
+								</div>
+							</form>
+							
+						</div>
+					</div>
+				</div>
+				</div>
+				</div>
 	</section>
 
 </body>

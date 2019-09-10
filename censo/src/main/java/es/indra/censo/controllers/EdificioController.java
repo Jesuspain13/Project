@@ -20,17 +20,17 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import es.indra.censo.dao.IPuestoDao;
+import es.indra.censo.dao.IUeDao;
+import es.indra.censo.dao.IUeRepercutibleDao;
 import es.indra.censo.model.Edificio;
-import es.indra.censo.model.Planta;
-import es.indra.censo.model.Puesto;
-import es.indra.censo.model.wrapper.PlantaWrapper;
-import es.indra.censo.model.wrapper.PlantaWrapperAbs;
+import es.indra.censo.model.Empleado;
+import es.indra.censo.model.Ue;
+import es.indra.censo.model.UeRepercutible;
 import es.indra.censo.service.IEdificioService;
 
 @Controller
 @RequestMapping("/edificio")
-@SessionAttributes({ "complejo", "registro", "idRegistro", "edificios" })
+@SessionAttributes({ "complejo", "registro", "idRegistro", "edificios", "departamentos", "subDptos"})
 public class EdificioController {
 
 	@Autowired
@@ -40,14 +40,19 @@ public class EdificioController {
 
 	@Autowired
 	private IEdificioService edificioSvc;
-
+	
 	@Autowired
-	private IPuestoDao puestoDao;
+	private IUeRepercutibleDao ueRepDao;
+	
+	@Autowired
+	private IUeDao ueDao;
 
 	@PostMapping("listar")
 	@Transactional
-	public String listar(@Valid Edificio e, BindingResult resultValid, @RequestParam("idRegistro") Integer idRegistro,
-			SessionStatus status, Map<String, Object> model, RedirectAttributes flash, Locale locale) {
+	public String listar(@Valid Edificio e, BindingResult resultValid,
+			@RequestParam("idRegistro") Integer idRegistro,
+			SessionStatus status, Map<String, Object> model,
+			RedirectAttributes flash, Locale locale) {
 		try {
 			if (resultValid.hasErrors()) {
 
@@ -55,18 +60,17 @@ public class EdificioController {
 			}
 
 			Edificio edificio = edificioSvc.findByIdEdificioAndRegistro(e.getIdEdificio(), idRegistro);
+			List<UeRepercutible> departamentos = (List<UeRepercutible>) ueRepDao.findAllByIdRegistro(idRegistro);
+			List<Ue> subDptos = (List<Ue>) ueDao.findAllByIdRegistro(idRegistro);
 			status.setComplete();
 			model.put("edificio", edificio);
-
-//			Planta p = edificio.getPlantas().get(1);
-//			PlantaWrapperAbs pWrapper = new PlantaWrapper();
-//			List<Puesto> puestosDesordenados = puestoDao.findByPlanta(p);
-//			List<Puesto> puestos = (pWrapper.ordenarPuesto(p.getNombrePlanta(), puestosDesordenados));
-//			p.setPuestos(puestos);
 
 			model.put("idRegistro", idRegistro);
 
 			model.put("planta", edificio.getPlantas().get(1));
+			model.put("departamentos", departamentos);
+			model.put("subDptos", subDptos);
+			model.put("empleado", new NuevoEmpleadoDTO());
 
 			return "plantaprimera";
 		} catch (Exception ex) {

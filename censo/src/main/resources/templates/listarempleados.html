@@ -12,151 +12,220 @@
 		<!--Main layout-->
 		<main>
 		<div class="container py-4">
-
-			<!-- Crear una tarjeta para contener todo -->
-			<div class="card">
-
-				<!--Card con los inputs de búsqueda-->
-
-				<div class="card-header cyan lighten-2">
-					<!-- Material auto-sizing form -->
-					<form>
-						<!-- Grid row -->
-						<div class="form-row align-items-center ml-2 my-2">
-							<h3 class="text-white">Introduce el Nombre y Apellidos del
-								empleado a buscar:</h3>
-							<!-- Grid column -->
-							<div class="col-5">
-								<!-- Material input -->
-								<div class="md-form">
-									<input type="text" class="form-control mb-3"
-										id="inlineFormInputMD" placeholder="Name"> <label
-										class="sr-only" for="inlineFormInputMD">Nombre</label>
-								</div>
-							</div>
-							<!-- Grid column -->
-
-							<!-- Grid column -->
-							<div class="col-5">
-								<!-- Material input -->
-								<label class="sr-only " for="inlineFormInputGroupMD">Apellido</label>
-								<div class="md-form input-group mb-3">
-									<div class="input-group-prepend"></div>
-									<input type="text"
-										class="form-control pl-0 rounded-0 text-white"
-										id="inlineFormInputGroupMD" placeholder="Last Name">
-								</div>
-							</div>
-							<!-- Grid column -->
-
-							<!-- Grid column -->
-							<div class="col-2">
-								<button type="submit" class="btn btn-elegant mb-0">Buscar</button>
-							</div>
-							<!-- Grid column -->
-						</div>
-						<!-- Grid row -->
-					</form>
-					<!-- Material auto-sizing form -->
-				</div>
-				<!--Fin Card con los inputs de búsqueda-->
-
-				<br>
-				<!-- Tarjeta 1 con el título -->
-				<div class="card-header cyan lighten-2 text-white"
-					th:text="${titulo}">
-					<div class="row">
-						<div class="col-3">Resultados de la Búsqueda:</div>
-						<div class="col-9">
-							15 <a> empleado/s encontrado/s</a>
-						</div>
-					</div>
-
-				</div>
-				<!-- Fin Tarjeta 1 con el título -->
-
-
-				<!-- Tarjeta 2 con el cuerpo de la búsqueda-->
-
-				<div class="card-body">
-
-					<!--Tabla de la base de datos con todos sus atributos-->
-
-					<div class="table-responsive">
-						<table class="table table-striped">
-							<thead>
-								<tr>
-
-									<th th:text="#{}">Nombre</th>
-									<th th:text="#{}">Apellidos</th>
-									<th th:text="#{}">Nick</th>
-									<th th:text="#{}">Nº Puesto</th>
-									<th th:text="#{}">Número Empleado</th>
-									<th th:text="#{}">Departamento</th>
-									<th th:text="#{}">Ubicación del Empleado</th>
-
-
-
-								</tr>
-							</thead>
-							<tbody>
-								<tr th:each="">
-
-									<td th:text="${}"></td>
-									<td th:text="${}"></td>
-									<td th:text="${}"></td>
-									<td th:text="${}"></td>
-									<td th:text="${}"></td>
-									<td th:text="${}"></td>
-									<td><button type="button"
-											class="btn btn-unique text-center">Ver Ubicación</button></td>
-
-								</tr>
-							</tbody>
-
-
-						</table>
-					</div>
-					<!-- Agregamos el fragmento de la paginación -->
-					<nav th:replace="paginator-nav :: paginator"></nav>
-					<!-- ./Agregamos el fragmento de la paginación -->
-
-				</div>
-
-				<!-- Fin Tarjeta 2 con el cuerpo de la búsqueda-->
-
-				<!-- Card con el mensaje de que no hay resultados coincidientes-->
+			<div class="row">
 				<div class="col-md-12">
-					<div class="card">
-						<div
-							class="card-header deep-orange lighten-2 text-center text-white">
-							<img src="./img/buscar.png" class="rounded mx-auto d-block my-2"
-								alt="...">
-							<h3>¡Sin Resultados!</h3>
+					<!-- Crear una tarjeta para contener todo -->
+					<div class="container">
+						<div class="row">
+							<div class="col-md-12">
+								<div class="card">
 
+									<!--Card con los inputs de búsqueda-->
+									<div class="card-header cyan lighten-2">
+										<!-- Material auto-sizing form -->
+
+										<!-- Grid row -->
+										<div class="form-row align-items-center ml-2 my-2">
+											<h3 class="text-white">Introduce el Nombre y Apellidos
+												del empleado a buscar:</h3>
+											<!-- Grid column -->
+										</div>
+									</div>
+									<div class="card-body">
+										<form th:action="@{/empleado/buscar/nombre}" method="POST">
+											<div class="container">
+												<div class="row d-flex justify-content-center">
+													<div class="col-md-7">
+														<select id="registro" name="registro"
+															class="browser-default custom-select">
+															<option th:each="r: ${registros}"
+																th:value="${r.getIdRegistro()}"
+																th:text="${r.getVersion()}"></option>
+
+														</select>
+													</div>
+												</div>
+												<div class="row d-flex justify-content-center">
+													<div class="col-md-4">
+														<!-- Material input -->
+														<div class="md-form">
+															<input type="text" class="form-control mb-3"
+																id="inlineFormInputMD" placeholder="Name" name="nombre">
+															<label class="sr-only" for="inlineFormInputMD">Nombre</label>
+														</div>
+													</div>
+													<!-- Grid column -->
+
+													<!-- Grid column -->
+													<div class="col-md-4">
+														<!-- Material input -->
+														<label class="sr-only " for="inlineFormInputGroupMD">Apellido</label>
+														<div class="md-form input-group mb-3">
+															<div class="input-group-prepend"></div>
+															<input type="text" class="form-control pl-0 rounded-0"
+																id="inlineFormInputGroupMD" placeholder="Last Name"
+																name="apellidos">
+														</div>
+													</div>
+													<!-- Grid column -->
+
+													<!-- Grid column -->
+													<div class="col-md-2">
+														<button type="submit" class="btn btn-elegant mb-0">Buscar</button>
+													</div>
+													<!-- Grid column -->
+												</div>
+											</div>
+										</form>
+									</div>
+								</div>
+							</div>
 						</div>
+						<!-- Grid row -->
+
+						<!-- Material auto-sizing form -->
+
+						<!--Fin Card con los inputs de búsqueda-->
+					</div>
+				</div>
+			</div>
+			<br>
+			<div class="row">
+				<div class="col-md-12">
+					<div th:if="${pageSelected != null && !pageSelected.empty}">
+						<!-- Tarjeta 1 con el título -->
+						<div class="card">
+							<div class="card-header cyan lighten-2 text-white">
+								<div class="container">
+									<div class="row">
+										<div class="col-4" th:text="#{text.form.buscar.title}">Resultados
+											de la Búsqueda:</div>
+										<div class="col-8">
+											<span th:text="${pageSelected.totalElements}"></span> <span
+												th:text="#{text.form.buscar.empleados}"> empleado/s
+												encontrado/s</span>
+										</div>
+									</div>
+								</div>
+
+							</div>
+							<!-- Fin Tarjeta 1 con el título -->
 
 
-						<div class="card-body text-center">
+							<!-- Tarjeta 2 con el cuerpo de la búsqueda-->
 
-							<p th:text="#{}">No encontramos empleados con ese Nombre y
-								Apellidos.</p>
-							<p th:text="#{}">¡Por favor, inténtalo de nuevo!</p>
+							<div class="card-body">
+								<!--Tabla de la base de datos con todos sus atributos-->
+
+								<div class="table-responsive">
+									<table class="table table-striped">
+										<thead>
+											<tr class="align-middle">
+
+												<th th:text="#{text.form.buscar.usuario.nombre}">Nombre</th>
+												<th th:text="#{text.form.buscar.usuario.apellidos}">Apellidos</th>
+												<th th:text="#{text.form.buscar.usuario.nick}">Nick</th>
+												<th th:text="#{text.form.buscar.usuario.puesto}">Nº
+													Puesto</th>
+												<th th:text="#{text.form.buscar.usuario.numero}">Número
+													Empleado</th>
+												<th th:text="#{text.form.buscar.usuario.dpto}">Departamento</th>
+												<th th:text="#{text.form.buscar.usuario.ubicacion}">Ubicación
+													del Empleado</th>
+
+
+
+											</tr>
+										</thead>
+										<tbody>
+											<tr class="align-middle"
+												th:each="empleado: ${pageSelected.content}">
+
+												<td th:text="${empleado.getNombre()}">Nombre</td>
+												<td th:text="${empleado.getApellido()}">Apellidos</td>
+												<td th:text="${empleado.getNick()}">Nick</td>
+												<td th:text="${empleado.getPuesto().getIdPuesto()}">Nº
+													Puesto</td>
+												<td th:text="${empleado.getNumeroEmpleado()}">Número
+													Empleado</td>
+												<td th:text="${empleado.getUe().getNombreUe()}">Departamento
+
+												</td>
+
+												<td>
+												<form th:action="@{/empleado/buscar/ubicacion}" method="GET">
+													<input type="hidden" name="idEmpleado" th:value="${empleado.getIdEmpleadoAuto()}">
+													<input type="hidden" name="idRegistro" th:value="${idRegistro}">
+													<button type="submit"
+														class="btn btn-unique text-center"
+														th:text="#{text.form.buscar.usuario.boton}">Ver
+														Ubicación
+													</button>
+												</form>
+													
+												</td>
+
+											</tr>
+										</tbody>
+
+
+									</table>
+								</div>
+								<!-- Agregamos el fragmento de la paginación -->
+								<nav th:replace="paginator-nav :: paginator-emp"></nav>
+								<!-- ./Agregamos el fragmento de la paginación -->
+							</div>
 						</div>
 					</div>
 				</div>
-				<!-- Card con el mensaje de que no hay resultados coincidientes-->
-
 			</div>
 		</div>
-		</main>
+
+
+		<!-- Fin Tarjeta 2 con el cuerpo de la búsqueda--> <!-- Card con el mensaje de que no hay resultados coincidientes-->
+		<div th:if="${pageSelected != null && pageSelected.empty}"
+			class="col-md-12">
+			<div class="card">
+				<div
+					class="card-header deep-orange lighten-2 text-center text-white">
+					<img src="./img/buscar.png" class="rounded mx-auto d-block my-2"
+						alt="...">
+					<h3 th:text="#{text.form.buscar.titulo.noencontrado}">¡Sin Resultados!</h3>
+
+				</div>
+
+
+				<div class="card-body text-center">
+
+					<p th:text="#{text.form.buscar.noencontrado}">No encontramos
+						empleados con ese Nombre y Apellidos.</p>
+					<p th:text="#{text.form.buscar.intentar}">¡Por favor,
+						inténtalo de nuevo!</p>
+				</div>
+			</div>
+		</div>
+		<!-- Card con el mensaje de que no hay resultados coincidientes--> </main>
 		<!--Main layout-->
 		<footer th:replace="layout/layout :: footer"></footer>
 		<!-- Footer -->
+		<script th:inline="javascript">
+		var v= [[${pageSelected}]]
+		console.log(v)
+	</script>
 
+		<script type="text/javascript" th:inline="javascript">
+		
+		$("button.page-link").click(function() {
+			var nombre = [[${nombreBuscado}]];
+			var apellido = [[${apellidoBuscado}]]
+			var page = $(this).attr("value");
 
-
+			$("input#page").val(page);
+			
+			$("form#formPaginador").submit();
+		})
+	</script>
 	</div>
 </body>
-</body>
+
 </html>

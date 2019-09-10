@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import es.indra.censo.dao.IRolDao;
@@ -29,6 +30,7 @@ import es.indra.censo.service.IUsuarioService;
 
 @Controller
 @RequestMapping("/usuarios")
+@SessionAttributes("usuario")
 @Secured({ "ROLE_ADMIN" })
 public class UsuarioController {
 
@@ -154,6 +156,7 @@ public class UsuarioController {
 			flash.addFlashAttribute("success", "Se ha modificado el usuario");
 			return "redirect:/usuarios/registro";
 		} catch (Exception ex) {
+			ex.printStackTrace();
 			log.error(ex.getMessage());
 			String msg = msgSource.getMessage("text.error.generico", null, new Locale("es", "ES"));
 			flash.addFlashAttribute("error", String.format(msg, ex.getMessage()));

@@ -21,6 +21,7 @@ import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
@@ -33,11 +34,16 @@ public class Registro implements Serializable {
 	public Registro() {
 		this.complejos = new ArrayList<Complejo>();
 		this.ues = new ArrayList<Ue>();
+		this.uesRep = new ArrayList<UeRepercutible>();
+		this.plantas = new ArrayList<Planta>();
+
 	}
 
 	public Registro(String version) {
 		this.complejos = new ArrayList<Complejo>();
 		this.ues = new ArrayList<Ue>();
+		this.uesRep = new ArrayList<UeRepercutible>();
+		this.plantas = new ArrayList<Planta>();
 		this.version = version;
 	}
 
@@ -56,11 +62,31 @@ public class Registro implements Serializable {
 	// Relaciones (facilitar guardado)
 	@OneToMany(mappedBy = "registro", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
+	@JsonIgnore
 	private List<Complejo> complejos;
+	
+	@OneToMany(mappedBy = "registro", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
+	@JsonIgnore
+	private List<Planta> plantas;
 
 	@OneToMany(mappedBy = "registro", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
+	@JsonIgnore
 	private List<Ue> ues;
+	
+	@OneToMany(mappedBy = "registro", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
+	@JsonIgnore
+	private List<UeRepercutible> uesRep;
+
+	public List<UeRepercutible> getUesRep() {
+		return uesRep;
+	}
+
+	public void setUesRep(List<UeRepercutible> uesRep) {
+		this.uesRep = uesRep;
+	}
 
 	@ManyToOne(fetch=FetchType.EAGER, cascade= {CascadeType.PERSIST, CascadeType.MERGE})
 	@JoinColumn(name="usuario_id")
@@ -107,6 +133,22 @@ public class Registro implements Serializable {
 		this.complejos.add(c);
 	}
 
+	public List<Planta> getPlantas() {
+		return plantas;
+	}
+
+	public void setPlantas(List<Planta> plantas) {
+		this.plantas = plantas;
+	}
+	
+	public void clearPlantas() {
+		this.plantas.clear();
+	}
+	
+	public void addPlanta(Planta p) {
+		this.plantas.add(p);
+	}
+
 	public List<Ue> getUes() {
 		return ues;
 	}
@@ -119,7 +161,6 @@ public class Registro implements Serializable {
 		this.ues.add(ue);
 	}
 	
-	
 
 	public Usuario getAutorSubida() {
 		return autorSubida;
@@ -127,6 +168,10 @@ public class Registro implements Serializable {
 
 	public void setAutorSubida(Usuario autorSubida) {
 		this.autorSubida = autorSubida;
+	}
+	
+	public void addUeRepercutible(UeRepercutible ueRep) {
+		this.uesRep.add(ueRep);
 	}
 
 	/**

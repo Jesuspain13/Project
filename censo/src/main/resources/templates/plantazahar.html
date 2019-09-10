@@ -16,62 +16,77 @@
 		<!--Main Navigation-->
 
 		<!--Main layout-->
-    <main>
-    <section th:replace="./buscarplanta :: plantaForm"></section>
-        <div class="container py-4">
-
-            <!-- Crear una tarjeta para contener todo -->
-            <div class="card">
-
-                <!-- Tarjeta 1 con el título -->
-                <div class="card-header indra-color text-white" th:text="#{text.azahar.title}">Empleados de la Planta Azahar</div>
-
-                <!-- Tarjeta 2 con el cuerpo -->
-
-                <div class="card-body">
-
-
-
-                    <!--Tabla de la base de datos con todos sus atributos-->
-
-                    <div class="table-responsive">
-                        <table class="table table-striped">
-                            <thead>
-                                <tr>
-                                    <th th:text="#{text.azahar.npuesto}">Nº Puesto</th>
-                                    <th th:text="#{text.azahar.nombre}">Nombre</th>
-                                    <th th:text="#{text.azahar.apellido}">Apellidos</th>
-                                    <th th:text="#{text.azahar.nick}">Nick</th>
-                                    <th th:text="#{text.azahar.nempleado}">Número Empleado</th>
-
-
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr th:each="puesto: ${puestos}">
-                                    <td th:text="${puesto.getIdPuesto()}"></td>
-                                    <td th:text="${puesto.getEmpleado().getNombre()}"></td>
-                                    <td th:text="${puesto.getEmpleado().getApellido()}"></td>
-                                    <td th:text="${puesto.getEmpleado().getNick()}"></td>
-                                    <td th:text="${puesto.getEmpleado().getNumeroEmpleado()}"></td>
-
-                                </tr>
-                            </tbody>
-
-
-                        </table>
-
-
-                    </div>
-
-                </div>
-
-            </div>
-        </div>
-    </main>
-    <!--Main layout-->
+	    <main>
+	    <section th:replace="./buscarplanta :: plantaForm"></section>
+	        <div class="container py-4">
+	
+	            <!-- Crear una tarjeta para contener todo -->
+	            <div class="card">
+	
+	                <!-- Tarjeta 1 con el título -->
+	                <div class="card-header indra-color text-white" th:text="#{text.azahar.title}">Empleados de la Planta Azahar</div>
+	
+	                <!-- Tarjeta 2 con el cuerpo -->
+	
+	                <div class="card-body">
+	
+	
+	
+	                    <!--Tabla de la base de datos con todos sus atributos-->
+	
+	                    <div class="table-responsive">
+	                        <table class="table table-striped">
+	                            <thead>
+	                                <tr>
+	                                    <th th:text="#{text.azahar.npuesto}">Nº Puesto</th>
+	                                    <th th:text="#{text.azahar.nombre}">Nombre</th>
+	                                    <th th:text="#{text.azahar.apellido}">Apellidos</th>
+	                                    <th th:text="#{text.azahar.nick}">Nick</th>
+	                                    <th th:text="#{text.azahar.nempleado}">Número Empleado</th>
+	
+	
+	                                </tr>
+	                            </thead>
+	                            <tbody>
+	                                <tr th:id="${puesto.getEmpleado().getIdEmpleadoAuto()}" th:each="puesto: ${puestos}">
+	                                    <td th:text="${puesto.getIdPuesto()}"></td>
+	                                    <td th:text="${puesto.getEmpleado().getNombre()}"></td>
+	                                    <td th:text="${puesto.getEmpleado().getApellido()}"></td>
+	                                    <td th:text="${puesto.getEmpleado().getNick()}"></td>
+	                                    <td th:text="${puesto.getEmpleado().getNumeroEmpleado()}"></td>
+	
+	                                </tr>
+	                            </tbody>
+	
+	
+	                        </table>
+	
+	
+	                    </div>
+	
+	                </div>
+	
+	            </div>
+	        </div>
+	    </main>
+	    <!--Main layout-->
+		
+		<!-- Footer -->
+			<footer th:replace="layout/layout :: footer"></footer>
+			<!-- Footer -->
+		
+		<script th:inline="javascript">
+			var empleadoBuscado = [[${empleadoSeleccionado}]]
+			if (empleadoBuscado != null) {
+				var idTr = "tr#" + empleadoBuscado.idEmpleadoAuto;
+				console.log(idTr);
+				var fila = $(idTr);
+				if (fila != null) {
+					$(fila).prop('class', "table-success");
+				}
+			}
+		</script>
 	</div>
-
 </body>
 
 </html>

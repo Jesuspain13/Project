@@ -24,11 +24,22 @@ import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 @Entity
 @Table(name = "plantas")
 @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
-public class Planta implements Serializable {
+public class Planta implements Serializable, Cloneable {
 
 	public Planta() {
 		this.puestos = new ArrayList<Puesto>();
 	}
+	
+	
+
+	public Planta(String nombrePlanta, Registro registro, Edificio edificio) {
+		super();
+		this.nombrePlanta = nombrePlanta;
+		this.registro = registro;
+		this.edificio = edificio;
+	}
+
+
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE)
@@ -37,7 +48,7 @@ public class Planta implements Serializable {
 	@Column(name = "nombre_planta")
 	private String nombrePlanta;
 
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinColumn(name = "id_registro")
 	@JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
 	@JsonIgnore
@@ -47,7 +58,7 @@ public class Planta implements Serializable {
 	@JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
 	private List<Puesto> puestos;
 
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinColumn(name = "id_edificio")
 	@JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
 	@JsonIgnore
@@ -101,4 +112,33 @@ public class Planta implements Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	
+	public Planta clonePuesto() throws CloneNotSupportedException, Exception {
+		try {
+			return (Planta) this.clone();
+		} catch (Exception ex) {
+			ex.printStackTrace();
+			throw new Exception(ex);
+		}
+	}
+
+	@Override
+	protected Object clone() throws CloneNotSupportedException {
+		// TODO Auto-generated method stub
+		return super.clone();
+	}
+
+
+
+	@Override
+	public boolean equals(Object obj) {
+		Planta p = (Planta) obj;
+		return getNombrePlanta().equals(p.getNombrePlanta());
+		
+	}
+	
+	
+	
+	
+	
 }

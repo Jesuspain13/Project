@@ -2033,6 +2033,7 @@
 
 			<!-- Contenedor con el mapa de la primera planta-->
 		</div>
+
 		<!--  MODAL -->
 		<div class="modal fade" id="modal" tabindex="-1" role="dialog"
 			aria-labelledby="myModalLabel" aria-hidden="true">
@@ -2079,6 +2080,21 @@
 			</div>
 		</div>
 
+	<!--  MODAL -->
+<div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    		<div class="modal-dialog cascading-modal modal-avatar modal-sm" role="document">
+    		<!--Content-->
+   				<div class="modal-content">
+					<!-- CONTENEDOR PARA MOSTRAR LA INFORMACIÓN DEL USUARIO -->
+					<div id="infoEmpleado" class="modal-body text-center mb-1"></div>
+
+					<!-- FORMULARIO PARA PUESTOS VACIOS PARA CREAR UN EMPLEADO Y ASIGNARLO AL PUESTO -->
+					<div th:replace="/layout/layout :: formularioNuevoEmpleado"></div>
+				</div>
+    		</div>
+   	 	</div>
+
+
 		</main>
 		<!--Main layout-->
 
@@ -2090,13 +2106,12 @@
 
 
 		<script th:inline="javascript">
+		//variable para las busquedas de usuario
+        	var idUsuarioBuscado = [[${empleadoSeleccionado}]]
             const url = "http://localhost:8080/planta/ver/1";
-            var empleado;
             var puesto;
-            var mostrar;
             var html;
             var idRegistro = [[${idRegistro}]]; 
-            var data
             var divs = $('div.puestos');
             
 
@@ -2114,17 +2129,25 @@
 	            		if (i < data.length) {
 	            			puesto = data[i];
 	            		
-	            			html = seleccionarPuestoOcupadoOVacio(puesto, divs[i], i);
-	            			$(divs[i]).data("empleado", puesto.empleado);
-	    					$(divs[i]).attr("id", puesto.idPuestoAuto);
-	                    	$(divs[i]).html(html);
-	
-					}
-	             }
-			    }
-	         });
+	            			renderizarPuesto(puesto, divs[i], idUsuarioBuscado);
+	   
+						}
+            		
+             		}
+	            	if (idUsuarioBuscado != null) {
+	            		//ir al empleado buscado
+		            	$([document.documentElement, document.body]).animate({
+	            	        scrollTop: $("div#" + idUsuarioBuscado.puesto.idPuestoAuto).offset().top
+	            	    }, 1200);
+	            	}
+	            	
+
+    		    }	
+
+            });
 
         </script>
+        
 	</div>
 </body>
 

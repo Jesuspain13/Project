@@ -1,10 +1,11 @@
 package es.indra.censo.service;
 
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Locale;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.BeanFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Service;
@@ -12,10 +13,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import es.indra.censo.dao.IPuestoDao;
 import es.indra.censo.model.Puesto;
-import es.indra.censo.model.wrapper.NoSorteableException;
-import es.indra.censo.model.wrapper.PlantaBajaWrapper;
-import es.indra.censo.model.wrapper.PlantaWrapper;
-import es.indra.censo.model.wrapper.PlantaWrapperAbs;
 
 @Service
 public class PuestoServiceImpl implements IPuestoService {
@@ -27,6 +24,9 @@ public class PuestoServiceImpl implements IPuestoService {
 
 	@Autowired
 	private IPuestoDao puestoDao;
+	
+	@Autowired
+	private BeanFactory beanFactory;
 
 	@Override
 	public List<Puesto> findAll() throws Exception {
@@ -40,9 +40,9 @@ public class PuestoServiceImpl implements IPuestoService {
 
 	@Override
 	@Transactional
-	public void save(Puesto puesto) throws Exception {
+	public Puesto save(Puesto puesto) throws Exception {
 		try {
-			puestoDao.save(puesto);
+			return puestoDao.save(puesto);
 		} catch (Exception ex) {
 			log.error(ex.getMessage());
 			throw new Exception(ex);
@@ -71,41 +71,36 @@ public class PuestoServiceImpl implements IPuestoService {
 		}
 	}
 
+	
 	@Override
-	public List<Puesto> findByPlantaOrdenados(String nombrePlanta, Integer idRegistro)
-			throws NoSorteableException, Exception {
-		// TODO Auto-generated method stub
+	public List<Puesto> findByPlantaOrdenados(String nombrePlanta, Integer idRegistro) throws Exception {
 		try {
-			String nombre = nombrePlanta.toString();
-			PlantaWrapperAbs pWrapper;
-			List<Puesto> puestosDesordenados;
-			if (nombre.contains("0")) {
-				puestosDesordenados = puestoDao.findByPlantaAndRegistro(nombre, idRegistro);
-				pWrapper = new PlantaBajaWrapper();
-
-				return pWrapper.ordenarPuesto(nombre, puestosDesordenados);
-			} else if (nombre.contains("1")) {
-				puestosDesordenados = puestoDao.findByPlantaAndRegistro(nombre, idRegistro);
-				pWrapper = new PlantaWrapper();
-
-				return pWrapper.ordenarPuesto(nombre, puestosDesordenados);
-			} else if (nombre.contains("azahar")) {
-				puestosDesordenados = puestoDao.findByPlantaAndRegistro("0", idRegistro);
-				PlantaBajaWrapper pWrapperAzahar = new PlantaBajaWrapper();
-				pWrapperAzahar.ordenarPuesto("0", puestosDesordenados);
-				return pWrapperAzahar.getPlantaAzahara();
-			} else {
-				throw new NoSorteableException(
-						msgSource.getMessage("text.error.encontrar.planta", null, new Locale("es", "ES")));
-			}
-		} catch (NoSorteableException ex) {
+			List<Puesto> sinFiltrar = puestoDao.findByPlantaAndRegistro(nombrePlanta, idRegistro);;
+			List<Puesto> filtrado = new ArrayList<Puesto>();
+			for (Puesto p: sinFiltrar) {
+				//puestos que no se muestran en la lista
+				if (!p.getIdPuesto().contains("D") && !p.getIdPuesto().contains("147") &&
+						!p.getIdPuesto().contains("159") && !p.getIdPuesto().contains("213A") &&
+						!p.getIdPuesto().contains("230A")) {
+						filtrado.add(p);
+						
+				}
+			} 
+			return filtrado;
+		}  catch (Exception ex) {
 			log.error(ex.getMessage());
-			throw new NoSorteableException(ex.getMessage());
+			throw new Exception(ex);
+		}
+	}
+
+	@Override
+	public Puesto findPuestoByIdAndRegistro(Integer id, Integer idRegistro) throws Exception {
+		try {
+			return puestoDao.findByIdAndRegistro(id, idRegistro);
 		} catch (Exception ex) {
 			log.error(ex.getMessage());
 			throw new Exception(ex);
 		}
-
 	}
 
 }

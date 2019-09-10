@@ -32,7 +32,6 @@ public class RegistroService implements IRegistroService {
 	}
 
 	@Override
-	@Transactional
 	public Registro save(Registro registro) throws Exception {
 		try {
 			return registroDao.save(registro);

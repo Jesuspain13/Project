@@ -15,4 +15,5 @@ public interface IRolDao extends CrudRepository<Rol, Integer> {
 	@Query("SELECT r FROM Rol r WHERE r NOT IN ?1")
 	public List<Rol> findRolesNotEqualsToOtherRoles (List<Rol> roles);
 
+
 }

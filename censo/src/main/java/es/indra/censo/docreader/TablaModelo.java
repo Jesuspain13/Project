@@ -7,8 +7,6 @@ import org.apache.poi.ss.usermodel.Row;
 
 public class TablaModelo {
 
-	private boolean teletrabajo;
-
 	private String idComplejo;
 	private String nombreComplejo;
 	private String nombreEdificio;
@@ -115,7 +113,12 @@ public class TablaModelo {
 	}
 
 	public String getNombreUeRepercutible() {
-		return nombreUeRepercutible;
+		if (this.nombreUeRepercutible != null) {
+			return nombreUeRepercutible;
+		} else {
+			return "";
+		}
+		
 	}
 
 	public void setNombreUeRepercutible(String nombreUeRepercutible) {
@@ -146,13 +149,13 @@ public class TablaModelo {
 		this.nombreUe = nombreUe;
 	}
 
-	public boolean isTeletrabajo() {
-		return teletrabajo;
-	}
-
-	public void setTeletrabajo(boolean teletrabajo) {
-		this.teletrabajo = teletrabajo;
-	}
+//	public boolean isTeletrabajo() {
+//		return teletrabajo;
+//	}
+//
+//	public void setTeletrabajo(boolean teletrabajo) {
+//		this.teletrabajo = teletrabajo;
+//	}
 
 	/**
 	 * Método que recorre un iterador de celdas y asigna los valores a los atributos
@@ -164,11 +167,11 @@ public class TablaModelo {
 	public void asignarValores(Row row) {
 		try {
 			int i = 0;
-			this.teletrabajo = false;
-			boolean teletrab = this.teletrabajo;
-			boolean finTesteo = false;
+//			this.teletrabajo = false;
+//			boolean teletrab = this.teletrabajo;
+			
 			Cell cell;
-			while (i < 14 && !teletrab && row != null) {
+			while (i < 14 && row != null) {
 				cell = row.getCell(i);
 					
 				
@@ -191,11 +194,9 @@ public class TablaModelo {
 					break;
 				// ID PUESTO
 				case 4:
-					// Cell cell = cells.next();
 	
 					// identificador alfanumerico
 					if (cell.getCellType().toString().contains("STRING")) {
-	
 						setIdPuesto(cell.getStringCellValue());
 					} else {
 						long res = (Math.round(cell.getNumericCellValue()));
@@ -205,26 +206,20 @@ public class TablaModelo {
 					break;
 				// NUMERO EMPLEADO
 				case 5:
-					// Cell cell5 = cells.next();
 					// si la celda es un string va a ser teletrabajo
 					if (cell == null) {
 						setNumeroEmpleado(null);
-					} else if (cell.getCellType().toString().contains("STRING")
-							&& cell.getStringCellValue().contains("TELETRAB")) {
-						this.teletrabajo = true;
-						teletrab = true;
 					} else if (cell.getCellType().toString().contains("STRING")) {
 						setNumeroEmpleado(null);
 					} else {
 						// sino va a ser el numero de empleado
-	
 						setNumeroEmpleado((long) cell.getNumericCellValue());
 	
 					}
 					break;
 				// NICK
 				case 6:
-					// Cell cell6 = cells.next();
+					
 					if (cell == null) {
 						setNick(null);
 					} else if (cell.getStringCellValue().length() > 1) {
@@ -296,9 +291,7 @@ public class TablaModelo {
 					}
 	
 					break;
-	//			case 16:
-	//				setFechaCenso(new Date(this.dateCellFormatter(wb, cells.next())));
-	//				break;
+
 				default:
 					break;
 				}
