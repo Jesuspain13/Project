@@ -130,14 +130,25 @@ public class EmpleadoController {
 	public String buscarPorNombre(Model model, RedirectAttributes flash, Locale locale) {
 		try {
 			List<Registro> registrosEncontrados = registroSvc.findAll();
-			model.addAttribute("registros", registrosEncontrados);
-			return "listarempleados";
+			
+			
+			//Miramos si hay registros, si existe te deja buscar empleados, sino te devuelve el error 404.
+			if(registrosEncontrados.size() > 0) {
+				model.addAttribute("registros", registrosEncontrados);
+				return "listarempleados";
+			}else {
+				
+				return "error/error_404";
+				
+			}
+			
 		}catch (Exception ex) {
 			log.error(ex.getMessage());
 			String msg = msgSource.getMessage("text.error.generico", null, locale);
 			flash.addFlashAttribute("error", String.format(msg, ex.getMessage()));
 			return "redirect:/";
 		}
+		
 	}
 	
 	

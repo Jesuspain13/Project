@@ -26,7 +26,7 @@
 
 										<!-- Grid row -->
 										<div class="form-row align-items-center ml-2 my-2">
-											<h3 class="text-white">Introduce el Nombre y Apellidos
+											<h3 class="text-white" th:text="#{text.form.buscar.usuario.introducir}">Introduce el Nombre y Apellidos
 												del empleado a buscar:</h3>
 											<!-- Grid column -->
 										</div>
@@ -50,7 +50,7 @@
 														<!-- Material input -->
 														<div class="md-form">
 															<input type="text" class="form-control mb-3"
-																id="inlineFormInputMD" placeholder="Name" name="nombre">
+																id="inlineFormInputMD"  th:placeholder="#{text.form.buscar.usuario.nombre}" name="nombre">
 															<label class="sr-only" for="inlineFormInputMD">Nombre</label>
 														</div>
 													</div>
@@ -63,7 +63,7 @@
 														<div class="md-form input-group mb-3">
 															<div class="input-group-prepend"></div>
 															<input type="text" class="form-control pl-0 rounded-0"
-																id="inlineFormInputGroupMD" placeholder="Last Name"
+																id="inlineFormInputGroupMD" th:placeholder="#{text.form.buscar.usuario.apellidos}"
 																name="apellidos">
 														</div>
 													</div>
@@ -71,7 +71,7 @@
 
 													<!-- Grid column -->
 													<div class="col-md-2">
-														<button type="submit" class="btn btn-elegant mb-0">Buscar</button>
+														<button type="submit" class="btn btn-elegant mb-0" th:text="#{text.form.buscar.usuario.buscar}">Buscar</button>
 													</div>
 													<!-- Grid column -->
 												</div>
