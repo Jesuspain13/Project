@@ -1,19 +1,28 @@
 package es.indra.censo.docreader.validator;
 
+import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
 
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
+import es.indra.censo.dao.ICamposExcelDao;
 import es.indra.censo.docreader.OrdenColumnasException;
+import es.indra.censo.model.errores.excel.ColumnaExcel;
 
 @Component
 public class ValidadorColumnasExcel {
 	
 	Logger log = LoggerFactory.getLogger(ValidadorColumnasExcel.class);
+	
+	@Autowired
+	private ICamposExcelDao camposdao;
 	
 	public ValidadorColumnasExcel() {
 		
@@ -109,24 +118,39 @@ public class ValidadorColumnasExcel {
 		return false;
 	}
 	
-	public boolean iterarCeldadYComprobar(Row firstRow) {
+	@Transactional
+	public List<ColumnaExcel> iterarCeldadYComprobar(Row firstRow) {
 		try {
 			boolean condicionFinal = true;
+			List<ColumnaExcel> columnas = new ArrayList<ColumnaExcel>();
 			int i = 0;
 			Iterator<Cell> cells = firstRow.cellIterator();
 			Cell cell;
 			while (i< 13&& condicionFinal) {
 				cell = cells.next();
 				condicionFinal = this.comprobarOrden(cell, i);
+				if (condicionFinal) {
+					ColumnaExcel campo = this.crearCampo(cell.getStringCellValue());
+					columnas.add(campo);
+				}
 				i++;
 			}
-			return condicionFinal;
+			if (condicionFinal) {
+				return columnas;
+			} else {
+				return null;
+			}
 		} catch (OrdenColumnasException ex) {
-			return false;
+			return null;
 		}catch (Exception ex) {
 			log.error(ex.getMessage());
-			return false;
+			return null;
 		}
+	}
+	
+	private ColumnaExcel crearCampo(String nombre) {
+		ColumnaExcel campo = camposdao.save(new ColumnaExcel(nombre));
+		return campo;
 	}
 	
 	private boolean comprobarOrden(Cell cell, int indice) throws Exception {
