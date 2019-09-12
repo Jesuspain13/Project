@@ -2,6 +2,7 @@ package es.indra.censo.dao;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -18,9 +19,11 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.transaction.annotation.Transactional;
 
 import es.indra.censo.controllers.ComplejoController;
 import es.indra.censo.docreader.ExcelReader;
+import es.indra.censo.model.Registro;
 import es.indra.censo.model.Ue;
 
 @RunWith(SpringRunner.class)
@@ -32,9 +35,18 @@ public class TestUeDao {
 
 	@Autowired(required = true)
 	private IUeDao ueDao;
+	
+	
+	@Autowired(required = true)
+	private IRegistroDao rDao;
+	
 
 	@Autowired
 	private ExcelReader reader;
+	
+	private Registro registroParaTestear;
+	private Integer idRegistro;
+	private List<Ue> ueParaTestear;
 	
 
 	@Before
@@ -50,6 +62,12 @@ public class TestUeDao {
 			ex.printStackTrace();
 			log.error(ex.getMessage());
 		}
+		
+		List<Registro> registros =(List<Registro>) rDao.findAll();
+		
+		registroParaTestear = registros.get(0);
+		this.idRegistro = registroParaTestear.getIdRegistro();
+		this.ueParaTestear = registroParaTestear.getUes();
 		
 			
 		
@@ -67,6 +85,18 @@ public class TestUeDao {
 		assertEquals(ueATestear.getIdUe(), ueParaTestear.getIdUe());
 		
 
+	}
+	
+	@Test
+	@Transactional
+	public void TestfindAllByIdRegistro() {
+		List<Ue> uesATestear = ueDao.findAllByIdRegistro(registroParaTestear.getIdRegistro());
+		
+		assertNotNull(uesATestear);
+		assertTrue(uesATestear.get(0).getRegistro().getIdRegistro().equals(registroParaTestear.getIdRegistro()));
+		
+		
+		
 	}
 
 }
