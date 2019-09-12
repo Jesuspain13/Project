@@ -8,3 +8,5 @@ INSERT INTO roles(authority) VALUES ('ROLE_PRUEBA');
 INSERT INTO usuario_rol(usuario_id, rol_id) VALUES (1, 1);
 INSERT INTO usuario_rol(usuario_id, rol_id) VALUES (2, 1);
 INSERT INTO usuario_rol(usuario_id, rol_id) VALUES (2, 2);
+
+INSERT INTO tipos_errores(tipo) VALUES ('VACIO');

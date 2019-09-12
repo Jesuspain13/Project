@@ -1,11 +1,40 @@
 package es.indra.censo.docreader;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import es.indra.censo.model.errores.excel.Celda;
+import es.indra.censo.model.errores.excel.ColumnaExcel;
+import es.indra.censo.model.errores.excel.Fila;
+import es.indra.censo.model.errores.excel.TipoError;
 
 public class TablaModelo {
+	
+	public TablaModelo(List<ColumnaExcel> columnasExcel, List<TipoError> tiposErrores) {
+		this.columnasExcelExistentes = columnasExcel;
+		this.tiposErroresExistentes = tiposErrores;
+	}
+
+	
+	private Fila erroresFila = null;
+	
+	//nombre de los campos para la busqueda
+	private List<String> camposConErrores = new ArrayList<String>();
+	
+	//campos que tienen errores en esta fila
+	private List<ColumnaExcel> columnasExcelExistentes = new ArrayList<ColumnaExcel>();
+	
+	//tipos de errores
+	private List<TipoError> tiposErroresExistentes;
+
+	
+	private Logger log = LoggerFactory.getLogger(TablaModelo.class);
 
 	private String idComplejo;
 	private String nombreComplejo;
@@ -149,14 +178,6 @@ public class TablaModelo {
 		this.nombreUe = nombreUe;
 	}
 
-//	public boolean isTeletrabajo() {
-//		return teletrabajo;
-//	}
-//
-//	public void setTeletrabajo(boolean teletrabajo) {
-//		this.teletrabajo = teletrabajo;
-//	}
-
 	/**
 	 * Método que recorre un iterador de celdas y asigna los valores a los atributos
 	 * de clase
@@ -164,12 +185,11 @@ public class TablaModelo {
 	 * @param wb
 	 * @param cells
 	 */
-	public void asignarValores(Row row) {
+	public Fila asignarValores(Row row) throws Exception{
 		try {
-			int i = 0;
-//			this.teletrabajo = false;
-//			boolean teletrab = this.teletrabajo;
 			
+			int i = 0;
+			String campo;
 			Cell cell;
 			while (i < 14 && row != null) {
 				cell = row.getCell(i);
@@ -194,9 +214,12 @@ public class TablaModelo {
 					break;
 				// ID PUESTO
 				case 4:
-	
+					campo = "IDPUESTO";
 					// identificador alfanumerico
-					if (cell.getCellType().toString().contains("STRING")) {
+					if (cell == null) {
+						this.camposConErrores.add(campo);
+						setNumeroEmpleado(null);
+					} else if (cell.getCellType().toString().contains("STRING")) {
 						setIdPuesto(cell.getStringCellValue());
 					} else {
 						long res = (Math.round(cell.getNumericCellValue()));
@@ -206,8 +229,11 @@ public class TablaModelo {
 					break;
 				// NUMERO EMPLEADO
 				case 5:
+					campo = "NUMERO_EMPLEADO";
 					// si la celda es un string va a ser teletrabajo
+				
 					if (cell == null) {
+						this.camposConErrores.add(campo);
 						setNumeroEmpleado(null);
 					} else if (cell.getCellType().toString().contains("STRING")) {
 						setNumeroEmpleado(null);
@@ -220,7 +246,10 @@ public class TablaModelo {
 				// NICK
 				case 6:
 					
+					campo = "NICK";
+					// identificador alfanumerico
 					if (cell == null) {
+						this.camposConErrores.add(campo);
 						setNick(null);
 					} else if (cell.getStringCellValue().length() > 1) {
 						setNick(cell.getStringCellValue());
@@ -230,7 +259,10 @@ public class TablaModelo {
 					break;
 				// NOMBRE EMPLEADO
 				case 7:
+					campo = "NOMBRE";
+					// identificador alfanumerico
 					if (cell == null) {
+						this.camposConErrores.add(campo);
 						setNombreEmpleado(null);
 					} else {
 						setNombreEmpleado(cell.getStringCellValue());
@@ -239,7 +271,10 @@ public class TablaModelo {
 					break;
 				// APELLIDOS EMPLEADO
 				case 8:
+					campo = "APELLIDOs";
+					// identificador alfanumerico
 					if (cell == null) {
+						this.camposConErrores.add(campo);
 						setApellidosEmpleado(null);
 					} else {
 						setApellidosEmpleado(cell.getStringCellValue());
@@ -248,7 +283,10 @@ public class TablaModelo {
 					break;
 				// UE
 				case 9:
+					campo = "UE";
+					// identificador alfanumerico
 					if (cell == null) {
+						this.camposConErrores.add(campo);
 						setUe(null);
 					} else {
 						setUe(cell.getStringCellValue());
@@ -257,7 +295,10 @@ public class TablaModelo {
 					break;
 				// NOMBRE UE
 				case 10:
+					campo = "NOMBRE_UE";
+					// identificador alfanumerico
 					if (cell == null) {
+						this.camposConErrores.add(campo);
 						setNombreUe(null);
 					} else {
 						setNombreUe(cell.getStringCellValue());
@@ -266,7 +307,10 @@ public class TablaModelo {
 					break;
 				// UE REPERCUTIBLE
 				case 11:
+					campo = "UE_REPERCUTIBLE";
+					// identificador alfanumerico
 					if (cell == null) {
+						this.camposConErrores.add(campo);
 						setUeRepercutible(null);
 					} else {
 						setUeRepercutible(cell.getStringCellValue());
@@ -275,7 +319,10 @@ public class TablaModelo {
 					break;
 				// NOMBRE UE REPERCUTIBLE
 				case 12:
+					campo = "NOMBRE_UE_REPERCUTIBLE";
+					// identificador alfanumerico
 					if (cell == null) {
+						this.camposConErrores.add(campo);
 						setNombreUeRepercutible(null);
 					} else {
 						setNombreUeRepercutible(cell.getStringCellValue());
@@ -298,14 +345,57 @@ public class TablaModelo {
 				i++;
 	
 			}
-			
-			
-		}catch (Exception ex)
-		{
+			this.crearErrorDato(row.getRowNum());
+			return this.erroresFila;
+		} catch (Exception ex) {
 			ex.printStackTrace();
+			log.error(ex.getMessage().toString());
+			throw new Exception(ex);
 			
 		}
+	}
 	
-
-}
+	private void crearErrorDato(int fila) {
+		
+		if (this.camposConErrores.size() < 1) {
+			this.erroresFila = null;
+		} else {
+			this.erroresFila = new Fila(fila);
+			List<Celda> celdasConFallos = this.comprobarErrores();
+			this.erroresFila.setCeldas(celdasConFallos);
+		}
+	}
+	
+	private List<Celda> comprobarErrores() {
+		List<Celda> celdasErroneas = new ArrayList<Celda>();
+		ColumnaExcel columna;
+		for (String s: this.camposConErrores) {
+			Celda celdaErronea = new Celda();
+			if (celdaErronea != null) {
+				columna = this.comprobarNombreColumna(s);
+				celdaErronea.setColumna(columna);
+				celdaErronea.setError(this.tiposErroresExistentes.get(0));
+				celdasErroneas.add(celdaErronea);
+;			}
+			
+		
+		}
+		return celdasErroneas;
+	}
+	
+	/**
+	 * recorre las columnas posibles y si alguna coincide en nombre la retorna
+	 * @return
+	 */
+	private ColumnaExcel comprobarNombreColumna(String nombreColumna) {
+		ColumnaExcel columnaEncontrada = null;
+		for (ColumnaExcel c: this.columnasExcelExistentes) {
+			if (c.getNombre().equals(nombreColumna)) {
+				columnaEncontrada = c;
+			}
+		}
+		return columnaEncontrada;
+	}
+	
+	
 }

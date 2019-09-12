@@ -18,6 +18,7 @@ import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import es.indra.censo.dao.ITiposErroresDao;
 import es.indra.censo.dao.IUsuarioDao;
 import es.indra.censo.docreader.validator.ValidadorColumnasExcel;
 import es.indra.censo.model.Complejo;
@@ -29,6 +30,9 @@ import es.indra.censo.model.Registro;
 import es.indra.censo.model.Ue;
 import es.indra.censo.model.UeRepercutible;
 import es.indra.censo.model.Usuario;
+import es.indra.censo.model.errores.excel.ColumnaExcel;
+import es.indra.censo.model.errores.excel.Fila;
+import es.indra.censo.model.errores.excel.TipoError;
 import es.indra.censo.model.wrapper.NoSorteableException;
 import es.indra.censo.model.wrapper.PlantaBajaWrapper;
 import es.indra.censo.model.wrapper.PlantaWrapper;
@@ -38,7 +42,7 @@ import es.indra.censo.service.IRegistroService;
 @Service
 public class ExcelReader {
 
-	Logger log = LoggerFactory.getLogger(ExcelReader.class);
+	private Logger log = LoggerFactory.getLogger(ExcelReader.class);
 
 	@Autowired
 	private IRegistroService rService;
@@ -54,12 +58,22 @@ public class ExcelReader {
 
 	@Autowired
 	private BeanFactory beanFactory;
+	
+	@Autowired
+	private ITiposErroresDao tiposErroresDao;
+	
+	private List<TipoError> tiposErroresExistentes;
+	
+	private List<ColumnaExcel> columnasExcel = new ArrayList<ColumnaExcel>();
+	
 
 	private Locale locale;
 
 	private List<Ue> ue = new ArrayList<Ue>();
 	private List<UeRepercutible> ueRep = new ArrayList<UeRepercutible>();
 	private List<Planta> plantas = new ArrayList<Planta>();
+	
+	private List<Fila> filasConErrores = new ArrayList<Fila>();
 
 	public ExcelReader() {
 	};
@@ -73,14 +87,17 @@ public class ExcelReader {
 	 * @param nombreAutor
 	 * @throws Exception
 	 */
+
 	@Transactional
 	public void reader(Workbook workbook, String version, Locale locale, String nombreAutor) throws Exception {
+
 		boolean censoEncontrado = false;
 		try {
 			this.locale = locale;
 			Sheet sheet = null;
 			Iterator<Sheet> sheetsIterator = workbook.sheetIterator();
 			Usuario autor = uDao.findByUsername(nombreAutor);
+			Integer idRegistro = 0;
 			// buscar la hoja de calculo que coincida con el nombre (es la que contiene los
 			// datos)
 			while (sheetsIterator.hasNext() && !censoEncontrado) {
@@ -95,12 +112,15 @@ public class ExcelReader {
 				this.recorrerFilas(workbook, rows, r);
 				r.setAutorSubida(autor);
 				this.ordenarPlanta(r);
-
-				rService.save(r);
+				r.setFilasErroneas(filasConErrores);
+				Registro registroGuardado = rService.save(r);
+				
+				idRegistro = registroGuardado.getIdRegistro();
 			} else if (!censoEncontrado) {
 				// si no encuentra la hoja de censo en el excel
 				throw new Exception("Hoja del censo no encontrada en el archivo .xlsx");
 			}
+			
 		} catch (OrdenColumnasException ex) {
 			log.error(ex.getMessage());
 			throw new OrdenColumnasException(ex.getMessage());
@@ -110,7 +130,7 @@ public class ExcelReader {
 			throw new Exception(ex);
 		}
 	}
-	
+
 	/**
 	 * limpia las listas para evitar errores durante la persistencia.
 	 */
@@ -118,6 +138,9 @@ public class ExcelReader {
 		this.ue.clear();
 		this.plantas.clear();
 		this.ueRep.clear();
+		this.filasConErrores.clear();
+
+		this.filasConErrores.clear();
 	}
 
 	/**
@@ -144,7 +167,7 @@ public class ExcelReader {
 					contador++;
 
 				} else {
-					//comprobación para evitar leer filas que esten vacías
+					// comprobación para evitar leer filas que esten vacías
 					if (row.getCell(0) == null) {
 						filasVacias = true;
 					} else {
@@ -153,10 +176,12 @@ public class ExcelReader {
 				}
 			}
 		} catch (OrdenColumnasException ex) {
-			log.error(ex.getMessage());
+			ex.printStackTrace();
+			log.error(ex.getStackTrace().toString());
 			throw new Exception(ex.getMessage());
 		} catch (Exception ex) {
-			log.error(ex.getMessage());
+			ex.printStackTrace();
+			log.error(ex.getStackTrace().toString());
 			throw new Exception(ex.getMessage());
 		}
 	}
@@ -178,7 +203,7 @@ public class ExcelReader {
 			if (c != null && !registroGuardado.getComplejos().contains(c)) {
 				registroGuardado.addComplejo(c);
 			}
-
+			
 		} catch (Exception ex) {
 
 			ex.printStackTrace();
@@ -197,12 +222,19 @@ public class ExcelReader {
 	 */
 	private void comprobarOrdenColumnas(Row row) throws OrdenColumnasException {
 
-		boolean resultadoValidarColumnas = validadorColumnas.iterarCeldadYComprobar(row);
-		if (!resultadoValidarColumnas) {
+		List<ColumnaExcel> columnasExcelCreadas = validadorColumnas.iterarCeldadYComprobar(row);
+		if (columnasExcelCreadas.isEmpty() || columnasExcelCreadas.size() < 1) {
 			String msg = msgSource.getMessage("text.orden.columnas.exception.mensaje", null, this.locale);
 			log.error(msg);
 			throw new OrdenColumnasException(msg);
 
+		} else {
+			if (columnasExcel.size() != columnasExcelCreadas.size()) {
+				this.columnasExcel.clear();
+				this.columnasExcel = columnasExcelCreadas;
+			} 
+			
+			this.tiposErroresExistentes = tiposErroresDao.findAll();
 		}
 	}
 
@@ -214,15 +246,21 @@ public class ExcelReader {
 	private Map<String, Object> recorrerCeldasDeFila(Workbook wb, Row row, Registro registroGuardado) throws Exception {
 		try {
 
-			TablaModelo tabla = new TablaModelo();
+			TablaModelo tabla = new TablaModelo(this.columnasExcel, this.tiposErroresExistentes);
 			// método que recoge los valores de una fila
-			tabla.asignarValores(row);
+			Fila filaConErrores = tabla.asignarValores(row);
+			if (filaConErrores != null) {
+				filaConErrores.setRegistro(registroGuardado);
+				this.filasConErrores.add(filaConErrores);
+			}
+			
 
 			Map<String, Object> res = this.constructorEntidades(tabla, registroGuardado);
 
 			return res;
 		} catch (Exception ex) {
-			log.error(ex.getCause().toString());
+			ex.printStackTrace();
+			log.error(ex.getStackTrace().toString());
 			throw new Exception(ex);
 		}
 	}
@@ -244,7 +282,7 @@ public class ExcelReader {
 			UeRepercutible ueRep = this.seleccionarUeRepercutible(tabla, registroGuardado);
 			Empleado emp = this.buildEmpleado(tabla, ue, registroGuardado);
 			// comprobar si el empleado creado es null
-			
+
 			if (emp != null) {
 				puesto.setOcupado(true);
 				puesto.setEmpleado(emp);
@@ -280,6 +318,7 @@ public class ExcelReader {
 
 	/**
 	 * Instancia un complejo con los datos extraídos de la fila de la tabla
+	 * 
 	 * @param tabla
 	 * @param r
 	 * @return
@@ -339,6 +378,7 @@ public class ExcelReader {
 
 	/**
 	 * Instancia un edificio con los datos de la fila de la tabla
+	 * 
 	 * @param tabla
 	 * @param c
 	 * @param r
@@ -372,7 +412,7 @@ public class ExcelReader {
 			List<Edificio> listaEdificiosGuardados = c.getEdificios();
 			boolean encontrado = false;
 			int contador = 0;
-	
+
 			while (!encontrado && contador < listaEdificiosGuardados.size()) {
 				e = listaEdificiosGuardados.get(contador);
 				// vamos a recorrer la lista de edificos y comprobar los nombres
@@ -396,6 +436,7 @@ public class ExcelReader {
 
 	/**
 	 * Instancioa una planta con los datos extraídos de la fila de la tabla
+	 * 
 	 * @param tabla
 	 * @param e
 	 * @param r
@@ -454,7 +495,8 @@ public class ExcelReader {
 	// Metodos auxiliares del Puesto
 
 	/**
-	 * Instancia un puesto con los datos extraídos de la fila de la tabla 
+	 * Instancia un puesto con los datos extraídos de la fila de la tabla
+	 * 
 	 * @param tabla
 	 * @param p
 	 * @param r
@@ -477,9 +519,10 @@ public class ExcelReader {
 	}
 
 	// Métodos auxiliares del Empleado
-	
+
 	/**
 	 * Instancia un empleado con los datos extraídos de la fila de la tabla
+	 * 
 	 * @param tabla
 	 * @param ue
 	 * @param r
@@ -489,7 +532,8 @@ public class ExcelReader {
 	private Empleado buildEmpleado(TablaModelo tabla, Ue ue, Registro r) throws Exception {
 		// los dos primeros campos (1 y 2) de la tabla deben ser los datos del complejo
 		try {
-			//siendo la columna de apellidos el mínimo de datos para reconocer que existe un usuario
+			// siendo la columna de apellidos el mínimo de datos para reconocer que existe
+			// un usuario
 			if (tabla.getApellidosEmpleado() == null) {
 				return null;
 			}
@@ -513,6 +557,7 @@ public class ExcelReader {
 
 	/**
 	 * Instancia un ue con los datos de la fila de la tabla
+	 * 
 	 * @param tabla
 	 * @param r
 	 * @return
@@ -524,7 +569,7 @@ public class ExcelReader {
 			Ue ue = new Ue();
 			ue.setIdUe(tabla.getUe());
 			ue.setNombreUe(tabla.getNombreUe());
-	
+
 			ue.setRegistro(r);
 			return ue;
 		} catch (Exception ex) {
@@ -570,6 +615,7 @@ public class ExcelReader {
 
 	/**
 	 * Crea un ueRepercutible con los datos extraídos de la fila del excel
+	 * 
 	 * @param tabla
 	 * @param r
 	 * @return
@@ -579,7 +625,7 @@ public class ExcelReader {
 		// los dos primeros campos (1 y 2) de la tabla deben ser los datos del complejo
 		try {
 			UeRepercutible ue = new UeRepercutible();
-	
+
 			ue.setNombreUeRepercutible(tabla.getNombreUeRepercutible());
 			ue.setIdUeRepercutible(tabla.getUeRepercutible());
 			ue.setRegistro(r);
@@ -591,8 +637,9 @@ public class ExcelReader {
 	}
 
 	/**
-	 * Comprueba si el ueRepercutible de la fila actual se encuentra en la lista
-	 * si está, lo utiliza, si no, crea un ueRepercutible con los datos
+	 * Comprueba si el ueRepercutible de la fila actual se encuentra en la lista si
+	 * está, lo utiliza, si no, crea un ueRepercutible con los datos
+	 * 
 	 * @param tabla
 	 * @param r
 	 * @return
@@ -626,8 +673,9 @@ public class ExcelReader {
 	}
 
 	/**
-	 * metodo para ordenar los puestos de las plantas extraídas del censo y asignarlas al 
-	 * registro
+	 * metodo para ordenar los puestos de las plantas extraídas del censo y
+	 * asignarlas al registro
+	 * 
 	 * @param r Registro
 	 * @throws NoSorteableException
 	 */
@@ -681,9 +729,10 @@ public class ExcelReader {
 			throw new Exception(ex);
 		}
 	}
-	
+
 	/**
 	 * Añadir las plantas creadas a la lista de plantas
+	 * 
 	 * @param plantasOrdenadas
 	 */
 	private void añadirPlantasNuevasALista(List<Planta> plantasnuevas) {
@@ -693,8 +742,9 @@ public class ExcelReader {
 	}
 
 	/**
-	 * crea una planta nueva para cuando haya que puestos de otra planta en una de las 
-	 * existentes en el censo (ejemplo planta azahar)
+	 * crea una planta nueva para cuando haya que puestos de otra planta en una de
+	 * las existentes en el censo (ejemplo planta azahar)
+	 * 
 	 * @param p
 	 * @param nuevoNombre
 	 * @param nuevosPuestos
@@ -706,11 +756,10 @@ public class ExcelReader {
 			Planta plantaNueva = new Planta(nuevoNombre, p.getRegistro(), p.getEdificio());
 			plantaNueva.setPuestos(nuevosPuestos);
 
-			//asignamos la planta nueva a sus puestos
+			// asignamos la planta nueva a sus puestos
 			for (Puesto pl : plantaNueva.getPuestos()) {
 				pl.setPlanta(plantaNueva);
 			}
-
 
 			return plantaNueva;
 		} catch (Exception ex) {
@@ -722,6 +771,7 @@ public class ExcelReader {
 
 	/**
 	 * Recorre los puestos de la lista
+	 * 
 	 * @param p
 	 * @param nuevosPuestos
 	 * @return
@@ -732,4 +782,6 @@ public class ExcelReader {
 		}
 		return nuevosPuestos;
 	}
+	
+	
 }

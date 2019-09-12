@@ -1,5 +1,6 @@
 package es.indra.censo;
 
+import java.util.List;
 import java.util.Locale;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,7 +11,6 @@ import org.springframework.context.support.ReloadableResourceBundleMessageSource
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.provisioning.UserDetailsManager;
 import org.springframework.web.servlet.LocaleResolver;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
@@ -18,12 +18,16 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.springframework.web.servlet.i18n.LocaleChangeInterceptor;
 import org.springframework.web.servlet.i18n.SessionLocaleResolver;
 
+import es.indra.censo.dao.ICamposExcelDao;
+import es.indra.censo.model.errores.excel.ColumnaExcel;
+
 @Configuration
 public class MvcConfig implements WebMvcConfigurer {
 	
 	@Autowired
 	private UserDetailsService userDetailsService;
-	 
+	
+
 	@Bean
 	public DaoAuthenticationProvider authProvider() {
 	    DaoAuthenticationProvider authProvider = new DaoAuthenticationProvider();
@@ -69,5 +73,5 @@ public class MvcConfig implements WebMvcConfigurer {
 		return messageSource;
 	}
 
-
 }
+	

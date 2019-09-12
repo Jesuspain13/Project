@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head th:replace="layout/layout :: head">
+<meta charset="utf-8">
+<title>Insert title here</title>
+
+</head>
+<body>
+
+
+	<div class="main-content">
+		<!--Main Navigation-->
+		<header th:replace="layout/layout :: header"> </header>
+		<section>
+
+			<!-- Contenedor con nombre de la planta y desplegable de la version-->
+			<div class="container">
+				<div class="row d-flex justify-content-center">
+					<div class="col-md-12">
+							<div class="card-header indra-color text-white">
+								<h2>Ciertos campos del excel están vacíos. Confirma si
+									quieres guardar el registro.</h2>
+							</div>
+							<div class="card-body">
+								<!--Tabla de la base de datos con todos sus atributos-->
+
+								<div class="table-responsive">
+									<table class="table text-center">
+										<thead>
+											<tr >
+
+												<th th:text="#{text.fila}">Nombre</th>
+												<th th:text="#{text.campo}">Apellidos</th>
+												<th th:text="#{text.error}">Nick</th>
+												
+											</tr>
+										</thead>
+										<tbody>
+											<tr class="align-middle"
+												th:each="fila: ${pageSelected.content}">
+
+												<td class="align-middle" th:text="${fila.getNumero()}">Fila</td>
+												<td class="align-middle">
+													<ul class="list-group-flush">
+														<li th:each="celda: ${fila.getCeldas()}"
+														 class="list-group-item">
+														 	<span th:text="${celda.getColumna().getNombre()}"></span>
+														 </li>
+													</ul>
+												</td>
+												<td class="align-middle">
+													<ul class="list-group-flush">
+														<li th:each="celda: ${fila.getCeldas()}"
+														 class="list-group-item">
+														 	<span th:text="${celda.getError().getTipo()}"></span>
+														 </li>
+													</ul>
+												</td>
+
+											</tr>
+										</tbody>
+
+
+									</table>
+								</div>
+								<!-- Agregamos el fragmento de la paginación -->
+								<nav th:replace="paginator-nav :: paginator-errores"></nav>
+								<!-- ./Agregamos el fragmento de la paginación -->
+								
+								<a th:href="@{/doc/errores/ + ${idRegistro}}"></a>
+								<div>
+								<a class="btn btn-success" th:href="@{/registro/listar}">Aceptar errores</a>
+								<a class="btn btn-danger">Declinar subida</a>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+		
+			<!-- Fin del Contenedor con nombre de la planta y desplegable de la version-->
+		</section>
+
+		<footer th:replace="layout/layout :: footer"></footer>
+
+	<script>
+		function clickPage(value) {
+			$("#page").prop("value", value);
+			$("#formPaginador").submit();
+		}
+	</script>
+
+	</div>
+</body>

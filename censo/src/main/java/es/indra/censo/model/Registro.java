@@ -25,6 +25,8 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
+import es.indra.censo.model.errores.excel.Fila;
+
 @Entity
 @Table(name = "registros")
 @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "idRegistro")
@@ -36,7 +38,7 @@ public class Registro implements Serializable {
 		this.ues = new ArrayList<Ue>();
 		this.uesRep = new ArrayList<UeRepercutible>();
 		this.plantas = new ArrayList<Planta>();
-
+		this.filasErroneas = new ArrayList<Fila>();
 	}
 
 	public Registro(String version) {
@@ -45,7 +47,10 @@ public class Registro implements Serializable {
 		this.uesRep = new ArrayList<UeRepercutible>();
 		this.plantas = new ArrayList<Planta>();
 		this.version = version;
+		this.filasErroneas = new ArrayList<Fila>();
 	}
+
+	
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -79,6 +84,10 @@ public class Registro implements Serializable {
 	@JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
 	@JsonIgnore
 	private List<UeRepercutible> uesRep;
+	
+	@OneToMany(mappedBy="registro", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
+	private List<Fila> filasErroneas;
 
 	public List<UeRepercutible> getUesRep() {
 		return uesRep;
@@ -173,6 +182,18 @@ public class Registro implements Serializable {
 	public void addUeRepercutible(UeRepercutible ueRep) {
 		this.uesRep.add(ueRep);
 	}
+	
+
+
+	public List<Fila> getFilasErroneas() {
+		return filasErroneas;
+	}
+
+	public void setFilasErroneas(List<Fila> filasErroneas) {
+		this.filasErroneas = filasErroneas;
+	}
+
+
 
 	/**
 	 * 
