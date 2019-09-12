@@ -73,6 +73,7 @@ public class ExcelReader {
 	 * @param nombreAutor
 	 * @throws Exception
 	 */
+	@Transactional
 	public void reader(Workbook workbook, String version, Locale locale, String nombreAutor) throws Exception {
 		boolean censoEncontrado = false;
 		try {
