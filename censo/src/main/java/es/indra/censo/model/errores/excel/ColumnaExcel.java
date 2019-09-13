@@ -31,7 +31,7 @@ public class ColumnaExcel implements Serializable {
 	
 	public ColumnaExcel(String nombreCampo) {
 		super();
-		this.nombre = nombreCampo;
+		this.nombreCampo = nombreCampo;
 	}
 
 	@Id
@@ -39,7 +39,7 @@ public class ColumnaExcel implements Serializable {
 	private Integer id;
 	
 	@Column(name="nombre_campo")
-	private String nombre;
+	private String nombreCampo;
 
 	public Integer getId() {
 		return id;
@@ -51,13 +51,13 @@ public class ColumnaExcel implements Serializable {
 	}
 
 
-	public String getNombre() {
-		return nombre;
+	public String getNombreCampo() {
+		return nombreCampo;
 	}
 
 
-	public void setNombre(String nombre) {
-		this.nombre = nombre;
+	public void setNombreCampo(String nombre) {
+		this.nombreCampo = nombre;
 	}
 
 	

@@ -15,25 +15,23 @@ import es.indra.censo.model.errores.excel.Fila;
 import es.indra.censo.model.errores.excel.TipoError;
 
 public class TablaModelo {
-	
+
 	public TablaModelo(List<ColumnaExcel> columnasExcel, List<TipoError> tiposErrores) {
 		this.columnasExcelExistentes = columnasExcel;
 		this.tiposErroresExistentes = tiposErrores;
 	}
 
-	
 	private Fila erroresFila = null;
-	
-	//nombre de los campos para la busqueda
+
+	// nombre de los campos para la busqueda
 	private List<String> camposConErrores = new ArrayList<String>();
-	
-	//campos que tienen errores en esta fila
+
+	// campos que tienen errores en esta fila
 	private List<ColumnaExcel> columnasExcelExistentes = new ArrayList<ColumnaExcel>();
-	
-	//tipos de errores
+
+	// tipos de errores
 	private List<TipoError> tiposErroresExistentes;
 
-	
 	private Logger log = LoggerFactory.getLogger(TablaModelo.class);
 
 	private String idComplejo;
@@ -147,7 +145,7 @@ public class TablaModelo {
 		} else {
 			return "";
 		}
-		
+
 	}
 
 	public void setNombreUeRepercutible(String nombreUeRepercutible) {
@@ -185,16 +183,15 @@ public class TablaModelo {
 	 * @param wb
 	 * @param cells
 	 */
-	public Fila asignarValores(Row row) throws Exception{
+	public Fila asignarValores(Row row) throws Exception {
 		try {
-			
+
 			int i = 0;
 			String campo;
 			Cell cell;
 			while (i < 14 && row != null) {
 				cell = row.getCell(i);
-					
-				
+
 				switch (i) {
 				// ID COMPLEJO
 				case 0:
@@ -224,14 +221,14 @@ public class TablaModelo {
 					} else {
 						long res = (Math.round(cell.getNumericCellValue()));
 						setIdPuesto(Long.toString(res));
-	
+
 					}
 					break;
 				// NUMERO EMPLEADO
 				case 5:
 					campo = "NUMERO_EMPLEADO";
 					// si la celda es un string va a ser teletrabajo
-				
+
 					if (cell == null) {
 						this.camposConErrores.add(campo);
 						setNumeroEmpleado(null);
@@ -240,12 +237,12 @@ public class TablaModelo {
 					} else {
 						// sino va a ser el numero de empleado
 						setNumeroEmpleado((long) cell.getNumericCellValue());
-	
+
 					}
 					break;
 				// NICK
 				case 6:
-					
+
 					campo = "NICK";
 					// identificador alfanumerico
 					if (cell == null) {
@@ -267,11 +264,11 @@ public class TablaModelo {
 					} else {
 						setNombreEmpleado(cell.getStringCellValue());
 					}
-	
+
 					break;
 				// APELLIDOS EMPLEADO
 				case 8:
-					campo = "APELLIDOs";
+					campo = "APELLIDOS";
 					// identificador alfanumerico
 					if (cell == null) {
 						this.camposConErrores.add(campo);
@@ -279,7 +276,7 @@ public class TablaModelo {
 					} else {
 						setApellidosEmpleado(cell.getStringCellValue());
 					}
-	
+
 					break;
 				// UE
 				case 9:
@@ -291,7 +288,7 @@ public class TablaModelo {
 					} else {
 						setUe(cell.getStringCellValue());
 					}
-	
+
 					break;
 				// NOMBRE UE
 				case 10:
@@ -303,7 +300,7 @@ public class TablaModelo {
 					} else {
 						setNombreUe(cell.getStringCellValue());
 					}
-	
+
 					break;
 				// UE REPERCUTIBLE
 				case 11:
@@ -315,7 +312,7 @@ public class TablaModelo {
 					} else {
 						setUeRepercutible(cell.getStringCellValue());
 					}
-	
+
 					break;
 				// NOMBRE UE REPERCUTIBLE
 				case 12:
@@ -327,7 +324,7 @@ public class TablaModelo {
 					} else {
 						setNombreUeRepercutible(cell.getStringCellValue());
 					}
-	
+
 					break;
 				// WP STD
 				case 14:
@@ -336,14 +333,14 @@ public class TablaModelo {
 					} else {
 						setWpStd(cell.getStringCellValue());
 					}
-	
+
 					break;
 
 				default:
 					break;
 				}
 				i++;
-	
+
 			}
 			this.crearErrorDato(row.getRowNum());
 			return this.erroresFila;
@@ -351,12 +348,12 @@ public class TablaModelo {
 			ex.printStackTrace();
 			log.error(ex.getMessage().toString());
 			throw new Exception(ex);
-			
+
 		}
 	}
-	
+
 	private void crearErrorDato(int fila) {
-		
+
 		if (this.camposConErrores.size() < 1) {
 			this.erroresFila = null;
 		} else {
@@ -365,37 +362,36 @@ public class TablaModelo {
 			this.erroresFila.setCeldas(celdasConFallos);
 		}
 	}
-	
+
 	private List<Celda> comprobarErrores() {
 		List<Celda> celdasErroneas = new ArrayList<Celda>();
 		ColumnaExcel columna;
-		for (String s: this.camposConErrores) {
+		for (String s : this.camposConErrores) {
 			Celda celdaErronea = new Celda();
 			if (celdaErronea != null) {
 				columna = this.comprobarNombreColumna(s);
 				celdaErronea.setColumna(columna);
 				celdaErronea.setError(this.tiposErroresExistentes.get(0));
 				celdasErroneas.add(celdaErronea);
-;			}
-			
-		
+			}
+
 		}
 		return celdasErroneas;
 	}
-	
+
 	/**
 	 * recorre las columnas posibles y si alguna coincide en nombre la retorna
+	 * 
 	 * @return
 	 */
 	private ColumnaExcel comprobarNombreColumna(String nombreColumna) {
 		ColumnaExcel columnaEncontrada = null;
-		for (ColumnaExcel c: this.columnasExcelExistentes) {
-			if (c.getNombre().equals(nombreColumna)) {
+		for (ColumnaExcel c : this.columnasExcelExistentes) {
+			if (c.getNombreCampo().equals(nombreColumna)) {
 				columnaEncontrada = c;
 			}
 		}
 		return columnaEncontrada;
 	}
-	
-	
+
 }
