@@ -4,10 +4,11 @@
 <head th:replace="layout/layout :: head">
 <meta charset="utf-8">
 <title>Insert title here</title>
+
 </head>
 <body>
 
-	
+
 	<div class="main-content">
 		<!--Main Navigation-->
 		<header th:replace="layout/layout :: header"> </header>
@@ -17,21 +18,38 @@
 			<div class="container">
 				<div class="row d-flex justify-content-center">
 					<div class="col-md-12">
-						<div class="card card-cascade wider">
-							<div class="card-header indra-color text-white"  th:text="#{text.registro.title}" >
-								<h2>SELECCIONA EL REGISTRO, EL COMPLEJO Y EL EDIFICIO </h2> 
+						<div th:if="${erroresExcel != null && erroresExcel.size() > 0}"
+							class="card card-cascade wider">
+							<div class="card-header indra-color text-white">
+								<h2>Ciertos campos del excel están vacíos. Confirma si
+									quieres guardar el registro.</h2>
 							</div>
 							<div class="card-body">
-							<div th:if="${registro.getVersion() == null || registro.getVersion().length() == 0}" 
-							class="col-md-12">
-								<form class="container form-group" th:object="${registro}"
-									method="POST" th:action="@{listar}">
-									<div class="row my-2">
+								<div class="data-container"></div>
+								<div id="pagination"></div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="row d-flex justify-content-center">
+					<div class="col-md-12">
+						<div class="card card-cascade wider">
+							<div class="card-header indra-color text-white"
+								th:text="#{text.registro.title}">
+								<h2>SELECCIONA EL REGISTRO, EL COMPLEJO Y EL EDIFICIO</h2>
+							</div>
+							<div class="card-body">
+								<div
+									th:if="${registro.getVersion() == null || registro.getVersion().length() == 0}"
+									class="col-md-12">
+									<form class="container form-group" th:object="${registro}"
+										method="POST" th:action="@{listar}">
+										<div class="row my-2">
 
-										<!-- Formulario para versión -->
-										
-											<label for="version" th:text="#{text.registro.select}">Selecciona la versión</label> <select
-												id="version" th:field="*{idRegistro}"
+											<!-- Formulario para versión -->
+
+											<label for="version" th:text="#{text.registro.select}">Selecciona
+												la versión</label> <select id="version" th:field="*{idRegistro}"
 												class="browser-default custom-select">
 												<option th:each="r: ${registros}"
 													th:value="${r.getIdRegistro()}"><span
@@ -42,30 +60,32 @@
 												th:if="${#fields.hasErrors('idRegistro')}"
 												th:errors="*{idRegistro}"></small>
 										</div>
-									
-									<button th:if="${registro.getVersion() == null}"
-										class="btn indra-btn-pink animated wobble" th:text="#{text.registro.btn.registro}">Registro</button>
-								</form>
+
+										<button th:if="${registro.getVersion() == null}"
+											class="btn indra-btn-pink animated wobble"
+											th:text="#{text.registro.btn.registro}">Registro</button>
+									</form>
 								</div>
-									<div th:if="${registro.getVersion() != null}" class="row my-2">
+								<div th:if="${registro.getVersion() != null}" class="row my-2">
 
-										<!-- Formulario para versión -->
-										<div class="col-md-12">
-											<h4 >
-												<span th:text="#{text.registro.selected}"></span>
-												<span
-													th:text="${registro.getVersion()}"></span>
-											</h4>
+									<!-- Formulario para versión -->
+									<div class="col-md-12">
+										<h4>
+											<span th:text="#{text.registro.selected}"></span> <span
+												th:text="${registro.getVersion()}"></span>
+										</h4>
 
-											<input type="hidden" th:value="${registro.idRegistro}"
-												name="idRegistro" />
-										</div>
+										<input type="hidden" th:value="${registro.idRegistro}"
+											name="idRegistro" />
 									</div>
+								</div>
 
-									
-								
-								<div th:if="${complejos != null && complejo != null && registro.getVersion() != null}">
-									<form th:if="${complejo.getNombreComplejo() == null}" class="container form-group" th:object="${complejo}"
+
+
+								<div
+									th:if="${complejos != null && complejo != null && registro.getVersion() != null}">
+									<form th:if="${complejo.getNombreComplejo() == null}"
+										class="container form-group" th:object="${complejo}"
 										method="POST" th:action="@{/complejo/listar}">
 										<div class="row my-2">
 											<div class="col-md-4">
@@ -84,21 +104,22 @@
 											<input type="hidden" th:value="${registro.idRegistro}"
 												name="idRegistro" />
 										</div>
-									<button th:if="${complejo.getNombreComplejo() == null}"
-											class="btn indra-btn-pink animated wobble" type="submit" th:text="#{text.registro.btn.complejo}">Complejo</button>
+										<button th:if="${complejo.getNombreComplejo() == null}"
+											class="btn indra-btn-pink animated wobble" type="submit"
+											th:text="#{text.registro.btn.complejo}">Complejo</button>
 									</form>
-								
-										<div th:if="${complejo.getNombreComplejo() != null}"
-											class="row my-2">
-											<div class="col-md-12">
-												<h5>
-													<span th:text="#{text.registro.complejo.selected}"></span>
-													<span th:text="${complejo.getNombreComplejo()}"></span>
-												</h5>
 
-											</div>
+									<div th:if="${complejo.getNombreComplejo() != null}"
+										class="row my-2">
+										<div class="col-md-12">
+											<h5>
+												<span th:text="#{text.registro.complejo.selected}"></span> <span
+													th:text="${complejo.getNombreComplejo()}"></span>
+											</h5>
+
 										</div>
-										
+									</div>
+
 								</div>
 								<div th:if="${edificios != null}">
 									<form class="container form-group" th:object="${edificio}"
@@ -111,11 +132,11 @@
 													th:value="${e.getIdEdificio()}" required> <label
 													class="form-check-label" for="exampleRadios1"> <span
 													th:text="${e.getNombreEdificio()}"></span>
-												</label> 
+												</label>
 											</div>
-												<input type="hidden" th:value="${registro.idRegistro}"
-													name="idRegistro" />
-											
+											<input type="hidden" th:value="${registro.idRegistro}"
+												name="idRegistro" />
+
 										</div>
 										<div>
 											<small class="text-danger"
@@ -123,7 +144,8 @@
 												th:errors="*{idEdificio}">ERROR</small>
 										</div>
 
-										<button class="btn indra-btn-pink animated wobble" th:text="#{text.registro.btn.edificio}">Edif</button>
+										<button class="btn indra-btn-pink animated wobble"
+											th:text="#{text.registro.btn.edificio}">Edif</button>
 									</form>
 								</div>
 							</div>
@@ -131,12 +153,10 @@
 					</div>
 				</div>
 			</div>
-				<!-- Fin del Contenedor con nombre de la planta y desplegable de la version-->
+			<!-- Fin del Contenedor con nombre de la planta y desplegable de la version-->
 		</section>
 
 		<footer th:replace="layout/layout :: footer"></footer>
-
-
 
 	</div>
 </body>
