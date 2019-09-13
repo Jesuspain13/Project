@@ -16,7 +16,6 @@ import org.springframework.beans.factory.BeanFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import es.indra.censo.dao.ITiposErroresDao;
 import es.indra.censo.dao.IUsuarioDao;
@@ -87,10 +86,7 @@ public class ExcelReader {
 	 * @param nombreAutor
 	 * @throws Exception
 	 */
-
-	@Transactional
-	public void reader(Workbook workbook, String version, Locale locale, String nombreAutor) throws Exception {
-
+	public Integer reader(Workbook workbook, String version, Locale locale, String nombreAutor) throws Exception {
 		boolean censoEncontrado = false;
 		try {
 			this.locale = locale;
@@ -120,7 +116,7 @@ public class ExcelReader {
 				// si no encuentra la hoja de censo en el excel
 				throw new Exception("Hoja del censo no encontrada en el archivo .xlsx");
 			}
-			
+			return idRegistro;
 		} catch (OrdenColumnasException ex) {
 			log.error(ex.getMessage());
 			throw new OrdenColumnasException(ex.getMessage());

@@ -1,3 +1,4 @@
+
 package es.indra.censo.dao;
 
 import org.springframework.data.domain.Page;

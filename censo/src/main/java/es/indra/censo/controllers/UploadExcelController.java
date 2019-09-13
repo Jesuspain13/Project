@@ -1,6 +1,7 @@
 package es.indra.censo.controllers;
 
 import java.util.Locale;
+import java.util.Map;
 
 import javax.validation.Valid;
 
@@ -8,6 +9,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
+import org.springframework.data.domain.Page;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -19,10 +21,13 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import es.indra.censo.controllers.paginator.PageRender;
 import es.indra.censo.docreader.FileWrapper;
 import es.indra.censo.model.Registro;
+import es.indra.censo.model.errores.excel.Fila;
 import es.indra.censo.service.IDocReaderService;
 import es.indra.censo.service.IRegistroService;
+import es.indra.censo.service.errorexcel.IFilasExcelSvc;
 
 @Controller
 @RequestMapping("/doc")
@@ -39,6 +44,9 @@ public class UploadExcelController {
 
 	@Autowired
 	private IRegistroService rService;
+	
+	@Autowired
+	private IFilasExcelSvc erroresSvc;
 
 	@GetMapping("/upload")
 	@Secured({ "ROLE_ADMIN" })
@@ -72,9 +80,16 @@ public class UploadExcelController {
 						msgSource.getMessage("text.registro.error.version.duplicada", null, locale));
 				return "redirect:/doc/upload";
 			}
-			docReaderSvc.readDocument(r.getFile(), r.getVersion(), locale, nombreAutor);
-			flash.addFlashAttribute("success", msgSource.getMessage("text.success.msg", null, locale));
-			return "redirect:/registro/listar";
+			Map<String, Object> idRegistroYPaginador = docReaderSvc.readDocument(r.getFile(), r.getVersion(), locale, nombreAutor);
+			Page<Fila> page = (Page<Fila>) idRegistroYPaginador.get("page");
+			PageRender<Fila> pgr = new PageRender<Fila>("/doc/errores/pagina", page);
+			Integer idRegistro = (int) idRegistroYPaginador.get("idRegistro");
+			model.addAttribute("pageSelected", page);
+			model.addAttribute("page", pgr);
+			model.addAttribute("idRegistro", idRegistro);
+			model.addAttribute("success", msgSource.getMessage("text.success.msg", null, locale));
+			return "datoserroneos";
+			
 		} catch (Exception ex) {
 			log.error(ex.getMessage());
 			String msg = msgSource.getMessage("text.error.lectura.archivo", null, locale);
@@ -83,4 +98,43 @@ public class UploadExcelController {
 		}
 
 	}
+	
+	@GetMapping("/errores/pagina")
+	@Secured({ "ROLE_ADMIN" })
+	public String buscarPaginaErrores(@RequestParam(name="page") int page,
+			@RequestParam(name="registro") int idRegistro,
+			Model model, RedirectAttributes flash, Locale locale) {
+		try {
+			Page<Fila> pageSelected = erroresSvc.encontrarErroresDelRegistro(idRegistro, page);
+			PageRender<Fila> pgr = new PageRender<Fila>("/doc/errores/pagina", pageSelected);
+			model.addAttribute("pageSelected", pageSelected);
+			model.addAttribute("page", pgr);
+			model.addAttribute("idRegistro", idRegistro);
+			
+			return "datoserroneos";
+			 
+		} catch (Exception ex) {
+			log.error(ex.getMessage());
+			String msg = msgSource.getMessage("text.error.generico", null, locale);
+			flash.addFlashAttribute("error", String.format(msg, ex.getMessage()));
+			return "redirect:/";
+		}
+	}
+	
+//	@GetMapping("/errores/pagina")
+//	@Secured({ "ROLE_ADMIN" })
+//	public String buscarOtraPaginaErrores(@RequestParam(name="page") int page,
+//			@RequestParam(name="registro") int idRegistro,
+//			Model model, RedirectAttributes flash, Locale locale) {
+//		try {
+//			
+//			return "redirect:/registro/listar";
+//			 
+//		} catch (Exception ex) {
+//			log.error(ex.getMessage());
+//			String msg = msgSource.getMessage("text.error.generico", null, locale);
+//			flash.addFlashAttribute("error", String.format(msg, ex.getMessage()));
+//			return "redirect:/";
+//		}
+//	}
 }

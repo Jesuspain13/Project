@@ -41,6 +41,7 @@
 												th:each="fila: ${pageSelected.content}">
 
 												<td class="align-middle" th:text="${fila.getNumero()}">Fila</td>
+												
 												<td class="align-middle">
 													<ul class="list-group-flush">
 														<li th:each="celda: ${fila.getCeldas()}"
@@ -49,6 +50,7 @@
 														 </li>
 													</ul>
 												</td>
+												
 												<td class="align-middle">
 													<ul class="list-group-flush">
 														<li th:each="celda: ${fila.getCeldas()}"
@@ -71,7 +73,7 @@
 								<a th:href="@{/doc/errores/ + ${idRegistro}}"></a>
 								<div>
 								<a class="btn btn-success" th:href="@{/registro/listar}">Aceptar errores</a>
-								<a class="btn btn-danger">Declinar subida</a>
+								<a class="btn btn-danger" th:href="@{/doc/upload}">Declinar subida</a>
 								</div>
 							</div>
 						</div>

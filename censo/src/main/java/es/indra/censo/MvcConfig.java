@@ -1,6 +1,5 @@
 package es.indra.censo;
 
-import java.util.List;
 import java.util.Locale;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,9 +16,6 @@ import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.springframework.web.servlet.i18n.LocaleChangeInterceptor;
 import org.springframework.web.servlet.i18n.SessionLocaleResolver;
-
-import es.indra.censo.dao.ICamposExcelDao;
-import es.indra.censo.model.errores.excel.ColumnaExcel;
 
 @Configuration
 public class MvcConfig implements WebMvcConfigurer {
@@ -74,4 +70,3 @@ public class MvcConfig implements WebMvcConfigurer {
 	}
 
 }
-	
